@@ -9,7 +9,7 @@
 import json
 from validations import formatValidation, rangeValidation
 from parseInput import inputTimespan, parseDataIntoList
-from save_and_load import saveData
+from save_and_load import firstSaveData, getData, saveData
 
 #Main function start
 print("welcome to the time-integrater, it is a gadget that helps you to analyze your time distribusion")
@@ -18,6 +18,7 @@ print("welcome to the time-integrater, it is a gadget that helps you to analyze 
 while True:
     #input the data
     userData = input("input your data")
+    date = input("what date is it today? please enter in the form of 2025/6/10")
     
     #TODO:presence check
     
@@ -43,7 +44,14 @@ while True:
     #输入timespan
     inputTimespan(actions)
     
-    #接下来是把数据输入进json
-    saveData(actions)
+    #把actions包裹进一个新的dictionary
+    data = {date : actions}
+    
+    #检测是否data为空，输入
+    temp = getData()
+    if not temp:
+        firstSaveData(data)
+    else:
+        saveData(date,actions)
     
     

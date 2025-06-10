@@ -13,7 +13,7 @@ def inputFormatChange(userData):
             
 
 def timeCompare(beforeHour,beforeMinute,afterHour,afterMinutes):
-    #there is two format for data input,like 10:22 - 写作业 - 45 - 做事 - 11:20. If the time period do not expand to another o'clock, then omit the hour before minutes
+    #there is two format for data input,like 10:22 - 写作业 - 10:45 - 做事 - 11:20. If the time period do not expand to another o'clock, then omit the hour before minutes
     return (afterHour*60 + afterMinutes) - (beforeHour*60 + beforeMinute)
     
 

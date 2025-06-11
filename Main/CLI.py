@@ -1,6 +1,6 @@
 from validations import formatValidation, rangeValidation
 from parseInput import inputTimespan, parseDataIntoList
-from save_and_load import firstSaveData, getData, saveData
+from save_and_load import coverData, firstSaveData, getData, saveData
 
 def promptInput():
     #input the data
@@ -34,7 +34,7 @@ def promptInput():
     data = {date : actions}
     
     #检测是否data为空，然后选择不同的输入function
-    temp = getData()
+    temp = getData("data.json")
     if not temp:
         firstSaveData(data)
     else:
@@ -48,16 +48,16 @@ def mainMenu():
         elif choice == "quit":
             break
         elif choice == "show":
-            choice = input("enter show for show all the data, enter showac for show the type of each action")
+            choice = input("enter show for show all the data, enter tidy for re-input each actions in data")
             if choice == "show":
                 demonstration()
-            if choice == "allo":
-                countActions()
+            if choice == "tidy":
+                completeActions(getData("data.json"))
 
 #新建一个活动为大分类的字典，遍历整个字典，整理活动
 def demonstration():
     #获取基本的数据
-    data = getData()
+    data = getData("data.json")
     
     #新建需要的变量
     actions = {}
@@ -77,34 +77,29 @@ def demonstration():
         print(f"action:{action_str} timespan:{actions[action_str]} {(actions[action_str]/totalTime)*100}% of total time")
 
 """
-这个函数的目的在于遍历所有记录，但仅统计是否有行动不在action_integration 字典中
-
+这个函数的目的在于遍历所有记录，但仅统计是否有行动不在action_integration.json中
 有一个键为"exploitation_type",所存储的值分为四种：
 休息，工作，浪费，未知(rest,work,waste.unknown)
 因此，这个函数需要输入根据日期排列的数据(json中的),即一个字典,在遍历他们之后找出哪些行动是大字典没有的并加入
 这个函数仅用来补全不存在的行动，并不整理或者添加什么别的东西
 大概示意图
-action_integration = {
-    action1 = {
-        "totalTime" = 0,
-        "eachTimePeriod" = [
-            "time1 - time2"
-        ],
-        "exploitation_type" = "rest"
-    }
-}
 这么说，如果我要搞出这么一个东西
 首先我需要把exploitation_type放进action, 然后把action放进action_integration
 """        
-def countActions(data):
+def completeActions(data):
+    a = getData("action_integration.json")
+    if a == []:
+        a = {}
     for date in data: #输出每一天
         for action_dict in data[date]: #遍历每一天的每个字典,输出类似a{"A":1,"B":2}
             action_str = action_dict["action"]
-            if action_str not in action_integration:
-                action_integration[action_str] = {
+            if action_str not in a:
+                a[action_str] = {
                     "totalTime" : 0,
                     "eachTimePeriod" : [],
                     "exploitation_type" : "unknown"
                 }
+    coverData(a,"action_integration.json")
+    
             
             

@@ -1,6 +1,6 @@
 
 import json
-from CLI import mainMenu, promptInput
+from CLI import mainMenu
 from GUI import menuGUI
 
 #Main function start
@@ -12,9 +12,3 @@ if choice == "CLI":
     mainMenu()
 else:
     menuGUI()
-
-
-        
-        
-    
-    

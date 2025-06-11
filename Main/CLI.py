@@ -80,11 +80,9 @@ def demonstration():
 这个函数的目的在于遍历所有记录，但仅统计是否有行动不在action_integration.json中
 有一个键为"exploitation_type",所存储的值分为四种：
 休息，工作，浪费，未知(rest,work,waste.unknown)
-因此，这个函数需要输入根据日期排列的数据(json中的),即一个字典,在遍历他们之后找出哪些行动是大字典没有的并加入
+因此，这个函数需要输入根据日期排列的数据(json中的),在遍历他们之后找出哪些行动是json没有的并加入
 这个函数仅用来补全不存在的行动，并不整理或者添加什么别的东西
-大概示意图
 这么说，如果我要搞出这么一个东西
-首先我需要把exploitation_type放进action, 然后把action放进action_integration
 """        
 def completeActions(data):
     a = getData("action_integration.json")
@@ -101,5 +99,41 @@ def completeActions(data):
                 }
     coverData(a,"action_integration.json")
     
-            
+def promptInputGUI():
+    #input the data
+    userData = input("input your data")
+    date = input("what date is it today? please enter in the form of 2025/6/10")
+    
+    #TODO:presence check
+    
+    #TODO:use strip to delete spaces
+    
+    #TODO:change it into discard redundant space in data
+    
+    #change the format of the data, in order to save into json
+    userData = userData.split(" - ")
+    
+    #put data into the list
+    actions = parseDataIntoList(userData)
+    
+    #Format check and change the format
+    for i in range (len(actions)):
+        actions[i]["end"] = formatValidation(actions[i]["start"],actions[i]["end"])
+    
+    #validate whether they are reasonable
+    if rangeValidation(actions) == True:
+        print("pass range validation correctly")
+    
+    #输入timespan
+    inputTimespan(actions)
+    
+    #把actions包裹进一个新的dictionary
+    data = {date : actions}
+    
+    #检测是否data为空，然后选择不同的输入function
+    temp = getData("data.json")
+    if not temp:
+        firstSaveData(data)
+    else:
+        saveData(date,actions)
             

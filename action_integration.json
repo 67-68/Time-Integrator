@@ -8,5 +8,10 @@
         "totalTime": 0,
         "eachTimePeriod": [],
         "exploitation_type": "unknown"
+    },
+    "休息": {
+        "totalTime": 0,
+        "eachTimePeriod": [],
+        "exploitation_type": "unknown"
     }
 }

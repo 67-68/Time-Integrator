@@ -14,13 +14,11 @@ from save_and_load import firstSaveData, getData, saveData
 由于这个是用CLI版本改的，看起来可能有点不协调
 """
 
-def promptInputGUI(manuPrompt,manuText):
+def promptInputGUI(manuPrompt,manuText,dateEntry):
     #input the data
-    manuPrompt.config(text = "enter the data")
+    manuPrompt.config(text = "enter the data and date respectively, in the top and bottom")
     userData = manuText.get('1.0','end-1c')
-    #停下来，输入
-    manuPrompt.config(text = "enter the date")
-    date = manuText.get('1.0','end-1c')
+    date = dateEntry.get()
     
     #TODO:presence check
     
@@ -56,37 +54,119 @@ def promptInputGUI(manuPrompt,manuText):
         saveData(date,actions)
 
 def menuGUI():
-    #创建一个基本的窗口
+    #创建一个最基本的窗口
     root = tk.Tk()
     root.title("Time-integrator Menu")
 
-    #创建一个frame,用于承载不同的面板
-    manuFrame = tk.Frame(root,bg = 'white')
+    #设置大小
+    root.geometry("800x600")
+    
+    #主界面创建
+    menuFrame = tk.Frame(root,bg = 'white')
     demonFrame = tk.Frame(root,bg = 'white')
     
-    #不能用pack排布，而切换到place排布，否则无法实现预定的效果
-    for f in(manuFrame,demonFrame):
+    #主界面切换
+    for f in(menuFrame,demonFrame):
         f.place(relx=0,rely=0,relwidth=1,relheight=1)
+    
+    # ------ 拉伸各控件区域的弹性 ------
+    menuFrame.grid_rowconfigure(0, weight=2)
+    menuFrame.grid_rowconfigure(1, weight=1)
+    
+    #底部栏位的弹性
+    menuFrame.grid_rowconfigure(2, weight=0)
+    menuFrame.grid_columnconfigure(0, weight=1)
+    menuFrame.grid_columnconfigure(1, weight=3)
+    
+    #  ------ 创建menuFrame中的分frame ------
+    
+    #底部灰色栏
+    down_MenuFrame = tk.Frame(menuFrame,bg = "#C9B49A")
+    down_MenuFrame.grid(
+        row = 2,
+        column = 0,
+        columnspan = 2,
+        sticky='nsew',
+        padx = 2.5,
+        pady = 0)
+    menuFrame.rowconfigure(2,minsize = 80)
+    
+    #左侧工具栏
+    left_MenuFrame = tk.Frame(menuFrame,bg = "#A9B0B3")
+    left_MenuFrame.grid(
+        row = 0,
+        column = 0,
+        rowspan = 2,
+        sticky='nsew', 
+        padx=2.5,
+        pady=2.5)
+    menuFrame.columnconfigure(0,minsize = 80)
+    
+    
+    #主体输入栏
+    input_MenuFrame = tk.Frame(menuFrame,bg = "#F4F4F4")
+    input_MenuFrame.grid(
+        row = 0,
+        column = 1,
+        columnspan = 2,
+        rowspan = 2,
+        sticky='nsew', 
+        padx=5, 
+        pady=5)
         
     #主界面提升最顶端
-    manuFrame.tkraise()
+    menuFrame.tkraise()
     
-    #创建一些entry
-    manuText = tk.Text(manuFrame,width = 40, height = 10)
-    manuText.pack()
+    #创建一些entry & texy
+    menuText = tk.Text(input_MenuFrame,width = 40, height = 10)
+    menuText.pack(side="top", fill="both", expand=True, padx=0, pady=0)
+    dateEntry = tk.Entry(input_MenuFrame,width = 20)
+    dateEntry.pack(side="top", fill="x", expand=True, padx=0, pady=(12, 0))  # 上 12px，下 0px
     
     #创建一条展示label
-    menuPrompt = tk.Label(manuFrame,text = "welcome, click button to start")
-    menuPrompt.pack()
-    demoPrompt = tk.Label(demonFrame,text = "this is demonstration page")
-    demoPrompt.pack()
+    menuPrompt = tk.Label(input_MenuFrame,text = "welcome, click button to start")
+    menuPrompt.pack() 
+    demoPrompt = tk.Label(input_MenuFrame,text = "this is demonstration page")
+    demoPrompt.pack() 
     
     #添加基本的几个大功能的按钮
-    inputButton = tk.Button(manuFrame,text = "input",command = lambda: promptInputGUI(menuPrompt,manuText))
+    inputButton = tk.Button(
+        left_MenuFrame,
+        text = "input",
+        bg= "#F4F4F4",
+        activebackground="#F4F4F4",
+        relief="flat",
+        borderwidth=0,
+        highlightthickness=0,
+        width = 15,
+        pady = 6,
+        command = lambda: promptInputGUI(menuPrompt,menuText,dateEntry))
     inputButton.pack()
-    quitButton = tk.Button(manuFrame,text = "quit",command = lambda: root.destroy())
+    
+    quitButton = tk.Button(
+        left_MenuFrame,
+        text = "quit",
+        bg = "#F4F4F4",
+        activebackground="#F4F4F4",
+        relief="flat",
+        borderwidth=0,
+        highlightthickness=0,
+        width = 15,
+        pady = 6,
+        command = lambda: root.destroy())
     quitButton.pack()
-    demonMenuButton = tk.Button(manuFrame,text="enter demonstration manu",command = lambda: demonFrame.tkraise())
+    
+    #切换界面的button
+    demonMenuButton = tk.Button(
+    down_MenuFrame,
+    text="enter demonstration manu",
+    bg="#C9B49A",
+    activebackground="#C9B49A",
+    relief="flat",
+    borderwidth=0,
+    highlightthickness=0,
+    height = 5,
+    command = lambda: demonFrame.tkraise())
     demonMenuButton.pack()
     
     #这里进入下一级界面

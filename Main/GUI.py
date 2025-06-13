@@ -3,7 +3,7 @@ import tkinter as tk
 from CLI import completeActions, demonstration, promptInput
 from parseInput import inputTimespan, parseDataIntoList
 from validations import formatValidation, rangeValidation
-from save_and_load import firstSaveData, getData, saveData
+from save_and_load import getData, saveData
 #TODO:先不用类封装控件，直接宣布为global
 
 """
@@ -46,12 +46,10 @@ def promptInputGUI(manuPrompt,manuText,dateEntry):
     #把actions包裹进一个新的dictionary
     data = {date : actions}
     
-    #检测是否data为空，然后选择不同的输入function
-    temp = getData("data.json")
-    if not temp:
-        firstSaveData(data)
-    else:
-        saveData(date,actions)
+    #输入data
+    data = getData("data.json")
+    data[date] = actions
+    saveData(data,"data.json")
 
 def menuGUI():
     #创建一个最基本的窗口
@@ -69,59 +67,22 @@ def menuGUI():
     for f in(menuFrame,demonFrame):
         f.place(relx=0,rely=0,relwidth=1,relheight=1)
     
-    # ------ 拉伸各控件区域的弹性 ------
-    menuFrame.grid_rowconfigure(0, weight=2)
-    menuFrame.grid_rowconfigure(1, weight=1)
-    
-    #底部栏位的弹性
-    menuFrame.grid_rowconfigure(2, weight=0)
-    menuFrame.grid_columnconfigure(0, weight=1)
-    menuFrame.grid_columnconfigure(1, weight=3)
+    #  ------ 调整各栏位的弹性 ------
+    menuFrameElasity(menuFrame)
     
     #  ------ 创建menuFrame中的分frame ------
+    down_MenuFrame = downMenuFrameCreation(menuFrame) #底部灰色栏
+    left_MenuFrame = leftMenuFrameCreation(menuFrame) #左侧工具栏
+    input_MenuFrame = inputMenuFrameCreation(menuFrame) #输入栏
     
-    #底部灰色栏
-    down_MenuFrame = tk.Frame(menuFrame,bg = "#C9B49A")
-    down_MenuFrame.grid(
-        row = 2,
-        column = 0,
-        columnspan = 2,
-        sticky='nsew',
-        padx = 2.5,
-        pady = 0)
-    menuFrame.rowconfigure(2,minsize = 80)
-    
-    #左侧工具栏
-    left_MenuFrame = tk.Frame(menuFrame,bg = "#A9B0B3")
-    left_MenuFrame.grid(
-        row = 0,
-        column = 0,
-        rowspan = 2,
-        sticky='nsew', 
-        padx=2.5,
-        pady=2.5)
-    menuFrame.columnconfigure(0,minsize = 80)
-    
-    
-    #主体输入栏
-    input_MenuFrame = tk.Frame(menuFrame,bg = "#F4F4F4")
-    input_MenuFrame.grid(
-        row = 0,
-        column = 1,
-        columnspan = 2,
-        rowspan = 2,
-        sticky='nsew', 
-        padx=5, 
-        pady=5)
+    #TODO：这里我需要单独去创建一个输入的界面，然后把主界面作为菜单吗？还是直接在主界面提示东西
         
     #主界面提升最顶端
     menuFrame.tkraise()
     
-    #创建一些entry & texy
-    menuText = tk.Text(input_MenuFrame,width = 40, height = 10)
-    menuText.pack(side="top", fill="both", expand=True, padx=0, pady=0)
-    dateEntry = tk.Entry(input_MenuFrame,width = 20)
-    dateEntry.pack(side="top", fill="x", expand=True, padx=0, pady=(12, 0))  # 上 12px，下 0px
+    #创建entry & text
+    menuText = inputFrame_MenuText(input_MenuFrame)
+    dateEntry = inputFrame_DateEntry
     
     #创建一条展示label
     menuPrompt = tk.Label(input_MenuFrame,text = "welcome, click button to start")
@@ -158,15 +119,15 @@ def menuGUI():
     
     #切换界面的button
     demonMenuButton = tk.Button(
-    down_MenuFrame,
-    text="enter demonstration manu",
-    bg="#C9B49A",
-    activebackground="#C9B49A",
-    relief="flat",
-    borderwidth=0,
-    highlightthickness=0,
-    height = 5,
-    command = lambda: demonFrame.tkraise())
+        down_MenuFrame,
+        text="enter demonstration manu",
+        bg="#C9B49A",
+        activebackground="#C9B49A",
+        relief="flat",
+        borderwidth=0,
+        highlightthickness=0,
+        height = 5,
+        command = lambda: demonFrame.tkraise())
     demonMenuButton.pack()
     
     #这里进入下一级界面
@@ -177,3 +138,74 @@ def menuGUI():
     
     #事件循环开始
     root.mainloop()
+
+
+def menuFrameElasity(menuFrame):
+    #调整leftFrame的弹性
+    menuFrame.grid_rowconfigure(0, weight=2)
+    
+    #调整inputFrame的弹性
+    menuFrame.grid_rowconfigure(1, weight=1)
+    menuFrame.grid_rowconfigure(2, weight=0)
+    
+    #底部栏位的弹性    
+    menuFrame.grid_columnconfigure(0, weight=1)
+    menuFrame.grid_columnconfigure(1, weight=3)
+
+def downMenuFrameCreation(menuFrame):
+    #创建
+    down_MenuFrame = tk.Frame(menuFrame,bg = "#C9B49A")
+    down_MenuFrame.grid(
+        row = 2,
+        column = 0,
+        columnspan = 2,
+        sticky='nsew',
+        padx = 2.5,
+        pady = 0)
+    
+    #调整最小高度
+    menuFrame.rowconfigure(2,minsize = 80)
+    
+    return down_MenuFrame
+
+def leftMenuFrameCreation(menuFrame):
+    left_MenuFrame = tk.Frame(menuFrame,bg = "#A9B0B3")
+    left_MenuFrame.grid(
+        row = 0,
+        column = 0,
+        rowspan = 2,
+        sticky='nsew', 
+        padx=2.5,
+        pady=2.5)
+    
+    #修改最小size
+    menuFrame.columnconfigure(0,minsize = 80)
+    
+    return left_MenuFrame
+
+def inputMenuFrameCreation(menuFrame):
+    input_MenuFrame = tk.Frame(menuFrame,bg = "#F4F4F4")
+    input_MenuFrame.grid(
+        row = 0,
+        column = 1,
+        columnspan = 2,
+        rowspan = 2,
+        sticky='nsew', 
+        padx=5, 
+        pady=5)
+    
+    return input_MenuFrame
+
+def inputFrame_MenuText(input_MenuFrame):
+    menuText = tk.Text(input_MenuFrame,width = 40, height = 10)
+    menuText.pack(side="top", fill="both", expand=True, padx=0, pady=0)
+    return menuText
+    
+def inputFrame_DateEntry(input_MenuFrame):
+    dateEntry = tk.Entry(input_MenuFrame,width = 20)
+    dateEntry.pack(side="top", fill="x", expand=True, padx=0, pady=(12, 0))
+    return dateEntry
+
+
+
+        

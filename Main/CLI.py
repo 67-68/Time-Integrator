@@ -1,6 +1,6 @@
-from validations import formatValidation, rangeValidation
-from parseInput import completeActions, inputTimespan, parseDataIntoList
-from save_and_load import getData, saveData
+from APIs.validations import formatValidation, rangeValidation
+from APIs.json_Interaction import getDataAPI, saveDataAPI
+from APIs.parseInput import completeActions, inputTimespan, parseDataIntoList
 
 def promptInput():
     #input the data
@@ -34,9 +34,9 @@ def promptInput():
     data = {date : actions}
     
     #输入data
-    data = getData("data.json")
+    data = getDataAPI("data.json")
     data[date] = actions
-    saveData(data,"data.json")
+    saveDataAPI(data,"data.json")
  
 def mainMenu():
     while True:
@@ -50,12 +50,12 @@ def mainMenu():
             if choice == "show":
                 demonstration()
             if choice == "tidy":
-                completeActions(getData("data.json"))
+                completeActions(getDataAPI("data.json"))
 
 #新建一个活动为大分类的字典，遍历整个字典，整理活动
 def demonstration():
     #获取基本的数据
-    data = getData("data.json")
+    data = getDataAPI("data.json")
     
     #新建需要的变量
     actions = {}

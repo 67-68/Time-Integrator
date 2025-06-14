@@ -1,19 +1,79 @@
 import tkinter as tk
 
-from CLI import completeActions, demonstration, promptInput
-from parseInput import inputTimespan, parseDataIntoList
-from validations import formatValidation, rangeValidation
-from save_and_load import getData, saveData
-#TODO:先不用类封装控件，直接宣布为global
+from CLI import completeActions, demonstration
+from APIs.parseInput import inputTimespan, parseDataIntoList
+from APIs.validations import formatValidation, rangeValidation
+from APIs.json_Interaction import getDataAPI, saveDataAPI
 
-"""
-对于CLI转到GUI,需要修改的是
-- input info
-- output info
-另外，这并不是一个univeral function, 因此不用专门指定
-由于这个是用CLI版本改的，看起来可能有点不协调
-"""
+"""  ---------- Classes ----------  """
+#  ------ Frame class ------
+class LeftToolFrame(tk.Frame):
+    def __init__(self, fatherFrame):
+        super().__init__(fatherFrame) #引用父类方法，创建一个Frame
+        self.config(bg = "#A9B0B3") #修改颜色
+        
+        #开始排版
+        self.grid(
+            row = 0,
+            column = 0,
+            rowspan = 2,
+            sticky='nsew', 
+            padx=2.5,
+            pady=2.5
+        )
+        
+        self.columnconfigure(0,minsize = 80) #设置最小尺寸
 
+class DownPageFrame(tk.Frame):
+    def __init__(self, fatherFrame):
+        super().__init__(fatherFrame)
+        self.config(bg = "#C9B49A")
+        self.grid(
+            row = 2,
+            column = 0,
+            columnspan = 2,
+            sticky='nsew',
+            padx = 2.5,
+            pady = 0
+        )
+        self.rowconfigure(2,minsize = 80)
+
+class CenterMainFrame(tk.Frame):
+    def __init__(self, fatherFrame):
+        super().__init__(fatherFrame)
+        self.config(bg = "#F4F4F4")
+        self.grid(
+            row = 0,
+            column = 1,
+            columnspan = 2,
+            rowspan = 2,
+            sticky='nsew', 
+            padx=5, 
+            pady=5
+        )
+
+        
+#  ------ button class ------ 
+#需要传入的参数：父容器，需要执行的命令，面板root
+class LeftToolButton(tk.Button):
+    def __init__(self, master,**kwargs):
+        super().__init__(master,**kwargs)
+        self.config(        
+            bg = "#F4F4F4",
+            activebackground="#F4F4F4",
+            relief="flat",
+            borderwidth=0,
+            highlightthickness=0,
+            width = 15,
+            pady = 6,
+            #text 和 command 属性没写，需要外部传入
+        )
+
+# class SwitchPageButton(tk.Button):
+# 想了一下，没必要写也不太好写专门界面切换的按钮，就先拿基本的功能栏位按钮代替
+
+        
+        
 def promptInputGUI(manuPrompt,manuText,dateEntry):
     #input the data
     manuPrompt.config(text = "enter the data and date respectively, in the top and bottom")
@@ -47,154 +107,98 @@ def promptInputGUI(manuPrompt,manuText,dateEntry):
     data = {date : actions}
     
     #输入data
-    data = getData("data.json")
+    data = getDataAPI("data.json")
     data[date] = actions
-    saveData(data,"data.json")
+    saveDataAPI(data,"data.json")
 
 def menuGUI():
-    #创建一个最基本的窗口
+    #  ---------- 窗口和页面 ----------
+    #  ------ 创建root和frame ------
     root = tk.Tk()
     root.title("Time-integrator Menu")
 
-    #设置大小
-    root.geometry("800x600")
-    
     #主界面创建
     menuFrame = tk.Frame(root,bg = 'white')
     demonFrame = tk.Frame(root,bg = 'white')
+    
+    #  ------ 初始化窗口和界面 ------
+    #设置大小
+    root.geometry("800x600")
+    
+    #主界面提升最顶端
+    menuFrame.tkraise()
     
     #主界面切换
     for f in(menuFrame,demonFrame):
         f.place(relx=0,rely=0,relwidth=1,relheight=1)
     
-    #  ------ 调整各栏位的弹性 ------
-    menuFrameElasity(menuFrame)
+    #调整弹性
+    basicFrameElasity(menuFrame)
+    basicFrameElasity(demonFrame)
     
-    #  ------ 创建menuFrame中的分frame ------
-    down_MenuFrame = downMenuFrameCreation(menuFrame) #底部灰色栏
-    left_MenuFrame = leftMenuFrameCreation(menuFrame) #左侧工具栏
-    input_MenuFrame = inputMenuFrameCreation(menuFrame) #输入栏
+    #  ---------- 页面内分栏 ----------
+    #MenuFrame
+    down_MenuFrame = DownPageFrame(menuFrame) #底部灰色栏
+    left_MenuFrame = LeftToolFrame(menuFrame) #创建左边工具栏
+    main_MenuFrame = CenterMainFrame(menuFrame) #输入栏
+    
+    #DemonFrame
+    down_DemoFrame = DownPageFrame(demonFrame)
+    left_DemoFrame = LeftToolFrame(demonFrame)
+    main_DemoFrame = CenterMainFrame(demonFrame)
     
     #TODO：这里我需要单独去创建一个输入的界面，然后把主界面作为菜单吗？还是直接在主界面提示东西
-        
-    #主界面提升最顶端
-    menuFrame.tkraise()
+
+    #  ---------- 文本框和文本 ----------
+    #  ------ 文本框 ------
+    menuText = inputFrame_MenuText(main_MenuFrame)
+    dateEntry = inputFrame_DateEntry(main_MenuFrame)
     
-    #创建entry & text
-    menuText = inputFrame_MenuText(input_MenuFrame)
-    dateEntry = inputFrame_DateEntry
-    
-    #创建一条展示label
-    menuPrompt = tk.Label(input_MenuFrame,text = "welcome, click button to start")
+    # ------ 展示文本 ------
+    menuPrompt = tk.Label(main_MenuFrame,text = "welcome, click button to start")
     menuPrompt.pack() 
-    demoPrompt = tk.Label(input_MenuFrame,text = "this is demonstration page")
+    demoPrompt = tk.Label(main_MenuFrame,text = "this is demonstration page")
     demoPrompt.pack() 
     
-    #添加基本的几个大功能的按钮
-    inputButton = tk.Button(
-        left_MenuFrame,
-        text = "input",
-        bg= "#F4F4F4",
-        activebackground="#F4F4F4",
-        relief="flat",
-        borderwidth=0,
-        highlightthickness=0,
-        width = 15,
-        pady = 6,
-        command = lambda: promptInputGUI(menuPrompt,menuText,dateEntry))
+    #  ---------- 按钮 ----------
+    #  ------ 主界面 ------
+    #功能性按钮
+    inputButton = LeftToolButton(left_MenuFrame, text = "input", command = lambda: promptInputGUI(menuPrompt,menuText,dateEntry))
     inputButton.pack()
     
-    quitButton = tk.Button(
-        left_MenuFrame,
-        text = "quit",
-        bg = "#F4F4F4",
-        activebackground="#F4F4F4",
-        relief="flat",
-        borderwidth=0,
-        highlightthickness=0,
-        width = 15,
-        pady = 6,
-        command = lambda: root.destroy())
+    quitButton = LeftToolButton(left_MenuFrame, text = "quit", command = lambda: root.destroy())
     quitButton.pack()
+
+    #切换界面
+    for i in (down_DemoFrame,down_MenuFrame):
+        demonMenuButton = LeftToolButton(i,text="enter demonstration menu", height = 5, command = lambda: demonFrame.tkraise())
+        demonMenuButton.pack()
+        menuSwitchButton = LeftToolButton(i,text="enter main menu", height = 5, command = lambda: menuFrame.tkraise())
+        menuSwitchButton.pack()
     
-    #切换界面的button
-    demonMenuButton = tk.Button(
-        down_MenuFrame,
-        text="enter demonstration manu",
-        bg="#C9B49A",
-        activebackground="#C9B49A",
-        relief="flat",
-        borderwidth=0,
-        highlightthickness=0,
-        height = 5,
-        command = lambda: demonFrame.tkraise())
-    demonMenuButton.pack()
-    
-    #这里进入下一级界面
-    showButton = tk.Button(demonFrame,text = "show data",command = demonstration)
+    #  ------ 展示界面 ------ 
+    showButton = LeftToolButton(left_DemoFrame,text = "show data",command = demonstration)
     showButton.pack()
-    countActionButton = tk.Button(demonFrame,text = "count actions",command = lambda: completeActions(getData("data.json")) )
+    countActionButton = LeftToolButton(left_DemoFrame,text = "count actions",command = lambda: completeActions(getDataAPI("data.json")) )
     countActionButton.pack()
     
-    #事件循环开始
+    #  ---------- 事件循环开始 ----------
     root.mainloop()
 
-
-def menuFrameElasity(menuFrame):
+""" ---------- 各种工厂函数 ---------- """
+# 后面可能会改造成类
+def basicFrameElasity(frame):
     #调整leftFrame的弹性
-    menuFrame.grid_rowconfigure(0, weight=2)
+    frame.grid_rowconfigure(0, weight=2)
     
     #调整inputFrame的弹性
-    menuFrame.grid_rowconfigure(1, weight=1)
-    menuFrame.grid_rowconfigure(2, weight=0)
+    frame.grid_rowconfigure(1, weight=1)
+    frame.grid_rowconfigure(2, weight=0)
     
     #底部栏位的弹性    
-    menuFrame.grid_columnconfigure(0, weight=1)
-    menuFrame.grid_columnconfigure(1, weight=3)
+    frame.grid_columnconfigure(0, weight=1)
+    frame.grid_columnconfigure(1, weight=3)
 
-def downMenuFrameCreation(menuFrame):
-    #创建
-    down_MenuFrame = tk.Frame(menuFrame,bg = "#C9B49A")
-    down_MenuFrame.grid(
-        row = 2,
-        column = 0,
-        columnspan = 2,
-        sticky='nsew',
-        padx = 2.5,
-        pady = 0)
-    
-    #调整最小高度
-    menuFrame.rowconfigure(2,minsize = 80)
-    
-    return down_MenuFrame
-
-def leftMenuFrameCreation(menuFrame):
-    left_MenuFrame = tk.Frame(menuFrame,bg = "#A9B0B3")
-    left_MenuFrame.grid(
-        row = 0,
-        column = 0,
-        rowspan = 2,
-        sticky='nsew', 
-        padx=2.5,
-        pady=2.5)
-    
-    #修改最小size
-    menuFrame.columnconfigure(0,minsize = 80)
-    
-    return left_MenuFrame
-
-def inputMenuFrameCreation(menuFrame):
-    input_MenuFrame = tk.Frame(menuFrame,bg = "#F4F4F4")
-    input_MenuFrame.grid(
-        row = 0,
-        column = 1,
-        columnspan = 2,
-        rowspan = 2,
-        sticky='nsew', 
-        padx=5, 
-        pady=5)
-    
-    return input_MenuFrame
 
 def inputFrame_MenuText(input_MenuFrame):
     menuText = tk.Text(input_MenuFrame,width = 40, height = 10)

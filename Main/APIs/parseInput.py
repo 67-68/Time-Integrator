@@ -1,4 +1,4 @@
-from save_and_load import saveData, getData
+from APIs.json_Interaction import saveDataAPI, getDataAPI
 
 def inputFormatChange(userData):
     index = 0
@@ -46,7 +46,7 @@ def inputTimespan(actions):
 
 #行动补全函数：提取数据，查找和加入没有在里面的行动        
 def completeActions(data):
-    a = getData("action_integration.json")
+    a = getDataAPI("action_integration.json")
     if a == []:
         a = {}
     for date in data: #输出每一天
@@ -58,5 +58,5 @@ def completeActions(data):
                     "eachTimePeriod" : [],
                     "exploitation_type" : "unknown"
                 }
-    saveData(a,"action_integration.json")
+    saveDataAPI(a,"action_integration.json")
     

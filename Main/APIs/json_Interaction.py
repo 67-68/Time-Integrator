@@ -9,7 +9,7 @@ def saveDataAPI(data,name):
 
     
 #这个function会返回name.json的内容，如果为空那么返回一个空的list
-def getDataAPI(name):
+def getData_API(name):
     try:
         with open(name,"r",encoding = "utf-8") as f:
             data = json.load(f)

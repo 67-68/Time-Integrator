@@ -3,8 +3,8 @@ import tkinter as tk
 from CLI import completeActions, demonstration
 from APIs.parseInput import inputTimespan, parseDataIntoList
 from APIs.validations import formatValidation, rangeValidation
-from APIs.json_Interaction import getDataAPI, saveDataAPI
-from APIs.actionCategories import assignActionCate, getActionDataStr
+from APIs.json_Interaction import getData_API, saveDataAPI
+from APIs.actionCategories import assignActionCateAPI, getActionDataStr_API, getCateTime_FUNC
 
 """  ---------- CLASS ----------  """
 #  ------ Frame class ------
@@ -129,7 +129,7 @@ def promptInputGUI(manuPrompt,manuText,dateEntry):
     data = {date : actions}
     
     #输入data
-    data = getDataAPI("data.json")
+    data = getData_API("data.json")
     data[date] = actions
     saveDataAPI(data,"data.json")
 
@@ -214,12 +214,14 @@ def menuGUI():
     #  ------ 展示界面 ------ 
     showTimeDistButton = LeftToolButton(left_DemoFrame,text = "show time data",command = demonstration)
     showTimeDistButton.pack()
-    countActionButton = LeftToolButton(left_DemoFrame,text = "count actions",command = lambda: completeActions(getDataAPI("data.json")) )
+    countActionButton = LeftToolButton(left_DemoFrame,text = "count actions",command = lambda: completeActions(getData_API("data.json")) )
     countActionButton.pack()
-    showActionButton = LeftToolButton(left_DemoFrame,text = "show action data",command = lambda: demonText.setText(getActionDataStr()))
+    showActionButton = LeftToolButton(left_DemoFrame,text = "show action data",command = lambda: demonText.setText(getActionDataStr_API()))
     showActionButton.pack()
-    assignActionButton = LeftToolButton(left_DemoFrame,text = "enter in two boxes",command = lambda: assignActionCate(demonEntryAction.get(),demonEntryCate.get()))
+    assignActionButton = LeftToolButton(left_DemoFrame,text = "assignment",command = lambda: assignActionCateAPI(demonEntryAction.get(),demonEntryCate.get()))
     assignActionButton.pack()
+    showCateTimeButton = LeftToolButton(left_DemoFrame,text = "show category time",command = lambda: demonText.setText(getCateTime_FUNC()))
+    showCateTimeButton.pack()
     
     #  ---------- 事件循环开始 ----------
     root.mainloop()

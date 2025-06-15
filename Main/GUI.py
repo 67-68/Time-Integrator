@@ -4,8 +4,9 @@ from CLI import completeActions, demonstration
 from APIs.parseInput import inputTimespan, parseDataIntoList
 from APIs.validations import formatValidation, rangeValidation
 from APIs.json_Interaction import getDataAPI, saveDataAPI
+from APIs.actionCategories import assignActionCate, getActionDataStr
 
-"""  ---------- Classes ----------  """
+"""  ---------- CLASS ----------  """
 #  ------ Frame class ------
 class LeftToolFrame(tk.Frame):
     def __init__(self, fatherFrame):
@@ -72,8 +73,29 @@ class LeftToolButton(tk.Button):
 # class SwitchPageButton(tk.Button):
 # 想了一下，没必要写也不太好写专门界面切换的按钮，就先拿基本的功能栏位按钮代替
 
+#  ------ TEXT CLASS ------
+class BasicText(tk.Text):
+    def __init__(self, master,**kwargs):
+        super().__init__(master,**kwargs)
+        self = tk.Text(master,width = 40, height = 10)
+    
+    def setText(self,text):
+        self.config(state = "normal")
+        self.delete('1.0','end')
+        self.insert('1.0',text)
+        self.config(state = "disabled")
+
+class BasicEntry(tk.Entry):
+    def __init__(self, master,**kwargs):
+        super().__init__(master,**kwargs)
+        self = tk.Entry(master,width = 20)
+    
+    def setEntry(self,text):
+        self.delete(0,'end')
+        self.insert(0,text)
         
         
+"""  ---------- SPECIFIC FUNCTIONS ---------- """
 def promptInputGUI(manuPrompt,manuText,dateEntry):
     #input the data
     manuPrompt.config(text = "enter the data and date respectively, in the top and bottom")
@@ -137,12 +159,12 @@ def menuGUI():
     basicFrameElasity(demonFrame)
     
     #  ---------- 页面内分栏 ----------
-    #MenuFrame
+    #  ------ MenuFrame ------
     down_MenuFrame = DownPageFrame(menuFrame) #底部灰色栏
     left_MenuFrame = LeftToolFrame(menuFrame) #创建左边工具栏
     main_MenuFrame = CenterMainFrame(menuFrame) #输入栏
     
-    #DemonFrame
+    #  ------ DemonFrame ------
     down_DemoFrame = DownPageFrame(demonFrame)
     left_DemoFrame = LeftToolFrame(demonFrame)
     main_DemoFrame = CenterMainFrame(demonFrame)
@@ -150,15 +172,28 @@ def menuGUI():
     #TODO：这里我需要单独去创建一个输入的界面，然后把主界面作为菜单吗？还是直接在主界面提示东西
 
     #  ---------- 文本框和文本 ----------
-    #  ------ 文本框 ------
-    menuText = inputFrame_MenuText(main_MenuFrame)
-    dateEntry = inputFrame_DateEntry(main_MenuFrame)
+    #  ------ 主界面 ------
+    menuText = BasicText(main_MenuFrame)
+    menuText.pack(side="top", fill="both", expand=True, padx=0, pady=0)
+    dateEntry = BasicEntry(main_MenuFrame)
+    dateEntry.pack(side="top", fill="x", expand=True, padx=0, pady=(12, 0))
     
-    # ------ 展示文本 ------
     menuPrompt = tk.Label(main_MenuFrame,text = "welcome, click button to start")
     menuPrompt.pack() 
     demoPrompt = tk.Label(main_MenuFrame,text = "this is demonstration page")
     demoPrompt.pack() 
+    
+    # ------ 展示界面 ------
+    demonText = BasicText(main_DemoFrame)
+    demonText.pack(side="top", fill="both", expand=True, padx=0, pady=0)
+    
+    demonEntryAction = BasicEntry(main_DemoFrame)
+    demonEntryAction.pack(side="top", fill="x", expand=True, padx=0, pady=(12, 0))
+    demonEntryAction.setEntry("enter action in this box")
+    
+    demonEntryCate = BasicEntry(main_DemoFrame)
+    demonEntryCate.pack(side="top", fill="x", expand=True, padx=0, pady=(12, 0))
+    demonEntryCate.setEntry("enter Category to change in this box")
     
     #  ---------- 按钮 ----------
     #  ------ 主界面 ------
@@ -177,10 +212,14 @@ def menuGUI():
         menuSwitchButton.pack()
     
     #  ------ 展示界面 ------ 
-    showButton = LeftToolButton(left_DemoFrame,text = "show data",command = demonstration)
-    showButton.pack()
+    showTimeDistButton = LeftToolButton(left_DemoFrame,text = "show time data",command = demonstration)
+    showTimeDistButton.pack()
     countActionButton = LeftToolButton(left_DemoFrame,text = "count actions",command = lambda: completeActions(getDataAPI("data.json")) )
     countActionButton.pack()
+    showActionButton = LeftToolButton(left_DemoFrame,text = "show action data",command = lambda: demonText.setText(getActionDataStr()))
+    showActionButton.pack()
+    assignActionButton = LeftToolButton(left_DemoFrame,text = "enter in two boxes",command = lambda: assignActionCate(demonEntryAction.get(),demonEntryCate.get()))
+    assignActionButton.pack()
     
     #  ---------- 事件循环开始 ----------
     root.mainloop()
@@ -198,18 +237,4 @@ def basicFrameElasity(frame):
     #底部栏位的弹性    
     frame.grid_columnconfigure(0, weight=1)
     frame.grid_columnconfigure(1, weight=3)
-
-
-def inputFrame_MenuText(input_MenuFrame):
-    menuText = tk.Text(input_MenuFrame,width = 40, height = 10)
-    menuText.pack(side="top", fill="both", expand=True, padx=0, pady=0)
-    return menuText
-    
-def inputFrame_DateEntry(input_MenuFrame):
-    dateEntry = tk.Entry(input_MenuFrame,width = 20)
-    dateEntry.pack(side="top", fill="x", expand=True, padx=0, pady=(12, 0))
-    return dateEntry
-
-
-
-        
+      

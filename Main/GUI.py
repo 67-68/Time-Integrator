@@ -1,13 +1,18 @@
 import tkinter as tk
 
 from CLI import completeActions, demonstration
-from APIs.parseInput import inputTimespan, parseDataIntoList, parseLineInput_API
-from APIs.validations import dateValidation_API, formatValidation, isValidTimePeriod_API, isValidTimeStr_API, rangeValidation, structureValidation_API
+from APIs.parseInput import parseLineInput_API
+from APIs.validations import dateValidation_API,isValidTimePeriod_API, isValidTimeStr_API,structureValidation_API
 from APIs.json_Interaction import getData_API, saveData_API
 from APIs.actionCategories import actionCategory, assignActionCateAPI, getActionDataStr_API, getCateTime_FUNC, getEnumValueDict_API
 """  ------ GLOBAL VARIABLES ----- """
 infoMenuLabel = None
 infoDemoLabel = None
+lineIndicator = '\n' #把输入的行分开
+firstIndicator = " - " #把输入分成三个基本的模块：两个时间和一个行动
+secondIndicator = "-" #在行动内细分
+firstCount = 2
+secondCount = 2
 
 """  ---------- CLASS ----------  """
 #  ------ Frame class ------
@@ -113,7 +118,7 @@ class BasicEntry(tk.Entry):
 #  ------ LABEL CLASS ------
 class BasicLabel(tk.Label):
     def __init__(self, master,text,**kwargs):
-        super().__init__(master,text,**kwargs)
+        super().__init__(master,text = text,**kwargs)
         text = text
         
 """  ---------- UNIVERSAL FUNCTIONS ---------- """
@@ -136,13 +141,16 @@ def promptInput_FUNC(menuPrompt,menuText):
     
     #  ------ 处理数据 ------
     data = getData_API("data.json") #获取文件
-    data = parseLineInput_API(userData,data) #处理输入
+    data = parseLineInput_API(userData,data,lineIndicator,firstIndicator,secondIndicator) #处理输入
     
     #  ------ validation ------
     #检查格式
-    if structureValidation_API(userData) == False: 
-        showError("there's something wrong in the structure of the data! please check")
-        save = False
+    lines = userData.split('\n')
+    del lines[0]
+    for item in lines:
+        if structureValidation_API(item, firstIndicator, secondIndicator, firstCount, secondCount) == False: 
+            showError("there's something wrong in the structure of the data! please check")
+            save = False
     
     #检查时间
     for date in data:
@@ -157,7 +165,7 @@ def promptInput_FUNC(menuPrompt,menuText):
                 showError("wrong in time")
                 save = False
             enumVal = getEnumValueDict_API(actionCategory)
-            if actionInfo["exploitation_type"] not in enumVal:
+            if actionInfo["exploitation_type"].lower() not in enumVal:
                 showError("wrong in action type")
                 save = False
     #  ------ 最终赋值 ------
@@ -174,7 +182,7 @@ def menuGUI():
 
     #主界面创建
     menuFrame = tk.Frame(root,bg = 'white')
-    demonFrame = tk.Frame(root,bg = 'white')
+    demoFrame = tk.Frame(root,bg = 'white')
     
     #  ------ 初始化窗口和界面 ------
     #设置大小
@@ -184,12 +192,12 @@ def menuGUI():
     menuFrame.tkraise()
     
     #主界面切换
-    for f in(menuFrame,demonFrame):
+    for f in(menuFrame,demoFrame):
         f.place(relx=0,rely=0,relwidth=1,relheight=1)
     
     #调整弹性
     basicFrameElasity(menuFrame)
-    basicFrameElasity(demonFrame)
+    basicFrameElasity(demoFrame)
     
     #  ---------- 页面内分栏 ----------
     #  ------ MenuFrame ------
@@ -199,10 +207,10 @@ def menuGUI():
     bottom_MenuFrame = BottomInfoFrame(menuFrame)
     
     #  ------ DemonFrame ------
-    down_DemoFrame = DownPageFrame(demonFrame)
-    left_DemoFrame = LeftToolFrame(demonFrame)
-    main_DemoFrame = CenterMainFrame(demonFrame)
-    bottom_DemoFrame = BottomInfoFrame(menuFrame)
+    down_DemoFrame = DownPageFrame(demoFrame)
+    left_DemoFrame = LeftToolFrame(demoFrame)
+    main_DemoFrame = CenterMainFrame(demoFrame)
+    bottom_DemoFrame = BottomInfoFrame(demoFrame)
     
     #TODO：这里我需要单独去创建一个输入的界面，然后把主界面作为菜单吗？还是直接在主界面提示东西
 
@@ -249,7 +257,7 @@ def menuGUI():
 
     #切换界面
     for i in (down_DemoFrame,down_MenuFrame):
-        demonMenuButton = LeftToolButton(i,text="enter demonstration menu", height = 5, command = lambda: demonFrame.tkraise())
+        demonMenuButton = LeftToolButton(i,text="enter demonstration menu", height = 5, command = lambda: demoFrame.tkraise())
         demonMenuButton.pack()
         menuSwitchButton = LeftToolButton(i,text="enter main menu", height = 5, command = lambda: menuFrame.tkraise())
         menuSwitchButton.pack()

@@ -1,44 +1,11 @@
 {
-    "2025/6/11": [
+    "2025-05-10": [
         {
-            "start": "10:22",
-            "action": "写作业",
-            "end": "10:45",
-            "timespan": 23
-        },
-        {
-            "start": "10:45",
-            "action": "做事",
+            "start": "11:10",
             "end": "11:20",
-            "timespan": 35
-        }
-    ],
-    "2025/6/12": [
-        {
-            "start": "10:22",
-            "action": "写作业",
-            "end": "10:45",
-            "timespan": 23
-        },
-        {
-            "start": "10:45",
-            "action": "做事",
-            "end": "11:20",
-            "timespan": 35
-        }
-    ],
-    "2025/6/13": [
-        {
-            "start": "10:22",
-            "action": "写作业",
-            "end": "10:45",
-            "timespan": 23
-        },
-        {
-            "start": "10:45",
-            "action": "休息",
-            "end": "11:20",
-            "timespan": 35
+            "action": "看书",
+            "exploitation_type": "work",
+            "actionDetail": "after virtue 第三章"
         }
     ]
 }

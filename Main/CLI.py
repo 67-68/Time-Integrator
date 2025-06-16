@@ -1,6 +1,6 @@
 from APIs.validations import formatValidation, rangeValidation
 from APIs.json_Interaction import getData_API, saveData_API
-from APIs.parseInput import completeActions, inputTimespan, parseDataIntoList
+from APIs.parseInput import completeActions, inputTimespan
 
 def promptInput():
     #input the data

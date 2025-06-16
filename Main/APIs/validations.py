@@ -84,7 +84,9 @@ def validate_Symbol_Count_API(data,symbol,expectedCount):
 def structureValidation_API(data,firstIndicator,secondIndicator,firstCount,SecondCount):
     if validate_Symbol_Count_API(data,firstIndicator,firstCount) == False:
         return False
-    if validate_Symbol_Count_API(data,secondIndicator,SecondCount) == False:
+    #这里由于没有减去firstIndicator的 - 导致错误
+    #我的测试数据是11:10 - 11:20 - WORK-看书-after virtue 第三章
+    if validate_Symbol_Count_API(data.split(" - ")[2],secondIndicator,SecondCount) == False:
         return False
     return True
         

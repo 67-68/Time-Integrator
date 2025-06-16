@@ -15,24 +15,7 @@ def inputFormatChange(userData):
             
 
 def timeCompare(beforeHour,beforeMinute,afterHour,afterMinutes):
-    #there is two format for data input,like 10:22 - 写作业 - 10:45 - 做事 - 11:20. If the time period do not expand to another o'clock, then omit the hour before minutes
     return (afterHour*60 + afterMinutes) - (beforeHour*60 + beforeMinute)
-
-
-#这个function会把原始的data输入进dictionary
-def parseDataIntoList(userData):
-    actions = []
-    for i in range (1,len(userData)-1,2):
-        start = userData[i-1]
-        end = userData[i+1]
-        action = userData[i]
-        actions.append({
-            "start":start,
-            "action":action,
-            "end":end
-        })
-    return actions
-
 
 def inputTimespan(actions):
         for i in range(len(actions)):
@@ -61,32 +44,17 @@ def completeActions(data):
     saveData_API(a,"action_integration.json")
 
 """
-预计输入类似：11:10 - 11:20 - WORK-看书-after virtue 第三章
+预计输入类似：
+2025-05-10
+11:10 - 11:20 - WORK-看书-after virtue 第三章
 在第一行可能有日期
 首先，我需要确认指示输入部分的几个关键符号，只要他们存在这一段输入就是可以被解析的
 然后（如果需要做validation)检查在符号拆开之后是否符合数据类型等等
 其实这个符号也可以用json让用户自定义然后存储，但是我这里还是先建个变量假装可以自定义了
 """
-"""
-validation:
-我需要检验的部分：
-    大方面：有没有写用于分割的符号，如果有，他们的数量是否正确
-    细节：Start和End的时间是否合理; 标签是否被注册过
-    （进阶功能，查找相差一个字母的标签并询问是不是这个，如果是自动应用）
-    以上，都需要输出提醒
-用户可以自主决定的部分
-    时间的具体情况
-    标签名称（只要被注册过）
-    行动具体内容
-    行动具体细节
-关于validation的输出结构：使用一个专门的输出界面和一个输出的函数，去设置这一点
-"""
+
 #UNIVERSAl; INPUT line of userdata; OUTPUT time, action, type and detail in file
-def parseLineInput_API(userData,data):
-    lineIndicator = '\n' #把输入的行分开
-    firstIndicator = " - " #把输入分成三个基本的模块：两个时间和一个行动
-    secondIndicator = "-" #在行动内细分
-    
+def parseLineInput_API(userData,data,lineIndicator,firstIndicator,secondIndicator):
     userData = userData.split(lineIndicator) 
     
     date = userData.pop(0)
@@ -111,7 +79,7 @@ def parseLineInput_API(userData,data):
             "start": start,
             "end":end,
             "action":action,
-            "exploitation_type":actionType,
+            "exploitation_type":actionType.lower(),
             "actionDetail":actionDetail
         })
         
@@ -120,7 +88,9 @@ def parseLineInput_API(userData,data):
 
 #UNIVERSAL; INPUT: str time; OUTPUT; total minutes
 def getTotalTime_API(time):
+    total = 0
     time = time.split(":")
-    time = int(time)
+    time[0] = int(time[0])
+    time[1] = int(time[1])
     total += time[0]*60 + time[1]
     return total

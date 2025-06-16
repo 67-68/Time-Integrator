@@ -1,5 +1,5 @@
 from APIs.validations import formatValidation, rangeValidation
-from APIs.json_Interaction import getData_API, saveDataAPI
+from APIs.json_Interaction import getData_API, saveData_API
 from APIs.parseInput import completeActions, inputTimespan, parseDataIntoList
 
 def promptInput():
@@ -36,7 +36,7 @@ def promptInput():
     #输入data
     data = getData_API("data.json")
     data[date] = actions
-    saveDataAPI(data,"data.json")
+    saveData_API(data,"data.json")
  
 def mainMenu():
     while True:

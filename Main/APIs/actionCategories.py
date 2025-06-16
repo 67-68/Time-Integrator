@@ -1,6 +1,6 @@
 from enum import Enum
 
-from APIs.json_Interaction import saveDataAPI, getData_API
+from APIs.json_Interaction import saveData_API, getData_API
 
 """
 那么我现在应该是有三个“本位”的数据库了
@@ -25,7 +25,7 @@ def assignActionCateAPI(actionName,cateName):
         actions = getData_API("action_integration.json") #get the data needed
         cateName = actionCategory(cateName.lower())
         actions[actionName]["exploitation_type"] = cateName.value #Assign the category    
-        saveDataAPI(actions,"action_integration.json") #覆盖原本的数据
+        saveData_API(actions,"action_integration.json") #覆盖原本的数据
         return True
     except Exception as e:
         return False
@@ -81,6 +81,7 @@ def getCateFromAction_API(action):
         return "unknown"
 
 #UNIVERSAL; INPUT: dict data,dict actionCate; OUTPUT timespan for each Cate
+
 def getCateTimeFromAct_API(data,cateDict): 
     for date in data:
         for action in data[date]: #这里已经进入了每一段这样的东西 {action =, time =}

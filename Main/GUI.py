@@ -1,10 +1,13 @@
 import tkinter as tk
 
 from CLI import completeActions, demonstration
-from APIs.parseInput import inputTimespan, parseDataIntoList
-from APIs.validations import formatValidation, rangeValidation
-from APIs.json_Interaction import getData_API, saveDataAPI
-from APIs.actionCategories import assignActionCateAPI, getActionDataStr_API, getCateTime_FUNC
+from APIs.parseInput import inputTimespan, parseDataIntoList, parseLineInput_API
+from APIs.validations import dateValidation_API, formatValidation, isValidTimePeriod_API, isValidTimeStr_API, rangeValidation, structureValidation_API
+from APIs.json_Interaction import getData_API, saveData_API
+from APIs.actionCategories import actionCategory, assignActionCateAPI, getActionDataStr_API, getCateTime_FUNC, getEnumValueDict_API
+"""  ------ GLOBAL VARIABLES ----- """
+infoMenuLabel = None
+infoDemoLabel = None
 
 """  ---------- CLASS ----------  """
 #  ------ Frame class ------
@@ -53,6 +56,19 @@ class CenterMainFrame(tk.Frame):
             pady=5
         )
 
+class BottomInfoFrame(tk.Frame):
+    def __init__(self, fatherFrame):
+        super().__init__(fatherFrame)
+        self.config(bg = "#F4F4F4")
+        self.grid(
+            row = 3,
+            column = 0,
+            columnspan = 2,
+            sticky='nsew', 
+            padx=0, 
+            pady=0
+        )
+        self.rowconfigure(3,minsize = 40)
         
 #  ------ button class ------ 
 #需要传入的参数：父容器，需要执行的命令，面板root
@@ -93,45 +109,62 @@ class BasicEntry(tk.Entry):
     def setEntry(self,text):
         self.delete(0,'end')
         self.insert(0,text)
+
+#  ------ LABEL CLASS ------
+class BasicLabel(tk.Label):
+    def __init__(self, master,text,**kwargs):
+        super().__init__(master,text,**kwargs)
+        text = text
         
-        
+"""  ---------- UNIVERSAL FUNCTIONS ---------- """
+
+def showError(errorText):
+    infoDemoLabel.config(text = errorText)
+    infoMenuLabel.config(text = errorText)
+    #未来可以修改为调用字典对象，目前先手动修改label
+    
+
 """  ---------- SPECIFIC FUNCTIONS ---------- """
-def promptInputGUI(manuPrompt,manuText,dateEntry):
-    #input the data
-    manuPrompt.config(text = "enter the data and date respectively, in the top and bottom")
-    userData = manuText.get('1.0','end-1c')
-    date = dateEntry.get()
+#SPECIFIC; INPUT text, label; STORE data in data.json
+#这个specific其实写得也不是很好，还需传入menuPrompt
+#注意parseLineInput函数，出问题就找它
+def promptInput_FUNC(menuPrompt,menuText):
+    #  ------ 初始化需要的变量 ------
+    menuPrompt.config(text = "paste the data in the biggest text") #提示信息
+    userData = menuText.get('1.0','end-1c') #获取内容
+    save = True
     
-    #TODO:presence check
+    #  ------ 处理数据 ------
+    data = getData_API("data.json") #获取文件
+    data = parseLineInput_API(userData,data) #处理输入
     
-    #TODO:use strip to delete spaces
+    #  ------ validation ------
+    #检查格式
+    if structureValidation_API(userData) == False: 
+        showError("there's something wrong in the structure of the data! please check")
+        save = False
     
-    #TODO:change it into discard redundant space in data
-    
-    #change the format of the data, in order to save into json
-    userData = userData.split(" - ")
-    
-    #put data into the list
-    actions = parseDataIntoList(userData)
-    
-    #Format check and change the format
-    for i in range (len(actions)):
-        actions[i]["end"] = formatValidation(actions[i]["start"],actions[i]["end"])
-    
-    #validate whether they are reasonable
-    if rangeValidation(actions) == True:
-        manuPrompt.config(text = "pass range validation correctly")
-    
-    #输入timespan
-    inputTimespan(actions)
-    
-    #把actions包裹进一个新的dictionary
-    data = {date : actions}
-    
-    #输入data
-    data = getData_API("data.json")
-    data[date] = actions
-    saveDataAPI(data,"data.json")
+    #检查时间
+    for date in data:
+        if dateValidation_API(date) == False:
+            showError("wrong in date")
+            save = False
+        for actionInfo in data[date]:
+            if isValidTimePeriod_API(actionInfo["start"],actionInfo["end"]) == False:
+                showError("wrong in time period")
+                save = False
+            if isValidTimeStr_API(actionInfo["start"]) == False or isValidTimeStr_API(actionInfo["end"]) == False:
+                showError("wrong in time")
+                save = False
+            enumVal = getEnumValueDict_API(actionCategory)
+            if actionInfo["exploitation_type"] not in enumVal:
+                showError("wrong in action type")
+                save = False
+    #  ------ 最终赋值 ------
+    if save == True:
+        saveData_API(data,"data.json") #存入文件
+
+#这里删除了promptInput函数
 
 def menuGUI():
     #  ---------- 窗口和页面 ----------
@@ -163,11 +196,13 @@ def menuGUI():
     down_MenuFrame = DownPageFrame(menuFrame) #底部灰色栏
     left_MenuFrame = LeftToolFrame(menuFrame) #创建左边工具栏
     main_MenuFrame = CenterMainFrame(menuFrame) #输入栏
+    bottom_MenuFrame = BottomInfoFrame(menuFrame)
     
     #  ------ DemonFrame ------
     down_DemoFrame = DownPageFrame(demonFrame)
     left_DemoFrame = LeftToolFrame(demonFrame)
     main_DemoFrame = CenterMainFrame(demonFrame)
+    bottom_DemoFrame = BottomInfoFrame(menuFrame)
     
     #TODO：这里我需要单独去创建一个输入的界面，然后把主界面作为菜单吗？还是直接在主界面提示东西
 
@@ -178,10 +213,14 @@ def menuGUI():
     dateEntry = BasicEntry(main_MenuFrame)
     dateEntry.pack(side="top", fill="x", expand=True, padx=0, pady=(12, 0))
     
-    menuPrompt = tk.Label(main_MenuFrame,text = "welcome, click button to start")
-    menuPrompt.pack() 
-    demoPrompt = tk.Label(main_MenuFrame,text = "this is demonstration page")
-    demoPrompt.pack() 
+    menuLabel = BasicLabel(main_MenuFrame,text = "welcome, click button to start")
+    menuLabel.pack() 
+    demoLabel = BasicLabel(main_MenuFrame,text = "this is demonstration page")
+    demoLabel.pack() 
+    
+    global infoMenuLabel #错误信息
+    infoMenuLabel = BasicLabel(bottom_MenuFrame,text = "error will show in here")
+    infoMenuLabel.pack()
     
     # ------ 展示界面 ------
     demonText = BasicText(main_DemoFrame)
@@ -195,10 +234,14 @@ def menuGUI():
     demonEntryCate.pack(side="top", fill="x", expand=True, padx=0, pady=(12, 0))
     demonEntryCate.setEntry("enter Category to change in this box")
     
+    global infoDemoLabel #错误信息
+    infoDemoLabel = tk.Label(bottom_DemoFrame,text = "error will show in here")
+    infoDemoLabel.pack()
+    
     #  ---------- 按钮 ----------
     #  ------ 主界面 ------
     #功能性按钮
-    inputButton = LeftToolButton(left_MenuFrame, text = "input", command = lambda: promptInputGUI(menuPrompt,menuText,dateEntry))
+    inputButton = LeftToolButton(left_MenuFrame, text = "input", command = lambda: promptInput_FUNC(menuLabel,menuText))
     inputButton.pack()
     
     quitButton = LeftToolButton(left_MenuFrame, text = "quit", command = lambda: root.destroy())
@@ -239,4 +282,7 @@ def basicFrameElasity(frame):
     #底部栏位的弹性    
     frame.grid_columnconfigure(0, weight=1)
     frame.grid_columnconfigure(1, weight=3)
+    
+    #最底部
+    frame.grid_rowconfigure(3, weight=0)
       

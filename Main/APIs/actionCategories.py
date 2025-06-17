@@ -19,21 +19,6 @@ class actionCategory(Enum):
     WASTE = "waste"
     UNKNOWN = "unknown"
 
-#  ---------- 函数 ----------
-def assignActionCateAPI(actionName,cateName):
-    try:
-        actions = getData_API("action_integration.json") #get the data needed
-        cateName = actionCategory(cateName.lower())
-        actions[actionName]["action_type"] = cateName.value #Assign the category    
-        saveData_API(actions,"action_integration.json") #覆盖原本的数据
-        return True
-    except Exception as e:
-        return False
-    
-#TODO:行动presence check
-def actionPresenceCheck(actionName):
-    print("action Presence need to be completed in the future...")
-
 #  ------ 输出 ------
 # 输出Enum的value
 def getEnumValue_API(enumClass):

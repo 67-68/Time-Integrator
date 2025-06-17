@@ -1,10 +1,28 @@
 import tkinter as tk
 
-from CLI import completeActions, demonstration
-from APIs.parseInput import parseLineInput_API
+from APIs.parseInput import parseLineInput_API, getNewActionRegister
 from APIs.validations import dateValidation_API,isValidTimePeriod_API, isValidTimeStr_API,structureValidation_API
 from APIs.json_Interaction import getData_API, saveData_API
-from APIs.actionCategories import actionCategory, assignActionCateAPI, getActionDataStr_API, getCateTime_FUNC, getEnumValueDict_API
+from APIs.actionCategories import actionCategory, getActionDataStr_API, getCateTime_FUNC, getEnumValueDict_API
+
+"""
+首先，我现在需要考虑展示数据的内容
+我觉得应该先从数据本位出发，考虑需要展示什么
+我的数据本位是
+date{
+    actions{
+        action
+        timespan
+        actiontype
+        start
+        end
+        detail
+        
+    }
+}
+对于我的三个新功能，我需要把他们分为数据处理/展示两个层级
+"""
+
 """  ------ GLOBAL VARIABLES ----- """
 infoMenuLabel = None
 infoDemoLabel = None
@@ -128,8 +146,6 @@ def showError(errorText):
     infoMenuLabel.config(text = errorText)
     #未来可以修改为调用字典对象，目前先手动修改label
     
-
-"""  ---------- SPECIFIC FUNCTIONS ---------- """
 #UNIVERSAL; INPUT tk label and tk text;OUTPUT data from user
 def getInput_API(prompt,text):
     prompt.config(text = "paste the data in the biggest text") #提示信息
@@ -170,8 +186,43 @@ def validateData_API(userData):
             if actionInfo["action_type"].lower() not in enumVal:
                 return("wrong in action type")
     return True
-                
-                
+
+#UNIVERSAL; INPUT userData; OUTPUT string as the demonstration of simple data
+def getSimpleDataStr_API(userData):
+    sum = ""
+    data = ""
+    totalTime = 0
+    totalAction = 0
+    for date in userData:
+        data += f"In {date}, \n"
+        for actions in userData[date]:
+            #赋值
+            action = actions["action"]
+            start = actions["start"]
+            end = actions["end"]
+            timeSpan = actions["timeSpan"]
+            detail = actions["actionDetail"]
+            type = actions["action_type"].upper()
+            
+            #计算总结需要的数据
+            totalTime += timeSpan
+            totalAction += 1
+            
+            #输出
+            data += f"you do {type}:{action} in {start} - {end}, total {timeSpan} minutes ({detail}) \n"
+    sum = f"SUMMARY: {totalAction} actions and {totalTime} minutes in your data \n"
+    return sum + data
+
+
+"""  ---------- SPECIFIC FUNCTIONS ---------- """
+#SPECIFIC; INPUT json dataLoc,text; OUTPUT simple time data 
+def showSimpleData(dataLoc,text):
+    userData = getData_API(dataLoc)
+    data = getSimpleDataStr_API(userData)
+    text.setText(text = data)
+    print("successfully show data") #这一行在换端的时候可以去掉
+    
+
 #SPECIFIC; INPUT text, label; STORE data in data.json
 def promptInput_FUNC(menuPrompt,menuText):
     #  ------ 获取数据 ------
@@ -187,32 +238,14 @@ def promptInput_FUNC(menuPrompt,menuText):
         showError(indicatorValidation)
     if dataValidation != True:
         showError(dataValidation)
-        
-    #  ------ 最终赋值 ------
-    saveData_API(userData,"data.json") #存入文件
-
-
-#新建一个活动为大分类的字典，遍历整个字典，整理活动
-def demonstration():
-    #获取基本的数据
-    data = getData_API("data.json")
     
-    #新建需要的变量
-    actions = {}
-    totalTime = 0
+    #  ------ 存储进actionData ------
+    actionData = getData_API("actionData.json")
+    actionData = getNewActionRegister(userData,actionData)
+    saveData_API(actionData,"actionData.json")
     
-    #输出模块
-    for date in data: #输出每一天
-        for action_dict in data[date]: #遍历每一天的每个字典,输出类似a{"A":1,"B":2}
-            action_str = action_dict["action"] #这里的action_dict是每个行动的集合
-            #但是按理来说，这里为什么可以遍历每个行动呢？明明action_dict按理来说只会被遍历到一次啊？那么action_str也只应该有一个值？
-            if action_str not in actions:
-                actions[action_str] = 0 #暂时先把它当作总时长，不管细节
-            actions[action_str] += action_dict["timeSpan"]
-            totalTime += action_dict["timeSpan"]
-    
-    for action_str in actions:
-        print(f"action:{action_str} timeSpan:{actions[action_str]} {(actions[action_str]/totalTime)*100}% of total time")
+    #  ------ 存入文件 ------
+    saveData_API(userData,"data.json") 
 
 
 def menuGUI():
@@ -304,10 +337,8 @@ def menuGUI():
         menuSwitchButton.pack()
     
     #  ------ 展示界面 ------ 
-    showTimeDistButton = LeftToolButton(left_DemoFrame,text = "show time data",command = demonstration)
-    showTimeDistButton.pack()
-    countActionButton = LeftToolButton(left_DemoFrame,text = "count actions",command = lambda: completeActions(getData_API("data.json")) )
-    countActionButton.pack()
+    showSimDataButton = LeftToolButton(left_DemoFrame,text = "show simple data",command = lambda: showSimpleData("data.json",demonText))
+    showSimDataButton.pack()
     showActionButton = LeftToolButton(left_DemoFrame,text = "show action data",command = lambda: demonText.setText(getActionDataStr_API()))
     showActionButton.pack()
     assignActionButton = LeftToolButton(left_DemoFrame,text = "assignment",command = lambda: assignActionCateAPI(demonEntryAction.get(),demonEntryCate.get()))

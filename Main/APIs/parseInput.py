@@ -1,32 +1,5 @@
 from APIs.json_Interaction import saveData_API, getData_API
 
-def inputFormatChange(userData):
-    index = 0
-    temp = userData
-    while index<len(userData):
-        try:
-            if len(temp[index+1]) == 2 and index % 2 != 0 :
-                temp[index+1] = temp[index-1].split(":")[1] + ":" + temp[index+1]
-                index += 1
-        except Exception as e:
-            print("there's something wrong in the input...please check it!")
-            return -1
-    return temp
-            
-
-def timeCompare(beforeHour,beforeMinute,afterHour,afterMinutes):
-    return (afterHour*60 + afterMinutes) - (beforeHour*60 + beforeMinute)
-
-def inputTimespan(actions):
-        for i in range(len(actions)):
-            temp = actions[i]
-            pre_h = int(temp["start"][0:2])
-            pre_m = int(temp["start"][3:])
-            post_h = int(temp["end"][0:2])
-            post_m = int(temp["end"][3:])
-            timespan = timeCompare(pre_h,pre_m,post_h,post_m)
-            actions[i]["timespan"] = timespan
-
 #行动补全函数：提取数据，查找和加入没有在里面的行动        
 def completeActions(data):
     a = getData_API("action_integration.json")
@@ -39,7 +12,7 @@ def completeActions(data):
                 a[action_str] = {
                     "totalTime" : 0,
                     "eachTimePeriod" : [],
-                    "exploitation_type" : "unknown"
+                    "action_type" : "unknown"
                 }
     saveData_API(a,"action_integration.json")
 
@@ -74,19 +47,23 @@ def parseLineInput_API(userData,data,lineIndicator,firstIndicator,secondIndicato
         action = actionData[1]
         actionDetail = actionData[2]
         
+        #计算timeSpan
+        timeSpan = getTimeSpan_API(start,end)
+        
         #重新赋值
         newData.append({
             "start": start,
             "end":end,
             "action":action,
-            "exploitation_type":actionType.lower(),
-            "actionDetail":actionDetail
+            "action_type":actionType.lower(), #注意！！这里统一把exploitation_type修改为了action_type
+            "actionDetail":actionDetail,
+            "timeSpan": timeSpan #注意！！这里统一把timeSpan修改为了timeSpan
         })
         
     data[date] = newData
     return data
 
-#UNIVERSAL; INPUT: str time; OUTPUT; total minutes
+#UNIVERSAL; INPUT: str time; OUTPUT: int total time
 def getTotalTime_API(time):
     total = 0
     time = time.split(":")
@@ -94,3 +71,11 @@ def getTotalTime_API(time):
     time[1] = int(time[1])
     total += time[0]*60 + time[1]
     return total
+
+#UNIVERSAL; INPUT: str start,str end; OUTPUT int timeSpan
+def getTimeSpan_API(start,end):
+    timeSpan = getTimeSpan_API(end) - getTotalTime_API(start)
+    return timeSpan
+
+"""  ---------- 将来功能 ---------- """
+#def getTimeSpan_WithRest_API

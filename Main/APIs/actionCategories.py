@@ -24,7 +24,7 @@ def assignActionCateAPI(actionName,cateName):
     try:
         actions = getData_API("action_integration.json") #get the data needed
         cateName = actionCategory(cateName.lower())
-        actions[actionName]["exploitation_type"] = cateName.value #Assign the category    
+        actions[actionName]["action_type"] = cateName.value #Assign the category    
         saveData_API(actions,"action_integration.json") #覆盖原本的数据
         return True
     except Exception as e:
@@ -45,7 +45,7 @@ def getEnumValue_API(enumClass):
 def getEnumValueDict_API(enumClass):
     temp = {}
     for item in enumClass:
-        temp[item.value] = {"timespan":0}
+        temp[item.value] = {"timeSpan":0}
     return temp
 
 #把action及其属性输出为字符串
@@ -57,7 +57,7 @@ def getActionDataStr_API():
         temp += "\n"
     actiondict = getData_API("action_integration.json") #这个时候它应该是一个大字典{行动{行动细节}}
     for action in actiondict:
-        temp += f"{action}:{actiondict[action]['exploitation_type']}\n"
+        temp += f"{action}:{actiondict[action]['action_type']}\n"
     print("successfully make String data")
     return temp
 
@@ -74,30 +74,29 @@ def getActionDataStr_API():
 def getCateFromAction_API(action):
     data = getData_API("action_integration.json")
     try:
-        category = data[action]["exploitation_type"]
+        category = data[action]["action_type"]
         return category
     except Exception as e:
         print ("error in get action type")
         return "unknown"
 
-#UNIVERSAL; INPUT: dict data,dict actionCate; OUTPUT timespan for each Cate
-
+#UNIVERSAL; INPUT: dict data,dict actionCate; OUTPUT timeSpan for each Cate
 def getCateTimeFromAct_API(data,cateDict): 
     for date in data:
         for action in data[date]: #这里已经进入了每一段这样的东西 {action =, time =}
             #这个时候，actionCate会是这样 work{time:},waste{time:},...
-            timeSpan = action["timespan"] #获取时间
+            timeSpan = action["timeSpan"] #获取时间
             actionCate = getCateFromAction_API(action["action"]) #获取行动类别
-            cateDict[actionCate]["timespan"] += timeSpan #找到行动类别的时间属性，加上去
+            cateDict[actionCate]["timeSpan"] += timeSpan #找到行动类别的时间属性，加上去
 
 #UNIVERSAL; INPUT cateDict; OUTPUT str
 def getStrCateTime_FUNC(cateDict):
     temp = ""
     totalTime = 0
     for item in cateDict:
-        totalTime += cateDict[item]["timespan"]
+        totalTime += cateDict[item]["timeSpan"]
     for item in cateDict:
-        time = cateDict[item]["timespan"]
+        time = cateDict[item]["timeSpan"]
         if totalTime != 0:
             temp += f"{item}:{time}, take {time/totalTime*100} account of total time \n"
         else:

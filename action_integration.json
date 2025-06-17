@@ -2,16 +2,16 @@
     "写作业": {
         "totalTime": 0,
         "eachTimePeriod": [],
-        "exploitation_type": "unknown"
+        "action_type": "unknown"
     },
     "做事": {
         "totalTime": 0,
         "eachTimePeriod": [],
-        "exploitation_type": "unknown"
+        "action_type": "unknown"
     },
     "休息": {
         "totalTime": 0,
         "eachTimePeriod": [],
-        "exploitation_type": "unknown"
+        "action_type": "unknown"
     }
 }

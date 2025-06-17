@@ -130,49 +130,90 @@ def showError(errorText):
     
 
 """  ---------- SPECIFIC FUNCTIONS ---------- """
-#SPECIFIC; INPUT text, label; STORE data in data.json
-#这个specific其实写得也不是很好，还需传入menuPrompt
-#注意parseLineInput函数，出问题就找它
-def promptInput_FUNC(menuPrompt,menuText):
-    #  ------ 初始化需要的变量 ------
-    menuPrompt.config(text = "paste the data in the biggest text") #提示信息
-    userData = menuText.get('1.0','end-1c') #获取内容
-    save = True
-    
-    #  ------ 处理数据 ------
+#UNIVERSAL; INPUT tk label and tk text;OUTPUT data from user
+def getInput_API(prompt,text):
+    prompt.config(text = "paste the data in the biggest text") #提示信息
+    orgingalData = text.get('1.0','end-1c') #获取内容
+    return orgingalData #这里需要注意，原本的userData不好区分，原始数据一律改成original data
+
+
+#UNIVERSAL; INPUT str userdata; OUTPUT dict userdata
+def parseInput_API(orgingalData):
     data = getData_API("data.json") #获取文件
-    data = parseLineInput_API(userData,data,lineIndicator,firstIndicator,secondIndicator) #处理输入
-    
-    #  ------ validation ------
-    #检查格式
-    lines = userData.split('\n')
+    userData = parseLineInput_API(orgingalData,data,lineIndicator,firstIndicator,secondIndicator) #处理输入
+    return userData
+
+
+#UNIVERSAL; input str originval data; VALIDATE+OUTPUT indicators
+def validateIndicator_API(orgingalData):
+    #检查每一行的indicator
+    lines = orgingalData.split('\n')
     del lines[0]
     for item in lines:
         if structureValidation_API(item, firstIndicator, secondIndicator, firstCount, secondCount) == False: 
-            showError("there's something wrong in the structure of the data! please check")
-            save = False
+            return("there's something wrong in the structure of the data! please check")
+    return True
     
+    
+#UNIVERSAL; INPUT indicator(maybe user setting list in the future) and dict data; Validate/OUTPUT error message 
+def validateData_API(userData):
+    enumVal = getEnumValueDict_API(actionCategory)
     #检查时间
-    for date in data:
+    for date in userData:
         if dateValidation_API(date) == False:
-            showError("wrong in date")
-            save = False
-        for actionInfo in data[date]:
+            return("wrong in date")
+        for actionInfo in userData[date]:
             if isValidTimePeriod_API(actionInfo["start"],actionInfo["end"]) == False:
-                showError("wrong in time period")
-                save = False
+                return("wrong in time period")
             if isValidTimeStr_API(actionInfo["start"]) == False or isValidTimeStr_API(actionInfo["end"]) == False:
-                showError("wrong in time")
-                save = False
-            enumVal = getEnumValueDict_API(actionCategory)
-            if actionInfo["exploitation_type"].lower() not in enumVal:
-                showError("wrong in action type")
-                save = False
+                return("wrong in time")
+            if actionInfo["action_type"].lower() not in enumVal:
+                return("wrong in action type")
+    return True
+                
+                
+#SPECIFIC; INPUT text, label; STORE data in data.json
+def promptInput_FUNC(menuPrompt,menuText):
+    #  ------ 获取数据 ------
+    originalData = getInput_API(menuPrompt,menuText)
+    
+    #  ------ 处理数据 ------ 
+    userData = parseInput_API(originalData)
+    
+    #  ------ validation ------
+    indicatorValidation = validateIndicator_API(originalData)
+    dataValidation = validateData_API(userData)
+    if indicatorValidation != True:
+        showError(indicatorValidation)
+    if dataValidation != True:
+        showError(dataValidation)
+        
     #  ------ 最终赋值 ------
-    if save == True:
-        saveData_API(data,"data.json") #存入文件
+    saveData_API(userData,"data.json") #存入文件
 
-#这里删除了promptInput函数
+
+#新建一个活动为大分类的字典，遍历整个字典，整理活动
+def demonstration():
+    #获取基本的数据
+    data = getData_API("data.json")
+    
+    #新建需要的变量
+    actions = {}
+    totalTime = 0
+    
+    #输出模块
+    for date in data: #输出每一天
+        for action_dict in data[date]: #遍历每一天的每个字典,输出类似a{"A":1,"B":2}
+            action_str = action_dict["action"] #这里的action_dict是每个行动的集合
+            #但是按理来说，这里为什么可以遍历每个行动呢？明明action_dict按理来说只会被遍历到一次啊？那么action_str也只应该有一个值？
+            if action_str not in actions:
+                actions[action_str] = 0 #暂时先把它当作总时长，不管细节
+            actions[action_str] += action_dict["timeSpan"]
+            totalTime += action_dict["timeSpan"]
+    
+    for action_str in actions:
+        print(f"action:{action_str} timeSpan:{actions[action_str]} {(actions[action_str]/totalTime)*100}% of total time")
+
 
 def menuGUI():
     #  ---------- 窗口和页面 ----------

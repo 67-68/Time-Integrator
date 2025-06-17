@@ -4,7 +4,7 @@
             "start": "11:10",
             "end": "11:20",
             "action": "看书",
-            "exploitation_type": "work",
+            "action_type": "work",
             "actionDetail": "after virtue 第三章"
         }
     ]

@@ -1,22 +1,92 @@
 {
-    "2025-05-10": [
+    "2025-06-18": [
         {
-            "start": "11:10",
-            "end": "11:20",
-            "action": "看书",
+            "start": "13:36",
+            "end": "14:35",
+            "action": "CODE",
             "action_type": "work",
-            "actionDetail": "after virtue 第三章",
-            "timeSpan": 10
-        }
-    ],
-    "2025-05-11": [
+            "actionDetail": "(`timespan`，拆分 `promptInput`, `timespan` > `timeSpan`, `exploitation_type` > `action_type`)",
+            "timeSpan": 59
+        },
         {
-            "start": "11:10",
-            "end": "11:20",
-            "action": "看书",
+            "start": "14:35",
+            "end": "15:12",
+            "action": "休息",
+            "action_type": "waste",
+            "actionDetail": "玩游戏，看社交媒体，打 x",
+            "timeSpan": 37
+        },
+        {
+            "start": "15:12",
+            "end": "15:25",
+            "action": "CODE",
             "action_type": "work",
-            "actionDetail": "after virtue 第三章",
-            "timeSpan": 10
+            "actionDetail": "我干了什么来着",
+            "timeSpan": 13
+        },
+        {
+            "start": "15:25",
+            "end": "15:32",
+            "action": "睡觉",
+            "action_type": "rest",
+            "actionDetail": "爽",
+            "timeSpan": 7
+        },
+        {
+            "start": "15:32",
+            "end": "16:19",
+            "action": "CODE",
+            "action_type": "work",
+            "actionDetail": "完成了 `showSimpleAction`",
+            "timeSpan": 47
+        },
+        {
+            "start": "16:19",
+            "end": "16:31",
+            "action": "休息",
+            "action_type": "rest",
+            "actionDetail": "玩了两把 hyld",
+            "timeSpan": 12
+        },
+        {
+            "start": "16:31",
+            "end": "17:03",
+            "action": "CODE",
+            "action_type": "work",
+            "actionDetail": "写了一个 `registNewActions`",
+            "timeSpan": 32
+        },
+        {
+            "start": "17:03",
+            "end": "18:21",
+            "action": "吃饭",
+            "action_type": "rest",
+            "actionDetail": "空",
+            "timeSpan": 78
+        },
+        {
+            "start": "18:21",
+            "end": "19:25",
+            "action": "CODE",
+            "action_type": "work",
+            "actionDetail": "空",
+            "timeSpan": 64
+        },
+        {
+            "start": "19:25",
+            "end": "19:54",
+            "action": "休息",
+            "action_type": "rest",
+            "actionDetail": "空",
+            "timeSpan": 29
+        },
+        {
+            "start": "19:54",
+            "end": "20:57",
+            "action": "CODE",
+            "action_type": "work",
+            "actionDetail": "空",
+            "timeSpan": 63
         }
     ]
 }

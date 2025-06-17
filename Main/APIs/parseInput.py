@@ -7,7 +7,7 @@ from APIs.json_Interaction import saveData_API, getData_API
 """
 
 #UNIVERSAL; INPUT data; OUTPUT dict data registrations
-def getNewActionRegister(data,actionData):
+def getActionRegister(data,actionData):
     for date in data: #输出每一天
         for action_dict in data[date]: #遍历每一天的每个字典,输出类似a{"A":1,"B":2}
             action_str = action_dict["action"]

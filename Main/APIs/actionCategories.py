@@ -54,24 +54,14 @@ def getActionDataStr_API():
 - 最后，制作 GUI 控件，输出它
 """
 
-#  ------ 查找 ------
-#UNIVERSAL; INPUT str action; OUTPUT str actionCategory
-def getCateFromAction_API(action):
-    data = getData_API("action_integration.json")
-    try:
-        category = data[action]["action_type"]
-        return category
-    except Exception as e:
-        print ("error in get action type")
-        return "unknown"
-
+#  ------ 查找 ------ 
 #UNIVERSAL; INPUT: dict data,dict actionCate; OUTPUT timeSpan for each Cate
 def getCateTimeFromAct_API(data,cateDict): 
     for date in data:
         for action in data[date]: #这里已经进入了每一段这样的东西 {action =, time =}
             #这个时候，actionCate会是这样 work{time:},waste{time:},...
             timeSpan = action["timeSpan"] #获取时间
-            actionCate = getCateFromAction_API(action["action"]) #获取行动类别
+            actionCate = getTypeFromAction_API(action["action"]) #获取行动类别
             cateDict[actionCate]["timeSpan"] += timeSpan #找到行动类别的时间属性，加上去
 
 #UNIVERSAL; INPUT cateDict; OUTPUT str
@@ -96,7 +86,11 @@ def getCateTime_FUNC():
     temp = getStrCateTime_FUNC(cateDict) #把它整理为字符串
     return temp
 
-
+#UNIVERSAL; INPUT enumName,dict; OUTPUT dict with enum name as key
+def fillDictEnum_API(dict,enum):
+    enum = getEnumValue_API(enum)
+    for element in enum:
+        dict[element] = None
     
     
         

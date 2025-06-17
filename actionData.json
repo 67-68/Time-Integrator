@@ -7,5 +7,41 @@
             "total": 0
         },
         "eachTimePeriod": {}
+    },
+    "CODE": {
+        "timeSpan": {
+            "total": 0
+        },
+        "actionCount": {
+            "total": 0
+        },
+        "eachTimePeriod": {}
+    },
+    "休息": {
+        "timeSpan": {
+            "total": 0
+        },
+        "actionCount": {
+            "total": 0
+        },
+        "eachTimePeriod": {}
+    },
+    "睡觉": {
+        "timeSpan": {
+            "total": 0
+        },
+        "actionCount": {
+            "total": 0
+        },
+        "eachTimePeriod": {}
+    },
+    "吃饭": {
+        "timeSpan": {
+            "total": 0
+        },
+        "actionCount": {
+            "total": 0
+        },
+        "eachTimePeriod": {}
     }
 }

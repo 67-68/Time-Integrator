@@ -10,3 +10,18 @@
 活动阶段性转移，最开始是xx，后面逐渐转移到xx，类似的还有每个月这个活动多少利用率
 
 加上休息时段
+
+更加规范的标准化每一份时间
+
+- 把函数getActionTypeStats改写成为不仅仅返回总的数据，还返回详细的统计（但是以action type）为本位
+
+本位：
+action type
+action
+normal data(date/actions/each data)
+
+有条件的话，把#date-centric data -> action-type-centric statistics的转换，改成data -> data, 也就是
+“
+每个 key 下返回一整个 dict
+顶层再加个 "all" 字段表示总体统计
+”

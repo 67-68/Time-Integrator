@@ -46,24 +46,7 @@ def getActionDataStr_API():
     print("successfully make String data")
     return temp
 
-"""
-- 首先，我需要一个输出类型的函数
-- 然后，我需要一个可以从行动获取类型的函数
-- 之后,我需要遍历data
-	- 在这个过程中，把时间加入行动
-- 最后，制作 GUI 控件，输出它
-"""
-
 #  ------ 查找 ------ 
-#UNIVERSAL; INPUT: dict data,dict actionCate; OUTPUT timeSpan for each Cate
-def getCateTimeFromAct_API(data,cateDict): 
-    for date in data:
-        for action in data[date]: #这里已经进入了每一段这样的东西 {action =, time =}
-            #这个时候，actionCate会是这样 work{time:},waste{time:},...
-            timeSpan = action["timeSpan"] #获取时间
-            actionCate = getTypeFromAction_API(action["action"]) #获取行动类别
-            cateDict[actionCate]["timeSpan"] += timeSpan #找到行动类别的时间属性，加上去
-
 #UNIVERSAL; INPUT cateDict; OUTPUT str
 def getStrCateTime_FUNC(cateDict):
     temp = ""
@@ -76,14 +59,6 @@ def getStrCateTime_FUNC(cateDict):
             temp += f"{item}:{time}, take {time/totalTime*100} account of total time \n"
         else:
             temp += f"{item}:{time}, take N/a account of total time \n"
-    return temp
-    
-#SPECIFIC/INTEGRATION; output str of data, abou the time distribution in each type of action
-def getCateTime_FUNC():
-    cateDict = getEnumValueDict_API(actionCategory) #获取类型字典
-    data = getData_API("data.json") #获取原始数据
-    getCateTimeFromAct_API(data,cateDict) #获取每个行动的时间数据
-    temp = getStrCateTime_FUNC(cateDict) #把它整理为字符串
     return temp
 
 #UNIVERSAL; INPUT enumName,dict; OUTPUT dict with enum name as key

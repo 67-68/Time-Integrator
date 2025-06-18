@@ -3,7 +3,7 @@ import tkinter as tk
 from APIs.parseInput import parseLineInput_API, getActionRegister
 from APIs.validations import dateValidation_API,isValidTimePeriod_API, isValidTimeStr_API,structureValidation_API
 from APIs.json_Interaction import getData_API, saveData_API
-from APIs.actionCategories import actionCategory, getActionDataStr_API, getCateTime_FUNC, getEnumValue_API, getEnumValueDict_API
+from APIs.actionCategories import actionCategory,getEnumValue_API, getEnumValueDict_API
 
 """
 首先，我现在需要考虑展示数据的内容
@@ -219,24 +219,10 @@ def getSimpleDataStr_API(userData):
 #  ---------- 本位转换 ----------
 #UNIVERSAL; INPUT data; OUTPUT statistic about action type
 #date-centric data -> action-type-centric statistics
-
-"""
-actionDetail{ #作为key, 存储list类型的dict(每一次行动，即date本位下的action), 如果需要获取count就遍历，也可以查找在不在
-    "total":{
-        time
-        ...
-    }
-} 
-ratio #占总时长的ratio
-maxTime 
-minTime 
-averageTime
-用户自定义（先不管）
-"""
-
 def getActionTypeStats(data):
     # 获取所有类别
     enum = getEnumValue_API(actionCategory)
+    
     # 初始化
     types = {}
     for cate in enum:
@@ -284,7 +270,67 @@ def getActionTypeStats(data):
             t["ratio"] = t["totalTime"] / totalForAll if totalForAll else 0
 
     return types
-            
+
+"""
+types {
+    type {   t
+    "actionDetail": {
+        "action":[
+            {
+                "timeSpan"
+                "start"
+                "end"
+                "actionName"
+                "actionType"
+            },
+        ]
+
+    },
+    "totalTime": 0,
+    "count": 0,
+    "maxTime": None,
+    "minTime": None,
+    "averageTime": 0,
+    "ratio": 0
+    }
+}
+
+
+
+"""
+
+#UNIVERSAL; INPUT stats; OUTPUT str average time,total time and action count
+def getAverageTime(stats,enumName):
+    typeList = getEnumValue_API(enumName)
+    output = ""
+    
+    for type in typeList:
+        t = stats[type]
+        total = t["totalTime"]
+        output += f'{type} [average: {t["averageTime"]} total {total}, count {t["count"]} \n'
+    
+    return output
+        
+#UNIVERSAL; INPUT stats,enum class; OUTPUT switchTime of actions
+def getSwitchFrequency(stats,enumName):
+    typeList = getEnumValue_API(enumName)
+    output = ""
+    
+    for type in typeList:
+        t = stats[type]
+        total = t["totalTime"]
+        totalHour = total / 60
+        switchTime = t["count"] - 1
+        switchFrequency = "no Switch"
+        minutePerSwitch = "N/a"
+        
+        if totalHour > 0:
+            switchFrequency = switchTime / totalHour
+        if switchTime > 0:
+            minutePerSwitch = total / switchTime
+        output += f'{type}, {switchFrequency} per hour, {minutePerSwitch} per switch \n'
+    
+    return output
 
 #UNIVERSAL; INPUT dict, list; OUTPUT dict filled by list 
 def fillDictWithList(dict,list):
@@ -292,8 +338,17 @@ def fillDictWithList(dict,list):
         dict[element] = None
     return dict
 
+def setAverageTime(dataLoc,enumName,text):
+    stats = getActionTypeStats(getData_API(dataLoc))
+    stats = getAverageTime(stats,enumName)
+    text.setText(stats)
+    
+def setSwitchFrequency(dataLoc,enumName,text):
+    stats = getActionTypeStats(getData_API(dataLoc))
+    stats = getSwitchFrequency(stats,enumName)
+    text.setText(stats)
 
-"""  ---------- SPECIFIC FUNCTIONS ---------- """
+"""  ---------- SPECIFIC FUNCTIONS ---------- """    
 #SPECIFIC; INPUT json dataLoc,text; OUTPUT simple time data 
 def showSimpleData(dataLoc,text):
     userData = getData_API(dataLoc)
@@ -418,10 +473,10 @@ def menuGUI():
     #  ------ 展示界面 ------ 
     showSimDataButton = LeftToolButton(left_DemoFrame,text = "show simple data",command = lambda: showSimpleData("data.json",demonText))
     showSimDataButton.pack()
-    showActionButton = LeftToolButton(left_DemoFrame,text = "show action data",command = lambda: demonText.setText(getActionDataStr_API()))
-    showActionButton.pack()
-    showCateTimeButton = LeftToolButton(left_DemoFrame,text = "show category time",command = lambda: demonText.setText(getCateTime_FUNC()))
-    showCateTimeButton.pack()
+    showFrequencyButton = LeftToolButton(left_DemoFrame,text = "show action frequency",command = lambda: setSwitchFrequency("data.json",actionCategory,demonText))
+    showFrequencyButton.pack()
+    showAverTimeButton = LeftToolButton(left_DemoFrame,text = "show average time",command = lambda: setAverageTime("data.json",actionCategory,demonText))
+    showAverTimeButton.pack()
     
     #  ---------- 事件循环开始 ----------
     root.mainloop()

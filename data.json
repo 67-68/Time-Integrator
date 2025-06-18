@@ -1,5 +1,5 @@
 {
-    "2025-06-18": [
+    "2025-06-17": [
         {
             "start": "13:36",
             "end": "14:35",
@@ -87,6 +87,88 @@
             "action_type": "work",
             "actionDetail": "空",
             "timeSpan": 63
+        }
+    ],
+    "2025-06-18": [
+        {
+            "start": "10:54",
+            "end": "11:11",
+            "action": "CODE",
+            "action_type": "work",
+            "actionDetail": "和 GPT 研讨未来方向",
+            "timeSpan": 17
+        },
+        {
+            "start": "11:11",
+            "end": "11:34",
+            "action": "吃饭",
+            "action_type": "rest",
+            "actionDetail": "肠粉+看微信",
+            "timeSpan": 23
+        },
+        {
+            "start": "11:34",
+            "end": "12:41",
+            "action": "CODE",
+            "action_type": "work",
+            "actionDetail": "开始写之前那个统计",
+            "timeSpan": 67
+        },
+        {
+            "start": "14:26",
+            "end": "14:29",
+            "action": "INFO",
+            "action_type": "work",
+            "actionDetail": "看一下办 D 签的要求",
+            "timeSpan": 3
+        },
+        {
+            "start": "14:29",
+            "end": "14:37",
+            "action": "开始办 D 签证",
+            "action_type": "work",
+            "actionDetail": "空",
+            "timeSpan": 8
+        },
+        {
+            "start": "14:37",
+            "end": "14:39",
+            "action": "杂",
+            "action_type": "work",
+            "actionDetail": "搞一下咖啡",
+            "timeSpan": 2
+        },
+        {
+            "start": "14:39",
+            "end": "14:54",
+            "action": "INFO",
+            "action_type": "work",
+            "actionDetail": "不知道 d 签证怎么接着搞",
+            "timeSpan": 15
+        },
+        {
+            "start": "14:54",
+            "end": "15:19",
+            "action": "睡觉",
+            "action_type": "rest",
+            "actionDetail": "睡觉+如厕",
+            "timeSpan": 25
+        },
+        {
+            "start": "15:19",
+            "end": "15:39",
+            "action": "CODE",
+            "action_type": "work",
+            "actionDetail": "添加了注释，修改了按钮显示（归类于本位），但实际没有写新的东西，效率不是很高",
+            "timeSpan": 20
+        },
+        {
+            "start": "15:39",
+            "end": "15:53",
+            "action": "躺在床上",
+            "action_type": "rest",
+            "actionDetail": "字面意思",
+            "timeSpan": 14
         }
     ]
 }

@@ -1,2 +1,56 @@
 --------- DICT AND LIST ----------
 在开始写代码之前，画一张结构图
+
+--------- 本位示意图 ---------
+TYPE - centric
+"""
+types {
+    type {   t
+    "actionDetail": {
+        "action":[
+            {
+                "timeSpan"
+                "start"
+                "end"
+                "actionName"
+                "actionType"
+            },
+        ]
+
+    },
+    "totalTime": 0,
+    "count": 0,
+    "maxTime": None,
+    "minTime": None,
+    "averageTime": 0,
+    "ratio": 0
+    }
+}
+"""
+
+ACTION - centric
+"""
+actionData{
+    "action": {
+        "totalTime"
+        "totalCount"
+        “maxTimeSpan"
+        "minTimeSpan"
+        "actionDetail": [
+            {
+                "timeSpan":
+                "start":
+                "end":
+                "action_type":
+                “action" #这条可能需要删掉？不过留着也没问题
+                "date": #注意！这个原本没有，需要转换本位的时候手动加
+            },
+            {
+                ...
+            }
+        ]
+    },
+    ...
+
+}
+"""

@@ -1,47 +1,138 @@
 {
-    "看书": {
-        "timeSpan": {
-            "total": 0
-        },
-        "actionCount": {
-            "total": 0
-        },
-        "eachTimePeriod": {}
-    },
     "CODE": {
-        "timeSpan": {
-            "total": 0
-        },
-        "actionCount": {
-            "total": 0
-        },
-        "eachTimePeriod": {}
+        "totalTime": 59,
+        "totalCount": 1,
+        "maxTimeSpan": 59,
+        "minTimeSpan": 59,
+        "actionDetail": [
+            {
+                "start": "13:36",
+                "end": "14:35",
+                "action": "CODE",
+                "action_type": "work",
+                "actionDetail": "(`timespan`，拆分 `promptInput`, `timespan` > `timeSpan`, `exploitation_type` > `action_type`)",
+                "timeSpan": 59,
+                "date": "2025-06-17"
+            }
+        ]
     },
     "休息": {
-        "timeSpan": {
-            "total": 0
-        },
-        "actionCount": {
-            "total": 0
-        },
-        "eachTimePeriod": {}
+        "totalTime": 37,
+        "totalCount": 1,
+        "maxTimeSpan": 37,
+        "minTimeSpan": 37,
+        "actionDetail": [
+            {
+                "start": "14:35",
+                "end": "15:12",
+                "action": "休息",
+                "action_type": "waste",
+                "actionDetail": "玩游戏，看社交媒体，打 x",
+                "timeSpan": 37,
+                "date": "2025-06-17"
+            }
+        ]
     },
     "睡觉": {
-        "timeSpan": {
-            "total": 0
-        },
-        "actionCount": {
-            "total": 0
-        },
-        "eachTimePeriod": {}
+        "totalTime": 7,
+        "totalCount": 1,
+        "maxTimeSpan": 7,
+        "minTimeSpan": 7,
+        "actionDetail": [
+            {
+                "start": "15:25",
+                "end": "15:32",
+                "action": "睡觉",
+                "action_type": "rest",
+                "actionDetail": "爽",
+                "timeSpan": 7,
+                "date": "2025-06-17"
+            }
+        ]
     },
     "吃饭": {
-        "timeSpan": {
-            "total": 0
-        },
-        "actionCount": {
-            "total": 0
-        },
-        "eachTimePeriod": {}
+        "totalTime": 78,
+        "totalCount": 1,
+        "maxTimeSpan": 78,
+        "minTimeSpan": 78,
+        "actionDetail": [
+            {
+                "start": "17:03",
+                "end": "18:21",
+                "action": "吃饭",
+                "action_type": "rest",
+                "actionDetail": "空",
+                "timeSpan": 78,
+                "date": "2025-06-17"
+            }
+        ]
+    },
+    "INFO": {
+        "totalTime": 3,
+        "totalCount": 1,
+        "maxTimeSpan": 3,
+        "minTimeSpan": 3,
+        "actionDetail": [
+            {
+                "start": "14:26",
+                "end": "14:29",
+                "action": "INFO",
+                "action_type": "work",
+                "actionDetail": "看一下办 D 签的要求",
+                "timeSpan": 3,
+                "date": "2025-06-18"
+            }
+        ]
+    },
+    "开始办 D 签证": {
+        "totalTime": 8,
+        "totalCount": 1,
+        "maxTimeSpan": 8,
+        "minTimeSpan": 8,
+        "actionDetail": [
+            {
+                "start": "14:29",
+                "end": "14:37",
+                "action": "开始办 D 签证",
+                "action_type": "work",
+                "actionDetail": "空",
+                "timeSpan": 8,
+                "date": "2025-06-18"
+            }
+        ]
+    },
+    "杂": {
+        "totalTime": 2,
+        "totalCount": 1,
+        "maxTimeSpan": 2,
+        "minTimeSpan": 2,
+        "actionDetail": [
+            {
+                "start": "14:37",
+                "end": "14:39",
+                "action": "杂",
+                "action_type": "work",
+                "actionDetail": "搞一下咖啡",
+                "timeSpan": 2,
+                "date": "2025-06-18"
+            }
+        ]
+    },
+    "躺在床上": {
+        "totalTime": 14,
+        "totalCount": 1,
+        "maxTimeSpan": 14,
+        "minTimeSpan": 14,
+        "actionDetail": [
+            {
+                "start": "15:39",
+                "end": "15:53",
+                "action": "躺在床上",
+                "action_type": "rest",
+                "actionDetail": "字面意思",
+                "timeSpan": 14,
+                "date": "2025-06-18"
+            }
+        ]
     }
 }

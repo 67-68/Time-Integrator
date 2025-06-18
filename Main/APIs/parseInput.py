@@ -6,25 +6,39 @@ from APIs.json_Interaction import saveData_API, getData_API
 11:10 - 11:20 - WORK-看书-after virtue 第三章
 """
 
-#UNIVERSAL; INPUT data; OUTPUT dict data registrations
-def getActionRegister(data,actionData):
+#在这里，我想达到的效果是“输入一份数据，自动加到第二份数据中
+#UNIVERSAL; INPUT DATE-CEN data, ACTION-CEN actionData; OUTPUT dict ACTION-CEN data
+def dateToActionCentric_API(data,actionData):
+    #  ------ 遍历DATE-CEN数据 ------
     for date in data: #输出每一天
-        for action_dict in data[date]: #遍历每一天的每个字典,输出类似a{"A":1,"B":2}
-            action_str = action_dict["action"]
-            if action_str not in actionData:
-                actionData[action_str] = {
-                    "timeSpan" : {
-                        "total": 0
-                        #然后下面是每个enum的time
-                    },
-                    "actionCount": {
-                        "total": 0 
-                        #然后下面是每个enum的count    
-                    },
-                    "eachTimePeriod" : {
-                        #放每天的日期{实际时间段}    
-                    },
+        for action in data[date]: #获取每个行动单元
+            
+            #  ------ 获取需要的值 ------
+            a = action["action"] #行动名字
+            timeSpan = action["timeSpan"]
+            
+            #  ------ 判断+初始化 ------
+            if a not in actionData:
+                action["date"] = date #赋值
+                
+                actionData[a] = {
+                    "totalTime": timeSpan,
+                    "totalCount": 1,
+                    "maxTimeSpan": timeSpan,
+                    "minTimeSpan": timeSpan,
+                    "actionDetail": []
                 }
+                
+            #  ------ 添加进去 ------
+            else:
+                actionData[a]["totalTime"] += timeSpan
+                actionData[a]["totalCount"] += 1
+                if timeSpan > actionData[a]["maxTimeSpan"]:
+                    actionData[a]["maxTimeSpan"] = timeSpan
+                if timeSpan < actionData[a]["minTimeSpan"]:
+                    actionData[a]["minTimeSpan"] = timeSpan
+
+            actionData[a]["actionDetail"].append(action)                    
     return actionData
 
 
@@ -79,6 +93,11 @@ def getTimeSpan_API(start,end):
     timeSpan = getTotalTime_API(end) - getTotalTime_API(start)
     return timeSpan
 
+#UNIVERSAL; INPUT dict, list; OUTPUT dict filled by list 
+def fillDictWithList_API(dict,list):
+    for element in list:
+        dict[element] = None
+    return dict
 
 """  ---------- 将来功能 ---------- """
 #def getTimeSpan_WithRest_API

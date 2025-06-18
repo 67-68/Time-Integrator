@@ -54,3 +54,10 @@ actionData{
 
 }
 """
+
+临时ENUM本位
+"""
+enumDict: {
+    eachActionType: timeSpan
+}
+"""

@@ -13,7 +13,7 @@ from APIs.json_Interaction import saveData_API, getData_API
 """
 
 #  ---------- 类 ----------
-class actionCategory(Enum):
+class actionType(Enum):
     WORK = "work"
     REST = "rest"
     WASTE = "waste"
@@ -35,7 +35,7 @@ def getEnumValueDict_API(enumClass):
 
 #把action及其属性输出为字符串
 def getActionDataStr_API():
-    list = getEnumValue_API(actionCategory)
+    list = getEnumValue_API(actionType)
     temp = ""
     for i in list:
         temp += i 

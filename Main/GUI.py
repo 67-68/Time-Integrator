@@ -1,9 +1,9 @@
 import tkinter as tk
 
-from APIs.parseInput import parseLineInput_API, dateToActionCentric_API
+from APIs.parseInput import fillDictWithList_API, parseLineInput_API, dateToActionCentric_API
 from APIs.validations import dateValidation_API,isValidTimePeriod_API, isValidTimeStr_API,structureValidation_API
 from APIs.json_Interaction import getData_API, saveData_API
-from APIs.actionCategories import actionCategory,getEnumValue_API, getEnumValueDict_API
+from APIs.actionCategories import actionType,getEnumValue_API, getEnumValueDict_API
 
 """  ------ GLOBAL VARIABLES ----- """
 infoMenuLabel = None
@@ -157,7 +157,7 @@ def validateIndicator_API(orgingalData):
     
 #UNIVERSAL; INPUT indicator(maybe user setting list in the future) and dict data; Validate/OUTPUT error message 
 def validateData_API(userData):
-    enumVal = getEnumValueDict_API(actionCategory)
+    enumVal = getEnumValueDict_API(actionType)
     #检查时间
     for date in userData:
         if dateValidation_API(date) == False:
@@ -204,7 +204,7 @@ def getSimpleDataStr_API(userData):
 #UNIVERSAL; INPUT data; OUTPUT statistic about action type
 def getActionTypeStats(data):
     #  ------ 获取类别 ------
-    enum = getEnumValue_API(actionCategory) #这里应该让外部传入的
+    enum = getEnumValue_API(actionType) #这里应该让外部传入的
     
     #  ------ 初始化 ------
     types = {}
@@ -312,6 +312,44 @@ def registAllAction_API(dataLoc,actionDataLoc):
     actionData = dateToActionCentric_API(data,actionData)
     saveData_API(actionData,actionDataLoc)
 
+#UNIVERSAL; INPUT ACTION-CEN actionData, enumName; OUTPUT str
+def getActionTypeRatio_API(actionData,enumVals):
+    output = ""
+    #  ------ 遍历 ------
+    for action in actionData: #每个活动的名字
+        enumDict = {eType:0 for eType in enumVals}
+        #初始化
+        for actionType in enumDict:
+            enumDict[actionType] = 0
+        totalTime = 0
+        
+        for actionDetail in actionData[action]["actionDetail"]: #每个活动具体的内容
+            #  ------ 获取需要的数据 ------
+            actionType = actionDetail["action_type"]
+            timeSpan = actionDetail["timeSpan"]
+            
+            #  ------ 赋值 ------
+            enumDict[actionType] += timeSpan 
+            totalTime += timeSpan
+        
+        #  ------ 获取需要的值 ------
+        output += f'{action}:' #最开始的行动
+        for actionType in enumDict:
+            t = enumDict[actionType] #timeSpan for each Enum Type
+            if totalTime > 0:
+                percentage = round (t / totalTime, 1) * 100
+            else:
+                percentage = 0
+            output += f'{percentage}%,{t} {actionType}'
+        output += "\n"
+    
+    return output
+        
+def setTypeRatioToText_API(actionLoc,enumName,text):
+    enumVal = getEnumValue_API(enumName)
+    actionData = getData_API(actionLoc)
+    actionData = getActionTypeRatio_API(actionData,enumVal)
+    text.setText(actionData)
 
 """  ---------- SPECIFIC FUNCTIONS ---------- """    
 #SPECIFIC; INPUT json dataLoc,text; OUTPUT simple time data 
@@ -440,12 +478,14 @@ def menuGUI():
     #  ------ 展示界面 ------ 
     showSimDataButton = LeftToolButton(left_DemoFrame,text = "DATE - simple data",command = lambda: showSimpleData("data.json",demonText))
     showSimDataButton.pack()
-    showFrequencyButton = LeftToolButton(left_DemoFrame,text = "TYPE - action frequency",command = lambda: setSwitchFrequency("data.json",actionCategory,demonText))
+    showFrequencyButton = LeftToolButton(left_DemoFrame,text = "TYPE - action frequency",command = lambda: setSwitchFrequency("data.json",actionType,demonText))
     showFrequencyButton.pack()
-    showAverTimeButton = LeftToolButton(left_DemoFrame,text = "TYPE - average time",command = lambda: setAverageTime("data.json",actionCategory,demonText))
+    showAverTimeButton = LeftToolButton(left_DemoFrame,text = "TYPE - average time",command = lambda: setAverageTime("data.json",actionType,demonText))
     showAverTimeButton.pack()
     actionRegistryButton = LeftToolButton(left_DemoFrame,text = "ACTION - regist actions",command = lambda: registAllAction_API("data.json","actionData.json"))
     actionRegistryButton.pack()
+    actionRatioButton = LeftToolButton(left_DemoFrame,text = "ACTION - show Ratio",command = lambda: setTypeRatioToText_API("actionData.json",actionType,demonText))
+    actionRatioButton.pack()
     
     #  ---------- 事件循环开始 ----------
     root.mainloop()

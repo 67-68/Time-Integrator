@@ -1,9 +1,10 @@
 import tkinter as tk
 
-from APIs.parseInput import fillDictWithList_API, parseLineInput_API, dateToActionCentric_API
+from GUI_Classes import BasicButton,BasicEntry,BasicLabel,BasicPage,BasicText
+from APIs.parseInput import parseLineInput_API, dateToActionCentric_API
 from APIs.validations import dateValidation_API,isValidTimePeriod_API, isValidTimeStr_API,structureValidation_API
 from APIs.json_Interaction import getData_API, saveData_API
-from APIs.actionCategories import actionType,getEnumValue_API, getEnumValueDict_API
+from APIs.actionCategories import ActionType,getEnumValue_API, getEnumValueDict_API
 
 """  ------ GLOBAL VARIABLES ----- """
 infoMenuLabel = None
@@ -13,121 +14,8 @@ firstIndicator = " - " #把输入分成三个基本的模块：两个时间和�
 secondIndicator = "-" #在行动内细分
 firstCount = 2
 secondCount = 2
-
-"""  ---------- CLASS ----------  """
-#  ------ Frame class ------
-class LeftToolFrame(tk.Frame):
-    def __init__(self, fatherFrame):
-        super().__init__(fatherFrame) #引用父类方法，创建一个Frame
-        self.config(bg = "#A9B0B3") #修改颜色
-        
-        #开始排版
-        self.grid(
-            row = 0,
-            column = 0,
-            rowspan = 2,
-            sticky='nsew', 
-            padx=2.5,
-            pady=2.5
-        )
-        
-        self.columnconfigure(0,minsize = 80) #设置最小尺寸
-
-class DownPageFrame(tk.Frame):
-    def __init__(self, fatherFrame):
-        super().__init__(fatherFrame)
-        self.config(bg = "#C9B49A")
-        self.grid(
-            row = 2,
-            column = 0,
-            columnspan = 2,
-            sticky='nsew',
-            padx = 2.5,
-            pady = 0
-        )
-        self.rowconfigure(2,minsize = 80)
-
-class CenterMainFrame(tk.Frame):
-    def __init__(self, fatherFrame):
-        super().__init__(fatherFrame)
-        self.config(bg = "#F4F4F4")
-        self.grid(
-            row = 0,
-            column = 1,
-            columnspan = 2,
-            rowspan = 2,
-            sticky='nsew', 
-            padx=5, 
-            pady=5
-        )
-
-class BottomInfoFrame(tk.Frame):
-    def __init__(self, fatherFrame):
-        super().__init__(fatherFrame)
-        self.config(bg = "#F4F4F4")
-        self.grid(
-            row = 3,
-            column = 0,
-            columnspan = 2,
-            sticky='nsew', 
-            padx=0, 
-            pady=0
-        )
-        self.rowconfigure(3,minsize = 40)
-        
-#  ------ button class ------ 
-#需要传入的参数：父容器，需要执行的命令，面板root
-class LeftToolButton(tk.Button):
-    def __init__(self, master,**kwargs):
-        super().__init__(master,**kwargs)
-        self.config(        
-            bg = "#F4F4F4",
-            activebackground="#F4F4F4",
-            relief="flat",
-            borderwidth=0,
-            highlightthickness=0,
-            width = 15,
-            pady = 6,
-            #text 和 command 属性没写，需要外部传入
-        )
-
-# class SwitchPageButton(tk.Button):
-# 想了一下，没必要写也不太好写专门界面切换的按钮，就先拿基本的功能栏位按钮代替
-
-#  ------ TEXT CLASS ------
-class BasicText(tk.Text):
-    def __init__(self, master,**kwargs):
-        super().__init__(master,**kwargs)
-        self = tk.Text(master,width = 40, height = 10)
-    
-    def setText(self,text):
-        self.config(state = "normal")
-        self.delete('1.0','end')
-        self.insert('1.0',text)
-        self.config(state = "disabled")
-
-class BasicEntry(tk.Entry):
-    def __init__(self, master,**kwargs):
-        super().__init__(master,**kwargs)
-        self = tk.Entry(master,width = 20)
-    
-    def setEntry(self,text):
-        self.delete(0,'end')
-        self.insert(0,text)
-
-#  ------ LABEL CLASS ------
-class BasicLabel(tk.Label):
-    def __init__(self, master,text,**kwargs):
-        super().__init__(master,text = text,**kwargs)
-        text = text
         
 """  ---------- UNIVERSAL FUNCTIONS ---------- """
-#  ---------- 报错相关 ----------
-def showError(errorText):
-    infoDemoLabel.config(text = errorText)
-    infoMenuLabel.config(text = errorText)
-    #未来可以修改为调用字典对象，目前先手动修改label
-
 """  ------ Date本位 ------ """
 # ---------- 用户输入 ----------
 #UNIVERSAL; INPUT tk label and tk text;OUTPUT data from user
@@ -157,7 +45,7 @@ def validateIndicator_API(orgingalData):
     
 #UNIVERSAL; INPUT indicator(maybe user setting list in the future) and dict data; Validate/OUTPUT error message 
 def validateData_API(userData):
-    enumVal = getEnumValueDict_API(actionType)
+    enumVal = getEnumValueDict_API(ActionType)
     #检查时间
     for date in userData:
         if dateValidation_API(date) == False:
@@ -202,9 +90,10 @@ def getSimpleDataStr_API(userData):
 """  ------ TYPE本位 ------ """
 #  ---------- 本位转换 ----------
 #UNIVERSAL; INPUT data; OUTPUT statistic about action type
-def getActionTypeStats(data):
+def dateToTypeCentric_API(data):
+    
     #  ------ 获取类别 ------
-    enum = getEnumValue_API(actionType) #这里应该让外部传入的
+    enum = getEnumValue_API(ActionType) 
     
     #  ------ 初始化 ------
     types = {}
@@ -270,7 +159,7 @@ def getAverageTime(stats,enumName):
     return output
     
 def setAverageTime(dataLoc,enumName,text):
-    stats = getActionTypeStats(getData_API(dataLoc))
+    stats = dateToTypeCentric_API(getData_API(dataLoc))
     stats = getAverageTime(stats,enumName)
     text.setText(stats)
 
@@ -299,7 +188,7 @@ def getSwitchFrequency(stats,enumName):
 
  
 def setSwitchFrequency(dataLoc,enumName,text):
-    stats = getActionTypeStats(getData_API(dataLoc))
+    stats = dateToTypeCentric_API(getData_API(dataLoc))
     stats = getSwitchFrequency(stats,enumName)
     text.setText(stats)
 
@@ -308,7 +197,7 @@ def setSwitchFrequency(dataLoc,enumName,text):
 #UNIVERSAL; INPUT str loc of ACTION-CEN actionData and DATE-CEN data; STORE/COVER all data(change to ACTION-CEN) to actionData
 def registAllAction_API(dataLoc,actionDataLoc):
     data = getData_API(dataLoc)
-    actionData = getData_API(actionDataLoc)
+    actionData = {}
     actionData = dateToActionCentric_API(data,actionData)
     saveData_API(actionData,actionDataLoc)
 
@@ -361,7 +250,7 @@ def showSimpleData(dataLoc,text):
     
 
 #SPECIFIC; INPUT text, label; STORE data in data.json
-def promptInput_FUNC(menuPrompt,menuText):
+def promptInput_FUNC(menuPrompt,menuText,menuFrame):
     #  ------ 获取数据 ------
     originalData = getInput_API(menuPrompt,menuText)
     
@@ -372,9 +261,9 @@ def promptInput_FUNC(menuPrompt,menuText):
     indicatorValidation = validateIndicator_API(originalData)
     dataValidation = validateData_API(userData)
     if indicatorValidation != True:
-        showError(indicatorValidation)
+        menuFrame.buttomInfoFrame.showError(indicatorValidation)
     if dataValidation != True:
-        showError(dataValidation)
+        menuFrame.buttomInfoFrame.showError(dataValidation)
     
     #  ------ 存储进actionData ------
     actionData = getData_API("actionData.json")
@@ -392,8 +281,8 @@ def menuGUI():
     root.title("Time-integrator Menu")
 
     #主界面创建
-    menuFrame = tk.Frame(root,bg = 'white')
-    demoFrame = tk.Frame(root,bg = 'white')
+    menuFrame = BasicPage(menuButtons,root,bg = 'white',)
+    demoFrame = BasicPage(demoButtons,root,bg = 'white',)
     
     #  ------ 初始化窗口和界面 ------
     #设置大小
@@ -406,104 +295,60 @@ def menuGUI():
     for f in(menuFrame,demoFrame):
         f.place(relx=0,rely=0,relwidth=1,relheight=1)
     
-    #调整弹性
-    basicFrameElasity(menuFrame)
-    basicFrameElasity(demoFrame)
+    #  ---------- 按钮 ----------
+    #  ------ 主界面 ------
+    #功能性按钮
+    menuButtons = [inputButton,quitButton]
+    inputButton = BasicButton(menuFrame.leftToolFrame, text = "input", command = lambda: promptInput_FUNC(menuLabel,menuText))
+    quitButton = BasicButton(menuFrame.leftToolFrame, text = "quit", command = lambda: root.destroy())
     
-    #  ---------- 页面内分栏 ----------
-    #  ------ MenuFrame ------
-    down_MenuFrame = DownPageFrame(menuFrame) #底部灰色栏
-    left_MenuFrame = LeftToolFrame(menuFrame) #创建左边工具栏
-    main_MenuFrame = CenterMainFrame(menuFrame) #输入栏
-    bottom_MenuFrame = BottomInfoFrame(menuFrame)
-    
-    #  ------ DemonFrame ------
-    down_DemoFrame = DownPageFrame(demoFrame)
-    left_DemoFrame = LeftToolFrame(demoFrame)
-    main_DemoFrame = CenterMainFrame(demoFrame)
-    bottom_DemoFrame = BottomInfoFrame(demoFrame)
-    
-    #TODO：这里我需要单独去创建一个输入的界面，然后把主界面作为菜单吗？还是直接在主界面提示东西
 
+    #切换界面
+    for i in (demoFrame.downPageFrame,menuFrame.downPageFrame):
+        demonMenuButton = BasicButton(i,text="enter demonstration menu", height = 5, command = lambda: demoFrame.tkraise())
+        demonMenuButton.pack()
+        menuSwitchButton = BasicButton(i,text="enter main menu", height = 5, command = lambda: menuFrame.tkraise())
+        menuSwitchButton.pack()
+    
+    #  ------ 展示界面 ------ 
+    demoButtons = [showSimDataButton,showFrequencyButton,showAverTimeButton,actionRegistryButton,actionRatioButton]
+    showSimDataButton = BasicButton(demoFrame.leftToolFrame,text = "DATE - simple data",command = lambda: showSimpleData("data.json",demonText))
+    showFrequencyButton = BasicButton(demoFrame.leftToolFrame,text = "TYPE - action frequency",command = lambda: setSwitchFrequency("data.json",ActionType,demonText))
+    showAverTimeButton = BasicButton(demoFrame.leftToolFrame,text = "TYPE - average time",command = lambda: setAverageTime("data.json",ActionType,demonText))
+    actionRegistryButton = BasicButton(demoFrame.leftToolFrame,text = "ACTION - regist actions",command = lambda: registAllAction_API("data.json","actionData.json"))
+    actionRatioButton = BasicButton(demoFrame.leftToolFrame,text = "ACTION - show Ratio",command = lambda: setTypeRatioToText_API("actionData.json",ActionType,demonText))
+    
     #  ---------- 文本框和文本 ----------
     #  ------ 主界面 ------
-    menuText = BasicText(main_MenuFrame)
+    menuText = BasicText(menuFrame.centerMainFrame)
     menuText.pack(side="top", fill="both", expand=True, padx=0, pady=0)
-    dateEntry = BasicEntry(main_MenuFrame)
+    dateEntry = BasicEntry(menuFrame.centerMainFrame)
     dateEntry.pack(side="top", fill="x", expand=True, padx=0, pady=(12, 0))
     
-    menuLabel = BasicLabel(main_MenuFrame,text = "welcome, click button to start")
+    menuLabel = BasicLabel(menuFrame.centerMainFrame,text = "welcome, click button to start")
     menuLabel.pack() 
-    demoLabel = BasicLabel(main_MenuFrame,text = "this is demonstration page")
+    demoLabel = BasicLabel(menuFrame.centerMainFrame,text = "this is demonstration page")
     demoLabel.pack() 
     
     global infoMenuLabel #错误信息
-    infoMenuLabel = BasicLabel(bottom_MenuFrame,text = "error will show in here")
+    infoMenuLabel = BasicLabel(menuFrame.bottomInfoFrame,text = "error will show in here")
     infoMenuLabel.pack()
     
     
     # ------ 展示界面 ------
-    demonText = BasicText(main_DemoFrame)
+    demonText = BasicText(demoFrame.centerMainFrame)
     demonText.pack(side="top", fill="both", expand=True, padx=0, pady=0)
     
-    demonEntryAction = BasicEntry(main_DemoFrame)
+    demonEntryAction = BasicEntry(demoFrame.centerMainFrame)
     demonEntryAction.pack(side="top", fill="x", expand=True, padx=0, pady=(12, 0))
     demonEntryAction.setEntry("enter action in this box")
     
-    demonEntryCate = BasicEntry(main_DemoFrame)
+    demonEntryCate = BasicEntry(demoFrame.centerMainFrame)
     demonEntryCate.pack(side="top", fill="x", expand=True, padx=0, pady=(12, 0))
     demonEntryCate.setEntry("enter Category to change in this box")
-    
-    global infoDemoLabel #错误信息
-    infoDemoLabel = tk.Label(bottom_DemoFrame,text = "error will show in here")
-    infoDemoLabel.pack()
-    
-    
-    #  ---------- 按钮 ----------
-    #  ------ 主界面 ------
-    #功能性按钮
-    inputButton = LeftToolButton(left_MenuFrame, text = "input", command = lambda: promptInput_FUNC(menuLabel,menuText))
-    inputButton.pack()
-    
-    quitButton = LeftToolButton(left_MenuFrame, text = "quit", command = lambda: root.destroy())
-    quitButton.pack()
-
-    #切换界面
-    for i in (down_DemoFrame,down_MenuFrame):
-        demonMenuButton = LeftToolButton(i,text="enter demonstration menu", height = 5, command = lambda: demoFrame.tkraise())
-        demonMenuButton.pack()
-        menuSwitchButton = LeftToolButton(i,text="enter main menu", height = 5, command = lambda: menuFrame.tkraise())
-        menuSwitchButton.pack()
-    
-    #  ------ 展示界面 ------ 
-    showSimDataButton = LeftToolButton(left_DemoFrame,text = "DATE - simple data",command = lambda: showSimpleData("data.json",demonText))
-    showSimDataButton.pack()
-    showFrequencyButton = LeftToolButton(left_DemoFrame,text = "TYPE - action frequency",command = lambda: setSwitchFrequency("data.json",actionType,demonText))
-    showFrequencyButton.pack()
-    showAverTimeButton = LeftToolButton(left_DemoFrame,text = "TYPE - average time",command = lambda: setAverageTime("data.json",actionType,demonText))
-    showAverTimeButton.pack()
-    actionRegistryButton = LeftToolButton(left_DemoFrame,text = "ACTION - regist actions",command = lambda: registAllAction_API("data.json","actionData.json"))
-    actionRegistryButton.pack()
-    actionRatioButton = LeftToolButton(left_DemoFrame,text = "ACTION - show Ratio",command = lambda: setTypeRatioToText_API("actionData.json",actionType,demonText))
-    actionRatioButton.pack()
     
     #  ---------- 事件循环开始 ----------
     root.mainloop()
 
-""" ---------- 各种工厂函数 ---------- """
-# 后面可能会改造成类
-def basicFrameElasity(frame):
-    #调整leftFrame的弹性
-    frame.grid_rowconfigure(0, weight=2)
-    
-    #调整inputFrame的弹性
-    frame.grid_rowconfigure(1, weight=1)
-    frame.grid_rowconfigure(2, weight=0)
-    
-    #底部栏位的弹性    
-    frame.grid_columnconfigure(0, weight=1)
-    frame.grid_columnconfigure(1, weight=3)
-    
-    #最底部
-    frame.grid_rowconfigure(3, weight=0)
+
       

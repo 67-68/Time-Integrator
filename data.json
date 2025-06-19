@@ -169,6 +169,39 @@
             "action_type": "rest",
             "actionDetail": "字面意思",
             "timeSpan": 14
+        },
+        {
+            "start": "15:53",
+            "end": "16:29",
+            "action": "CODE",
+            "action_type": "work",
+            "actionDetail": "设计了 action 数据本位和需要干的事情，实际的效率也不是特别高",
+            "timeSpan": 36
+        },
+        {
+            "start": "16:29",
+            "end": "17:14",
+            "action": "CODE",
+            "action_type": "work",
+            "actionDetail": "真正开始写 （前面摸鱼三分钟）",
+            "timeSpan": 45
+        },
+        {
+            "start": "17:14",
+            "end": "17:43",
+            "action": "荒野乱斗",
+            "action_type": "rest",
+            "actionDetail": "打荒野乱斗",
+            "timeSpan": 29,
+            "date": "2025-06-18"
+        },
+        {
+            "start": "17:43",
+            "end": "18:42",
+            "action": "CODE",
+            "action_type": "work",
+            "actionDetail": "添加根据 action 本位展示的新功能",
+            "timeSpan": 59
         }
     ]
 }

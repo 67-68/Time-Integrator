@@ -203,5 +203,154 @@
             "actionDetail": "添加根据 action 本位展示的新功能",
             "timeSpan": 59
         }
+    ],
+    "2025-06-19": [
+        {
+            "start": "11:46",
+            "end": "12:51",
+            "action": "REVIEW",
+            "action_type": "work",
+            "actionDetail": "开始做 Gemini 给我的三步走，复习昨天晚上的东西，建立了[[灵感]]",
+            "timeSpan": 65,
+            "date": "2025-06-19"
+        },
+        {
+            "start": "12:51",
+            "end": "13:50",
+            "action": "V3",
+            "action_type": "rest",
+            "actionDetail": "玩维多利亚 3 普鲁士",
+            "timeSpan": 59,
+            "date": "2025-06-19"
+        },
+        {
+            "start": "13:50",
+            "end": "14:30",
+            "action": "吃饭睡觉",
+            "action_type": "rest",
+            "actionDetail": "生物钟吓人",
+            "timeSpan": 40,
+            "date": "2025-06-19"
+        },
+        {
+            "start": "14:30",
+            "end": "14:52",
+            "action": "CODE",
+            "action_type": "work",
+            "actionDetail": "和 GPT 商讨发展，更改 input 格式",
+            "timeSpan": 22
+        },
+        {
+            "start": "14:52",
+            "end": "16:05",
+            "action": "CODE",
+            "action_type": "work",
+            "actionDetail": "把页面类化，拆分，学习了 button 的写法，在外面初始化然后在类内部排布，把报错信息和 button 这么搞",
+            "timeSpan": 73
+        },
+        {
+            "start": "16:05",
+            "end": "16:35",
+            "action": "研究问题",
+            "action_type": "work",
+            "actionDetail": "两个东西的对比",
+            "timeSpan": 30,
+            "date": "2025-06-19"
+        },
+        {
+            "start": "16:35",
+            "end": "16:55",
+            "action": "玩游戏",
+            "action_type": "waste",
+            "actionDetail": "DOL",
+            "timeSpan": 20,
+            "date": "2025-06-19"
+        },
+        {
+            "start": "16:55",
+            "end": "17:22",
+            "action": "PLAN",
+            "action_type": "work",
+            "actionDetail": "学习如何分析数据",
+            "timeSpan": 27,
+            "date": "2025-06-19"
+        },
+        {
+            "start": "17:22",
+            "end": "17:48",
+            "action": "荒野乱斗",
+            "action_type": "waste",
+            "actionDetail": "我的心有点乱",
+            "timeSpan": 26
+        },
+        {
+            "start": "17:48",
+            "end": "17:58",
+            "action": "MUSIC",
+            "action_type": "rest",
+            "actionDetail": "但是听不进去",
+            "timeSpan": 10,
+            "date": "2025-06-19"
+        },
+        {
+            "start": "17:58",
+            "end": "18:54",
+            "action": "GUITAR",
+            "action_type": "work",
+            "actionDetail": "荷兰 1945，知道了扫弦，需要买民谣拨片",
+            "timeSpan": 56,
+            "date": "2025-06-19"
+        },
+        {
+            "start": "18:54",
+            "end": "19:20",
+            "action": "PLAN",
+            "action_type": "work",
+            "actionDetail": "研究项目开发的范式，知道了需求驱动",
+            "timeSpan": 26
+        },
+        {
+            "start": "19:20",
+            "end": "19:50",
+            "action": "PLAN",
+            "action_type": "work",
+            "actionDetail": "尝试搞一下 task genius 的工作流  ",
+            "timeSpan": 30
+        },
+        {
+            "start": "19:50",
+            "end": "20:41",
+            "action": "视频",
+            "action_type": "waste",
+            "actionDetail": "看 MC 陷阱什么的东西",
+            "timeSpan": 51,
+            "date": "2025-06-19"
+        },
+        {
+            "start": "20:41",
+            "end": "20:49",
+            "action": "犹豫",
+            "action_type": "waste",
+            "actionDetail": "尝试出门但是最终放弃",
+            "timeSpan": 8,
+            "date": "2025-06-19"
+        },
+        {
+            "start": "20:49",
+            "end": "21:39",
+            "action": "AI",
+            "action_type": "work",
+            "actionDetail": "和 gemini 商讨友好输入的具体工程路径——太 tm 牛逼了",
+            "timeSpan": 50,
+            "date": "2025-06-19"
+        },
+        {
+            "start": "22: 20",
+            "end": "23:59",
+            "action": "AI",
+            "action_type": "work",
+            "actionDetail": "和 Gemini 聊系统",
+            "timeSpan": 99
+        }
     ]
 }

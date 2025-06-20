@@ -99,5 +99,9 @@ def fillDictWithList_API(dict,list):
         dict[element] = None
     return dict
 
+#UNIVERSAL; INPUT fast-record and state Enum; OUTPUT dict normal record
+
+
+
 """  ---------- 将来功能 ---------- """
 #def getTimeSpan_WithRest_API

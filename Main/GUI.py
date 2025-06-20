@@ -1,10 +1,11 @@
 import tkinter as tk
 
-from GUI_Classes import BasicButton,BasicEntry,BasicLabel,BasicPage,BasicText
+from GUI_Classes import BasicEntry,BasicLabel,BasicPage,BasicText,BasicButton,BasicFrame
 from APIs.parseInput import parseLineInput_API, dateToActionCentric_API
 from APIs.validations import dateValidation_API,isValidTimePeriod_API, isValidTimeStr_API,structureValidation_API
 from APIs.json_Interaction import getData_API, saveData_API
-from APIs.actionCategories import ActionType,getEnumValue_API, getEnumValueDict_API
+from APIs.actionType import ActionType,getEnumValue_API, getEnumValueDict_API
+from actualTimeList.listener import InputFrame
 
 """  ------ GLOBAL VARIABLES ----- """
 infoMenuLabel = None
@@ -261,9 +262,9 @@ def promptInput_FUNC(menuPrompt,menuText,menuFrame):
     indicatorValidation = validateIndicator_API(originalData)
     dataValidation = validateData_API(userData)
     if indicatorValidation != True:
-        menuFrame.buttomInfoFrame.showError(indicatorValidation)
+        menuFrame.bottomInfoFrame.showError(indicatorValidation)
     if dataValidation != True:
-        menuFrame.buttomInfoFrame.showError(dataValidation)
+        menuFrame.bottomInfoFrame.showError(dataValidation)
     
     #  ------ 存储进actionData ------
     actionData = getData_API("actionData.json")
@@ -275,80 +276,132 @@ def promptInput_FUNC(menuPrompt,menuText,menuFrame):
 
 
 def menuGUI():
+    #  ---------- 按钮 ----------
+    #  ------ 主界面 ------
+    #功能性按钮
+    menuButtons = [
+        ('input', lambda: promptInput_FUNC(menuLabel,menuText,menuPage)),
+        ('quit', lambda: root.destroy())
+        ]
+    
+    
+    #  ------ 展示界面 ------ 
+    demoButtons = [
+            ('DATE - simple data', lambda: showSimpleData('data.json',demonText)),
+            ('TYPE - action frequency', lambda: setSwitchFrequency('data.json',ActionType,demonText)),
+            ('TYPE - average time', lambda: setAverageTime('data.json',ActionType,demonText)),
+            ('ACTION - regist actions', lambda: registAllAction_API('data.json','actionData.json')),
+            ('ACTION - show Ratio', lambda: setTypeRatioToText_API('actionData.json',ActionType,demonText))
+            ]
+    
+    #  ------ 输入界面 ------
+    inputButtons = []
+    
     #  ---------- 窗口和页面 ----------
     #  ------ 创建root和frame ------
     root = tk.Tk()
     root.title("Time-integrator Menu")
 
     #主界面创建
-    menuFrame = BasicPage(menuButtons,root,bg = 'white',)
-    demoFrame = BasicPage(demoButtons,root,bg = 'white',)
-    
+    menuPage = BasicPage(root,menuButtons,bg = 'white',)
+    demoPage = BasicPage(root,demoButtons,bg = 'white',)
+    inputPage = BasicPage(root,inputButtons,bg = 'white')
+
     #  ------ 初始化窗口和界面 ------
     #设置大小
     root.geometry("800x600")
     
     #主界面提升最顶端
-    menuFrame.tkraise()
+    menuPage.tkraise()
     
     #主界面切换
-    for f in(menuFrame,demoFrame):
+    for f in(menuPage,demoPage,inputPage):
         f.place(relx=0,rely=0,relwidth=1,relheight=1)
     
-    #  ---------- 按钮 ----------
-    #  ------ 主界面 ------
-    #功能性按钮
-    menuButtons = [inputButton,quitButton]
-    inputButton = BasicButton(menuFrame.leftToolFrame, text = "input", command = lambda: promptInput_FUNC(menuLabel,menuText))
-    quitButton = BasicButton(menuFrame.leftToolFrame, text = "quit", command = lambda: root.destroy())
+    #  ------ 输入PAGE的FRAME ------
+    upFastFrame = BasicFrame(inputPage.centerMainFrame,bg = "#F4F7F9")
+    upFastFrame.grid(row = 0, column = 0,sticky='nsew')
     
-
-    #切换界面
-    for i in (demoFrame.downPageFrame,menuFrame.downPageFrame):
-        demonMenuButton = BasicButton(i,text="enter demonstration menu", height = 5, command = lambda: demoFrame.tkraise())
-        demonMenuButton.pack()
-        menuSwitchButton = BasicButton(i,text="enter main menu", height = 5, command = lambda: menuFrame.tkraise())
-        menuSwitchButton.pack()
+    downPropertyFrame = BasicFrame(inputPage.centerMainFrame,bg = "#E8EDF2")
+    downPropertyFrame.grid(row = 1,column=0,sticky='nsew',)
     
-    #  ------ 展示界面 ------ 
-    demoButtons = [showSimDataButton,showFrequencyButton,showAverTimeButton,actionRegistryButton,actionRatioButton]
-    showSimDataButton = BasicButton(demoFrame.leftToolFrame,text = "DATE - simple data",command = lambda: showSimpleData("data.json",demonText))
-    showFrequencyButton = BasicButton(demoFrame.leftToolFrame,text = "TYPE - action frequency",command = lambda: setSwitchFrequency("data.json",ActionType,demonText))
-    showAverTimeButton = BasicButton(demoFrame.leftToolFrame,text = "TYPE - average time",command = lambda: setAverageTime("data.json",ActionType,demonText))
-    actionRegistryButton = BasicButton(demoFrame.leftToolFrame,text = "ACTION - regist actions",command = lambda: registAllAction_API("data.json","actionData.json"))
-    actionRatioButton = BasicButton(demoFrame.leftToolFrame,text = "ACTION - show Ratio",command = lambda: setTypeRatioToText_API("actionData.json",ActionType,demonText))
+    bottomToolFrame = BasicFrame(inputPage.centerMainFrame,bg = "#E8EDF2")
+    bottomToolFrame.grid(row = 2,column=0,sticky='nsew',)
+    
+    # 弹性
+    inputPage.centerMainFrame.rowconfigure(0, weight=1)
+    inputPage.centerMainFrame.rowconfigure(1, weight=1)
+    inputPage.centerMainFrame.columnconfigure(0, weight=1)
+    
+    #downPropertyFrame
+    downStartEntry = BasicEntry(downPropertyFrame,width = 4)
+    downEndEntry = BasicEntry(downPropertyFrame,width = 4)
+    downTypeEntry = BasicEntry(downPropertyFrame,width = 6)
+    downActionEntry = BasicEntry(downPropertyFrame,width = 10)
+    downDetailEntry = BasicEntry(downPropertyFrame,width = 20)
+    downStartEntry.grid (row = 1,column = 0,padx = 5)
+    downEndEntry.grid(row = 1,column = 1,padx = 5)
+    downTypeEntry.grid(row = 1, column = 2,padx = 5)
+    downActionEntry.grid(row = 1, column = 3,padx = 5)
+    downDetailEntry.grid(row = 1,column = 4,padx = 5)
+    
+    downStartLabel = BasicLabel(downPropertyFrame,"start time")
+    downEndLabel = BasicLabel(downPropertyFrame,"end time")
+    downTypeLabel = BasicLabel(downPropertyFrame,"type of action")
+    downActionLabel = BasicLabel(downPropertyFrame,"name of action")
+    downDetailLabel = BasicLabel(downPropertyFrame,"detail of action")
+    downStartLabel.grid (row = 0,column = 0,padx = 5)
+    downEndLabel.grid(row = 0,column = 1,padx = 5)
+    downTypeLabel.grid(row = 0, column = 2,padx = 5)
+    downActionLabel.grid(row = 0, column = 3,padx = 5)
+    downDetailLabel.grid(row = 0,column = 4,padx = 5)
     
     #  ---------- 文本框和文本 ----------
     #  ------ 主界面 ------
-    menuText = BasicText(menuFrame.centerMainFrame)
+    menuText = BasicText(menuPage.centerMainFrame)
     menuText.pack(side="top", fill="both", expand=True, padx=0, pady=0)
-    dateEntry = BasicEntry(menuFrame.centerMainFrame)
+    dateEntry = BasicEntry(menuPage.centerMainFrame)
     dateEntry.pack(side="top", fill="x", expand=True, padx=0, pady=(12, 0))
     
-    menuLabel = BasicLabel(menuFrame.centerMainFrame,text = "welcome, click button to start")
+    menuLabel = BasicLabel(menuPage.centerMainFrame,text = "welcome, click button to start")
     menuLabel.pack() 
-    demoLabel = BasicLabel(menuFrame.centerMainFrame,text = "this is demonstration page")
+    demoLabel = BasicLabel(menuPage.centerMainFrame,text = "this is demonstration page")
     demoLabel.pack() 
-    
-    global infoMenuLabel #错误信息
-    infoMenuLabel = BasicLabel(menuFrame.bottomInfoFrame,text = "error will show in here")
-    infoMenuLabel.pack()
     
     
     # ------ 展示界面 ------
-    demonText = BasicText(demoFrame.centerMainFrame)
+    demonText = BasicText(demoPage.centerMainFrame)
     demonText.pack(side="top", fill="both", expand=True, padx=0, pady=0)
     
-    demonEntryAction = BasicEntry(demoFrame.centerMainFrame)
+    demonEntryAction = BasicEntry(demoPage.centerMainFrame)
     demonEntryAction.pack(side="top", fill="x", expand=True, padx=0, pady=(12, 0))
     demonEntryAction.setEntry("enter action in this box")
-    
-    demonEntryCate = BasicEntry(demoFrame.centerMainFrame)
+        
+    demonEntryCate = BasicEntry(demoPage.centerMainFrame)
     demonEntryCate.pack(side="top", fill="x", expand=True, padx=0, pady=(12, 0))
     demonEntryCate.setEntry("enter Category to change in this box")
     
+    #  ------ 输入界面 ------
+
+    
+    
+    fastLabel = BasicLabel(upFastFrame,"enter simplified record line by line")
+    fastLabel.pack(side = "top")
+    
+    #切换界面
+    for i in (demoPage.downPageFrame,menuPage.downPageFrame,inputPage.downPageFrame):
+        demoSwitchButton = BasicButton(i,text="enter demonstration menu", height = 5, command = lambda: demoPage.tkraise())
+        demoSwitchButton.pack(side="left", expand=True, fill="both")
+        menuSwitchButton = BasicButton(i,text="enter main menu", height = 5, command = lambda: menuPage.tkraise())
+        menuSwitchButton.pack(side="left", expand=True, fill="both") #先不管这个按钮的打包了，两波要放在不同位置有点麻烦
+        inputSwitchButton = BasicButton(i,text="enter input page", height = 5, command = lambda: inputPage.tkraise()) 
+        inputSwitchButton.pack(side="left", expand=True, fill="both")
+    
     #  ---------- 事件循环开始 ----------
     root.mainloop()
+    
+    
+    
 
 
       

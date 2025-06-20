@@ -34,7 +34,7 @@ actionData{
     "action": {
         "totalTime"
         "totalCount"
-        “maxTimeSpan"
+        "maxTimeSpan"
         "minTimeSpan"
         "actionDetail": [
             {
@@ -42,7 +42,7 @@ actionData{
                 "start":
                 "end":
                 "action_type":
-                “action" #这条可能需要删掉？不过留着也没问题
+                "action" #这条可能需要删掉？不过留着也没问题
                 "date": #注意！这个原本没有，需要转换本位的时候手动加
             },
             {
@@ -55,9 +55,37 @@ actionData{
 }
 """
 
-临时ENUM本位
-"""
-enumDict: {
+#临时ENUM本位
+enumDict = {
     eachActionType: timeSpan
 }
-"""
+
+#  ---------- 目前支持的格式 --------- 
+#  ------ 速记格式 ------
+START(没有:) + END(如果没有跨越一个小时，那么前半段,没有:) + ActionType约定字母(work-W,waste-w)  + 空格 + actionName + 空格 + actionDetail 
+(同时，空格非强制性，如果想要添加新的，当前下拉提示列表中没有的行动就空格)
+
+
+"""  ---------- 速记 ---------- """
+#  ------ 临时速记-属性转化本位 ------
+
+tempData = {
+    "start":
+    "end"
+    "action_type"
+    "action":
+    "actionDetail"
+}
+
+#  在实时交互，下拉列表中用到的
+#  ------ 用户行动本位 ------ 
+userAction = {
+    "currentState":
+    "eventType":
+    "text":
+}
+
+#  ------ 具体的actionType ------
+"keyBoardEntered"
+"listBoxEntered"
+""

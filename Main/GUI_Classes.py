@@ -30,12 +30,14 @@ class LeftToolFrame(tk.Frame):
             padx=2.5,
             pady=2.5
         )
-        
+        self.buttons = []
         self.columnconfigure(0,minsize = 80) #设置最小尺寸
         
         #  ------ 开始排版按钮 ------
-        for button in buttons: 
-            button.pack()
+        for label, cmd in buttons:
+            btn = BasicButton(self, text=label, command=cmd)
+            btn.pack(pady=3, fill='x')
+            self.buttons.append(btn)
 
 class DownPageFrame(tk.Frame):
     def __init__(self, fatherFrame):
@@ -86,6 +88,10 @@ class BottomInfoFrame(tk.Frame):
     def showError(self,errorText):
         self.infoLabel.config(text = errorText)
     
+class BasicFrame(tk.Frame):
+    def __init__(self, master, **kwargs):
+        super().__init__(master,**kwargs)
+        self.config(bg = "#F4F4F4")
         
 #  ------ button class ------ 
 #需要传入的参数：父容器，需要执行的命令，面板root

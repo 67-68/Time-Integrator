@@ -84,6 +84,19 @@ userAction = {
     "eventType":
     "text":
 }
+#  ------ 状态机返回的建议本位 ------
+suggestions = {
+    "expectedType":
+    "suggestList":
+    "UIdata": {
+        "start":0
+        "end":0
+        "action":""
+        "actionType":""
+        "actionDetail":""
+    }
+}
+
 
 #  ------ 具体的actionType ------
 "keyBoardEntered"

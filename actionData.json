@@ -1,9 +1,9 @@
 {
     "CODE": {
-        "totalTime": 617,
-        "totalCount": 14,
-        "maxTimeSpan": 73,
-        "minTimeSpan": 13,
+        "totalTime": 813,
+        "totalCount": 18,
+        "maxTimeSpan": 99,
+        "minTimeSpan": 8,
         "actionDetail": [
             {
                 "start": "13:36",
@@ -117,6 +117,38 @@
                 "action_type": "work",
                 "actionDetail": "把页面类化，拆分，学习了 button 的写法，在外面初始化然后在类内部排布，把报错信息和 button 这么搞",
                 "timeSpan": 73
+            },
+            {
+                "start": "10:50",
+                "end": "11:42",
+                "action": "CODE",
+                "action_type": "work",
+                "actionDetail": "实际上开始写友好输入的代码",
+                "timeSpan": 52
+            },
+            {
+                "start": "16:35",
+                "end": "17:12",
+                "action": "CODE",
+                "action_type": "work",
+                "actionDetail": "但我感觉效率不是很高，一堆东西不知道",
+                "timeSpan": 37
+            },
+            {
+                "start": "18:25",
+                "end": "18:33",
+                "action": "CODE",
+                "action_type": "work",
+                "actionDetail": "写代码，意识到 GPT 实操更好用",
+                "timeSpan": 8
+            },
+            {
+                "start": "18:44",
+                "end": "20:23",
+                "action": "CODE",
+                "action_type": "work",
+                "actionDetail": "艰难的写代码",
+                "timeSpan": 99
             }
         ]
     },
@@ -179,8 +211,8 @@
         ]
     },
     "吃饭": {
-        "totalTime": 101,
-        "totalCount": 2,
+        "totalTime": 149,
+        "totalCount": 3,
         "maxTimeSpan": 78,
         "minTimeSpan": 23,
         "actionDetail": [
@@ -200,6 +232,14 @@
                 "action_type": "rest",
                 "actionDetail": "肠粉+看微信",
                 "timeSpan": 23
+            },
+            {
+                "start": "17:12",
+                "end": "18:00",
+                "action": "吃饭",
+                "action_type": "rest",
+                "actionDetail": "肯德基",
+                "timeSpan": 48
             }
         ]
     },
@@ -263,9 +303,9 @@
         ]
     },
     "躺在床上": {
-        "totalTime": 14,
-        "totalCount": 1,
-        "maxTimeSpan": 14,
+        "totalTime": 47,
+        "totalCount": 2,
+        "maxTimeSpan": 33,
         "minTimeSpan": 14,
         "actionDetail": [
             {
@@ -276,13 +316,21 @@
                 "actionDetail": "字面意思",
                 "timeSpan": 14,
                 "date": "2025-06-18"
+            },
+            {
+                "start": "20:23",
+                "end": "20:56",
+                "action": "躺在床上",
+                "action_type": "rest",
+                "actionDetail": "****",
+                "timeSpan": 33
             }
         ]
     },
     "荒野乱斗": {
-        "totalTime": 55,
-        "totalCount": 2,
-        "maxTimeSpan": 29,
+        "totalTime": 94,
+        "totalCount": 3,
+        "maxTimeSpan": 39,
         "minTimeSpan": 26,
         "actionDetail": [
             {
@@ -301,6 +349,14 @@
                 "action_type": "waste",
                 "actionDetail": "我的心有点乱",
                 "timeSpan": 26
+            },
+            {
+                "start": "15:56",
+                "end": "16:35",
+                "action": "荒野乱斗",
+                "action_type": "rest",
+                "actionDetail": "打荒野乱斗",
+                "timeSpan": 39
             }
         ]
     },
@@ -457,10 +513,10 @@
         ]
     },
     "视频": {
-        "totalTime": 51,
-        "totalCount": 1,
+        "totalTime": 111,
+        "totalCount": 3,
         "maxTimeSpan": 51,
-        "minTimeSpan": 51,
+        "minTimeSpan": 28,
         "actionDetail": [
             {
                 "start": "19:50",
@@ -470,6 +526,22 @@
                 "actionDetail": "看 MC 陷阱什么的东西",
                 "timeSpan": 51,
                 "date": "2025-06-19"
+            },
+            {
+                "start": "11:42",
+                "end": "12:14",
+                "action": "视频",
+                "action_type": "rest",
+                "actionDetail": "b 站",
+                "timeSpan": 32
+            },
+            {
+                "start": "13:38",
+                "end": "14:06",
+                "action": "视频",
+                "action_type": "waste",
+                "actionDetail": "看视频",
+                "timeSpan": 28
             }
         ]
     },
@@ -491,10 +563,10 @@
         ]
     },
     "AI": {
-        "totalTime": 149,
-        "totalCount": 2,
-        "maxTimeSpan": 99,
-        "minTimeSpan": 50,
+        "totalTime": 376,
+        "totalCount": 6,
+        "maxTimeSpan": 110,
+        "minTimeSpan": 20,
         "actionDetail": [
             {
                 "start": "20:49",
@@ -512,6 +584,106 @@
                 "action_type": "work",
                 "actionDetail": "和 Gemini 聊系统",
                 "timeSpan": 99
+            },
+            {
+                "start": "00:01",
+                "end": "01:00",
+                "action": "AI",
+                "action_type": "work",
+                "actionDetail": "和 Gemini 聊系统",
+                "timeSpan": 59
+            },
+            {
+                "start": "10:30",
+                "end": "10:50",
+                "action": "AI",
+                "action_type": "work",
+                "actionDetail": "和 GPT 聊修改 GUI",
+                "timeSpan": 20
+            },
+            {
+                "start": "13:00",
+                "end": "13:38",
+                "action": "AI",
+                "action_type": "work",
+                "actionDetail": "重构监听器的逻辑",
+                "timeSpan": 38
+            },
+            {
+                "start": "14:06",
+                "end": "15:56",
+                "action": "AI",
+                "action_type": "work",
+                "actionDetail": "和 Gemini 大聊特聊关于监听器的结构",
+                "timeSpan": 110
+            }
+        ]
+    },
+    "写代码": {
+        "totalTime": 41,
+        "totalCount": 1,
+        "maxTimeSpan": 41,
+        "minTimeSpan": 41,
+        "actionDetail": [
+            {
+                "start": "12:14",
+                "end": "12:55",
+                "action": "写代码",
+                "action_type": "work",
+                "actionDetail": "但我感觉我不是很专心，在思考这个功能应该怎么写，最后得出结论状态机",
+                "timeSpan": 41,
+                "date": "2025-06-20"
+            }
+        ]
+    },
+    "散步": {
+        "totalTime": 5,
+        "totalCount": 1,
+        "maxTimeSpan": 5,
+        "minTimeSpan": 5,
+        "actionDetail": [
+            {
+                "start": "12:55",
+                "end": "13:00",
+                "action": "散步",
+                "action_type": "rest",
+                "actionDetail": "散步",
+                "timeSpan": 5,
+                "date": "2025-06-20"
+            }
+        ]
+    },
+    "看视频": {
+        "totalTime": 25,
+        "totalCount": 1,
+        "maxTimeSpan": 25,
+        "minTimeSpan": 25,
+        "actionDetail": [
+            {
+                "start": "18:00",
+                "end": "18:25",
+                "action": "看视频",
+                "action_type": "waste",
+                "actionDetail": "浪费",
+                "timeSpan": 25,
+                "date": "2025-06-20"
+            }
+        ]
+    },
+    "去拆快递": {
+        "totalTime": 11,
+        "totalCount": 1,
+        "maxTimeSpan": 11,
+        "minTimeSpan": 11,
+        "actionDetail": [
+            {
+                "start": "18:33",
+                "end": "18:44",
+                "action": "去拆快递",
+                "action_type": "waste",
+                "actionDetail": "拆快递",
+                "timeSpan": 11,
+                "date": "2025-06-20"
             }
         ]
     }

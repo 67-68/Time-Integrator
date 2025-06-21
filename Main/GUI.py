@@ -5,7 +5,7 @@ from APIs.parseInput import parseLineInput_API, dateToActionCentric_API
 from APIs.validations import dateValidation_API,isValidTimePeriod_API, isValidTimeStr_API,structureValidation_API
 from APIs.json_Interaction import getData_API, saveData_API
 from APIs.actionType import ActionType,getEnumValue_API, getEnumValueDict_API
-from actualTimeList.listener import InputFrame
+from actualTimeList.smartInput import SmartInputFrame
 
 """  ------ GLOBAL VARIABLES ----- """
 infoMenuLabel = None
@@ -319,12 +319,10 @@ def menuGUI():
         f.place(relx=0,rely=0,relwidth=1,relheight=1)
     
     #  ------ 输入PAGE的FRAME ------
-    upFastFrame = BasicFrame(inputPage.centerMainFrame,bg = "#F4F7F9")
+    upFastFrame = SmartInputFrame(inputPage.centerMainFrame,bg = "#F4F7F9")
     upFastFrame.grid(row = 0, column = 0,sticky='nsew')
-    
-    downPropertyFrame = BasicFrame(inputPage.centerMainFrame,bg = "#E8EDF2")
-    downPropertyFrame.grid(row = 1,column=0,sticky='nsew',)
-    
+    #五个属性栏放进propertyViewFrame的实例了
+
     bottomToolFrame = BasicFrame(inputPage.centerMainFrame,bg = "#E8EDF2")
     bottomToolFrame.grid(row = 2,column=0,sticky='nsew',)
     
@@ -332,29 +330,6 @@ def menuGUI():
     inputPage.centerMainFrame.rowconfigure(0, weight=1)
     inputPage.centerMainFrame.rowconfigure(1, weight=1)
     inputPage.centerMainFrame.columnconfigure(0, weight=1)
-    
-    #downPropertyFrame
-    downStartEntry = BasicEntry(downPropertyFrame,width = 4)
-    downEndEntry = BasicEntry(downPropertyFrame,width = 4)
-    downTypeEntry = BasicEntry(downPropertyFrame,width = 6)
-    downActionEntry = BasicEntry(downPropertyFrame,width = 10)
-    downDetailEntry = BasicEntry(downPropertyFrame,width = 20)
-    downStartEntry.grid (row = 1,column = 0,padx = 5)
-    downEndEntry.grid(row = 1,column = 1,padx = 5)
-    downTypeEntry.grid(row = 1, column = 2,padx = 5)
-    downActionEntry.grid(row = 1, column = 3,padx = 5)
-    downDetailEntry.grid(row = 1,column = 4,padx = 5)
-    
-    downStartLabel = BasicLabel(downPropertyFrame,"start time")
-    downEndLabel = BasicLabel(downPropertyFrame,"end time")
-    downTypeLabel = BasicLabel(downPropertyFrame,"type of action")
-    downActionLabel = BasicLabel(downPropertyFrame,"name of action")
-    downDetailLabel = BasicLabel(downPropertyFrame,"detail of action")
-    downStartLabel.grid (row = 0,column = 0,padx = 5)
-    downEndLabel.grid(row = 0,column = 1,padx = 5)
-    downTypeLabel.grid(row = 0, column = 2,padx = 5)
-    downActionLabel.grid(row = 0, column = 3,padx = 5)
-    downDetailLabel.grid(row = 0,column = 4,padx = 5)
     
     #  ---------- 文本框和文本 ----------
     #  ------ 主界面 ------
@@ -382,11 +357,6 @@ def menuGUI():
     demonEntryCate.setEntry("enter Category to change in this box")
     
     #  ------ 输入界面 ------
-
-    
-    
-    fastLabel = BasicLabel(upFastFrame,"enter simplified record line by line")
-    fastLabel.pack(side = "top")
     
     #切换界面
     for i in (demoPage.downPageFrame,menuPage.downPageFrame,inputPage.downPageFrame):

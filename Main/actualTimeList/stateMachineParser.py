@@ -18,6 +18,8 @@ class UserActionType(Enum):
     CONFIRM_SELECT = "confirmSelect"
     FINAL_SUBMIT = "finalSubmit"
     
+actionDataLoc = "actionData.json"
+
 """  ---------- UNIVERSAL FUNCTION -----------"""
 #  ---------- 处理获取列表 ----------
 #UNIVERSAL; INPUT currentState; OUTPUT actionList
@@ -41,111 +43,152 @@ def getAutoCompleteWithKey_API(key,list):
 
 #UNIVERSAL; INPUT enum ActionType; OUTPUT list of enum abbreviations
 def getEnumAbbriviation(enumClass):
+    temp = {
+            "w":"work",
+            "s":"waste",
+            "u":"unknown",
+            "r":"rest"
+    }
     if enumClass == ActionType:
-        return ["w","r","s","u"]
-        #work, rest, waste, unknown
-
+        return temp
 
 #这一整个函数好像也是类似状态机的东西，但是是一种连续的状态
 #  ---------- 获取UI数据 ----------
-#UNIVERSAL; INPUT str text; OUTPUT it advice and data
-def parseData_API(text,actionList,typeEnumName):
-    #  --------- 初始化返回值 ----------
+# UNIVERSAL; INPUT str text, list actionList; OUTPUT dict advice
+def parseData_API(text, actionList, typeEnumName):
+    # --------- 初始化返回值 ----------
     advice = {
-        "data":{
-            "start":"",
-            "end":"",
-            "action_type":"",
-            "action":"",
-            "actionDetail":""
-        },
-        "nextState":"",
-        "parseIndex":0
+        "data": {
+            "start": "",
+            "end": "",
+            "action_type": "",
+            "action": "",
+            "actionDetail": ""},
+        "nextState": InputState.AWAIT_START,
+        "parseIndex": 0
     }
+
+    if not text:
+        return advice
+
+    #  ---------- START阶段 ----------
+    if len(text) < 4:
+        # 输入不完整，但仍可显示
+        if text.isdigit():
+            advice["data"]["start"] = text
+        return advice # 保持在 AWAIT_START 状态
+
+    if not text[:4].isdigit():
+        return advice 
+
+    #  ------ 赋值 ------
+    advice["data"]["start"] = f"{text[0:2]}:{text[2:4]}"
+    advice["nextState"] = InputState.AWAIT_END
+    advice["parseIndex"] = 4
+
+    #  ---------- END阶段 ----------
+    if len(text) <= advice["parseIndex"]:
+        return advice # 没有更多内容可解析
+
+    #切片方便处理
+    end_part_text = text[advice["parseIndex"]:]
+    end_digits = ""
     
-    #  ---------- START阶段的处理 ----------
-    #  ------ 判断是否可以被处理 ------
-    if len(text) < 1 or not text[:4].isdigit():
-        advice["nextState"] = InputState.AWAIT_START
-        advice["parseIndex"] = 0
+    #  ------ 获取End阶段的内容 ------
+    for i, char in enumerate(end_part_text):
+        if char.isdigit():
+            end_digits += char
+        else:
+            break
+    
+    if not end_digits: # start 后面直接跟了字母
+        advice["nextState"] = InputState.AWAIT_ACTION_TYPE # 准备解析类型
         return advice
     
-    #  ------ 开始两种情况的赋值 ------
-    if len(text) <= 2:
-        advice["data"]["start"] = text
+    #  ------ 判断赋值 ------
+    if len(end_digits) == 2:
+        start_hour = advice["data"]["start"][:2]
+        advice["data"]["end"] = f"{start_hour}:{end_digits}"
+        advice["nextState"] = InputState.AWAIT_ACTION_TYPE
+        advice["parseIndex"] += len(end_digits)
+    elif len(end_digits) == 4:
+        advice["data"]["end"] = f"{end_digits[:2]}:{end_digits[2:]}"
+        advice["nextState"] = InputState.AWAIT_ACTION_TYPE
+        advice["parseIndex"] += len(end_digits)
     else:
-        advice["data"]["start"] = f'{text[0:2]}:{text[2:4]}'
-        advice["nextState"] = InputState.AWAIT_START
+        # end部分不完整 (e.g., 1位或3位)，显示不完整数据，但状态不前进
+        advice["data"]["end"] = end_digits
+        return advice
+
+    #  ---------- ACTION_TYPE阶段 ----------
+    actionType_text = text[advice["parseIndex"]:] #切片
+    typeDict = getEnumAbbriviation(ActionType)
+    if len(actionType_text) == 0:
+        return advice
     
-    #  ------ 判断是否进入下一阶段 ------
-    if len(text) >= 4:
-        advice["nextState"] = InputState.AWAIT_END
+    for type in typeDict:
+        if type == actionType_text[0].lower():
+            advice["data"]["action_type"] = typeDict[type]
+            advice["nextState"] = InputState.AWAIT_ACTION
+            advice["parseIndex"] += 1
+            break
         
-    #  ---------- END阶段的处理 ----------
-        text = text[4:] #截取一下方便处理，现在它就是从end开始的了
-        #  ------ 找到End范围 ------
-        #找到第一个不是数字的letter
-        for letter in text:
-            if not letter.isdigit():
-                index = text.find(letter)
+    if advice["nextState"] != InputState.AWAIT_ACTION:
+        return advice
+    
+    #  ---------- ACTION阶段 ----------
+    actionText = text[advice["parseIndex"]:] #切片
+    if len(actionText) == 0:
+        return advice
+    
+    if actionText[0] == " ":
+        for action in actionList:
+            if actionText.find(action) >= 0:
+                advice["data"]["action"] = action
+                advice["nextState"] = InputState.AWAIT_ACTION_DETAIL
+                advice["parseIndex"] += len(action)
                 break
-            
-        #  ------ 判定是否正常 ------
-        #在这个块内，数据被判定为不正常，无法解析全部，但可以解析一部分有数字的
-        if index <= 1 or index == 3:
-            if index == 1:
-                advice["data"]["end"] = text[0]
-            elif index == 3:
-                advice["data"]["end"] = f'{text[0:2]}:{text[2]}'
-            
-            advice["parseIndex"] = 4 + index - 1 #这一行有问题吗
-            return advice
-        
-        #  ------ 赋值 ------
-        #在这个块内，数据被期望正常，可以解析
-        if index == 2:
-            start = advice["data"]["start"][0:2]
-            advice["data"]["end"] = f'{start}:{text[0:2]}'
-        elif index >= 4: 
-            advice["data"]["end"] = f'{text[0:2]}:{text[2:4]}'
-        
-        advice["nextState"] = InputState.AWAIT_ACTION
-        advice["parseIndex"] = 4 + index - 1
-        
-    #  ---------- 处理Action ----------
-        
-        
-        
-        
-        
-        
+        if advice["nextState"] != InputState.AWAIT_ACTION_DETAIL:
+            secondSpace = actionText.find(" ",1)
+            if secondSpace >= 0:
+                action = actionText[1:secondSpace]
+                advice["data"]["action"] = action
+                advice["nextState"] = InputState.AWAIT_ACTION_DETAIL
+                advice["parseIndex"] += len(action)
+            else:    
+                return advice
     
+    #  ---------- ACTION_DETAIL阶段 ----------
+    #好像不能不管，actionDetail需要依赖它去传
+    
+    #  ---------- 最终返回 ----------
+    return advice
+        
+        
+
         
 """  ---------- 状态机 ----------- """
 #UNIVERSAL; INPUT dict action{enum state, userAction, text}; OUTPUT dict result{enum state, keyActionList(to update GUI)}
-def stateMachineParser_API(currentState,text,eventType,actionDataLoc):
+def stateMachineParser_API(currentState,text,eventType,userAction): #这里的userAction是确保如果有什么自定义的key一起传过来
     actionList = getAutoCompletion(currentState,actionDataLoc)
+    
+    #  ------ 获取就文本而言的建议 ------
+    textAdvice = parseData_API(text,actionList,ActionType)
     
     #  ------ 初始化需要返回的列表 ------
     suggestions = {
-        "expectedType":"",
+        "expectedType":textAdvice["nextState"],
         "suggestList":[],
-        "UIdata": {
-            "start":"",
-            "end":"",
-            "action":"",
-            "actionType":"",
-            "actionDetail":""
+        "data": {
+            "start":textAdvice["data"]["start"],
+            "end":textAdvice["data"]["end"],
+            "action":textAdvice["data"]["action"],
+            "action_type":textAdvice["data"]["action_type"],
+            "actionDetail":textAdvice["data"]["actionDetail"]
         }
     }
     
-    
-    #  ---------- 处理输入 ----------
-    #即，之前提到过的仅状态机处理的文字输入部分，不需要依赖于eventType
-    suggestions = parseData_API(text,actionList,ActionType)
-    
-    
-    #  ----------- 判定 ----------
+    #  ---------- 判定 ----------
     #  ------ 补全判定 ------
     if eventType == UserActionType.TEXT_INPUT and currentState == InputState.AWAIT_ACTION:
         completionList = getAutoCompletion(currentState)
@@ -156,12 +199,22 @@ def stateMachineParser_API(currentState,text,eventType,actionDataLoc):
         
         keyIndex = endSpan + 4 + 1
         key = text[keyIndex:]
-        keyList = getAutoCompleteWithKey_API(key,completionList)
+        suggestions["suggestList"] = getAutoCompleteWithKey_API(key,completionList)
+    
+    #  ------ 选定判定 ------ 
+    if eventType == UserActionType.CONFIRM_SELECT:
+        suggestions["previousAction"] = textAdvice["data"]["action"] #结构的修补
+        
+        suggestions["expectedType"] == InputState.AWAIT_ACTION_DETAIL
+        suggestions["data"]["action"] = userAction["selectedVal"]
+        
+        #这里如果可行可能还是需要修改一下速记现实框的显示，如果有依赖于action长度什么的判断会报错
+    
+    #  ------ 结束判定 ------
+    if eventType == UserActionType.FINAL_SUBMIT:
+        suggestions["expectedType"] == InputState.COMPLETE
+        suggestions["data"]["actionDetail"] = textAdvice
         
         
-        
-
-
-
-        
+    return suggestions
         

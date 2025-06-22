@@ -490,5 +490,159 @@
             "actionDetail": "****",
             "timeSpan": 33
         }
+    ],
+    "2025-06-21": [
+        {
+            "start": "09:58",
+            "end": "10:48",
+            "action": "V3",
+            "action_type": "rest",
+            "actionDetail": "维多利亚 3",
+            "timeSpan": 50
+        },
+        {
+            "start": "10:48",
+            "end": "11:26",
+            "action": "CODE",
+            "action_type": "work",
+            "actionDetail": "接着写状态机，写到一半发现自己状态耗尽，遂去放松",
+            "timeSpan": 38
+        },
+        {
+            "start": "11:26",
+            "end": "11:30",
+            "action": "散步",
+            "action_type": "rest",
+            "actionDetail": "实际上是看风景，我的眼睛还残留着昨天晚上的僵硬",
+            "timeSpan": 4
+        },
+        {
+            "start": "11:30",
+            "end": "12:00",
+            "action": "CODE",
+            "action_type": "work",
+            "actionDetail": "写代码",
+            "timeSpan": 30
+        },
+        {
+            "start": "12:00",
+            "end": "12:15",
+            "action": "AI",
+            "action_type": "work",
+            "actionDetail": "重构状态机",
+            "timeSpan": 15
+        },
+        {
+            "start": "12:15",
+            "end": "12:24",
+            "action": "散步",
+            "action_type": "rest",
+            "actionDetail": "感觉有点激动, 下去拿咖啡",
+            "timeSpan": 9
+        },
+        {
+            "start": "12:24",
+            "end": "12:46",
+            "action": "写代码",
+            "action_type": "work",
+            "actionDetail": "继续",
+            "timeSpan": 22
+        },
+        {
+            "start": "12:46",
+            "end": "14:21",
+            "action": "吃饭",
+            "action_type": "rest",
+            "actionDetail": "以及睡觉，但看视频, 效率 = 0.5",
+            "timeSpan": 95
+        },
+        {
+            "start": "14:21",
+            "end": "15:20",
+            "action": "CODE",
+            "action_type": "work",
+            "actionDetail": "代码写了又改",
+            "timeSpan": 59
+        },
+        {
+            "start": "15:20",
+            "end": "15:27",
+            "action": "睡觉",
+            "action_type": "rest",
+            "actionDetail": "小睡一会",
+            "timeSpan": 7
+        },
+        {
+            "start": "15:27",
+            "end": "15:56",
+            "action": "CODE",
+            "action_type": "work",
+            "actionDetail": "写完转换状态判断的内容",
+            "timeSpan": 29
+        },
+        {
+            "start": "15:56",
+            "end": "16:00",
+            "action": "睡觉",
+            "action_type": "rest",
+            "actionDetail": "小睡一会",
+            "timeSpan": 4
+        },
+        {
+            "start": "16:00",
+            "end": "16:45",
+            "action": "V3",
+            "action_type": "work",
+            "actionDetail": "进游戏看一眼 DLC，没忍住顺便把巨德成立了",
+            "timeSpan": 45
+        },
+        {
+            "start": "16:45",
+            "end": "18:26",
+            "action": "CODE",
+            "action_type": "work",
+            "actionDetail": "总算是见到成果了！一部分的可以跑了！",
+            "timeSpan": 101
+        },
+        {
+            "start": "18:26",
+            "end": "19:16",
+            "action": "看视频",
+            "action_type": "waste",
+            "actionDetail": "短视频",
+            "timeSpan": 50
+        },
+        {
+            "start": "19:16",
+            "end": "19:23",
+            "action": "GUITAR",
+            "action_type": "waste",
+            "actionDetail": "想弹吉他但是发现我的拨片没到",
+            "timeSpan": 7
+        },
+        {
+            "start": "19:23",
+            "end": "19:55",
+            "action": "CODE",
+            "action_type": "work",
+            "actionDetail": "改了一会 bug",
+            "timeSpan": 32
+        },
+        {
+            "start": "19:55",
+            "end": "20:40",
+            "action": "吃饭",
+            "action_type": "rest",
+            "actionDetail": "肯德基",
+            "timeSpan": 45
+        },
+        {
+            "start": "20:40",
+            "end": "21:13",
+            "action": "视频",
+            "action_type": "waste",
+            "actionDetail": "看了个很有意思的 planetlord 的视频",
+            "timeSpan": 33
+        }
     ]
 }

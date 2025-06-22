@@ -56,11 +56,30 @@ class SmartInputFrame(tk.Frame):
         GUIData = suggestion["data"]
         #这里可能出问题
         PropertyViewFrame.updateView_FUNC(self.propertyFrame,GUIData)
+        
+        #  ------ 下拉列表替换 ------
+        self.dropdown.place_forget()
+        #  --- 插入新东西 ---
+        if suggestion["suggestList"] != []:
+            self.dropdown.delete(0,tk.END)
+            for item in suggestion["suggestList"]:
+                self.dropdown.insert(tk.END,item)
+            
+        #  --- 让其可以显示并定位 --
+            if self.focus_get() == self.fastEntry:
+                x = self.fastEntry.winfo_x()
+                y = self.fastEntry.winfo_y() + self.fastEntry.winfo_height()
+                self.dropdown.place(x=x, y=y, width=self.fastEntry.winfo_width())
+            elif self.focus_get() == self.propertyFrame.entries["action"]:
+                actionProperty = self.propertyFrame.entries["action"]
+                x = actionProperty.winfo_x()
+                y = actionProperty.winfo_y() + self.fastEntry.winfo_height()
+                self.dropdown.place(x=x, y=y, width=actionProperty.winfo_width())
     
     #UNIVERSAL; INPUT nothing; OUTPUT currentState
     def parsingCurrentState(self):
         return self.currentState
-    
+
     
     """ ------ SPECIFIC FUNCTION ------ """
     #SPECIFIC; INPUT key_release event; DETECT key release and solve it

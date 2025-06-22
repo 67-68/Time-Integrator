@@ -23,11 +23,10 @@ actionDataLoc = "actionData.json"
 """  ---------- UNIVERSAL FUNCTION -----------"""
 #  ---------- 处理获取列表 ----------
 #UNIVERSAL; INPUT currentState; OUTPUT actionList
-def getAutoCompletion(currentState,actionDataLoc):
+def getAutoCompletion(actionDataLoc):
     # ------ 获取行动list ------
-    if currentState == InputState.AWAIT_ACTION:
-         actionData = getData_API(actionDataLoc)
-         return list(actionData.keys())
+    actionData = getData_API(actionDataLoc)
+    return list(actionData.keys())
  
 #UNIVERSAL; INPUT str key and list; OUTPUT list of item with key
 def getAutoCompleteWithKey_API(key,list):
@@ -141,13 +140,21 @@ def parseData_API(text, actionList, typeEnumName):
     if len(actionText) == 0:
         return advice
     
+    #  ------ 把不完整的action也赋值 ------
+    advice["data"]["action"] = actionText
+    advice["parseIndex"] += len(actionText) 
+    
+    #注意不要混淆actionText和这里的action
+    #  ------ 判断是否转换状态 ------
+    for action in actionList:
+        if actionText.find(action) >= 0:
+            advice["data"]["action"] = action
+            advice["nextState"] = InputState.AWAIT_ACTION_DETAIL
+            advice["parseIndex"] += len(action)
+            break
+    
+    #  ------ 判断是否使用新的action ------
     if actionText[0] == " ":
-        for action in actionList:
-            if actionText.find(action) >= 0:
-                advice["data"]["action"] = action
-                advice["nextState"] = InputState.AWAIT_ACTION_DETAIL
-                advice["parseIndex"] += len(action)
-                break
         if advice["nextState"] != InputState.AWAIT_ACTION_DETAIL:
             secondSpace = actionText.find(" ",1)
             if secondSpace >= 0:
@@ -159,7 +166,8 @@ def parseData_API(text, actionList, typeEnumName):
                 return advice
     
     #  ---------- ACTION_DETAIL阶段 ----------
-    #好像不能不管，actionDetail需要依赖它去传
+    detailText = text[advice["parseIndex"]:]
+    advice["data"]["actionDetail"] = detailText
     
     #  ---------- 最终返回 ----------
     return advice
@@ -170,11 +178,12 @@ def parseData_API(text, actionList, typeEnumName):
 """  ---------- 状态机 ----------- """
 #UNIVERSAL; INPUT dict action{enum state, userAction, text}; OUTPUT dict result{enum state, keyActionList(to update GUI)}
 def stateMachineParser_API(currentState,text,eventType,userAction): #这里的userAction是确保如果有什么自定义的key一起传过来
-    actionList = getAutoCompletion(currentState,actionDataLoc)
+    actionList = getAutoCompletion(actionDataLoc) #TODO:这个函数的逻辑到底是怎么写的？为什么要穿actionList
     
     #  ------ 获取就文本而言的建议 ------
     textAdvice = parseData_API(text,actionList,ActionType)
     
+    #不要把expectedType和currentState搞混了,但这俩玩意的关系是啥？
     #  ------ 初始化需要返回的列表 ------
     suggestions = {
         "expectedType":textAdvice["nextState"],
@@ -190,15 +199,10 @@ def stateMachineParser_API(currentState,text,eventType,userAction): #这里的us
     
     #  ---------- 判定 ----------
     #  ------ 补全判定 ------
-    if eventType == UserActionType.TEXT_INPUT and currentState == InputState.AWAIT_ACTION:
-        completionList = getAutoCompletion(currentState)
-        if text[4:8].isdigit():
-            endSpan = 4
-        else:
-            endSpan = 2
+    if eventType == UserActionType.TEXT_INPUT and suggestions["expectedType"] == InputState.AWAIT_ACTION:
+        completionList = getAutoCompletion(actionDataLoc)
+        key = textAdvice["data"]["action"]
         
-        keyIndex = endSpan + 4 + 1
-        key = text[keyIndex:]
         suggestions["suggestList"] = getAutoCompleteWithKey_API(key,completionList)
     
     #  ------ 选定判定 ------ 

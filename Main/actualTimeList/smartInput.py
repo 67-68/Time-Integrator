@@ -4,6 +4,14 @@ from actualTimeList.stateMachineParser import UserActionType,InputState,stateMac
 
 actionDataLoc = "actionData.json"
 
+#UNIVERSAL; INPUT tk dropdown and int index; UPDATE dropdown
+def switchDropdown(dropdown,index):
+        dropdown.selection_clear(0, tk.END)  # 清除所有选中
+        dropdown.selection_set(index)        # 设置选中 index
+        dropdown.activate(index)             # 设置焦点
+        dropdown.see(index)                  # 滚动到该项
+        
+
 class SmartInputFrame(tk.Frame):
     """  ------- 构造函数初始化 ------ """
     def __init__(self, master, **kwargs):
@@ -22,9 +30,16 @@ class SmartInputFrame(tk.Frame):
         #  ------ 存储当前的状态 ------
         self.currentState = InputState.AWAIT_START
         
+        #  ------ 初始化dropDownTopLevel ------
+        self.dropdownTop = tk.Toplevel(self)
+        self.dropdownTop.withdraw()  # 初始时隐藏
+        self.dropdownTop.overrideredirect(True)  # 无边框
+        self.dropdownTop.attributes("-topmost", True)  # 置顶
+        
+        
         #  ------ 初始化dropdown ------
-        self.dropdown = tk.Listbox(self)
-        self.dropdown.place_forget()
+        self.dropdown = tk.Listbox(self.dropdownTop)
+        self.dropdown.pack()
         
         #  ------ 初始化propertyFrame ------
         self.propertyFrame = PropertyViewFrame(self)
@@ -33,6 +48,24 @@ class SmartInputFrame(tk.Frame):
         
     
     """ ------ UNIVERSAL FUNCTION ----- """
+    #UNIVERSAL; INPUT widget and str[] item; UPDATE dropdown
+    def showDropdown(self,widget,items):
+        #  ------ 删除并插入 ------ 
+        self.dropdown.delete(0,tk.END)
+        for item in items:
+            self.dropdown.insert(tk.END,item)
+        
+        #  ------ 获取放置数据 ------
+        x = widget.winfo_rootx()
+        y = widget.winfo_rooty() + widget.winfo_height()
+        width=widget.winfo_width()
+        
+        #  ------ 放置TopLevel ------
+        self.dropdownTop.geometry(f"{width}x100+{x}+{y}")  # 100 是高度，可调
+        self.dropdownTop.deiconify()
+        
+
+    """  ------ PROCESS EVENT ------ """
     #UNIVERSAL; INPUT dict userAction(state,text,eventType); UPDATE state and property above
     def processEvent_API(self,userAction):
         #  ------ 获取需要的变量 ------
@@ -40,16 +73,21 @@ class SmartInputFrame(tk.Frame):
         text = userAction["text"]
         eventType = userAction["eventType"]
         
-        #  ------ 询问状态机，给出建议 ------
+        #  ---------- 询问状态机，给出建议 ----------
         suggestion = stateMachineParser_API(currentState,text,eventType,userAction)
         
-        #  ------ 修补:修改速记提示框的显示 ------
+        #  ------ 修改速记提示框的显示 ------
         if eventType == UserActionType.CONFIRM_SELECT:
             currentText = self.fastEntry.get()
-            currentText -= suggestion["previousAction"]
-            currentText += suggestion["data"]["action"]
-            self.fastEntry.setEntry(currentText)
-            #这里可能出问题，我对函数不熟悉
+
+            #  --- 判断是否action为空 ---
+            if suggestion.get("previousAction", "") == "":
+                index = len(currentText)
+                newText = currentText[:index] + suggestion["data"]["action"] + currentText[index:]
+            else:
+                newText = currentText.replace(suggestion["previousAction"], suggestion["data"]["action"], 1)
+            self.fastEntry.setEntry(newText)
+                #这里可能导致错误替换，如果行动出现多次
         
         #  ------ 实施建议 ------
         #  --- GUI ---
@@ -57,24 +95,19 @@ class SmartInputFrame(tk.Frame):
         #这里可能出问题
         PropertyViewFrame.updateView_FUNC(self.propertyFrame,GUIData)
         
-        #  ------ 下拉列表替换 ------
-        self.dropdown.place_forget()
+        #  ---------- 下拉列表替换 ----------
+        #  --- 隐藏下拉列表 ---
+        self.dropdownTop.withdraw()
+        
         #  --- 插入新东西 ---
         if suggestion["suggestList"] != []:
-            self.dropdown.delete(0,tk.END)
-            for item in suggestion["suggestList"]:
-                self.dropdown.insert(tk.END,item)
-            
-        #  --- 让其可以显示并定位 --
             if self.focus_get() == self.fastEntry:
-                x = self.fastEntry.winfo_x()
-                y = self.fastEntry.winfo_y() + self.fastEntry.winfo_height()
-                self.dropdown.place(x=x, y=y, width=self.fastEntry.winfo_width())
+                SmartInputFrame.showDropdown(self,self.fastEntry,suggestion["suggestList"])
             elif self.focus_get() == self.propertyFrame.entries["action"]:
+                #  --- 获取控件 ---
                 actionProperty = self.propertyFrame.entries["action"]
-                x = actionProperty.winfo_x()
-                y = actionProperty.winfo_y() + self.fastEntry.winfo_height()
-                self.dropdown.place(x=x, y=y, width=actionProperty.winfo_width())
+                SmartInputFrame.showDropdown(self,actionProperty,suggestion["suggestList"])
+            
     
     #UNIVERSAL; INPUT nothing; OUTPUT currentState
     def parsingCurrentState(self):
@@ -132,24 +165,33 @@ class SmartInputFrame(tk.Frame):
         #  ------ 判断 ------
         if self.dropdown.winfo_ismapped():
             if event.keysym == "Up" and self.dropdown.curselection(): #如果没有选中不能往上
-                eventType = UserActionType.ARROW_UP
+                SmartInputFrame.updateDropdown(self,UserActionType.ARROW_UP)
             elif event.keysym == "Down":
-                eventType = UserActionType.ARROW_DOWN
+                SmartInputFrame.updateDropdown(self,UserActionType.ARROW_DOWN)
         else:
             return
-        
-        #  ------ 打包 ------
-        userAction = {
-            "currentState": self.parsingCurrentState(),
-            "text": self.fastEntry.get(),
-            "eventType": eventType
-        }
-        
-        #  ------ 调用函数修改状态 ------ 
-        self.processEvent_API(userAction)
         return "break"
     
+    #SPECIFIC; INPUT actionState; UPDATE dropdown
+    def updateDropdown(self, actionState):
+        selected = self.dropdown.curselection()
+        index = selected[0] if selected else -1
 
+        if actionState == UserActionType.ARROW_UP:
+            new_index = max(index - 1, 0)
+
+        elif actionState == UserActionType.ARROW_DOWN:
+            size = self.dropdown.size()
+            if index + 1 >= size:
+                new_index = 0 
+            else:
+                new_index = index + 1
+        else:
+            return
+
+        switchDropdown(self.dropdown, new_index)
+                
+        
 """  ---------- 新建属性栏类 ---------- """
 class PropertyViewFrame(tk.Frame):
     """  ------- 构造函数初始化 ------ """

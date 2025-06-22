@@ -140,14 +140,10 @@ def parseData_API(text, actionList, typeEnumName):
     if len(actionText) == 0:
         return advice
     
-    #  ------ 把不完整的action也赋值 ------
-    advice["data"]["action"] = actionText
-    advice["parseIndex"] += len(actionText) 
-    
     #注意不要混淆actionText和这里的action
     #  ------ 判断是否转换状态 ------
     for action in actionList:
-        if actionText.find(action) >= 0:
+        if actionText.find(action) >= 0: #这里用startWith会出问题，比如输入c会直接输入code
             advice["data"]["action"] = action
             advice["nextState"] = InputState.AWAIT_ACTION_DETAIL
             advice["parseIndex"] += len(action)
@@ -164,6 +160,11 @@ def parseData_API(text, actionList, typeEnumName):
                 advice["parseIndex"] += len(action)
             else:    
                 return advice
+
+    #  ------ 把不完整的action也赋值 ------
+    if advice["nextState"] == InputState.AWAIT_ACTION:
+        advice["data"]["action"] = actionText
+        advice["parseIndex"] += len(actionText) 
     
     #  ---------- ACTION_DETAIL阶段 ----------
     detailText = text[advice["parseIndex"]:]
@@ -193,7 +194,7 @@ def stateMachineParser_API(currentState,text,eventType,userAction): #这里的us
             "end":textAdvice["data"]["end"],
             "action":textAdvice["data"]["action"],
             "action_type":textAdvice["data"]["action_type"],
-            "actionDetail":textAdvice["data"]["actionDetail"]
+            "actionDetail":textAdvice["data"]["actionDetail"],
         }
     }
     

@@ -54,7 +54,7 @@ def getEnumAbbriviation(enumClass):
 #这一整个函数好像也是类似状态机的东西，但是是一种连续的状态
 #  ---------- 获取UI数据 ----------
 # UNIVERSAL; INPUT str text, list actionList; OUTPUT dict advice
-def parseData_API(text, actionList, typeEnumName):
+def parseData_API(text, actionList):
     # --------- 初始化返回值 ----------
     advice = {
         "data": {
@@ -179,10 +179,10 @@ def parseData_API(text, actionList, typeEnumName):
 """  ---------- 状态机 ----------- """
 #UNIVERSAL; INPUT dict action{enum state, userAction, text}; OUTPUT dict result{enum state, keyActionList(to update GUI)}
 def stateMachineParser_API(currentState,text,eventType,userAction): #这里的userAction是确保如果有什么自定义的key一起传过来
-    actionList = getAutoCompletion(actionDataLoc) #TODO:这个函数的逻辑到底是怎么写的？为什么要穿actionList
+    actionList = getAutoCompletion(actionDataLoc) 
     
     #  ------ 获取就文本而言的建议 ------
-    textAdvice = parseData_API(text,actionList,ActionType)
+    textAdvice = parseData_API(text,actionList)
     
     #不要把expectedType和currentState搞混了,但这俩玩意的关系是啥？
     #  ------ 初始化需要返回的列表 ------
@@ -207,9 +207,7 @@ def stateMachineParser_API(currentState,text,eventType,userAction): #这里的us
         suggestions["suggestList"] = getAutoCompleteWithKey_API(key,completionList)
     
     #  ------ 选定判定 ------ 
-    if eventType == UserActionType.CONFIRM_SELECT:
-        suggestions["previousAction"] = textAdvice["data"]["action"] #结构的修补
-        
+    if eventType == UserActionType.CONFIRM_SELECT:        
         suggestions["expectedType"] == InputState.AWAIT_ACTION_DETAIL
         suggestions["data"]["action"] = userAction["selectedVal"]
         

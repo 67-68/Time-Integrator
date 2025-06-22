@@ -1,6 +1,6 @@
 import tkinter as tk
 from GUI_Classes import BasicEntry,BasicLabel
-from actualTimeList.stateMachineParser import UserActionType,InputState,stateMachineParser_API
+from actualTimeList.stateMachineParser import UserActionType,InputState, getAutoCompletion, parseData_API,stateMachineParser_API
 
 actionDataLoc = "actionData.json"
 
@@ -81,14 +81,19 @@ class SmartInputFrame(tk.Frame):
             currentText = self.fastEntry.get()
 
             #  --- 判断是否action为空 ---
-            if suggestion.get("previousAction", "") == "":
-                index = len(currentText)
-                newText = currentText[:index] + suggestion["data"]["action"] + currentText[index:]
-            else:
-                newText = currentText.replace(suggestion["previousAction"], suggestion["data"]["action"], 1)
-            self.fastEntry.setEntry(newText)
-                #这里可能导致错误替换，如果行动出现多次
+            actionList = getAutoCompletion(actionDataLoc)
+            action_to_replace = parseData_API(text,actionList).get("data", {}).get("action", "")
         
+            # 2. 获取状态机确认“之后”的action是什么
+            new_action = suggestion["data"]["action"]
+
+            # 3. 执行替换
+            if action_to_replace: # 只有当之前确实解析出了一个action时才替换
+                newText = text.replace(action_to_replace, new_action, 1)
+                self.fastEntry.setEntry(newText)
+            else: # 如果之前没解析出来，就直接追加
+                self.fastEntry.insert('end', new_action)
+
         #  ------ 实施建议 ------
         #  --- GUI ---
         GUIData = suggestion["data"]

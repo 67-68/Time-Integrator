@@ -1,5 +1,3 @@
-
-import json
 from GUI import menuGUI
 
 #Main function start

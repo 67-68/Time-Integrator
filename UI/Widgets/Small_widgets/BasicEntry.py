@@ -8,3 +8,4 @@ class BasicEntry(tk.Entry):
     def setEntry(self,text):
         self.delete(0,'end')
         self.insert(0,text)
+        

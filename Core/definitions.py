@@ -29,10 +29,6 @@ class Indicators(Enum):
     SECOND_COUNT = 2
 
 
-
-
-
-
 #UNIVERSAL; INPUT enum ActionType; OUTPUT list of enum abbreviations
 def getEnumAbbriviation(enumClass):
     temp = {

@@ -32,7 +32,7 @@ class Indicators(Enum):
 
 
 
-#  ---------- 
+
 #UNIVERSAL; INPUT enum ActionType; OUTPUT list of enum abbreviations
 def getEnumAbbriviation(enumClass):
     temp = {
@@ -43,3 +43,15 @@ def getEnumAbbriviation(enumClass):
     }
     if enumClass == ActionType:
         return temp
+    
+def getEnumValue_API(enumClass):
+    temp = []
+    for item in enumClass:
+        temp.append(item.value)
+    return temp
+
+def getEnumValueDict_API(enumClass):
+    temp = {}
+    for item in enumClass:
+        temp[item.value] = {"timeSpan":0}
+    return temp

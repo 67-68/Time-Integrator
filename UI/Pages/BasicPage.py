@@ -1,3 +1,6 @@
+from UI.Frames import BottomInfoFrame, CenterMainFrame, DownPageFrame, LeftToolFrame
+import tkinter as tk
+
 class BasicPage(tk.Frame):
     def __init__(self, root,buttons,**kwargs):
         super().__init__(root) #引用父类方法，创建一个Frame

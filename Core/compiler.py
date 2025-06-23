@@ -1,6 +1,6 @@
 # UNIVERSAL; INPUT str text, list actionList; OUTPUT dict advice
 from Core.actionType import ActionType
-from Core.definitions import InputState, getEnumAbbriviation
+from Core.Definitions import InputState, getEnumAbbriviation
 
 
 def transFastEnter_API(text, actionList):

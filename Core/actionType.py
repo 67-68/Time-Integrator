@@ -1,5 +1,5 @@
 from Core.json_Interaction import getData_API
-from Core.definitions import ActionType
+from Core.Definitions import ActionType
 
 #  ------ 输出 ------
 # 输出Enum的value

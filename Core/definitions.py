@@ -1,6 +1,5 @@
 from enum import Enum
 
-#  ---------- ENUM CLASSES ----------
 class InputState(Enum):
     AWAIT_START = "awaitStart"
     AWAIT_END = "awaitEnd"
@@ -22,7 +21,16 @@ class ActionType(Enum):
     WASTE = "waste"
     UNKNOWN = "unknown"
     
-    
+class Indicators(Enum):
+    LINE_INDICATOR = '\n' #把输入的行分开
+    FIRST_INDICATOR = " - " #把输入分成三个基本的模块：两个时间和一个行动
+    SECOND_INDICATOR = "-" #在行动内细分
+    FIRST_COUNT = 2
+    SECOND_COUNT = 2
+
+
+
+
 
 #  ---------- 
 #UNIVERSAL; INPUT enum ActionType; OUTPUT list of enum abbreviations

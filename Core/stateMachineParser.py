@@ -1,6 +1,6 @@
 from Core.json_Interaction import getData_API
 from Core.compiler import transFastEnter_API
-from Core.definitions import InputState, UserActionType 
+from Core.Definitions import InputState, UserActionType 
 
     
 actionDataLoc = "Data/actionData.json"

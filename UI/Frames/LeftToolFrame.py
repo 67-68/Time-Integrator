@@ -1,5 +1,7 @@
 import tkinter as tk
 
+from UI.Small_widgets import BasicButton
+
 class LeftToolFrame(tk.Frame):
     def __init__(self, fatherFrame,buttons):
         super().__init__(fatherFrame) #引用父类方法，创建一个Frame

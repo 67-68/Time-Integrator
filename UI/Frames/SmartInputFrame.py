@@ -1,9 +1,11 @@
 import tkinter as tk
-from UI.GUI_Classes import BasicEntry,BasicLabel
 from Core.stateMachineParser import UserActionType,InputState, getAutoCompletion, transFastEnter_API,stateMachineParser_API
+from UI.Frames.propertyViewFrame import PropertyViewFrame
+from UI.Small_widgets import BasicEntry
 
 actionDataLoc = "Data/actionData.json"
 
+#这里应该放到新的dropdown class里面
 #UNIVERSAL; INPUT tk dropdown and int index; UPDATE dropdown
 def switchDropdown(dropdown,index):
         dropdown.selection_clear(0, tk.END)  # 清除所有选中

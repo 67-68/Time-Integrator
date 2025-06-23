@@ -1,19 +1,13 @@
 import tkinter as tk
 
-
+from Core.demoParse import getSimpleDataStr_API
 from Core.parseInput import parseLineInput_API, dateToActionCentric_API
 from Core.validations import dateValidation_API,isValidTimePeriod_API, isValidTimeStr_API,structureValidation_API
 from Core.json_Interaction import getData_API, saveData_API
 from Core.actionType import ActionType,getEnumValue_API, getEnumValueDict_API
-
-"""  ------ GLOBAL VARIABLES ----- """
-infoMenuLabel = None
-infoDemoLabel = None
-lineIndicator = '\n' #把输入的行分开
-firstIndicator = " - " #把输入分成三个基本的模块：两个时间和一个行动
-secondIndicator = "-" #在行动内细分
-firstCount = 2
-secondCount = 2
+from UI.Frames import SmartInputFrame,BasicFrame
+from UI.Small_widgets import BasicButton, BasicEntry, BasicText #这个label什么情况
+from UI.Pages import BasicPage
         
 """  ---------- UNIVERSAL FUNCTIONS ---------- """
 """  ------ Date本位 ------ """

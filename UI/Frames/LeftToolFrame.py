@@ -1,6 +1,6 @@
 import tkinter as tk
 
-from UI.Small_widgets import BasicButton
+from UI.Small_widgets.BasicButton import BasicButton
 
 class LeftToolFrame(tk.Frame):
     def __init__(self, fatherFrame,buttons):

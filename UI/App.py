@@ -4,11 +4,23 @@ from Core.demoParse import getSimpleDataStr_API
 from Core.parseInput import parseLineInput_API, dateToActionCentric_API
 from Core.validations import dateValidation_API,isValidTimePeriod_API, isValidTimeStr_API,structureValidation_API
 from Core.json_Interaction import getData_API, saveData_API
-from Core.actionType import ActionType,getEnumValue_API, getEnumValueDict_API
-from UI.Frames import SmartInputFrame,BasicFrame
-from UI.Small_widgets import BasicButton, BasicEntry, BasicText #这个label什么情况
-from UI.Pages import BasicPage
-        
+from Core.actionType import getEnumValue_API, getEnumValueDict_API
+from UI.Frames.BasicFrame import BasicFrame
+from UI.Frames.SmartInputFrame import SmartInputFrame
+from UI.Pages.BasicPage import BasicPage
+from Core.Definitions import Indicators, ActionType
+from UI.Small_widgets.BasicButton import BasicButton
+from UI.Small_widgets.BasicEntry import BasicEntry
+from UI.Small_widgets.BasicLabel import BasicLabel
+from UI.Small_widgets.BasicText import BasicText
+
+lineIndicator = Indicators.LINE_INDICATOR
+firstIndicator = Indicators.FIRST_INDICATOR
+secondIndicator = Indicators.SECOND_INDICATOR
+firstCount = Indicators.FIRST_COUNT
+secondCount = Indicators.SECOND_COUNT
+
+
 """  ---------- UNIVERSAL FUNCTIONS ---------- """
 """  ------ Date本位 ------ """
 # ---------- 用户输入 ----------

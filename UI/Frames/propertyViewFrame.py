@@ -1,5 +1,8 @@
 import tkinter as tk
-from UI.Small_widgets import BasicEntry, BasicLabel
+
+from UI.Small_widgets.BasicEntry import BasicEntry
+from UI.Small_widgets.BasicLabel import BasicLabel
+
 
 class PropertyViewFrame(tk.Frame):
     """  ------- 构造函数初始化 ------ """

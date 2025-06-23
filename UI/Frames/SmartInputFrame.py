@@ -1,7 +1,7 @@
 import tkinter as tk
 from Core.stateMachineParser import UserActionType,InputState, getAutoCompletion, transFastEnter_API,stateMachineParser_API
 from UI.Frames.propertyViewFrame import PropertyViewFrame
-from UI.Small_widgets import BasicEntry
+from UI.Small_widgets.BasicEntry import BasicEntry
 
 actionDataLoc = "Data/actionData.json"
 

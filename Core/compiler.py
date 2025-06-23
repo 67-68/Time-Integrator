@@ -122,8 +122,8 @@ def transFastEnter_API(text, actionList):
     #  ---------- 最终返回 ----------
     return advice
 
+
 #UNIVERSAL; INPUT a set of property; OUTPUT fast entry str
-#采用和上面的大编译器一样的架构，如果解析不到就
 def transPropToFast_API(start,end,actionType,action,actionDetail):
     text = ""
     

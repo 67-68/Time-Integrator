@@ -1,5 +1,10 @@
-from UI.Frames import BottomInfoFrame, CenterMainFrame, DownPageFrame, LeftToolFrame
+from UI.Frames.BottomInfoFrame import BottomInfoFrame
+
 import tkinter as tk
+
+from UI.Frames.CenterMainFrame import CenterMainFrame
+from UI.Frames.DownPageFrame import DownPageFrame
+from UI.Frames.LeftToolFrame import LeftToolFrame
 
 class BasicPage(tk.Frame):
     def __init__(self, root,buttons,**kwargs):
@@ -11,7 +16,7 @@ class BasicPage(tk.Frame):
         self.bottomInfoFrame = BottomInfoFrame(self)
         
         #  ------ 初始化 ------
-        self.basicFrameElasity(self)
+        self.basicFrameElasity()
     
         
     def basicFrameElasity(self):

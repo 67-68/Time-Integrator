@@ -1,23 +1,5 @@
-from enum import Enum
-
-from APIs.json_Interaction import saveData_API, getData_API
-
-"""
-那么我现在应该是有三个“本位”的数据库了
-根据不同的大分类排布
-一个是原始的data
-一个是action作为分类的
-最后一个就是现在我做的这个东西
-
-我想把下面的这些分类改成根据处理的数据类型分类，而不是“输出”这样的
-"""
-
-#  ---------- 类 ----------
-class ActionType(Enum):
-    WORK = "work"
-    REST = "rest"
-    WASTE = "waste"
-    UNKNOWN = "unknown"
+from Core.json_Interaction import getData_API
+from Core.definitions import ActionType
 
 #  ------ 输出 ------
 # 输出Enum的value

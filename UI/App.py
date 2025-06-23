@@ -1,11 +1,10 @@
 import tkinter as tk
 
-from GUI_Classes import BasicEntry,BasicLabel,BasicPage,BasicText,BasicButton,BasicFrame
-from APIs.parseInput import parseLineInput_API, dateToActionCentric_API
-from APIs.validations import dateValidation_API,isValidTimePeriod_API, isValidTimeStr_API,structureValidation_API
-from APIs.json_Interaction import getData_API, saveData_API
-from APIs.actionType import ActionType,getEnumValue_API, getEnumValueDict_API
-from actualTimeList.smartInput import SmartInputFrame
+
+from Core.parseInput import parseLineInput_API, dateToActionCentric_API
+from Core.validations import dateValidation_API,isValidTimePeriod_API, isValidTimeStr_API,structureValidation_API
+from Core.json_Interaction import getData_API, saveData_API
+from Core.actionType import ActionType,getEnumValue_API, getEnumValueDict_API
 
 """  ------ GLOBAL VARIABLES ----- """
 infoMenuLabel = None
@@ -28,7 +27,7 @@ def getInput_API(prompt,text):
 
 #UNIVERSAL; INPUT str userdata; OUTPUT dict userdata
 def parseInput_API(orgingalData):
-    data = getData_API("data.json") #获取文件
+    data = getData_API("Data/dateData.json") #获取文件
     userData = parseLineInput_API(orgingalData,data,lineIndicator,firstIndicator,secondIndicator) #处理输入
     return userData
 
@@ -59,34 +58,6 @@ def validateData_API(userData):
             if actionInfo["action_type"].lower() not in enumVal:
                 return("wrong in action type")
     return True
-
-
-#  ---------- 输出内容 ----------
-#UNIVERSAL; INPUT userData; OUTPUT string as the demonstration of simple data
-def getSimpleDataStr_API(userData):
-    sum = ""
-    data = ""
-    totalTime = 0
-    totalAction = 0
-    for date in userData:
-        data += f"In {date}, \n"
-        for actions in userData[date]:
-            #赋值
-            action = actions["action"]
-            start = actions["start"]
-            end = actions["end"]
-            timeSpan = actions["timeSpan"]
-            detail = actions["actionDetail"]
-            type = actions["action_type"].upper()
-            
-            #计算总结需要的数据
-            totalTime += timeSpan
-            totalAction += 1
-            
-            #输出
-            data += f"you do {type}:{action} in {start} - {end}, total {timeSpan} minutes ({detail}) \n"
-    sum = f"SUMMARY: {totalAction} actions and {totalTime} minutes in your data \n"
-    return sum + data
 
 """  ------ TYPE本位 ------ """
 #  ---------- 本位转换 ----------
@@ -250,7 +221,7 @@ def showSimpleData(dataLoc,text):
     print("successfully show data") #这一行在换端的时候可以去掉
     
 
-#SPECIFIC; INPUT text, label; STORE data in data.json
+#SPECIFIC; INPUT text, label; STORE data in Data/dateData.json
 def promptInput_FUNC(menuPrompt,menuText,menuFrame):
     #  ------ 获取数据 ------
     originalData = getInput_API(menuPrompt,menuText)
@@ -267,12 +238,12 @@ def promptInput_FUNC(menuPrompt,menuText,menuFrame):
         menuFrame.bottomInfoFrame.showError(dataValidation)
     
     #  ------ 存储进actionData ------
-    actionData = getData_API("actionData.json")
+    actionData = getData_API("Data/actionData.json")
     actionData = dateToActionCentric_API(userData,actionData)
-    saveData_API(actionData,"actionData.json")
+    saveData_API(actionData,"Data/actionData.json")
     
     #  ------ 存入文件 ------
-    saveData_API(userData,"data.json") 
+    saveData_API(userData,"Data/dateData.json") 
 
 
 def menuGUI():
@@ -287,11 +258,11 @@ def menuGUI():
     
     #  ------ 展示界面 ------ 
     demoButtons = [
-            ('DATE - simple data', lambda: showSimpleData('data.json',demonText)),
-            ('TYPE - action frequency', lambda: setSwitchFrequency('data.json',ActionType,demonText)),
-            ('TYPE - average time', lambda: setAverageTime('data.json',ActionType,demonText)),
-            ('ACTION - regist actions', lambda: registAllAction_API('data.json','actionData.json')),
-            ('ACTION - show Ratio', lambda: setTypeRatioToText_API('actionData.json',ActionType,demonText))
+            ('DATE - simple data', lambda: showSimpleData('Data/dateData.json',demonText)),
+            ('TYPE - action frequency', lambda: setSwitchFrequency('Data/dateData.json',ActionType,demonText)),
+            ('TYPE - average time', lambda: setAverageTime('Data/dateData.json',ActionType,demonText)),
+            ('ACTION - regist actions', lambda: registAllAction_API('Data/dateData.json','Data/actionData.json')),
+            ('ACTION - show Ratio', lambda: setTypeRatioToText_API('Data/actionData.json',ActionType,demonText))
             ]
     
     #  ------ 输入界面 ------
@@ -369,9 +340,3 @@ def menuGUI():
     
     #  ---------- 事件循环开始 ----------
     root.mainloop()
-    
-    
-    
-
-
-      

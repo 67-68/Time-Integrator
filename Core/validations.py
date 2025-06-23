@@ -1,4 +1,4 @@
-from APIs.parseInput import getTotalTime_API
+from Core.parseInput import getTotalTime_API
 
 
 def timeValidation(hour,minutes):

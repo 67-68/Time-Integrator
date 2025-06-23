@@ -1,8 +1,8 @@
 import tkinter as tk
-from GUI_Classes import BasicEntry,BasicLabel
-from actualTimeList.stateMachineParser import UserActionType,InputState, getAutoCompletion, parseData_API,stateMachineParser_API
+from UI.GUI_Classes import BasicEntry,BasicLabel
+from Core.stateMachineParser import UserActionType,InputState, getAutoCompletion, transFastEnter_API,stateMachineParser_API
 
-actionDataLoc = "actionData.json"
+actionDataLoc = "Data/actionData.json"
 
 #UNIVERSAL; INPUT tk dropdown and int index; UPDATE dropdown
 def switchDropdown(dropdown,index):
@@ -10,7 +10,6 @@ def switchDropdown(dropdown,index):
         dropdown.selection_set(index)        # 设置选中 index
         dropdown.activate(index)             # 设置焦点
         dropdown.see(index)                  # 滚动到该项
-        
 
 class SmartInputFrame(tk.Frame):
     """  ------- 构造函数初始化 ------ """
@@ -45,10 +44,8 @@ class SmartInputFrame(tk.Frame):
         self.propertyFrame = PropertyViewFrame(self)
         self.propertyFrame.pack(side = "bottom",fill="x", expand=True)
         
-        
     
-    """ ------ UNIVERSAL FUNCTION ----- """
-    #UNIVERSAL; INPUT widget and str[] item; UPDATE dropdown
+    #SPECIFIC; INPUT widget and str[] item; UPDATE dropdown
     def showDropdown(self,widget,items):
         #  ------ 删除并插入 ------ 
         self.dropdown.delete(0,tk.END)
@@ -82,7 +79,7 @@ class SmartInputFrame(tk.Frame):
 
             #  --- 判断是否action为空 ---
             actionList = getAutoCompletion(actionDataLoc)
-            action_to_replace = parseData_API(text,actionList).get("data", {}).get("action", "")
+            action_to_replace = transFastEnter_API(text,actionList,InputState).get("data", {}).get("action", "")
         
             # 2. 获取状态机确认“之后”的action是什么
             new_action = suggestion["data"]["action"]
@@ -114,11 +111,11 @@ class SmartInputFrame(tk.Frame):
                 SmartInputFrame.showDropdown(self,actionProperty,suggestion["suggestList"])
             
     
-    #UNIVERSAL; INPUT nothing; OUTPUT currentState
+    #SPECIFIC; INPUT nothing; OUTPUT currentState
     def parsingCurrentState(self):
         return self.currentState
 
-    
+
     """ ------ SPECIFIC FUNCTION ------ """
     #SPECIFIC; INPUT key_release event; DETECT key release and solve it
     def _on_key_release_FUNC(self,event):
@@ -197,44 +194,4 @@ class SmartInputFrame(tk.Frame):
         switchDropdown(self.dropdown, new_index)
                 
         
-"""  ---------- 新建属性栏类 ---------- """
-class PropertyViewFrame(tk.Frame):
-    """  ------- 构造函数初始化 ------ """
-    def __init__(self, master, **kwargs):
-        super().__init__(master,**kwargs)
 
-        properties = {
-            "start":4,
-            "end":4,
-            "action_type":6,
-            "actionDetail":20,
-            "action":10
-        }
-        
-        self.entries = {}
-        
-        for property in properties:
-            self.entries[property] = BasicEntry(self,width = properties[property])
-        
-        self.entries["start"].grid (row = 1,column = 0,padx = 5)
-        self.entries["end"].grid(row = 1,column = 1,padx = 5)
-        self.entries["action_type"].grid(row = 1, column = 2,padx = 5)
-        self.entries["action"].grid(row = 1, column = 3,padx = 5)
-        self.entries["actionDetail"].grid(row = 1,column = 4,padx = 5)
-        
-        self.startLabel = BasicLabel(self,"start time")
-        self.endLabel = BasicLabel(self,"end time")
-        self.typeLabel = BasicLabel(self,"type of action")
-        self.actionLabel = BasicLabel(self,"name of action")
-        self.detailLabel = BasicLabel(self,"detail of action")
-        self.startLabel.grid (row = 0,column = 0,padx = 5)
-        self.endLabel.grid(row = 0,column = 1,padx = 5)
-        self.typeLabel.grid(row = 0, column = 2,padx = 5)
-        self.actionLabel.grid(row = 0, column = 3,padx = 5)
-        self.detailLabel.grid(row = 0,column = 4,padx = 5)
-
-    #SPECIFIC; INPUT dict; UPDATE entries
-    def updateView_FUNC(self,data):
-        for item in data:
-            self.entries[item].setEntry(data[item])
-        

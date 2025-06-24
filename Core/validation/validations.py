@@ -2,11 +2,11 @@ from Core.Definitions import ActionType, Indicators, getEnumValueDict_API
 from Core.analysis.APITools import getTotalTime_API
 
 
-lineIndicator = Indicators.LINE_INDICATOR
-firstIndicator = Indicators.FIRST_INDICATOR
-secondIndicator = Indicators.SECOND_INDICATOR
-firstCount = Indicators.FIRST_COUNT
-secondCount = Indicators.SECOND_COUNT
+lineIndicator = Indicators.LINE_INDICATOR.value
+firstIndicator = Indicators.FIRST_INDICATOR.value
+secondIndicator = Indicators.SECOND_INDICATOR.value
+firstCount = Indicators.FIRST_COUNT.value
+secondCount = Indicators.SECOND_COUNT.value
 
 def dateValidation_API(date):
     try:

@@ -8,11 +8,11 @@ from Core.translation.dataInput import parseLineInput_API
 from Core.validation.validations import validateData_API, validateIndicator_API
 
 
-lineIndicator = Indicators.LINE_INDICATOR
-firstIndicator = Indicators.FIRST_INDICATOR
-secondIndicator = Indicators.SECOND_INDICATOR
-firstCount = Indicators.FIRST_COUNT
-secondCount = Indicators.SECOND_COUNT
+lineIndicator = Indicators.LINE_INDICATOR.value
+firstIndicator = Indicators.FIRST_INDICATOR.value
+secondIndicator = Indicators.SECOND_INDICATOR.value
+firstCount = Indicators.FIRST_COUNT.value
+secondCount = Indicators.SECOND_COUNT.value
 
 
 def getActionDataStr_API():

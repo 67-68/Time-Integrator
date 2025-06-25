@@ -7,4 +7,4 @@ class BasicEntry(QLineEdit):
     
     def setEntry(self,text):
         self.clear()
-        self.insert(0,text)
+        self.insert(text)

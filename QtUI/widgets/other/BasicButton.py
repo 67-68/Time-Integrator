@@ -12,8 +12,9 @@ class BasicButton(QToolButton):
                 padding-bottom: 6px;
                 width: 100px;  /* 实际宽度由布局器和父容器决定 */
             }
-            QToolButton:pressed, QPushButton:checked {
+            QToolButton:pressed, QToolButton:checked {
                 background-color: #F4F4F4;
+            }
         """)
         
         self.setMinimumWidth(100)
@@ -21,7 +22,5 @@ class BasicButton(QToolButton):
         #  ------ 设置外部传入参数的检测 ------    
         if 'text' in kwargs:
             self.setText(kwargs['text'])
-        if 'clicked' and callable(kwargs['clicked']):
+        if 'clicked' in kwargs and callable(kwargs['clicked']):
             self.clicked.connect(kwargs['clicked'])
-    
-        

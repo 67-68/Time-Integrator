@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QWidget,QGridLayout
 
-from QtUI.widgets.frames import BottomInfoFrame
+from QtUI.widgets.frames.BottomInfoFrame import BottomInfoFrame
 from QtUI.widgets.frames.CenterMainFrame import CenterMainFrame
 from QtUI.widgets.frames.DownPageFrame import DownPageFrame
 from QtUI.widgets.frames.LeftToolFrame import LeftToolFrame
@@ -9,8 +9,8 @@ from QtUI.widgets.frames.LeftToolFrame import LeftToolFrame
 
 
 class BasicPage(QWidget):
-    def __init__(self, master = None,buttons = None, **kwargs):
-        super().__init__(master,buttons,**kwargs)
+    def __init__(self, master = None, **kwargs):
+        super().__init__(master,**kwargs)
         
         #  ------ 添加分Frame ------
         self.bottomInfoFrame = BottomInfoFrame(self)
@@ -35,6 +35,7 @@ class BasicPage(QWidget):
         self.pageLayout.setRowStretch(1, 1)
         self.pageLayout.setRowStretch(2, 0)
         self.pageLayout.setRowStretch(3, 0)
+        self.pageLayout.setColumnStretch(2, 3)   # 让列 2 也能分到空间
         
         #  --- 设置最小值 ---
         self.pageLayout.setRowMinimumHeight(3,40)

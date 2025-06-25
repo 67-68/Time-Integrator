@@ -33,3 +33,19 @@ def getAutoCompleteWithKey_API(key,list):
         newList.append("nothing match")
 
     return newList
+
+#UNIVERSAL; PyQt; INPUT widget and lowerstage widget; ADD widget to layout
+def addToLayout(layoutWidget,widget):
+    try:
+        layoutWidget.layout().addWidget(widget)
+    except Exception as e:
+        print(e)
+        print(f"something wrong when add {widget} into {layoutWidget}")
+        
+def allAddToLayout(layoutWidget,widgets):
+    for widget in widgets:
+        try:
+            layoutWidget.layout().addWidget(widget)
+        except Exception as e:
+            print(e)
+            print(f"something wrong when add {widget} into {layoutWidget}")

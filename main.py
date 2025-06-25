@@ -1,6 +1,11 @@
-from UI.App import menuGUI
+from QtUI.views.MainWindow import MainWindow
+from PyQt6.QtWidgets import QApplication
+import sys
 
-#Main function start
-print("welcome to the time-integrater, it is a gadget that helps you to analyze your time distribusion")
-#menu start
-menuGUI()
+DEBUG_UI = True
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
+    sys.exit(app.exec())

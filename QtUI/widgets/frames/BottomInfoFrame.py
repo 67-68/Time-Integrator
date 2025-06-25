@@ -8,7 +8,6 @@ class BottomInfoFrame(QWidget):
         #  ------ 错误信息封装 ------
         self.infoLabel = QLabel(self,text = "error will show in here")
         
-        
         #  ------ 设置布局器 ------
         self.layout = QVBoxLayout()
         self.layout.addWidget(self.infoLabel)

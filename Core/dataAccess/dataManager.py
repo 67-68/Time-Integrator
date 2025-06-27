@@ -1,7 +1,6 @@
 import json
 
 from Core.analysis.dateDataAnalysis import dateToActionCentric_API    
-#这里删除了一个原本的Savedata函数和firstSaveData函数，改用universal saveData函数替代
 
 #在需要覆盖的时候使用
 #注意！它不会帮你自动提取之前的东西然后加进去，因此使用函数之前应该手动增加原本的数据，否则可能丢失数据
@@ -27,3 +26,15 @@ def registAllAction_API(dataLoc,actionDataLoc):
     actionData = {}
     actionData = dateToActionCentric_API(data,actionData)
     saveData_API(actionData,actionDataLoc)
+
+#UNIVERSAL; INPUT dataLoc and keys; UPDATE all actionUnit with key provided
+def updateDataKey(dataLoc,keyToUpdate):
+    data = getData_API(dataLoc)
+    for date in data:
+        for actionUnits in data[date]:
+            for key in keyToUpdate:
+                if key not in actionUnits:
+                    actionUnits[key] = None
+
+    saveData_API(data,dataLoc)
+

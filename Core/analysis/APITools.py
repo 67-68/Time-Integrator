@@ -1,6 +1,6 @@
 #UNIVERSAL; INPUT: str time; OUTPUT: int total time
 from Core.dataAccess.dataManager import getData_API
-
+from datetime import datetime
 
 def getTotalTime_API(time):
     total = 0
@@ -49,3 +49,9 @@ def allAddToLayout(layoutWidget,widgets):
         except Exception as e:
             print(e)
             print(f"something wrong when add {widget} into {layoutWidget}")
+            
+def getTodayDate():
+    now = datetime.now()
+    date = now.date()
+    return date
+

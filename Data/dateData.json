@@ -6,7 +6,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "(`timespan`，拆分 `promptInput`, `timespan` > `timeSpan`, `exploitation_type` > `action_type`)",
-            "timeSpan": 59
+            "timeSpan": 59,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "14:35",
@@ -14,7 +17,10 @@
             "action": "休息",
             "action_type": "waste",
             "actionDetail": "玩游戏，看社交媒体，打 x",
-            "timeSpan": 37
+            "timeSpan": 37,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "15:12",
@@ -22,7 +28,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "我干了什么来着",
-            "timeSpan": 13
+            "timeSpan": 13,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "15:25",
@@ -30,7 +39,10 @@
             "action": "睡觉",
             "action_type": "rest",
             "actionDetail": "爽",
-            "timeSpan": 7
+            "timeSpan": 7,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "15:32",
@@ -38,7 +50,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "完成了 `showSimpleAction`",
-            "timeSpan": 47
+            "timeSpan": 47,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "16:19",
@@ -46,7 +61,10 @@
             "action": "休息",
             "action_type": "rest",
             "actionDetail": "玩了两把 hyld",
-            "timeSpan": 12
+            "timeSpan": 12,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "16:31",
@@ -54,7 +72,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "写了一个 `registNewActions`",
-            "timeSpan": 32
+            "timeSpan": 32,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "17:03",
@@ -62,7 +83,10 @@
             "action": "吃饭",
             "action_type": "rest",
             "actionDetail": "空",
-            "timeSpan": 78
+            "timeSpan": 78,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "18:21",
@@ -70,7 +94,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "空",
-            "timeSpan": 64
+            "timeSpan": 64,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "19:25",
@@ -78,7 +105,10 @@
             "action": "休息",
             "action_type": "rest",
             "actionDetail": "空",
-            "timeSpan": 29
+            "timeSpan": 29,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "19:54",
@@ -86,7 +116,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "空",
-            "timeSpan": 63
+            "timeSpan": 63,
+            "urgency": null,
+            "importance": null,
+            "date": null
         }
     ],
     "2025-06-18": [
@@ -96,7 +129,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "和 GPT 研讨未来方向",
-            "timeSpan": 17
+            "timeSpan": 17,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "11:11",
@@ -104,7 +140,10 @@
             "action": "吃饭",
             "action_type": "rest",
             "actionDetail": "肠粉+看微信",
-            "timeSpan": 23
+            "timeSpan": 23,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "11:34",
@@ -112,7 +151,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "开始写之前那个统计",
-            "timeSpan": 67
+            "timeSpan": 67,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "14:26",
@@ -120,7 +162,10 @@
             "action": "INFO",
             "action_type": "work",
             "actionDetail": "看一下办 D 签的要求",
-            "timeSpan": 3
+            "timeSpan": 3,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "14:29",
@@ -128,7 +173,10 @@
             "action": "开始办 D 签证",
             "action_type": "work",
             "actionDetail": "空",
-            "timeSpan": 8
+            "timeSpan": 8,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "14:37",
@@ -136,7 +184,10 @@
             "action": "杂",
             "action_type": "work",
             "actionDetail": "搞一下咖啡",
-            "timeSpan": 2
+            "timeSpan": 2,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "14:39",
@@ -144,7 +195,10 @@
             "action": "INFO",
             "action_type": "work",
             "actionDetail": "不知道 d 签证怎么接着搞",
-            "timeSpan": 15
+            "timeSpan": 15,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "14:54",
@@ -152,7 +206,10 @@
             "action": "睡觉",
             "action_type": "rest",
             "actionDetail": "睡觉+如厕",
-            "timeSpan": 25
+            "timeSpan": 25,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "15:19",
@@ -160,7 +217,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "添加了注释，修改了按钮显示（归类于本位），但实际没有写新的东西，效率不是很高",
-            "timeSpan": 20
+            "timeSpan": 20,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "15:39",
@@ -168,7 +228,10 @@
             "action": "躺在床上",
             "action_type": "rest",
             "actionDetail": "字面意思",
-            "timeSpan": 14
+            "timeSpan": 14,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "15:53",
@@ -176,7 +239,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "设计了 action 数据本位和需要干的事情，实际的效率也不是特别高",
-            "timeSpan": 36
+            "timeSpan": 36,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "16:29",
@@ -184,7 +250,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "真正开始写 （前面摸鱼三分钟）",
-            "timeSpan": 45
+            "timeSpan": 45,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "17:14",
@@ -193,7 +262,9 @@
             "action_type": "rest",
             "actionDetail": "打荒野乱斗",
             "timeSpan": 29,
-            "date": "2025-06-18"
+            "date": "2025-06-18",
+            "urgency": null,
+            "importance": null
         },
         {
             "start": "17:43",
@@ -201,7 +272,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "添加根据 action 本位展示的新功能",
-            "timeSpan": 59
+            "timeSpan": 59,
+            "urgency": null,
+            "importance": null,
+            "date": null
         }
     ],
     "2025-06-19": [
@@ -212,7 +286,9 @@
             "action_type": "work",
             "actionDetail": "开始做 Gemini 给我的三步走，复习昨天晚上的东西，建立了[[灵感]]",
             "timeSpan": 65,
-            "date": "2025-06-19"
+            "date": "2025-06-19",
+            "urgency": null,
+            "importance": null
         },
         {
             "start": "12:51",
@@ -221,7 +297,9 @@
             "action_type": "rest",
             "actionDetail": "玩维多利亚 3 普鲁士",
             "timeSpan": 59,
-            "date": "2025-06-19"
+            "date": "2025-06-19",
+            "urgency": null,
+            "importance": null
         },
         {
             "start": "13:50",
@@ -230,7 +308,9 @@
             "action_type": "rest",
             "actionDetail": "生物钟吓人",
             "timeSpan": 40,
-            "date": "2025-06-19"
+            "date": "2025-06-19",
+            "urgency": null,
+            "importance": null
         },
         {
             "start": "14:30",
@@ -238,7 +318,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "和 GPT 商讨发展，更改 input 格式",
-            "timeSpan": 22
+            "timeSpan": 22,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "14:52",
@@ -246,7 +329,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "把页面类化，拆分，学习了 button 的写法，在外面初始化然后在类内部排布，把报错信息和 button 这么搞",
-            "timeSpan": 73
+            "timeSpan": 73,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "16:05",
@@ -255,7 +341,9 @@
             "action_type": "work",
             "actionDetail": "两个东西的对比",
             "timeSpan": 30,
-            "date": "2025-06-19"
+            "date": "2025-06-19",
+            "urgency": null,
+            "importance": null
         },
         {
             "start": "16:35",
@@ -264,7 +352,9 @@
             "action_type": "waste",
             "actionDetail": "DOL",
             "timeSpan": 20,
-            "date": "2025-06-19"
+            "date": "2025-06-19",
+            "urgency": null,
+            "importance": null
         },
         {
             "start": "16:55",
@@ -273,7 +363,9 @@
             "action_type": "work",
             "actionDetail": "学习如何分析数据",
             "timeSpan": 27,
-            "date": "2025-06-19"
+            "date": "2025-06-19",
+            "urgency": null,
+            "importance": null
         },
         {
             "start": "17:22",
@@ -281,7 +373,10 @@
             "action": "荒野乱斗",
             "action_type": "waste",
             "actionDetail": "我的心有点乱",
-            "timeSpan": 26
+            "timeSpan": 26,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "17:48",
@@ -290,7 +385,9 @@
             "action_type": "rest",
             "actionDetail": "但是听不进去",
             "timeSpan": 10,
-            "date": "2025-06-19"
+            "date": "2025-06-19",
+            "urgency": null,
+            "importance": null
         },
         {
             "start": "17:58",
@@ -299,7 +396,9 @@
             "action_type": "work",
             "actionDetail": "荷兰 1945，知道了扫弦，需要买民谣拨片",
             "timeSpan": 56,
-            "date": "2025-06-19"
+            "date": "2025-06-19",
+            "urgency": null,
+            "importance": null
         },
         {
             "start": "18:54",
@@ -307,7 +406,10 @@
             "action": "PLAN",
             "action_type": "work",
             "actionDetail": "研究项目开发的范式，知道了需求驱动",
-            "timeSpan": 26
+            "timeSpan": 26,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "19:20",
@@ -315,7 +417,10 @@
             "action": "PLAN",
             "action_type": "work",
             "actionDetail": "尝试搞一下 task genius 的工作流  ",
-            "timeSpan": 30
+            "timeSpan": 30,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "19:50",
@@ -324,7 +429,9 @@
             "action_type": "waste",
             "actionDetail": "看 MC 陷阱什么的东西",
             "timeSpan": 51,
-            "date": "2025-06-19"
+            "date": "2025-06-19",
+            "urgency": null,
+            "importance": null
         },
         {
             "start": "20:41",
@@ -333,7 +440,9 @@
             "action_type": "waste",
             "actionDetail": "尝试出门但是最终放弃",
             "timeSpan": 8,
-            "date": "2025-06-19"
+            "date": "2025-06-19",
+            "urgency": null,
+            "importance": null
         },
         {
             "start": "20:49",
@@ -342,7 +451,9 @@
             "action_type": "work",
             "actionDetail": "和 gemini 商讨友好输入的具体工程路径——太 tm 牛逼了",
             "timeSpan": 50,
-            "date": "2025-06-19"
+            "date": "2025-06-19",
+            "urgency": null,
+            "importance": null
         },
         {
             "start": "22: 20",
@@ -350,7 +461,10 @@
             "action": "AI",
             "action_type": "work",
             "actionDetail": "和 Gemini 聊系统",
-            "timeSpan": 99
+            "timeSpan": 99,
+            "urgency": null,
+            "importance": null,
+            "date": null
         }
     ],
     "2025-06-20": [
@@ -360,7 +474,10 @@
             "action": "AI",
             "action_type": "work",
             "actionDetail": "和 Gemini 聊系统",
-            "timeSpan": 59
+            "timeSpan": 59,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "10:30",
@@ -368,7 +485,10 @@
             "action": "AI",
             "action_type": "work",
             "actionDetail": "和 GPT 聊修改 GUI",
-            "timeSpan": 20
+            "timeSpan": 20,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "10:50",
@@ -376,7 +496,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "实际上开始写友好输入的代码",
-            "timeSpan": 52
+            "timeSpan": 52,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "11:42",
@@ -384,7 +507,10 @@
             "action": "视频",
             "action_type": "rest",
             "actionDetail": "b 站",
-            "timeSpan": 32
+            "timeSpan": 32,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "12:14",
@@ -392,7 +518,10 @@
             "action": "写代码",
             "action_type": "work",
             "actionDetail": "但我感觉我不是很专心，在思考这个功能应该怎么写，最后得出结论状态机",
-            "timeSpan": 41
+            "timeSpan": 41,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "12:55",
@@ -400,7 +529,10 @@
             "action": "散步",
             "action_type": "rest",
             "actionDetail": "散步",
-            "timeSpan": 5
+            "timeSpan": 5,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "13:00",
@@ -408,7 +540,10 @@
             "action": "AI",
             "action_type": "work",
             "actionDetail": "重构监听器的逻辑",
-            "timeSpan": 38
+            "timeSpan": 38,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "13:38",
@@ -416,7 +551,10 @@
             "action": "视频",
             "action_type": "waste",
             "actionDetail": "看视频",
-            "timeSpan": 28
+            "timeSpan": 28,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "14:06",
@@ -424,7 +562,10 @@
             "action": "AI",
             "action_type": "work",
             "actionDetail": "和 Gemini 大聊特聊关于监听器的结构",
-            "timeSpan": 110
+            "timeSpan": 110,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "15:56",
@@ -432,7 +573,10 @@
             "action": "荒野乱斗",
             "action_type": "rest",
             "actionDetail": "打荒野乱斗",
-            "timeSpan": 39
+            "timeSpan": 39,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "16:35",
@@ -440,7 +584,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "但我感觉效率不是很高，一堆东西不知道",
-            "timeSpan": 37
+            "timeSpan": 37,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "17:12",
@@ -448,7 +595,10 @@
             "action": "吃饭",
             "action_type": "rest",
             "actionDetail": "肯德基",
-            "timeSpan": 48
+            "timeSpan": 48,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "18:00",
@@ -456,7 +606,10 @@
             "action": "看视频",
             "action_type": "waste",
             "actionDetail": "浪费",
-            "timeSpan": 25
+            "timeSpan": 25,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "18:25",
@@ -464,7 +617,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "写代码，意识到 GPT 实操更好用",
-            "timeSpan": 8
+            "timeSpan": 8,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "18:33",
@@ -472,7 +628,10 @@
             "action": "去拆快递",
             "action_type": "waste",
             "actionDetail": "拆快递",
-            "timeSpan": 11
+            "timeSpan": 11,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "18:44",
@@ -480,7 +639,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "艰难的写代码",
-            "timeSpan": 99
+            "timeSpan": 99,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "20:23",
@@ -488,7 +650,10 @@
             "action": "躺在床上",
             "action_type": "rest",
             "actionDetail": "****",
-            "timeSpan": 33
+            "timeSpan": 33,
+            "urgency": null,
+            "importance": null,
+            "date": null
         }
     ],
     "2025-06-21": [
@@ -498,7 +663,10 @@
             "action": "V3",
             "action_type": "rest",
             "actionDetail": "维多利亚 3",
-            "timeSpan": 50
+            "timeSpan": 50,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "10:48",
@@ -506,7 +674,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "接着写状态机，写到一半发现自己状态耗尽，遂去放松",
-            "timeSpan": 38
+            "timeSpan": 38,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "11:26",
@@ -514,7 +685,10 @@
             "action": "散步",
             "action_type": "rest",
             "actionDetail": "实际上是看风景，我的眼睛还残留着昨天晚上的僵硬",
-            "timeSpan": 4
+            "timeSpan": 4,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "11:30",
@@ -522,7 +696,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "写代码",
-            "timeSpan": 30
+            "timeSpan": 30,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "12:00",
@@ -530,7 +707,10 @@
             "action": "AI",
             "action_type": "work",
             "actionDetail": "重构状态机",
-            "timeSpan": 15
+            "timeSpan": 15,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "12:15",
@@ -538,7 +718,10 @@
             "action": "散步",
             "action_type": "rest",
             "actionDetail": "感觉有点激动, 下去拿咖啡",
-            "timeSpan": 9
+            "timeSpan": 9,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "12:24",
@@ -546,7 +729,10 @@
             "action": "写代码",
             "action_type": "work",
             "actionDetail": "继续",
-            "timeSpan": 22
+            "timeSpan": 22,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "12:46",
@@ -554,7 +740,10 @@
             "action": "吃饭",
             "action_type": "rest",
             "actionDetail": "以及睡觉，但看视频, 效率 = 0.5",
-            "timeSpan": 95
+            "timeSpan": 95,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "14:21",
@@ -562,7 +751,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "代码写了又改",
-            "timeSpan": 59
+            "timeSpan": 59,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "15:20",
@@ -570,7 +762,10 @@
             "action": "睡觉",
             "action_type": "rest",
             "actionDetail": "小睡一会",
-            "timeSpan": 7
+            "timeSpan": 7,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "15:27",
@@ -578,7 +773,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "写完转换状态判断的内容",
-            "timeSpan": 29
+            "timeSpan": 29,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "15:56",
@@ -586,7 +784,10 @@
             "action": "睡觉",
             "action_type": "rest",
             "actionDetail": "小睡一会",
-            "timeSpan": 4
+            "timeSpan": 4,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "16:00",
@@ -594,7 +795,10 @@
             "action": "V3",
             "action_type": "work",
             "actionDetail": "进游戏看一眼 DLC，没忍住顺便把巨德成立了",
-            "timeSpan": 45
+            "timeSpan": 45,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "16:45",
@@ -602,7 +806,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "总算是见到成果了！一部分的可以跑了！",
-            "timeSpan": 101
+            "timeSpan": 101,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "18:26",
@@ -610,7 +817,10 @@
             "action": "看视频",
             "action_type": "waste",
             "actionDetail": "短视频",
-            "timeSpan": 50
+            "timeSpan": 50,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "19:16",
@@ -618,7 +828,10 @@
             "action": "GUITAR",
             "action_type": "waste",
             "actionDetail": "想弹吉他但是发现我的拨片没到",
-            "timeSpan": 7
+            "timeSpan": 7,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "19:23",
@@ -626,7 +839,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "改了一会 bug",
-            "timeSpan": 32
+            "timeSpan": 32,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "19:55",
@@ -634,7 +850,10 @@
             "action": "吃饭",
             "action_type": "rest",
             "actionDetail": "肯德基",
-            "timeSpan": 45
+            "timeSpan": 45,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "20:40",
@@ -642,7 +861,10 @@
             "action": "视频",
             "action_type": "waste",
             "actionDetail": "看了个很有意思的 planetlord 的视频",
-            "timeSpan": 33
+            "timeSpan": 33,
+            "urgency": null,
+            "importance": null,
+            "date": null
         }
     ],
     "2025-06-24": [
@@ -652,7 +874,10 @@
             "action": "AI",
             "action_type": "work",
             "actionDetail": "和 Gemini 聊关于架构选择",
-            "timeSpan": 21
+            "timeSpan": 21,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "10:07",
@@ -660,7 +885,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "继续补全我的七个功能",
-            "timeSpan": 13
+            "timeSpan": 13,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "10:20",
@@ -668,7 +896,10 @@
             "action": "POOP",
             "action_type": "rest",
             "actionDetail": "无",
-            "timeSpan": 10
+            "timeSpan": 10,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "10:30",
@@ -676,7 +907,10 @@
             "action": "荒野乱斗",
             "action_type": "waste",
             "actionDetail": "三把输了两把",
-            "timeSpan": 10
+            "timeSpan": 10,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "10:40",
@@ -684,7 +918,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "重构我的文件结构，不过我觉得效率不是很高，接下来会开始写一个单独的下拉列表类，可复用",
-            "timeSpan": 99
+            "timeSpan": 99,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "12:19",
@@ -692,7 +929,10 @@
             "action": "荒野乱斗",
             "action_type": "waste",
             "actionDetail": "不仅荒野乱斗",
-            "timeSpan": 37
+            "timeSpan": 37,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "12:56",
@@ -700,7 +940,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "根据 G 的建议修改我的文档分类",
-            "timeSpan": 12
+            "timeSpan": 12,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "13:08",
@@ -708,7 +951,10 @@
             "action": "吃饭",
             "action_type": "rest",
             "actionDetail": "吃午饭",
-            "timeSpan": 77
+            "timeSpan": 77,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "14:25",
@@ -716,7 +962,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "大改文件结构",
-            "timeSpan": 54
+            "timeSpan": 54,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "15:19",
@@ -724,7 +973,10 @@
             "action": "睡觉",
             "action_type": "rest",
             "actionDetail": "前面十分钟看手机",
-            "timeSpan": 21
+            "timeSpan": 21,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "15:40",
@@ -732,7 +984,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "写代码",
-            "timeSpan": 27
+            "timeSpan": 27,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "16:07",
@@ -740,7 +995,10 @@
             "action": "出门",
             "action_type": "waste",
             "actionDetail": "真花时间啊...",
-            "timeSpan": 79
+            "timeSpan": 79,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "17:26",
@@ -748,7 +1006,10 @@
             "action": "V3",
             "action_type": "waste",
             "actionDetail": "不好，我怎么玩了这么久",
-            "timeSpan": 49
+            "timeSpan": 49,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "18:15",
@@ -756,7 +1017,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "改了一堆 bug...",
-            "timeSpan": 78
+            "timeSpan": 78,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "19:33",
@@ -764,7 +1028,10 @@
             "action": "吃饭",
             "action_type": "waste",
             "actionDetail": "以及看视频",
-            "timeSpan": 61
+            "timeSpan": 61,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "20:34",
@@ -772,7 +1039,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "接着写东西",
-            "timeSpan": 46
+            "timeSpan": 46,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "21:20",
@@ -780,7 +1050,10 @@
             "action": "RUN",
             "action_type": "rest",
             "actionDetail": "出去跑步和骑车",
-            "timeSpan": 84
+            "timeSpan": 84,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "22:44",
@@ -788,7 +1061,10 @@
             "action": "V3",
             "action_type": "rest",
             "actionDetail": "维多利亚 3，准备成立神罗",
-            "timeSpan": 37
+            "timeSpan": 37,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "23:21",
@@ -796,7 +1072,10 @@
             "action": "洗澡",
             "action_type": "rest",
             "actionDetail": "洗澡",
-            "timeSpan": 12
+            "timeSpan": 12,
+            "urgency": null,
+            "importance": null,
+            "date": null
         }
     ],
     "2025-06-25": [
@@ -806,7 +1085,10 @@
             "action": "睡觉",
             "action_type": "rest",
             "actionDetail": "holy Crap 我一个没注意就睡着了，近几个月第一次这样。我感觉我好笨拙",
-            "timeSpan": 78
+            "timeSpan": 78,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "15:48",
@@ -814,7 +1096,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "写 editFrame 的东西",
-            "timeSpan": 44
+            "timeSpan": 44,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "16:32",
@@ -822,7 +1107,10 @@
             "action": "休息",
             "action_type": "rest",
             "actionDetail": "休息一下",
-            "timeSpan": 6
+            "timeSpan": 6,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "16:38",
@@ -830,7 +1118,10 @@
             "action": "CODE",
             "action_type": "work",
             "actionDetail": "完成把项目打包到 github 并且下一步的发展路线",
-            "timeSpan": 79
+            "timeSpan": 79,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "17:57",
@@ -838,7 +1129,10 @@
             "action": "吃饭",
             "action_type": "rest",
             "actionDetail": "吃饭",
-            "timeSpan": 53
+            "timeSpan": 53,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "18:50",
@@ -846,7 +1140,10 @@
             "action": "视频",
             "action_type": "waste",
             "actionDetail": "短视频",
-            "timeSpan": 40
+            "timeSpan": 40,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "19:30",
@@ -854,7 +1151,10 @@
             "action": "杂",
             "action_type": "work",
             "actionDetail": "安装新的 python 东西，不知道干了什么但是感觉好累",
-            "timeSpan": 29
+            "timeSpan": 29,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "19:59",
@@ -862,7 +1162,10 @@
             "action": "V3",
             "action_type": "waste",
             "actionDetail": "感觉还是好累",
-            "timeSpan": 38
+            "timeSpan": 38,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "20:37",
@@ -870,7 +1173,10 @@
             "action": "跑步",
             "action_type": "rest",
             "actionDetail": "跑步和洗澡",
-            "timeSpan": 73
+            "timeSpan": 73,
+            "urgency": null,
+            "importance": null,
+            "date": null
         },
         {
             "start": "21:50",
@@ -878,7 +1184,23 @@
             "action": "AI",
             "action_type": "work",
             "actionDetail": "和 Gemini 讨论东西",
-            "timeSpan": 60
+            "timeSpan": 60,
+            "urgency": null,
+            "importance": null,
+            "date": null
+        }
+    ],
+    "2025-06-27": [
+        {
+            "start": "21:50",
+            "end": "22:50",
+            "action": "AI",
+            "action_type": "work",
+            "actionDetail": "和 Gemini 讨论东西",
+            "timeSpan": 60,
+            "urgency": true,
+            "importance": false,
+            "date": null
         }
     ]
 }

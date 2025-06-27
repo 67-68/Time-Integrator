@@ -83,3 +83,4 @@ def setAverageTime(dataLoc,enumName,text):
     stats = getAverageTime(stats,enumName)
     text.setText(stats)
 
+

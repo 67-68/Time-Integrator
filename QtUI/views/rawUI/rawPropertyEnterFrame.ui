@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>propertyEnterFrame</class>
+ <widget class="QWidget" name="propertyEnterFrame">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>650</width>
+    <height>173</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <widget class="QFrame" name="propertyEntries">
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+     <layout class="QFormLayout" name="formLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="startLabel">
+        <property name="text">
+         <string>Start</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="startEdit"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="endLabel">
+        <property name="text">
+         <string>End</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="endEdit"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="actionTypeLabel">
+        <property name="text">
+         <string>ActionType</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="actionTypeEdit"/>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="actionLabel">
+        <property name="text">
+         <string>Action</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="actionEdit"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="propertyEntries_2">
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+     <layout class="QFormLayout" name="formLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="actionDetailLabel">
+        <property name="text">
+         <string>ActionDetail</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="actionDetailEdit"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="urgenLabel">
+        <property name="text">
+         <string>urgency</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="urgenEdit"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="imporLabel">
+        <property name="text">
+         <string>importance</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="imporEdit"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

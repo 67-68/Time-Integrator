@@ -1,7 +1,9 @@
 from PyQt6.QtWidgets import QMainWindow,QVBoxLayout
-from QtUI.views.rawMainWindow import Ui_MainWindow
+from QtUI.views.InputPage import InputPage
+from QtUI.views.rawUI.ui_rawMainWindow import Ui_MainWindow
 from PyQt6.QtCore import pyqtSignal
 import pyqtgraph as pg
+
 
 #MVP中的view, 即用户直接看的GUI
 class MainWindow(QMainWindow):
@@ -14,6 +16,9 @@ class MainWindow(QMainWindow):
         
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        
+        #  ---------- 其他页面 ----------
+        self.inputPage = InputPage(self.ui.stackInputPage)
         
         #  ------ 菜单栏图表 ------
         self.fourRealmChart = pg.PlotWidget(self.ui.fourRealmFrame)
@@ -32,6 +37,10 @@ class MainWindow(QMainWindow):
         self.fourRealmChart.getPlotItem().hideAxis('left')
         self.fourRealmChart.getPlotItem().hideAxis('bottom')
         
+        #  ------ 按钮 ------
+        self.ui.menuButton.clicked.connect(self._on_menu_button_clicked)
+        self.ui.menuButton_2.clicked.connect(self._on_input_button_clicked)
+        
         #  ------ 复选框 ------
         #  --- 注册复选框选项 ---
         timeSpanChoices = ["today","this week"] #这一部分在将来应该放进presentor?
@@ -39,9 +48,13 @@ class MainWindow(QMainWindow):
         #  --- 复选框登记 ---
         self.ui.timeChooser.addItems(timeSpanChoices)
         
-        #  ---------- 发送信号 ----------
+        #  ---------- 信号 ----------
+        #  ------ 发送 ------
         self.ui.timeChooser.currentTextChanged.connect(self.timeSpanChoosed)
-    
+        
+        #  ------ 接收 ------
+        self.connectSignal()
+        
     def updateMenu(self,timeUseRate,fourRealmRatio,extremeData):
         self.ui.bigNumLabel.setText(str(timeUseRate))
         self.ui.extremeDataText.setText(extremeData)
@@ -56,56 +69,19 @@ class MainWindow(QMainWindow):
         x = list(range(len(value))) 
         bars = pg.BarGraphItem(x = x,height = value,width = 0.6,colors = colors)
         self.fourRealmChart.addItem(bars)
-        
-        
-        
+    
+    def connectSignal(self):
+        self.inputPage.menuButtonClicked.connect(self._on_menu_button_clicked)
+        self.inputPage.inputButtonClicked.connect(self._on_input_button_clicked)
+    
+    def _on_menu_button_clicked(self):
+        self.ui.stackedWidget.setCurrentWidget(self.ui.stackMenuPage)
+    
+    def _on_input_button_clicked(self):
+        self.ui.stackedWidget.setCurrentWidget(self.ui.stackInputPage)
+    
     
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        # #  ------ 初始化翻页 ------
-        # self.stack = StackedWidget(self)
-        # self.setCentralWidget(self.stack)
-        
-        # #  ------ 注册需要创建的东西 ------
-        # #  --- 注册页面 ---
-        # self.pages = {}
-        # registPage = ["input","menu","demo"]
-        # for page in registPage:
-        #     self.pages[page] = BasicPage(self.stack)
-        #     self.stack.addWidget(self.pages[page])   
-        #     self.pages[page].setStyleSheet("background-color: white;")
-        
-        
-        # #  --- 注册切换界面的按钮 ---
-        # pageSwitchButtons = {page_name: [] for page_name in registPage}
-        
-        # for page_name in registPage:
-        #     for target_page in registPage:
-        #         btn = BasicButton(self.pages[page_name])
-        #         btn.setText(f'{target_page} page')
-        #         # 注意 lambda 需要绑定默认参数，否则循环变量会闭包污染
-        #         btn.clicked.connect(lambda checked=False, p=target_page: self.stack.show_page(p))
-        #         self.pages[page_name].layout().addWidget(btn)
-        #         pageSwitchButtons[page_name].append(btn)
         
         # #  ------ 按钮 ------
         # buttons = {}

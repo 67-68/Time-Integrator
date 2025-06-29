@@ -1,5 +1,4 @@
-from QtUI.views.dateSelectionFrame import DateSelectionFrame
-from QtUI.views.editorFrame import EditorFrame
+from Core.dataAccess.dataManager import getData_API
 from QtUI.views.rawUI.ui_rawInputPage import Ui_inputPage
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import pyqtSignal
@@ -15,19 +14,25 @@ class InputPage(QWidget):
         self.inputPage = Ui_inputPage()
         self.inputPage.setupUi(self)
         
-        #  ------ 创建子页面 ------
-        self.dateSelectionFrame = DateSelectionFrame(self.inputPage.inputStackFrame)
-        self.editorFrame = EditorFrame(self.inputPage.inputStackFrame)
+        #  --- 快捷赋值 ---
+        stack = self.inputPage.inputStackFrame
         
         #  ----- 连接按钮和信号 ------
         #  --- 切换页面 ---
         self.inputPage.menuButton.clicked.connect(self.menuButtonClicked.emit)
         self.inputPage.inputButton.clicked.connect(self.inputButtonClicked.emit)
+        self.inputPage.editorFrameBase.confirmSignal.connect(lambda: stack.setCurrentWidget(self.inputPage.dateSelectionFrameBase))
         
         #  --- 切换input widgets ---
-        self.dateSelectionFrame.dateSelected.connect(self._on_date_selected)
+        self.inputPage.dateSelectionFrameBase.dateSelected.connect(self._on_date_selected)
         
-    def _on_date_selected(self):
-        self.inputPage.inputStackFrame.setCurrentIndex(self.editorFrame) 
+    def _on_date_selected(self,date):
+        self.inputPage.inputStackFrame.setCurrentWidget(self.inputPage.editorFrameBase)
+        
+        #  --- 填充数据 ---
+        data = getData_API("Data/dateData.json")
+        self.inputPage.editorFrameBase.fillData(date,data)
+        
+        
         
         

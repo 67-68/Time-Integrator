@@ -15,3 +15,15 @@
     - the extreme data of time span
     - the time distribution of time span
 
+## Alpha.2
+today is 6.29
+
+### Change Log
+
+#### Structure
+- now, the presentor should all be class, serve different functions, it 实例 created and used by VIEW
+- while, when multiple presentors need to access to one database or etc, they should be put into main Window, instead of putting in the father class of where the VIEW in.
+
+#### Function
+- now can enter and read data normally
+

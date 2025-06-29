@@ -17,9 +17,6 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         
-        #  ---------- 其他页面 ----------
-        self.inputPage = InputPage(self.ui.stackInputPage)
-        
         #  ------ 菜单栏图表 ------
         self.fourRealmChart = pg.PlotWidget(self.ui.fourRealmFrame)
         chart = self.fourRealmChart
@@ -71,14 +68,14 @@ class MainWindow(QMainWindow):
         self.fourRealmChart.addItem(bars)
     
     def connectSignal(self):
-        self.inputPage.menuButtonClicked.connect(self._on_menu_button_clicked)
-        self.inputPage.inputButtonClicked.connect(self._on_input_button_clicked)
+        self.ui.InputPageBase.menuButtonClicked.connect(self._on_menu_button_clicked)
+        self.ui.InputPageBase.inputButtonClicked.connect(self._on_input_button_clicked)
     
     def _on_menu_button_clicked(self):
         self.ui.stackedWidget.setCurrentWidget(self.ui.stackMenuPage)
     
     def _on_input_button_clicked(self):
-        self.ui.stackedWidget.setCurrentWidget(self.ui.stackInputPage)
+        self.ui.stackedWidget.setCurrentWidget(self.ui.InputPageBase)
     
     
 

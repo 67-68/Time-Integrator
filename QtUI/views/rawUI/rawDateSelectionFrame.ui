@@ -27,7 +27,26 @@
     <widget class="QComboBox" name="comboBox"/>
    </item>
    <item>
-    <widget class="QDateTimeEdit" name="dateTimeEdit"/>
+    <widget class="QFrame" name="dateEditFrame">
+     <property name="frameShape">
+      <enum>QFrame::Shape::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Shadow::Raised</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QDateTimeEdit" name="dateTimeEdit"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="newRecordButton">
+        <property name="text">
+         <string>create new record</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </item>
    <item>
     <widget class="QLabel" name="label">

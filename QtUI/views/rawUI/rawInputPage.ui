@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>771</width>
-    <height>569</height>
+    <width>878</width>
+    <height>658</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -53,8 +53,11 @@
       </item>
       <item>
        <widget class="QStackedWidget" name="inputStackFrame">
-        <widget class="QWidget" name="dateSelectionStackPage"/>
-        <widget class="QWidget" name="inputSelectionPage"/>
+        <property name="frameShape">
+         <enum>QFrame::Shape::StyledPanel</enum>
+        </property>
+        <widget class="DateSelectionFrame" name="dateSelectionFrameBase"/>
+        <widget class="EditorFrame" name="editorFrameBase"/>
        </widget>
       </item>
      </layout>
@@ -192,6 +195,20 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DateSelectionFrame</class>
+   <extends>QWidget</extends>
+   <header>QtUI/views/dateSelectionFrame.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>EditorFrame</class>
+   <extends>QWidget</extends>
+   <header>QtUI/views/editorFrame.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

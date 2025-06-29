@@ -85,25 +85,19 @@
       <item row="0" column="1">
        <widget class="QLineEdit" name="actionDetailEdit"/>
       </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="urgenLabel">
+      <item row="1" column="1">
+       <widget class="QCheckBox" name="urgenCheckBox">
         <property name="text">
          <string>urgency</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="urgenEdit"/>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="imporLabel">
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="imporCheckBox">
         <property name="text">
          <string>importance</string>
         </property>
        </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="imporEdit"/>
       </item>
      </layout>
     </widget>

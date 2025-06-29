@@ -1,8 +1,6 @@
 #中间层，负责调用MainWindow中的函数和基础逻辑层面的函数，只要他们有交互
 #即，presentor
-from Core.analysis.APITools import getTodayDate
 from Core.analysis.otherAnalysis import getActionUnit, getExtremeData, getFourRealmRatio, getHighQualityRatio
-from Core.dataAccess.dataManager import getData_API
 from QtUI.views.MainWindow import MainWindow
 from PyQt6.QtWidgets import QApplication
 import sys

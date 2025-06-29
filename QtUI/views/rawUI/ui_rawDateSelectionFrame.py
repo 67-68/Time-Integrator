@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_dateSelection(object):
     def setupUi(self, dateSelection):
         dateSelection.setObjectName("dateSelection")
-        dateSelection.resize(557, 434)
+        dateSelection.resize(607, 434)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -26,9 +26,19 @@ class Ui_dateSelection(object):
         self.comboBox = QtWidgets.QComboBox(parent=dateSelection)
         self.comboBox.setObjectName("comboBox")
         self.verticalLayout.addWidget(self.comboBox)
-        self.dateTimeEdit = QtWidgets.QDateTimeEdit(parent=dateSelection)
+        self.dateEditFrame = QtWidgets.QFrame(parent=dateSelection)
+        self.dateEditFrame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.dateEditFrame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.dateEditFrame.setObjectName("dateEditFrame")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.dateEditFrame)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.dateTimeEdit = QtWidgets.QDateTimeEdit(parent=self.dateEditFrame)
         self.dateTimeEdit.setObjectName("dateTimeEdit")
-        self.verticalLayout.addWidget(self.dateTimeEdit)
+        self.horizontalLayout.addWidget(self.dateTimeEdit)
+        self.newRecordButton = QtWidgets.QPushButton(parent=self.dateEditFrame)
+        self.newRecordButton.setObjectName("newRecordButton")
+        self.horizontalLayout.addWidget(self.newRecordButton)
+        self.verticalLayout.addWidget(self.dateEditFrame)
         self.label = QtWidgets.QLabel(parent=dateSelection)
         self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label)
@@ -39,4 +49,5 @@ class Ui_dateSelection(object):
     def retranslateUi(self, dateSelection):
         _translate = QtCore.QCoreApplication.translate
         dateSelection.setWindowTitle(_translate("dateSelection", "Form"))
-        self.label.setText(_translate("dateSelection", "combobox and calender is future function"))
+        self.newRecordButton.setText(_translate("dateSelection", "create new record"))
+        self.label.setText(_translate("dateSelection", "combobox and calender is future function, enter <enter> when you focus on the widget to enter in"))

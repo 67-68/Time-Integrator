@@ -544,12 +544,20 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="stackInputPage"/>
+      <widget class="InputPage" name="InputPageBase"/>
      </widget>
     </item>
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>InputPage</class>
+   <extends>QWidget</extends>
+   <header>QtUI/views/InputPage.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

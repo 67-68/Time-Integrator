@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_inputPage(object):
     def setupUi(self, inputPage):
         inputPage.setObjectName("inputPage")
-        inputPage.resize(771, 569)
+        inputPage.resize(878, 658)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -38,13 +38,14 @@ class Ui_inputPage(object):
         self.leftToolFrame.setObjectName("leftToolFrame")
         self.horizontalLayout.addWidget(self.leftToolFrame)
         self.inputStackFrame = QtWidgets.QStackedWidget(parent=self.mainFrame)
+        self.inputStackFrame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.inputStackFrame.setObjectName("inputStackFrame")
-        self.page = QtWidgets.QWidget()
-        self.page.setObjectName("page")
-        self.inputStackFrame.addWidget(self.page)
-        self.page_2 = QtWidgets.QWidget()
-        self.page_2.setObjectName("page_2")
-        self.inputStackFrame.addWidget(self.page_2)
+        self.dateSelectionFrameBase = DateSelectionFrame()
+        self.dateSelectionFrameBase.setObjectName("dateSelectionFrameBase")
+        self.inputStackFrame.addWidget(self.dateSelectionFrameBase)
+        self.editorFrameBase = EditorFrame()
+        self.editorFrameBase.setObjectName("editorFrameBase")
+        self.inputStackFrame.addWidget(self.editorFrameBase)
         self.horizontalLayout.addWidget(self.inputStackFrame)
         self.verticalLayout.addWidget(self.mainFrame)
         self.pageSwitchFrame = QtWidgets.QFrame(parent=inputPage)
@@ -119,3 +120,5 @@ class Ui_inputPage(object):
         self.inputButton.setText(_translate("inputPage", "Capture"))
         self.demoButton.setText(_translate("inputPage", "Analysis"))
         self.settingButton.setText(_translate("inputPage", "Strategy and Settings"))
+from QtUI.views.dateSelectionFrame import DateSelectionFrame
+from QtUI.views.editorFrame import EditorFrame

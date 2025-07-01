@@ -1,6 +1,6 @@
 from Core.analysis.APITools import getAutoCompleteWithKey_API, getAutoCompletion_API
 from Core.dataAccess.dataManager import getData_API
-from Core.translation.fastEnterTranslation import transFastEnter_API
+from Core.translation.fastEnterTranslation import transFastToProp_API
 from Core.Definitions import InputState, UserActionType 
 
     
@@ -12,7 +12,7 @@ def stateMachineParser_API(currentState,text,eventType,userAction): #这里的us
     actionList = getAutoCompletion_API(actionDataLoc) 
     
     #  ------ 获取就文本而言的建议 ------
-    textAdvice = transFastEnter_API(text,actionList)
+    textAdvice = transFastToProp_API(text,actionList)
     
     #不要把expectedType和currentState搞混了,但这俩玩意的关系是啥？
     #  ------ 初始化需要返回的列表 ------

@@ -72,6 +72,10 @@ class EditorFrame(QWidget):
         #  --- collect Data ---
         actionUnits = self.collectData()
         
+        #  --- 登记数据到action ---
+        #  TODO!!需要创建一个新的presentor来用core的逻辑
+        #  TODO:以及，加一个timeSpan计算！！
+        
         #  --- save Data ---
         data = getData_API("Data/dateData.json")
         data[self.date] = actionUnits
@@ -135,7 +139,9 @@ class EditorFrame(QWidget):
                 #  --- 然后加到widget里面 ---
                 self.editorFrame.stackedWidget.addWidget(self.pages[i])
         
-        #  --- 然后写原本就没有记录的逻辑
+        #  --- 然后写原本就没有记录的逻辑 ---
+        #  好像其实我不用写啊
+        
             
         
             

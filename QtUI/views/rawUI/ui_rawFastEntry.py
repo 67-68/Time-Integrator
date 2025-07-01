@@ -18,7 +18,7 @@ class Ui_rawFastEnterFrame(object):
         self.fastEntryLabel = QtWidgets.QLabel(parent=rawFastEnterFrame)
         self.fastEntryLabel.setObjectName("fastEntryLabel")
         self.horizontalLayout.addWidget(self.fastEntryLabel)
-        self.fastEntry = QtWidgets.QLineEdit(parent=rawFastEnterFrame)
+        self.fastEntry = RealTimeSearchEdit(parent=rawFastEnterFrame)
         self.fastEntry.setObjectName("fastEntry")
         self.horizontalLayout.addWidget(self.fastEntry)
 
@@ -29,3 +29,4 @@ class Ui_rawFastEnterFrame(object):
         _translate = QtCore.QCoreApplication.translate
         rawFastEnterFrame.setWindowTitle(_translate("rawFastEnterFrame", "Form"))
         self.fastEntryLabel.setText(_translate("rawFastEnterFrame", "fast entry"))
+from QtUI.widgets.other.RealTimeSearchEdit import RealTimeSearchEdit

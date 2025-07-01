@@ -2,7 +2,7 @@
 from Core.Definitions import ActionType, InputState, getEnumAbbriviation
 
 
-def transFastEnter_API(text, actionList):
+def transFastToProp_API(text, actionList):
     # --------- 初始化返回值 ----------
     advice = {
         "data": {

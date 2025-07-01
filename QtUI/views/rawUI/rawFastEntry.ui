@@ -22,10 +22,17 @@
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="fastEntry"/>
+    <widget class="RealTimeSearchEdit" name="fastEntry"/>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>RealTimeSearchEdit</class>
+   <extends>QLineEdit</extends>
+   <header>QtUI/widgets/other/RealTimeSearchEdit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

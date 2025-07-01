@@ -23,20 +23,17 @@ class RealTimeSearchEdit(QLineEdit):
 
     #INPUT action String; UPDATE completer, use it to filter wordbank
     def showFilter(self, actionStr):
-        text = actionStr
+        text = actionStr if not None else ""
         
         if not text: 
             self.model.setStringList(self.wordBank)
-            filtered = False
         else:
             filterList = []
             for word in self.wordBank:
                 if text.lower() in word.lower():
                     filterList.append(word)
             self.model.setStringList(filterList)
-            filtered = True
-        
-        if filtered:
+
             if self.completer() is None:
                 self.setCompleter(self.dropdown)
             self.dropdown.setCompletionPrefix("")      # 清空 prefix 避免Qt再过滤

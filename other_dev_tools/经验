@@ -102,3 +102,10 @@ suggestions = {
 "keyBoardEntered"
 "listBoxEntered"
 ""
+
+
+presenterAdvice = {
+    "fastEntryText":"",
+    "dropdownAction":"",
+    "data":{}
+}

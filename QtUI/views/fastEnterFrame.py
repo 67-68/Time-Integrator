@@ -1,9 +1,12 @@
 from Core.Definitions import InputState, UserActionType
+from Core.dataAccess.dataManager import getData_API
 from QtUI.views.rawUI.ui_rawFastEntry import Ui_rawFastEnterFrame
 from PyQt6.QtWidgets import QFrame
 from PyQt6.QtCore import pyqtSignal,Qt
 from PyQt6.QtGui import QShortcut,QKeySequence
 from QtUI.presentors.StateMachinePresenter import StateMachinePresenter
+
+actionDataLoc = "Data/actionData.json"
 
 class FastEnterFrame(QFrame):
     #  --- 创建一个信号 ---
@@ -11,6 +14,12 @@ class FastEnterFrame(QFrame):
     
     def __init__(self, wordBank = None,parent = None):
         super().__init__(parent)
+        
+        #  --- 获取wordBank --- 由于是提升的没有办法传变量，因此本地硬编码
+        wordBank = []
+        data = getData_API(actionDataLoc)
+        for key in data:
+            wordBank.append(key)
         
         #  --- 创建ui ---
         self.fastEnterFrame = Ui_rawFastEnterFrame()
@@ -75,6 +84,7 @@ class FastEnterFrame(QFrame):
         
         #  ------ 调用函数修改状态 ------
         self.presentorContact(userAction)
+        return
         
     #SPECIFIC; INPUT nothing; DETECT user press on enter and solve it
     def _on_return_key_FUNC(self,event): 

@@ -1,4 +1,3 @@
-
 from Core.Definitions import InputState, UserActionType
 from Core.logic.stateMachineParser import stateMachineParser_API
 from Core.translation.fastEnterTranslation import transFastToProp_API
@@ -17,16 +16,15 @@ class StateMachinePresenter():
     #UNIVERSAL; INPUT dict userAction(state,text,eventType); UPDATE state and property above
     def processEvent_API(self,userAction):
         #  ------ 获取需要的变量 ------
-        currentState = self.parsingCurrentState
+        currentState = self.parsingCurrentState()
         text = userAction["text"]
         eventType = userAction["eventType"]
         
         #  ------ 传回建议 ------
-        presenterAdvice = {
-            "fastEntryText":"",
-            "dropdownAction":"",
-            "data":{}
-        }
+        presenterAdvice = {}
+        fastEntryText = ""
+        dropdownAction = ""
+        data = {}
         
         #  ---------- 询问状态机，给出建议 ----------
         suggestion = stateMachineParser_API(currentState,text,eventType,userAction)

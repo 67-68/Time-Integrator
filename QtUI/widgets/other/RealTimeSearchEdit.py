@@ -1,3 +1,4 @@
+""" 数据往下，事件往上,任何尝试修改其自己的行为，指令都必须来源于上面 """
 from PyQt6.QtWidgets import QLineEdit,QCompleter,QAbstractItemView
 from PyQt6.QtCore import QStringListModel,Qt
 
@@ -22,7 +23,7 @@ class RealTimeSearchEdit(QLineEdit):
         self.view = self.dropdown.popup()
 
     #INPUT action String; UPDATE completer, use it to filter wordbank
-    def showFilter(self, actionStr):
+    def showDropdown(self, actionStr):
         text = actionStr if not None else ""
         
         if not text: 
@@ -38,10 +39,6 @@ class RealTimeSearchEdit(QLineEdit):
                 self.setCompleter(self.dropdown)
             self.dropdown.setCompletionPrefix("")      # 清空 prefix 避免Qt再过滤
             self.dropdown.complete()                   # ⬅ always call complete
-        
-        
-    def hideDropdown(self):
-        self.dropdown.popup().hide()
     
     def getDropdownVisibility(self):
         return self.dropdown.popup().isVisible()

@@ -8,7 +8,7 @@ actionDataLoc = "Data/actionData.json"
 
 """  ---------- 状态机 ----------- """
 #UNIVERSAL; INPUT dict action{enum state, userAction, text}; OUTPUT dict result{enum state, keyActionList(to update GUI)}
-def stateMachineParser_API(currentState,text,eventType,userAction): #这里的userAction是确保如果有什么自定义的key一起传过来
+def stateMachineParser(currentState,text,eventType,userAction): #这里的userAction是确保如果有什么自定义的key一起传过来
     actionList = getAutoCompletion_API(actionDataLoc) 
     
     #  ------ 获取就文本而言的建议 ------

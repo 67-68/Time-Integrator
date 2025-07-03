@@ -109,3 +109,9 @@ presenterAdvice = {
     "dropdownAction":"",
     "data":{}
 }
+
+#  ------ 应用内“基本GUI操作”通信协议 ------
+enum类, RawUserAction
+
+#  ------ InputEnterFrame和fastEnterFrame通信协议 ------
+使用

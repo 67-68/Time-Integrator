@@ -22,8 +22,8 @@ class DateSelectionFrame(QWidget):
         self.dateSelectionFrame.dateTimeEdit.setDate(QDate.currentDate())
         
         #  ------ 绑定信号 ------
-        self.dateSelectionFrame.dateTimeEdit.dateChanged.connect(self._on_dateTimeEdit_enter)
-        self.dateSelectionFrame.newRecordButton.clicked.connect(self._on_dateTimeConfirm)
+        self.dateSelectionFrame.dateTimeEdit.dateChanged.connect(self._on_dateTimeEdit_enter) #COMMANDER
+        self.dateSelectionFrame.newRecordButton.clicked.connect(self._on_dateTimeConfirm) #COMMANDER
     
     
     # def _on_enter_entered(self,obj,event):
@@ -42,7 +42,7 @@ class DateSelectionFrame(QWidget):
         
     #     if widget == self.dateSelectionFrame.calendarWidget:
         
-        
+    #SOUDIER
     def _on_dateTimeEdit_enter(self,q_date):
         date = q_date.toString("yyyy-MM-dd")
         data = getData_API("Data/dateData.json")
@@ -55,6 +55,7 @@ class DateSelectionFrame(QWidget):
         if date in data:
             self.dateSelected.emit(date)
     
+    #SOUDIER
     def _on_dateTimeConfirm(self):
         date = self.dateSelectionFrame.dateTimeEdit.text()
         q_date = QDate.fromString(date,"yyyy-MM-dd")

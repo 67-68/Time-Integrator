@@ -1000,30 +1000,5 @@
             "importance": null,
             "date": null
         }
-    ],
-    "2025-06-27": [
-        null
-    ],
-    "2025-06-29": [
-        {
-            "start": "11:45",
-            "end": "11:56 ",
-            "action": "ACTION",
-            "actionDetail": "",
-            "action_type": "work",
-            "urgency": false,
-            "importance": false
-        }
-    ],
-    "2025-07-01": [
-        {
-            "start": "11:13",
-            "end": "11:14",
-            "action": "CODE",
-            "actionDetail": "this is the best day i ve ever live",
-            "action_type": "work",
-            "urgency": true,
-            "importance": true
-        }
     ]
 }

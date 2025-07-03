@@ -28,6 +28,11 @@ class Indicators(Enum):
     FIRST_COUNT = 2
     SECOND_COUNT = 2
 
+#应用内基本GUI操作通信协议，相当于PyQT原生信号的enum版本
+class RawUserAction(Enum):
+    TEXT_CHANGED = "textChanged"
+    RETURN_PRESSED = "returnPressed"
+
 
 #UNIVERSAL; INPUT enum ActionType; OUTPUT list of enum abbreviations
 def getEnumAbbriviation(enumClass):

@@ -1,5 +1,5 @@
 from Core.Definitions import InputState, UserActionType
-from Core.logic.stateMachineParser import stateMachineParser_API
+from Core.logic.stateMachineParser import stateMachineParser
 from Core.translation.fastEnterTranslation import transFastToProp_API
 
 
@@ -27,7 +27,7 @@ class StateMachinePresenter():
         data = {}
         
         #  ---------- 询问状态机，给出建议 ----------
-        suggestion = stateMachineParser_API(currentState,text,eventType,userAction)
+        suggestion = stateMachineParser(currentState,text,eventType,userAction)
         
         #  ------ 修改速记提示框的显示 ------
         if eventType == UserActionType.CONFIRM_SELECT: #执行confirm_select的时候才需要传wordBank

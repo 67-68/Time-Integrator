@@ -4,7 +4,7 @@ from PyQt6.QtCore import pyqtSignal
 
 class PropertyEnterFrame(QFrame):
     #  --- 创建信号 ---
-    propertyChanged = pyqtSignal()
+    propertyChanged = pyqtSignal(dict)
     
     def __init__(self, parent = None):
         super().__init__(parent)
@@ -25,9 +25,17 @@ class PropertyEnterFrame(QFrame):
         
         #  --- 发送信号 ---
         for key in self.widget:
-            self.widget[key].textChanged.connect(self.propertyChanged)
+            self.widget[key].textChanged.connect(self._on_property_text_changed)
             
-                
+            
+    """  ------ 速记和属性栏同步功能 ------ """
+    #  ------ 上行事件传输 ------  
+    def _on_property_text_changed(self):
+        data = self.getData()
+        self.propertyChanged.emit(data)
+    
+    
+    #  ------ 下行指令承接 ------    
     #SPECIFIC; INPUT actionUnit, UPDATE data
     def fillData(self,actionData):
         if actionData is not None:

@@ -1,6 +1,6 @@
 """ 数据往下，事件往上,任何尝试修改其自己的行为，指令都必须来源于上面 """
 from PyQt6.QtWidgets import QLineEdit,QCompleter,QAbstractItemView
-from PyQt6.QtCore import QStringListModel,Qt
+from PyQt6.QtCore import QStringListModel,Qt,QTimer
 
 from Core.Definitions import UserActionType
 from PyQt6.QtCore import QModelIndex
@@ -17,43 +17,26 @@ class RealTimeSearchEdit(QLineEdit):
         #  --- 添加completer ---
         self.dropdown = QCompleter(self.model,self)
         self.dropdown.setFilterMode(Qt.MatchFlag.MatchContains)
-        self.setCompleter(self.dropdown)
+        self.dropdown.setCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
+        self.dropdown.setWidget(self)       # 改为手动触发，禁用自动前缀
         
         #  --- 快捷赋值 ---
         self.view = self.dropdown.popup()
-
+    
+    """  ------ dropdown功能 ------ """
     #INPUT action String; UPDATE completer, use it to filter wordbank
-    def showDropdown(self, actionStr):
-        text = actionStr if not None else ""
-        
-        if not text: 
-            self.model.setStringList(self.wordBank)
-        else:
-            filterList = []
-            for word in self.wordBank:
-                if text.lower() in word.lower():
-                    filterList.append(word)
-            self.model.setStringList(filterList)
+    def set_dropdown_prefix(self, key):
+        """Update prefix manually and keep popup visible."""
+        if not key:                               # 空串就收起
+            self.dropdown.popup().hide()
+            return
 
-            if self.completer() is None:
-                self.setCompleter(self.dropdown)
-            self.dropdown.setCompletionPrefix("")      # 清空 prefix 避免Qt再过滤
-            self.dropdown.complete()                   # ⬅ always call complete
-    
-    def getDropdownVisibility(self):
-        return self.dropdown.popup().isVisible()
-    
-    def getDropdownSelection(self):
-        return self.dropdown.popup().currentIndex()
-    
-    def getDropdownVal(self,row):
-        if self.dropdown is None:
-            return ""
-        elif self.dropdown.model() is None:
-            return ""
+        self.dropdown.setCompletionPrefix(key)    # 手动设前缀
+        if self.dropdown.completionCount():       # 有匹配才弹
+            self.dropdown.complete()
         else:
-            return self.dropdown.model().index(row,0).data()
-        
+            self.dropdown.popup().hide()
+            
     #UNIVERSAL; INPUT tk dropdown and int index; UPDATE dropdown
     def switchDropdown(self,index):
             self.view.setCurrentIndex(self.model.index(index,0))
@@ -67,7 +50,7 @@ class RealTimeSearchEdit(QLineEdit):
         selected = self.dropdown.currentIndex()
         
         #  --- 判断是否已经被选中 ---
-        if selected.isValid():
+        if selected.isValid(): #这里选了判断是否选中，所以上面不用判定了
             index = selected.row()
         else:
             index = -1
@@ -85,3 +68,21 @@ class RealTimeSearchEdit(QLineEdit):
             return
 
         self.switchDropdown(new_index)
+        
+    """ ------ API函数 ------ """
+    def getDropdownVisibility(self):
+        return self.dropdown.popup().isVisible()
+    
+    def getDropdownSelection(self):
+        return self.dropdown.popup().currentIndex()
+    
+    def getDropdownVal(self,row):
+        if self.dropdown is None:
+            return ""
+        elif self.dropdown.model() is None:
+            return ""
+        else:
+            return self.dropdown.model().index(row,0).data()
+        
+    def getDropdownKey(self):
+        return self.dropdown.completionPrefix()

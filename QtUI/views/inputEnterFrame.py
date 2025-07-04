@@ -10,6 +10,7 @@ actionDataLoc = "Data/actionData.json"
 
 class InputEnterFrame(QFrame):
     def __init__(self, parent = None):
+        #  ------ 初始化 ------
         super().__init__(parent)
         
         self.IEF = Ui_inputEnterFrame()
@@ -27,14 +28,14 @@ class InputEnterFrame(QFrame):
         self.translator = Translator()
         self.stateMachine = StateMachinePresenter(wordBank)
             
-        #  --- 承接上行事件 ---
-        self.PE.propertyChanged.connect(self._on_text_changed)
-        self.FE.userActionHappen.connect(lambda pack:self._on_UserAction_Happened(pack))
+        #  ------ 上行事件获取 ------
+        self.PE.propertyChanged.connect(lambda d: self.fillFE(d))
+        self.FE.userActionHappen.connect(lambda pack:self._on_FE_action_Happened(pack))
   
     
-    """  ------ 本地逻辑处理 ------ """
+    """  ------ 区分功能 ------ """
     #这个函数用来处理FE往上面传过来的事件,把rawUserAction转化为UserAction.这意味着每个判断的框内至少都应该有一条语句重新赋值eventType
-    def _on_UserAction_Happened(self,FE_To_IEF):
+    def _on_FE_action_Happened(self,FE_To_IEF):
         #  ------ 首先初始化 ------
         rawEventType = FE_To_IEF["rawEventType"]
         userAction = FE_To_IEF
@@ -51,27 +52,47 @@ class InputEnterFrame(QFrame):
             return
     
         #  ------ 状态机给出建议 ------
-        #  --- 获取建议 ---
         presenterAdvice = self.stateMachine.processEvent_API(userAction)
         
-        #  --- 赋值 ---
-        text = presenterAdvice["fastEntryText"]
-        data = presenterAdvice["data"]
-        dropdownAction = presenterAdvice["dropdownAction"]
+        #  --- 激活dropdown功能 ---
+        if presenterAdvice["dropdownAction"]: 
+            self._on_dropdown_start(presenterAdvice["data"]["action"]) #TODO:这里需要修改，把它传下去而不是直接修改
+            
+        #  --- 同步功能 ---
+        self.fillPE(presenterAdvice["data"])
         
-        #  --- 实施建议 ---
-        if dropdownAction: 
-            self.FE.fastEntry.showDropdown(data["action"]) #TODO:这里需要修改，把它传下去而不是直接修改
+        #好像就这两个了吧？没有漏的，我仅可以用传进来的速记数据做同步和dropdown
+
+
+    """  ------ 速记和属性同步功能 ------ """
+    #  ------ 下行命令传输 ------
+    def getData(self):
+        actionUnit = self.IEF.propertyEnterFrameBase.getData()
+        return actionUnit
     
-    def _on_text_changed(self):
-        with QSignalBlocker(self.FE): #既然在单向数据流和原则指导下，核心逻辑在inputEnterFrame, 那么捂不捂嘴具体的控件无所谓
-            data = self.PE.getData()
+    def fillPE(self,actionUnit):
+        with QSignalBlocker(self.PE):
+            self.PE.fillData(actionUnit)
+    
+    def fillFE(self,data):
+        with QSignalBlocker(self.FE): 
             fastData = self.translator.properToFast(data)
-            self.FE.fillData(fastData)
-        #在这里，fastEntry的渠道没有必要留着了，它通过正规的渠道传输
+            self.FE.fillData(fastData) #顺便传输下行指令
+        
+    #SPECIFIC; INPUT error; UPDATE propertyFrame to show the error
+    def showError(self,error):
+        self.IEF.propertyEnterFrameBase.showError(error)
     
+
+        
+    """  ------ dropdown 功能 ------ """
+    #这个函数是dropdown功能的入口函数，传输需要筛选的key并让它展示
+    def _on_dropdown_start(self,key):
+        self.FE.set_dropdown_prefix(key)
+        
     
-    """  ------ 命令下行 ------ """
+    """  ------ 初始化填充速记和属性功能 ------ """
+    #  ------ 下行命令传输 ------
     def fillData(self,actionUnit):
         with QSignalBlocker(self.PE), QSignalBlocker(self.FE.FE.fastEntry):
             #  --- 拆包 ---
@@ -79,19 +100,3 @@ class InputEnterFrame(QFrame):
 
             self.PE.fillData(actionUnit)
             self.FE.fillData(text)
-    
-    def getData(self):
-        actionUnit = self.IEF.propertyEnterFrameBase.getData()
-        return actionUnit
-        
-    #SPECIFIC; INPUT error; UPDATE propertyFrame to show the error
-    def showError(self,error):
-        self.IEF.propertyEnterFrameBase.showError(error)
-        
-
-        
-        
-        
-        
-    
-    

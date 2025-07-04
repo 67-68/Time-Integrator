@@ -12,7 +12,7 @@ class UserActionType(Enum):
     TEXT_INPUT = "textINPUT"
     ARROW_UP = "arrowUp"
     ARROW_DOWN = "arrowDown"
-    CONFIRM_SELECT = "confirmSelect"
+    CONFIRM_SELECT = "confirmSelect" #虽然他们不是很用得到...但还是不删了，哪怕不再是同一个function用的
     FINAL_SUBMIT = "finalSubmit"
 
 class ActionType(Enum):

@@ -1,9 +1,5 @@
-from Core.dataAccess.dataManager import updateDataKey
 from QtUI.App import TimeIntegrator
 import sys
-
-DEBUG_UI = True
-
 
 if __name__ == "__main__":
     integrator = TimeIntegrator()

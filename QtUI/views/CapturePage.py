@@ -1,9 +1,9 @@
 from Core.dataAccess.dataManager import getData_API
-from QtUI.views.rawUI.ui_rawInputPage import Ui_inputPage
+from QtUI.views.rawUI.ui_rawCapturePage import Ui_CapturePage
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import pyqtSignal
 
-class InputPage(QWidget):
+class CapturePage(QWidget):
     menuButtonClicked = pyqtSignal(bool)
     inputButtonClicked = pyqtSignal(bool)
     
@@ -11,7 +11,7 @@ class InputPage(QWidget):
         super().__init__(parent)
 
         #  ------ 初始化UI ------       
-        self.inputPage = Ui_inputPage()
+        self.inputPage = Ui_CapturePage()
         self.inputPage.setupUi(self)
         
         #  --- 快捷赋值 ---

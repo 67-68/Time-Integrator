@@ -27,6 +27,8 @@ class PropertyEnterFrame(QFrame):
         for key in self.widget:
             self.widget[key].textChanged.connect(self._on_property_text_changed)
             
+        
+            
             
     """  ------ 速记和属性栏同步功能 ------ """
     #  ------ 上行事件传输 ------  
@@ -72,3 +74,10 @@ class PropertyEnterFrame(QFrame):
     
     def showError(self,error):
         self.widget[error].setStyleSheet("background-color:#ffcccc;")
+
+
+    def setWordBank(self,wordBank):
+        self.pe.actionEdit.initialization(wordBank)
+        
+    def set_dropdown_prefix(self,key):
+        self.pe.actionEdit.setPrefix(key)

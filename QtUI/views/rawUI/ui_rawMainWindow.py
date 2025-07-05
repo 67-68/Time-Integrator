@@ -253,7 +253,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.InputButton)
         self.verticalLayout_6.addWidget(self.pageSwitchFrame)
         self.stackedWidget.addWidget(self.stackMenuPage)
-        self.InputPageBase = InputPage()
+        self.InputPageBase = CapturePage()
         self.InputPageBase.setObjectName("InputPageBase")
         self.stackedWidget.addWidget(self.InputPageBase)
         self.verticalLayout.addWidget(self.stackedWidget)
@@ -280,4 +280,4 @@ class Ui_MainWindow(object):
         self.menuButton_2.setText(_translate("MainWindow", "Capture"))
         self.demoButton.setText(_translate("MainWindow", "Analysis"))
         self.InputButton.setText(_translate("MainWindow", "Strategy and Settings"))
-from QtUI.views.InputPage import InputPage
+from QtUI.views.CapturePage import CapturePage

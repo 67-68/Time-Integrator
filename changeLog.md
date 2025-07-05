@@ -27,3 +27,14 @@ today is 6.29
 #### Function
 - now can enter and read data normally
 
+## Alpha.3
+7.5
+
+### ChangeLog
+
+#### Structure
+- integrate each function, including keyRealease into RealTimeSearchEdit
+- reconsturct the data and signal transport
+
+#### function
+nearly all the function done, time to go next stage

@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '/Users/lennon/Library/Mobile Documents/com~apple~CloudDocs/Useful files/Projects/Time_Integrater/QtUI/views/rawUI/rawInputPage.ui'
+# Form implementation generated from reading ui file '/Users/lennon/Library/Mobile Documents/com~apple~CloudDocs/Useful files/Projects/Time_Integrater/QtUI/views/rawUI/rawCapturePage.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -9,18 +9,18 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
 
 
-class Ui_inputPage(object):
-    def setupUi(self, inputPage):
-        inputPage.setObjectName("inputPage")
-        inputPage.resize(878, 658)
+class Ui_CapturePage(object):
+    def setupUi(self, CapturePage):
+        CapturePage.setObjectName("CapturePage")
+        CapturePage.resize(878, 658)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(inputPage.sizePolicy().hasHeightForWidth())
-        inputPage.setSizePolicy(sizePolicy)
-        self.verticalLayout = QtWidgets.QVBoxLayout(inputPage)
+        sizePolicy.setHeightForWidth(CapturePage.sizePolicy().hasHeightForWidth())
+        CapturePage.setSizePolicy(sizePolicy)
+        self.verticalLayout = QtWidgets.QVBoxLayout(CapturePage)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.mainFrame = QtWidgets.QFrame(parent=inputPage)
+        self.mainFrame = QtWidgets.QFrame(parent=CapturePage)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -48,7 +48,7 @@ class Ui_inputPage(object):
         self.inputStackFrame.addWidget(self.editorFrameBase)
         self.horizontalLayout.addWidget(self.inputStackFrame)
         self.verticalLayout.addWidget(self.mainFrame)
-        self.pageSwitchFrame = QtWidgets.QFrame(parent=inputPage)
+        self.pageSwitchFrame = QtWidgets.QFrame(parent=CapturePage)
         self.pageSwitchFrame.setMinimumSize(QtCore.QSize(0, 50))
         self.pageSwitchFrame.setFrameShape(QtWidgets.QFrame.Shape.NoFrame)
         self.pageSwitchFrame.setFrameShadow(QtWidgets.QFrame.Shadow.Plain)
@@ -110,15 +110,15 @@ class Ui_inputPage(object):
         self.horizontalLayout_2.addWidget(self.settingButton)
         self.verticalLayout.addWidget(self.pageSwitchFrame)
 
-        self.retranslateUi(inputPage)
-        QtCore.QMetaObject.connectSlotsByName(inputPage)
+        self.retranslateUi(CapturePage)
+        QtCore.QMetaObject.connectSlotsByName(CapturePage)
 
-    def retranslateUi(self, inputPage):
+    def retranslateUi(self, CapturePage):
         _translate = QtCore.QCoreApplication.translate
-        inputPage.setWindowTitle(_translate("inputPage", "Form"))
-        self.menuButton.setText(_translate("inputPage", "Start"))
-        self.inputButton.setText(_translate("inputPage", "Capture"))
-        self.demoButton.setText(_translate("inputPage", "Analysis"))
-        self.settingButton.setText(_translate("inputPage", "Strategy and Settings"))
+        CapturePage.setWindowTitle(_translate("CapturePage", "Form"))
+        self.menuButton.setText(_translate("CapturePage", "Start"))
+        self.inputButton.setText(_translate("CapturePage", "Capture"))
+        self.demoButton.setText(_translate("CapturePage", "Analysis"))
+        self.settingButton.setText(_translate("CapturePage", "Strategy and Settings"))
 from QtUI.views.dateSelectionFrame import DateSelectionFrame
 from QtUI.views.editorFrame import EditorFrame

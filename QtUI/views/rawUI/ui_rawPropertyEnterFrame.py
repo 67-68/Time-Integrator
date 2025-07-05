@@ -42,7 +42,7 @@ class Ui_propertyEnterFrame(object):
         self.actionLabel = QtWidgets.QLabel(parent=self.propertyEntries)
         self.actionLabel.setObjectName("actionLabel")
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.ItemRole.LabelRole, self.actionLabel)
-        self.actionEdit = QtWidgets.QLineEdit(parent=self.propertyEntries)
+        self.actionEdit = RealTimeSearchEdit(parent=self.propertyEntries)
         self.actionEdit.setObjectName("actionEdit")
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.ItemRole.FieldRole, self.actionEdit)
         self.horizontalLayout.addWidget(self.propertyEntries)
@@ -79,3 +79,4 @@ class Ui_propertyEnterFrame(object):
         self.actionDetailLabel.setText(_translate("propertyEnterFrame", "ActionDetail"))
         self.urgenCheckBox.setText(_translate("propertyEnterFrame", "urgency"))
         self.imporCheckBox.setText(_translate("propertyEnterFrame", "importance"))
+from QtUI.widgets.other.RealTimeSearchEdit import RealTimeSearchEdit

@@ -23,13 +23,14 @@ class InputEnterFrame(QFrame):
         #  --- 创建wordBank ---
         wordBank = getAutoCompletion_API(actionDataLoc)
         self.FE.setWordBank(wordBank)
+        self.PE.setWordBank(wordBank)
         
         #  --- 创建presentor实例 ---
         self.translator = Translator()
         self.stateMachine = StateMachinePresenter(wordBank)
             
         #  ------ 上行事件获取 ------
-        self.PE.propertyChanged.connect(lambda d: self.fillFE(d))
+        self.PE.propertyChanged.connect(lambda d: self._on_PE_text_change(d))
         self.FE.userActionHappen.connect(lambda pack:self._on_FE_action_Happened(pack))
   
     
@@ -60,10 +61,7 @@ class InputEnterFrame(QFrame):
             
         #  --- 同步功能 ---
         self.fillPE(presenterAdvice["data"])
-        
-        #好像就这两个了吧？没有漏的，我仅可以用传进来的速记数据做同步和dropdown
-
-
+    
     """  ------ 速记和属性同步功能 ------ """
     #  ------ 下行命令传输 ------
     def getData(self):
@@ -74,10 +72,14 @@ class InputEnterFrame(QFrame):
         with QSignalBlocker(self.PE):
             self.PE.fillData(actionUnit)
     
-    def fillFE(self,data):
+    def _on_PE_text_change(self,data):
+        #fillFE
         with QSignalBlocker(self.FE): 
             fastData = self.translator.properToFast(data)
             self.FE.fillData(fastData) #顺便传输下行指令
+        
+        #顺便设定一下prefix
+        self.PE.set_dropdown_prefix(data["action"])
         
     #SPECIFIC; INPUT error; UPDATE propertyFrame to show the error
     def showError(self,error):
@@ -90,7 +92,7 @@ class InputEnterFrame(QFrame):
     def _on_dropdown_start(self,key):
         self.FE.set_dropdown_prefix(key)
         
-    
+        
     """  ------ 初始化填充速记和属性功能 ------ """
     #  ------ 下行命令传输 ------
     def fillData(self,actionUnit):

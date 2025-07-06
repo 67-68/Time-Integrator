@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>607</width>
-    <height>434</height>
+    <width>404</width>
+    <height>662</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -21,39 +21,10 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QCalendarWidget" name="calendarWidget"/>
+    <widget class="QCalendarWidget" name="calendarDateSelection"/>
    </item>
    <item>
-    <widget class="QComboBox" name="comboBox"/>
-   </item>
-   <item>
-    <widget class="QFrame" name="dateEditFrame">
-     <property name="frameShape">
-      <enum>QFrame::Shape::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Shadow::Raised</enum>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QDateTimeEdit" name="dateTimeEdit"/>
-      </item>
-      <item>
-       <widget class="QPushButton" name="newRecordButton">
-        <property name="text">
-         <string>create new record</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>combobox and calender is future function, enter &lt;enter&gt; when you focus on the widget to enter in</string>
-     </property>
-    </widget>
+    <widget class="QListWidget" name="actionUnitList"/>
    </item>
   </layout>
  </widget>

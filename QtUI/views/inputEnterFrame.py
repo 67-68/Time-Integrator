@@ -1,14 +1,14 @@
 from Core.analysis.APITools import getAutoCompletion_API
 from QtUI.views.rawUI.ui_rawInputEnterFrame import Ui_inputEnterFrame
-from PyQt6.QtWidgets import QFrame
+from PyQt6.QtWidgets import QWidget
 from QtUI.presentors.translator import Translator
 from QtUI.presentors.StateMachinePresenter import StateMachinePresenter
-from PyQt6.QtCore import QSignalBlocker,QTimer
+from PyQt6.QtCore import QSignalBlocker
 from Core.Definitions import InputState, RawUserAction, UserActionType
 
 actionDataLoc = "Data/actionData.json"
 
-class InputEnterFrame(QFrame):
+class InputEnterFrame(QWidget):
     def __init__(self, parent = None):
         #  ------ 初始化 ------
         super().__init__(parent)

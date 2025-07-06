@@ -1,68 +1,88 @@
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import pyqtSignal
 
-from Core.dataAccess.dataManager import getData_API
 from QtUI.views.rawUI.ui_rawDateSelectionFrame import Ui_dateSelection
-
-from PyQt6.QtCore import QDate
-
-
+from PyQt6.QtGui import QBrush,QColor
 
 class DateSelectionFrame(QWidget):
     dateSelected = pyqtSignal(str)
+    actionUnitSelected = pyqtSignal(dict)
     
     def __init__(self, parent = None):
         super().__init__(parent)
-        self.dateSelectionFrame = Ui_dateSelection()
-        self.dateSelectionFrame.setupUi(self)
+        self.DSF = Ui_dateSelection()
+        self.DSF.setupUi(self)
         
         #  ------ 初始化 ------
-        #  --- 输入框 ---
-        self.dateSelectionFrame.dateTimeEdit.setDisplayFormat("yyyy-MM-dd")
-        self.dateSelectionFrame.dateTimeEdit.setDate(QDate.currentDate())
+        self.calendar = self.DSF.calendarDateSelection
+        self.list = self.DSF.actionUnitList
+        self.recordList = [] #这里用list因为方便，后面人如果查找压力大可能改dict
         
         #  ------ 绑定信号 ------
-        self.dateSelectionFrame.dateTimeEdit.dateChanged.connect(self._on_dateTimeEdit_enter) #COMMANDER
-        self.dateSelectionFrame.newRecordButton.clicked.connect(self._on_dateTimeConfirm) #COMMANDER
-    
-    
-    # def _on_enter_entered(self,obj,event):
-    #     #  ------ 判断enter 是否被entered ------
-    #     if event.type() == QEvent.Type.KeyPress and \
-    #         event.key() in (Qt.Key.Key_Return, Qt.Key.Key_Enter):
-            
-    #         #  ------ 判断在哪个控件 ------
-    #         focus = self.focusWidget()          # 这里用 self.focusWidget 也行
-    #         self.getDate(focus)
-            
-    #         return True
+        self.calendar.selectionChanged.connect(self._on_calendar_selected)
+        self.list.itemClicked.connect(self._on_list_item_clicked)
         
-    # def getDate(self,widget):
-    #     if widget == self.dateSelectionFrame.dateTimeEdit:
-        
-    #     if widget == self.dateSelectionFrame.calendarWidget:
-        
-    #SOUDIER
-    def _on_dateTimeEdit_enter(self,q_date):
-        date = q_date.toString("yyyy-MM-dd")
-        data = getData_API("Data/dateData.json")
-        
-        #  --- 判断用户是否输入完成 ---
-        if not q_date.isValid():
-            return
-        
-        #  --- 传递信号 ---
-        if date in data:
-            self.dateSelected.emit(date)
-    
-    #SOUDIER
-    def _on_dateTimeConfirm(self):
-        date = self.dateSelectionFrame.dateTimeEdit.text()
-        q_date = QDate.fromString(date,"yyyy-MM-dd")
-        
-        #  --- 判断是否valid ---
-        if not q_date.isValid():
-            return
-        
-        #  --- 传递信号 ---
+    def _on_calendar_selected(self):
+        qDate = self.calendar.selectedDate()
+        date = qDate.toString('yyyy-MM-dd')
+        self.list.clear()
         self.dateSelected.emit(date)
+        
+    
+    #这里会接收到一天的数据
+    def fillData(self,actionUnits):
+        self.recordList.clear()
+        
+        if actionUnits:
+            actionUnitsStrList = []
+            for au in actionUnits:
+                timeSpan = au.get("timeSpan","")
+                text = f'{au["start"]}-{au["end"]} {au["action"]}({au["action_type"]}) {timeSpan}min'
+                
+                actionUnitsStrList.append(f'{au["start"]}-{au["end"]} {au["action"]}({au["action_type"]}) {timeSpan}min') #未来，这里可以加入自定义功能，自定义如何显示，显示什么
+
+                self.recordList.append(au)
+            #  --- 把字符串列表写入 QListWidget ---
+            self.list.clear()
+            self.list.addItems(actionUnitsStrList)
+        
+            #  --- 保存到recordDict方便查找 ---
+            
+        
+    def _on_list_item_clicked(self,item):
+        #  --- 获取text ---
+        row = self.list.row(item)
+        actionUnit = self.recordList[row]
+        
+        #  --- 清空本地数据 ---
+        self.recordList = []
+        
+        #  --- 发送信号 ---
+        self.actionUnitSelected.emit(actionUnit)
+    
+    def find_actionUnit_pos(self, actionUnit):
+        """
+        返回给定 actionUnit 在 self.recordList 中的序号（0‑基）。
+        找不到则返回 -1。
+        """
+        for index, au in enumerate(self.recordList):
+            if au == actionUnit:
+                return index
+        return -1
+        
+    def get_actionUnit_fromList(self,index):
+        return self.recordList[index] #it should be reasonable, so no validation
+    
+    def get_actionUnit_listLength(self):
+        return len(self.recordList)
+        
+    def dyeActionUnit(self,row,color):        
+        item = self.list.item(row)                    # 拿到 QListWidgetItem
+        item.setBackground(QBrush(QColor(color))) # 背景色
+    
+    def createNewRecord(self):
+        self.recordList.append("")
+        
+    
+
+        

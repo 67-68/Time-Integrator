@@ -55,3 +55,12 @@ def getTodayDate():
     date = now.date()
     return date
 
+def find_key_in_dict(d: dict, target):
+    """
+    返回 (序号, 键, 值)，序号从 1 开始。
+    若找不到则返回 None。
+    """
+    for idx, (k, v) in enumerate(d.items(), start=1):  
+        if v == target:
+            return idx, k, v
+    return None

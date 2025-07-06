@@ -15,6 +15,8 @@
     - the extreme data of time span
     - the time distribution of time span
 
+
+
 ## Alpha.2
 today is 6.29
 
@@ -27,6 +29,8 @@ today is 6.29
 #### Function
 - now can enter and read data normally
 
+
+
 ## Alpha.3
 7.5
 
@@ -38,3 +42,17 @@ today is 6.29
 
 #### function
 nearly all the function done, time to go next stage
+
+
+## Alpha.4
+7.6
+
+### ChangeLog
+
+#### Structure
+- 把menuPage从mainwindow中分离出来
+
+#### Function
+- 基本上写好了各个按钮的功能 
+
+

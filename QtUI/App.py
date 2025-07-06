@@ -1,6 +1,7 @@
 #中间层，负责调用MainWindow中的函数和基础逻辑层面的函数，只要他们有交互
 #即，presentor
 from Core.analysis.otherAnalysis import getActionUnit, getExtremeData, getFourRealmRatio, getHighQualityRatio
+from Core.dataAccess.dataManager import getData_API, saveData_API
 from QtUI.views.MainWindow import MainWindow
 from PyQt6.QtWidgets import QApplication
 import sys
@@ -22,10 +23,26 @@ class TimeIntegrator:
         #  ------ 连接信号和槽 ------
     
     def connectSignal(self):
-        self.mainWindow.timeSpanChoosed.connect(self._on_Time_Choosed)
+        #self.mainWindow.timeSpanChoosed.connect(self._on_Time_Choosed)
+        self.mainWindow.saveDataSignal.connect(lambda f:self.saveData(f))
 
     def initialization(self):
-        self.mainWindow.timeSpanChoosed.emit(self.mainWindow.ui.timeChooser.currentText())
+        #self.mainWindow.timeSpanChoosed.emit(self.mainWindow.ui.timeChooser.currentText())
+        pass
+        
+    def saveData(self,saveDataPack):
+        #假设数据被validate过了
+        date = saveDataPack["date"]
+        actionUnits = saveDataPack["data"]
+        
+        allData = getData_API("Data/dateData.json")
+        allData[date] = actionUnits
+        
+        saveData_API(allData,"Data/dateData.json")
+        
+        #初始化
+        self.initialization()
+        
         
     #UNIVERSAL; INPUT Str timeChoosed; OUTPUT the data that should update
     def _on_Time_Choosed(self,newTimeChoosed):

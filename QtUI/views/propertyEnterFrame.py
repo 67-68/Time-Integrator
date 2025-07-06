@@ -46,6 +46,14 @@ class PropertyEnterFrame(QFrame):
             self.pe.actionEdit.setText(actionData["action"])
             self.pe.actionTypeEdit.setText(actionData["action_type"])
             self.pe.actionDetailEdit.setText(actionData["actionDetail"])
+        else:
+            print("reset propeertyEnterFrame")
+            self.pe.startEdit.setText("")
+            self.pe.endEdit.setText("")
+            self.pe.actionEdit.setText("")
+            self.pe.actionDetailEdit.setText("")
+            self.pe.actionTypeEdit.setText("")
+            #TODO:importance和urgency的初始化
     
     def getData(self):
         actionUnit = {

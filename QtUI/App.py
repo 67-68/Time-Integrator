@@ -32,19 +32,21 @@ class TimeIntegrator:
         self.mainWindow.date_selected.connect(self._on_date_selected)
         self.mainWindow.list_item_selected.connect(self._on_list_item_selected)
 
-    def initialization(self):
+    def initialization(self): 
         self.currentData = getData_API("Data/dateData.json") #初始化的时候获取一份数据，在用户输入之后修改
         pass
     
     def _on_list_item_selected(self,data):
         self.currentActionUnit = data
-        self.initialization()
-        self.mainWindow.fillCPData(self.currentData[self.currentDate],self.currentActionUnit)
+        # 更新 CapturePage，使编辑区与新选中的 actionUnit 同步
+        self.mainWindow.switchCPData(data)
         
     def _on_saveButton_clicked(self,actionUnits):
         #假设数据被validate过了
         date = self.currentDate
-        self.currentData[date] = actionUnits
+        if date not in self.currentData:
+            self.currentData[date] = []
+        self.currentData[date].append(actionUnits)
         saveData_API(self.currentData,"Data/dateData.json")
         self.initialization()         #初始化
         

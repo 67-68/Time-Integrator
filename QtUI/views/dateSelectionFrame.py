@@ -41,16 +41,18 @@ class DateSelectionFrame(QWidget):
     
     #  ------ 列表填充数据 ------
     def fillData(self,actionUnits = None,au = None):
+        """
+        这个函数用来初始化date selection 但是没有具体选择action Unit的情况
+        """
         if actionUnits:
             self.fillListData(actionUnits)
         if au:
-            pos = self.find_item_by_au(au)
-            if pos is not None:
-                self.list.setCurrentRow(pos)
+            self.list.setCurrentRow(0)
     
     def fillListData(self,data):
         """
-        INPUT actionUnits, show them on the list
+        INPUT au; DISPLAY them on the list
+        NOTICE: it will clear and reset all of the list items
         """
         itemList = []
         for au in data:                
@@ -96,11 +98,7 @@ class DateSelectionFrame(QWidget):
             if item_au == au:          # 必须逐项比较
                 return i
         return None
-        
-
     
-
-        
-    
-
-        
+    def switchItem(self,au):
+        item = self.find_item_by_au(au)
+        self.list.setCurrentRow(item)

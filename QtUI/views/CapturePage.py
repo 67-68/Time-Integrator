@@ -65,11 +65,9 @@ class CapturePage(QWidget):
                     idx = 0
                 else:
                     idx = pos - 1
-                
-            
             actionUnit = self.DSF.get_actionUnit_fromList(idx)
         elif index == 0:
-            actionUnit = None
+            actionUnit = {}
             
         self.list_item_selected.emit(actionUnit)
         
@@ -88,4 +86,11 @@ class CapturePage(QWidget):
     def fillEditorFrame(self,actionUnit):
         if actionUnit:
             self.EF.fillData(actionUnit)
+        
+    def switchData(self,au):
+        if au:
+            self.DSF.switchItem(au)
+            self.EF.fillData(au)
+        else:
+            self.EF.setTutorialLabels()
         

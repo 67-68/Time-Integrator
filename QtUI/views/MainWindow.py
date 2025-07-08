@@ -49,4 +49,15 @@ class MainWindow(QMainWindow):
         self.MP.updateMenu(timeUseRateStr,fourRealmRatioStr,extremeDataStr)
         
     def fillCPData(self,data,au):
+        """_summary_
+        this function will clear and reconstruct the overall actionUnit list.
+        It will also reset the editor page
+        """
         self.CP.fillData(data,au)
+        
+    def switchCPData(self,au):
+        """_summary_
+        this function will try to find the item that containing data matches au and select it, rather then clear and reset it
+        it will also reset editor page
+        """
+        self.CP.switchData(au)

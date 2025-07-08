@@ -465,6 +465,26 @@
             "urgency": null,
             "importance": null,
             "date": null
+        },
+        {
+            "start": "11:46",
+            "end": "12:51",
+            "action": "REVIEW",
+            "actionDetail": "开始做 Gemini 给我的三步走，复习昨天晚上的东西，建立了[[灵感]]",
+            "action_type": "work",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 65
+        },
+        {
+            "start": "11:46",
+            "end": "12:51",
+            "action": "REVIEW",
+            "actionDetail": "开始做 Gemini 给我的三步走，复习昨天晚上的东西，建立了[[灵感]]",
+            "action_type": "work",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 65
         }
     ],
     "2025-06-20": [
@@ -999,6 +1019,18 @@
             "urgency": null,
             "importance": null,
             "date": null
+        }
+    ],
+    "2025-07-08": [
+        {
+            "start": "11:45",
+            "end": "11:14",
+            "action": "休息",
+            "actionDetail": "xiuxi",
+            "action_type": "work",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": -31
         }
     ]
 }

@@ -5,7 +5,8 @@ import pyqtgraph as pg
 
 
 class MenuPage(QWidget):
-    switchPageSignal = pyqtSignal(str)
+    switchPage_button_clicked = pyqtSignal(str)
+    timeSpan_choosed = pyqtSignal()
     
     def __init__(self, parent = None):
         super().__init__(parent)
@@ -31,8 +32,8 @@ class MenuPage(QWidget):
         self.fourRealmChart.getPlotItem().hideAxis('bottom')
         
         #  ------ 按钮 ------
-        self.MP.menuButton.clicked.connect(lambda: self.switchPageSignal.emit("menu"))
-        self.MP.menuButton_2.clicked.connect(lambda: self.switchPageSignal.emit("capture"))
+        self.MP.menuButton.clicked.connect(lambda: self.switchPage_button_clicked.emit("menu"))
+        self.MP.menuButton_2.clicked.connect(lambda: self.switchPage_button_clicked.emit("capture"))
         
         #  ------ 复选框 ------
         #  --- 注册复选框选项 ---
@@ -42,8 +43,7 @@ class MenuPage(QWidget):
         self.MP.timeChooser.addItems(timeSpanChoices)
         
         #  ------ 发送 ------
-        #self.MP.timeChooser.currentTextChanged.connect(self.timeSpanChoosed) #TODO:修改一下这一坨不知道在干什么的东西
-        
+        self.MP.timeChooser.currentTextChanged.connect(self.timeSpan_choosed.emit)
         
     def updateMenu(self,timeUseRate,fourRealmRatio,extremeData):
         self.MP.bigNumLabel.setText(str(timeUseRate))

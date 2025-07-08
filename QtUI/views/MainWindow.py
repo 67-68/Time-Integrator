@@ -8,60 +8,45 @@ import pyqtgraph as pg
 class MainWindow(QMainWindow):
     #  ---------- 定义元类变量 ----------
     
-    saveDataSignal = pyqtSignal(dict)
+    saveData_button_clicked = pyqtSignal(dict)
+    timeSpan_choosed = pyqtSignal()
+    date_selected = pyqtSignal(str)
+    list_item_selected = pyqtSignal(dict)
     
     #  ---------- 开始初始化 ----------
-    def __init__(self,**kwargs):
-        super().__init__(**kwargs)
+    def __init__(self):
+        super().__init__()
         
-        self.ui = Ui_MainWindow()
-        self.ui.setupUi(self)
+        self.MW = Ui_MainWindow()
+        self.MW.setupUi(self)
         
         #  --- 赋值 ---
-        self.CP = self.ui.capturePageBase
-        self.MP = self.ui.menuPageBase
+        self.CP = self.MW.capturePageBase
+        self.MP = self.MW.menuPageBase
         
         #  ------ 接收 ------
         self.connectSignal()
         
-        self.ui.stackedWidget.setCurrentWidget(self.MP)
+        self.MW.stackedWidget.setCurrentWidget(self.MP)
     
     def connectSignal(self):
-        self.CP.switchPageSignal.connect(lambda p: self._on_page_switch_button_clicked(p))
+        self.CP.switchPage_button_clicked.connect(lambda p: self._on_page_switch_button_clicked(p))
+        self.CP.saveData_button_clicked.connect(lambda d: self.saveData_button_clicked.emit(d))
+        self.CP.date_selected.connect(lambda d: self.date_selected.emit(d))
+        self.CP.list_item_selected.connect(lambda d: self.list_item_selected.emit(d))
         
-        self.CP.saveDataSignal.connect(lambda s: self.saveDataSignal.emit(s))
-        
-        self.MP.switchPageSignal.connect(lambda p: self._on_page_switch_button_clicked(p))
-        
+        self.MP.switchPage_button_clicked.connect(lambda p: self._on_page_switch_button_clicked(p))
+        self.MP.timeSpan_choosed.connect(self.timeSpan_choosed.emit)
         
     def _on_page_switch_button_clicked(self,page):
         if page == "menu":
-            self.ui.stackedWidget.setCurrentWidget(self.MP)
+            self.MW.stackedWidget.setCurrentWidget(self.MP)
         elif page == "capture":
-            self.ui.stackedWidget.setCurrentWidget(self.CP)
-        
-    
-
+            self.MW.stackedWidget.setCurrentWidget(self.CP)
     
     
-
+    def updateMenu(self,timeUseRateStr,fourRealmRatioStr,extremeDataStr):
+        self.MP.updateMenu(timeUseRateStr,fourRealmRatioStr,extremeDataStr)
         
-        # #  ------ 按钮 ------
-        # buttons = {}
-        
-        # #  --- 主菜单按钮 ---
-        # buttons["menu"] = [
-        #     {"text":'input', "clicked":lambda: promptInput_FUNC(menuLabel,menuText,menuPage)}
-        # ]
-        
-        # self.pages["menu"].leftToolFrame.coverToolButtons(buttons["menu"])
-        
-        # #  --- 展示界面按钮 ---
-        # buttons["demo"] = [
-        #         {"text":'DATE - simple data', "clicked":lambda: showSimpleData('Data/dateData.json',demonText)},
-        #         {"text":'TYPE - action frequency', "clicked":lambda: setSwitchFrequency('Data/dateData.json',ActionType,demonText)},
-        #         {"text":'TYPE - average time', "clicked":lambda: setAverageTime('Data/dateData.json',ActionType,demonText)},
-        #         {"text":'ACTION - regist actions', "clicked":lambda: registAllAction_API('Data/dateData.json','Data/actionData.json')},
-        #         {"text":'ACTION - show Ratio', "clicked":lambda: setTypeRatioToText_API('Data/actionData.json',ActionType,demonText)}
-        # ]
-        # self.pages["demo"].leftToolFrame.coverToolButtons(buttons["demo"])
+    def fillCPData(self,data,au):
+        self.CP.fillData(data,au)

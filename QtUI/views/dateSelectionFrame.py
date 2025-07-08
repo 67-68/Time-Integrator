@@ -1,12 +1,11 @@
-from PyQt6.QtWidgets import QWidget
-from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtWidgets import QWidget,QListWidgetItem
+from PyQt6.QtCore import pyqtSignal,Qt
 
 from QtUI.views.rawUI.ui_rawDateSelectionFrame import Ui_dateSelection
-from PyQt6.QtGui import QBrush,QColor
 
 class DateSelectionFrame(QWidget):
     dateSelected = pyqtSignal(str)
-    actionUnitSelected = pyqtSignal(dict)
+    list_item_selected = pyqtSignal(dict)
     
     def __init__(self, parent = None):
         super().__init__(parent)
@@ -16,12 +15,23 @@ class DateSelectionFrame(QWidget):
         #  ------ 初始化 ------
         self.calendar = self.DSF.calendarDateSelection
         self.list = self.DSF.actionUnitList
-        self.recordList = [] #这里用list因为方便，后面人如果查找压力大可能改dict
         
         #  ------ 绑定信号 ------
         self.calendar.selectionChanged.connect(self._on_calendar_selected)
         self.list.itemClicked.connect(self._on_list_item_clicked)
         
+        stylesheet = """
+            QListView::item:selected {
+                /* 设置被选中项的样式 */
+                background-color: #409EFF;
+                color: white;
+            }"""
+            
+        self.pos = None
+        
+        self.list.setStyleSheet(stylesheet)
+    
+    #  ------ 选择日期 ------
     def _on_calendar_selected(self):
         qDate = self.calendar.selectedDate()
         date = qDate.toString('yyyy-MM-dd')
@@ -29,59 +39,67 @@ class DateSelectionFrame(QWidget):
         self.dateSelected.emit(date)
         
     
-    #这里会接收到一天的数据
-    def fillData(self,actionUnits):
-        self.recordList.clear()
-        
+    #  ------ 列表填充数据 ------
+    def fillData(self,actionUnits = None,au = None):
         if actionUnits:
-            actionUnitsStrList = []
-            for au in actionUnits:
-                timeSpan = au.get("timeSpan","")
-                text = f'{au["start"]}-{au["end"]} {au["action"]}({au["action_type"]}) {timeSpan}min'
-                
-                actionUnitsStrList.append(f'{au["start"]}-{au["end"]} {au["action"]}({au["action_type"]}) {timeSpan}min') #未来，这里可以加入自定义功能，自定义如何显示，显示什么
-
-                self.recordList.append(au)
-            #  --- 把字符串列表写入 QListWidget ---
-            self.list.clear()
-            self.list.addItems(actionUnitsStrList)
-        
-            #  --- 保存到recordDict方便查找 ---
+            self.fillListData(actionUnits)
+        if au:
+            pos = self.find_item_by_au(au)
+            if pos is not None:
+                self.list.setCurrentRow(pos)
+    
+    def fillListData(self,data):
+        """
+        INPUT actionUnits, show them on the list
+        """
+        itemList = []
+        for au in data:                
+            timeSpan = au.get("timeSpan","")
+            text = f'{au["start"]}-{au["end"]} {au["action"]}({au["action_type"]}) {timeSpan}min'
             
-        
-    def _on_list_item_clicked(self,item):
-        #  --- 获取text ---
-        row = self.list.row(item)
-        actionUnit = self.recordList[row]
-        
-        #  --- 清空本地数据 ---
-        self.recordList = []
+            item = QListWidgetItem()
+            item.setText(text)
+            item.setData(Qt.ItemDataRole.UserRole,au)
+            
+            itemList.append(item)       #未来，这里可以加入自定义功能，自定义如何显示，显示什么
+
+            
+        #  --- 把字符串列表写入 QListWidget ---
+        self.list.clear()
+        for item in itemList:
+            self.list.addItem(item)
+            
+    #  ------ 选择列表 ------
+    def _on_list_item_clicked(self,item):        
+        #  --- 获取数据 ---
+        actionUnit = item.data(Qt.ItemDataRole.UserRole)
         
         #  --- 发送信号 ---
-        self.actionUnitSelected.emit(actionUnit)
+        self.list_item_selected.emit(actionUnit)   
     
-    def find_actionUnit_pos(self, actionUnit):
-        """
-        返回给定 actionUnit 在 self.recordList 中的序号（0‑基）。
-        找不到则返回 -1。
-        """
-        for index, au in enumerate(self.recordList):
-            if au == actionUnit:
-                return index
-        return -1
+    #  ------ 切换记录 ------
+    def find_current_actionUnit_pos(self):
+        return self.list.currentRow()
         
     def get_actionUnit_fromList(self,index):
-        return self.recordList[index] #it should be reasonable, so no validation
+        return self.list.item(index).data(Qt.ItemDataRole.UserRole) #要不然是index出问题导致抓取到空的，要不然是它出问题
     
     def get_actionUnit_listLength(self):
-        return len(self.recordList)
-        
-    def dyeActionUnit(self,row,color):        
-        item = self.list.item(row)                    # 拿到 QListWidgetItem
-        item.setBackground(QBrush(QColor(color))) # 背景色
+        return self.list.count()
     
-    def createNewRecord(self):
-        self.recordList.append("")
+    def find_item_by_au(self, au: dict) -> int | None:
+        """
+        返回列表中与 au 完全相等的项的行号；找不到返回 None
+        """
+        for i in range(self.list.count()):
+            item_au = self.list.item(i).data(Qt.ItemDataRole.UserRole)
+            if item_au == au:          # 必须逐项比较
+                return i
+        return None
+        
+
+    
+
         
     
 

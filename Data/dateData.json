@@ -676,28 +676,6 @@
             "date": null
         }
     ],
-    "2025-06-21": [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-    ],
     "2025-06-24": [
         {
             "start": "09:45",
@@ -1023,14 +1001,138 @@
     ],
     "2025-07-08": [
         {
-            "start": "11:45",
-            "end": "11:14",
-            "action": "休息",
-            "actionDetail": "xiuxi",
+            "start": "09:30",
+            "end": "09:50",
+            "action": "CODE",
+            "actionDetail": "",
             "action_type": "work",
             "urgency": false,
             "importance": false,
-            "timeSpan": -31
+            "timeSpan": 20
+        },
+        {
+            "start": "09:50",
+            "end": "10:08",
+            "action": "休息",
+            "actionDetail": "",
+            "action_type": "rest",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 18
+        },
+        {
+            "start": "10:08",
+            "end": "10:39",
+            "action": "CODE",
+            "actionDetail": "完成了大部分重构，app类负责决策下面的负责执行，接下来就是手动选择列表，",
+            "action_type": "work",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 31
+        },
+        {
+            "start": "10:39",
+            "end": "10:55",
+            "action": "休息",
+            "actionDetail": "",
+            "action_type": "rest",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 16
+        },
+        {
+            "start": "10:55",
+            "end": "11:26",
+            "action": "DEBUG想要把item传上去但是导致引用了删除的变量...",
+            "actionDetail": "",
+            "action_type": "work",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 31
+        },
+        {
+            "start": "11:26",
+            "end": "12:30",
+            "action": "休息",
+            "actionDetail": "",
+            "action_type": "rest",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 64
+        },
+        {
+            "start": "12:30",
+            "end": "12:58",
+            "action": "DEBUG",
+            "actionDetail": "我知道应该怎么走了，在dateSelection的时候直接select，其他情况就自己处理就行，发现了局部刷新的招",
+            "action_type": "work",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 28
+        },
+        {
+            "start": "15:00",
+            "end": "15:37",
+            "action": "CODE",
+            "actionDetail": "不要问中间的时间去哪了",
+            "action_type": "work",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 37
+        },
+        {
+            "start": "15:37",
+            "end": "15:45",
+            "action": "休息",
+            "actionDetail": "refresh my mind, much better than vedio game!!",
+            "action_type": "rest",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 8
+        },
+        {
+            "start": "10:55",
+            "end": "11:26",
+            "action": "DEBUG",
+            "actionDetail": "",
+            "action_type": "work",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 31
+        }
+    ],
+    "2025-07-09": [
+        {
+            "start": "10:46",
+            "end": "11:14",
+            "action_type": "work",
+            "action": "CODE",
+            "actionDetail": "写完了大部分bulk enter Frame，但是保存（需要日期）还没做，以及展示当前记录，我需要让date selection frame检测当前状态，并且兼容bulk enterFrame，或许切换界面的时候给它一个状态？",
+            "timeSpan": 28
+        },
+        {
+            "start": "11:14",
+            "end": "11:22",
+            "action_type": "rest",
+            "action": "休息",
+            "actionDetail": "",
+            "timeSpan": 8
+        },
+        {
+            "start": "11:22",
+            "end": "11:34",
+            "action_type": "work",
+            "action": "CODE",
+            "actionDetail": "把bulk EnterFrame写完了",
+            "timeSpan": 12
+        },
+        {
+            "start": "11:34",
+            "end": "11:57",
+            "action_type": "work",
+            "action": "DEBUG字面意思debug",
+            "actionDetail": "",
+            "timeSpan": 23
         }
     ]
 }

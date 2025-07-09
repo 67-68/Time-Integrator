@@ -63,9 +63,22 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QRadioButton" name="singleEnterButton">
+          <widget class="QRadioButton" name="welcomePageButton">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="text">
-            <string>Single Enter</string>
+            <string>welcome</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="editorFrameButton">
+           <property name="text">
+            <string>basic enter</string>
            </property>
            <attribute name="buttonGroup">
             <string notr="true">enterModeGroup</string>
@@ -73,9 +86,9 @@
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="multipleEnterButton">
+          <widget class="QRadioButton" name="bulkEnterFrameButton">
            <property name="text">
-            <string>Multiple Enter</string>
+            <string>bulk mode</string>
            </property>
            <attribute name="buttonGroup">
             <string notr="true">enterModeGroup</string>
@@ -130,6 +143,7 @@
               </item>
              </layout>
             </widget>
+            <widget class="BulkEnterFrame" name="bulkEnterFrameBase"/>
            </widget>
           </widget>
          </item>
@@ -282,6 +296,12 @@
    <class>EditorFrame</class>
    <extends>QWidget</extends>
    <header>QtUI/views/editorFrame.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>BulkEnterFrame</class>
+   <extends>QWidget</extends>
+   <header>QtUI/views/bulkEnterFrame.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

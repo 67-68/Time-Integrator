@@ -56,3 +56,7 @@ nearly all the function done, time to go next stage
 - 基本上写好了各个按钮的功能 
 
 
+## Alpha 5
+- 7/9
+- 新增了批量输入的功能
+

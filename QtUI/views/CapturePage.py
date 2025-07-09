@@ -1,4 +1,3 @@
-from Core.dataAccess.dataManager import getData_API
 from QtUI.views.rawUI.ui_rawCapturePage import Ui_CapturePage
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import pyqtSignal
@@ -18,9 +17,17 @@ class CapturePage(QWidget):
         self.DSF = self.CP.dateSelectionFrameBase
         self.EF = self.CP.editorFrameBase
         self.WF = self.CP.welcomeFrame
+        self.EMG = self.CP.enterModeGroup
+        self.BEF = self.CP.bulkEnterFrameBase
         
+        self.BEF_btn = self.CP.bulkEnterFrameButton
+        self.EF_btn = self.CP.editorFrameButton
+        self.WP_btn = self.CP.welcomePageButton
         
         self.CP.stackedWidget.setCurrentWidget(self.WF)
+        self.WP_btn.setChecked(True)
+        
+        self.currentPage = self.WF
         
         #  ----- 上行事件接收 ------
         #  --- 切换页面 ---
@@ -37,6 +44,26 @@ class CapturePage(QWidget):
         self.EF.actionUnitSelected.connect(lambda i: self._on_changeSelectButton_clicked(i))
         self.EF.saveData_button_clicked.connect(lambda s: self._on_save_button_clicked(s))
     
+        #  --- 按钮 ---
+        self.EMG.buttonClicked.connect(self._on_buttonInGroup_clicked)
+        
+        self.BEF.saveData_button_clicked.connect(self._on_save_button_clicked)
+        
+    def _on_buttonInGroup_clicked(self,button):
+        self.WP_btn.setChecked(False)
+        self.EF_btn.setChecked(False)
+        self.BEF_btn.setChecked(False)
+        
+        if button == self.EF_btn:
+            self.EF_btn.setChecked(True)
+            self.CP.stackedWidget.setCurrentWidget(self.EF)
+            self.currentPage = self.EF
+        else:
+            self.BEF_btn.setChecked(True)
+            self.CP.stackedWidget.setCurrentWidget(self.BEF)
+            self.currentPage = self.BEF
+            
+        
     #  ------ 保存 ------
     def _on_save_button_clicked(self,data):
         self.saveData_button_clicked.emit(data)
@@ -75,12 +102,19 @@ class CapturePage(QWidget):
     
     def fillData(self,data,au): #理论上来说，对于日历的切换和这个函数，它们的日期数据都应该被传上app类，但现在还没做到这个功能...
         self.DSF.fillData(data) 
-        self.CP.stackedWidget.setCurrentWidget(self.EF)
-        if au:
-            self.EF.fillData(au)
-        else:
-            self.EF.setTutorialLabels()
+        #如果当前没有页面，那么到EF
+        if self.currentPage == self.WF:
+            self.CP.stackedWidget.setCurrentWidget(self.EF)
             
+        elif self.currentPage == self.EF:
+            if au:
+                self.EF.fillData(au)
+            else:
+                self.EF.setTutorialLabels()
+                
+        elif self.currentPage == self.BEF:
+            self.BEF.fillData(data) 
+                 
     #  ------ 填充数据 ------
     #只有它被填充了数据才显示，否则隐藏到欢迎界面
     def fillEditorFrame(self,actionUnit):

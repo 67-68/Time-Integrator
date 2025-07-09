@@ -11,7 +11,7 @@ class InputValidation():
     def __init__(self):
         pass
     
-    def validation(data,module):
+    def validation(self,data,module):
         #  --- 判断是什么服务 ---
         if module == "actionUnit":
             valid = actionUnitValidation(data)
@@ -24,7 +24,6 @@ class InputValidation():
                 if valid != True:
                     return valid
         
-        else:
-            return True
+        return True
     
     

@@ -18,6 +18,7 @@ class MenuPage(QWidget):
         self.fourRealmChart = pg.PlotWidget(self.MP.fourRealmFrame)
         chart = self.fourRealmChart
         
+        self.MP.pageSwitchFrameBase.switchPage_button_clicked.connect(lambda f:self.switchPage_button_clicked.emit(f))
         #  --- 它的排版 ---
         self.MP.fourRealmFrame.layout = QVBoxLayout()
         self.MP.fourRealmFrame.layout.addWidget(self.fourRealmChart)
@@ -30,10 +31,6 @@ class MenuPage(QWidget):
         # 隐藏坐标轴，让它看起来更像一个纯粹的图示
         self.fourRealmChart.getPlotItem().hideAxis('left')
         self.fourRealmChart.getPlotItem().hideAxis('bottom')
-        
-        #  ------ 按钮 ------
-        self.MP.menuButton.clicked.connect(lambda: self.switchPage_button_clicked.emit("menu"))
-        self.MP.menuButton_2.clicked.connect(lambda: self.switchPage_button_clicked.emit("capture"))
         
         #  ------ 复选框 ------
         #  --- 注册复选框选项 ---

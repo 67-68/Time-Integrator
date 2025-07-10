@@ -31,8 +31,7 @@ class CapturePage(QWidget):
         
         #  ----- 上行事件接收 ------
         #  --- 切换页面 ---
-        self.CP.menuButton.clicked.connect(lambda: self.switchPage_button_clicked.emit("menu"))
-        self.CP.inputButton.clicked.connect(lambda: self.switchPage_button_clicked.emit("capture"))
+        self.CP.pageSwitchFrameBase.switchPage_button_clicked.connect(lambda f:self.switchPage_button_clicked.emit(f))
         
         #  --- dateSelection ---
         self.DSF.dateSelected.connect(lambda d: self.date_selected.emit(d))

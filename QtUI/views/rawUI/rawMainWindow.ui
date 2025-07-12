@@ -18,8 +18,9 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
+      <widget class="AnalysisPage" name="analysisPageBase"/>
       <widget class="MenuPage" name="menuPageBase"/>
       <widget class="CapturePage" name="capturePageBase"/>
      </widget>
@@ -38,6 +39,12 @@
    <class>MenuPage</class>
    <extends>QWidget</extends>
    <header>QtUI/views/MenuPage.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>AnalysisPage</class>
+   <extends>QWidget</extends>
+   <header>QtUI/views/AnalysisPage.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -19,6 +19,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.stackedWidget = QtWidgets.QStackedWidget(parent=self.centralwidget)
         self.stackedWidget.setObjectName("stackedWidget")
+        self.analysisPageBase = AnalysisPage()
+        self.analysisPageBase.setObjectName("analysisPageBase")
+        self.stackedWidget.addWidget(self.analysisPageBase)
         self.menuPageBase = MenuPage()
         self.menuPageBase.setObjectName("menuPageBase")
         self.stackedWidget.addWidget(self.menuPageBase)
@@ -29,11 +32,12 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+from QtUI.views.AnalysisPage import AnalysisPage
 from QtUI.views.CapturePage import CapturePage
 from QtUI.views.MenuPage import MenuPage

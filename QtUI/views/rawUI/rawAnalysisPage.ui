@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>634</width>
-    <height>520</height>
+    <width>193</width>
+    <height>320</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -230,13 +230,13 @@
            <property name="widgetResizable">
             <bool>true</bool>
            </property>
-           <widget class="QWidget" name="scrollAreaWidgetContents">
+           <widget class="QWidget" name="cardsArea">
             <property name="geometry">
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>498</width>
-              <height>464</height>
+              <width>72</width>
+              <height>264</height>
              </rect>
             </property>
            </widget>

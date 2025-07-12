@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_analysisPage(object):
     def setupUi(self, analysisPage):
         analysisPage.setObjectName("analysisPage")
-        analysisPage.resize(634, 520)
+        analysisPage.resize(193, 320)
         self.verticalLayout = QtWidgets.QVBoxLayout(analysisPage)
         self.verticalLayout.setContentsMargins(12, -1, -1, -1)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -108,10 +108,10 @@ class Ui_analysisPage(object):
         self.cardsScroll = QtWidgets.QScrollArea(parent=self.mainFrame)
         self.cardsScroll.setWidgetResizable(True)
         self.cardsScroll.setObjectName("cardsScroll")
-        self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 498, 464))
-        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
-        self.cardsScroll.setWidget(self.scrollAreaWidgetContents)
+        self.cardsArea = QtWidgets.QWidget()
+        self.cardsArea.setGeometry(QtCore.QRect(0, 0, 72, 264))
+        self.cardsArea.setObjectName("cardsArea")
+        self.cardsScroll.setWidget(self.cardsArea)
         self.horizontalLayout_3.addWidget(self.cardsScroll)
         self.horizontalLayout.addWidget(self.mainFrame)
         self.verticalLayout.addWidget(self.upFrame)

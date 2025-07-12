@@ -13,6 +13,7 @@ class Ui_pageswitchFrame(object):
     def setupUi(self, pageswitchFrame):
         pageswitchFrame.setObjectName("pageswitchFrame")
         pageswitchFrame.resize(555, 66)
+        pageswitchFrame.setMinimumSize(QtCore.QSize(0, 50))
         self.horizontalLayout = QtWidgets.QHBoxLayout(pageswitchFrame)
         self.horizontalLayout.setContentsMargins(0, 3, 0, 3)
         self.horizontalLayout.setObjectName("horizontalLayout")

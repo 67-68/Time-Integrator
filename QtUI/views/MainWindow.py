@@ -23,11 +23,13 @@ class MainWindow(QMainWindow):
         #  --- 赋值 ---
         self.CP = self.MW.capturePageBase
         self.MP = self.MW.menuPageBase
+        self.AP = self.MW.analysisPageBase
         
         #  ------ 接收 ------
         self.connectSignal()
         
         self.MW.stackedWidget.setCurrentWidget(self.MP)
+        
     
     def connectSignal(self):
         self.CP.switchPage_button_clicked.connect(lambda p: self._on_page_switch_button_clicked(p))
@@ -61,3 +63,10 @@ class MainWindow(QMainWindow):
         it will also reset editor page
         """
         self.CP.switchData(au)
+    
+    def initialization(self,data):
+        """_summary_
+        传递依赖
+        """
+        self.AP.initialization(self,data)
+    

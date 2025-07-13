@@ -1,5 +1,5 @@
 from Core.Definitions import InputState, UserActionType, RawUserAction
-from QtUI.views.rawUI.ui_rawFastEntry import Ui_rawFastEnterFrame
+from QtUI.rawUI.ui_rawFastEntry import Ui_rawFastEnterFrame
 from PyQt6.QtWidgets import QFrame
 from PyQt6.QtCore import pyqtSignal,Qt,QSignalBlocker
 from PyQt6.QtGui import QShortcut,QKeySequence

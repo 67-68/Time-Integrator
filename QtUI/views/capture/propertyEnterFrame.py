@@ -1,4 +1,4 @@
-from QtUI.views.rawUI.ui_rawPropertyEnterFrame import Ui_propertyEnterFrame
+from QtUI.rawUI.ui_rawPropertyEnterFrame import Ui_propertyEnterFrame
 from PyQt6.QtWidgets import QFrame
 from PyQt6.QtCore import pyqtSignal 
 

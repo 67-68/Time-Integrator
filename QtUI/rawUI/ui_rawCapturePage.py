@@ -110,7 +110,7 @@ class Ui_CapturePage(object):
         self.label.setText(_translate("CapturePage", "<-here"))
         self.label_2.setText(_translate("CapturePage", "choose your date"))
         self.label_3.setText(_translate("CapturePage", "to see or record the actionUnits"))
-from QtUI.views.bulkEnterFrame import BulkEnterFrame
-from QtUI.views.dateSelectionFrame import DateSelectionFrame
-from QtUI.views.editorFrame import EditorFrame
+from QtUI.views.capture.bulkEnterFrame import BulkEnterFrame
+from QtUI.views.capture.dateSelectionFrame import DateSelectionFrame
+from QtUI.views.capture.editorFrame import EditorFrame
 from QtUI.views.pageSwitchFrame import PageSwitchFrame

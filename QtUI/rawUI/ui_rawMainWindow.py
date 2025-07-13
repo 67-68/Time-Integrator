@@ -38,6 +38,6 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-from QtUI.views.AnalysisPage import AnalysisPage
-from QtUI.views.CapturePage import CapturePage
-from QtUI.views.MenuPage import MenuPage
+from QtUI.views.analysis.AnalysisPage import AnalysisPage
+from QtUI.views.capture.CapturePage import CapturePage
+from QtUI.views.menu.MenuPage import MenuPage

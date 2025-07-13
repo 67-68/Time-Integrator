@@ -1,5 +1,4 @@
-from Core.analysis.APITools import getTimeSpan_API
-from QtUI.views.rawUI.ui_rawBulkEnterFrame import Ui_bulkEnterFrame
+from QtUI.rawUI.ui_rawBulkEnterFrame import Ui_bulkEnterFrame
 from PyQt6.QtWidgets import QWidget
 from QtUI.presentors.translator import Translator
 from QtUI.presentors.inputValidationPresentor import InputValidation

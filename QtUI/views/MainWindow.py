@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QMainWindow
-from QtUI.views.rawUI.ui_rawMainWindow import Ui_MainWindow
+from QtUI.rawUI.ui_rawMainWindow import Ui_MainWindow
 from PyQt6.QtCore import pyqtSignal
 import pyqtgraph as pg
 

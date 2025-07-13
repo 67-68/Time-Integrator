@@ -32,5 +32,5 @@ class Ui_inputEnterFrame(object):
     def retranslateUi(self, inputEnterFrame):
         _translate = QtCore.QCoreApplication.translate
         inputEnterFrame.setWindowTitle(_translate("inputEnterFrame", "Form"))
-from QtUI.views.fastEnterFrame import FastEnterFrame
-from QtUI.views.propertyEnterFrame import PropertyEnterFrame
+from QtUI.views.capture.fastEnterFrame import FastEnterFrame
+from QtUI.views.capture.propertyEnterFrame import PropertyEnterFrame

@@ -1,4 +1,4 @@
-from QtUI.views.rawUI.ui_rawMenuPage import Ui_MenuPage
+from QtUI.rawUI.ui_rawMenuPage import Ui_MenuPage
 from PyQt6.QtWidgets import QWidget,QVBoxLayout
 from PyQt6.QtCore import pyqtSignal
 import pyqtgraph as pg

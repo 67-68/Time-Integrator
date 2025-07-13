@@ -1,4 +1,4 @@
-from QtUI.views.rawUI.ui_rawCapturePage import Ui_CapturePage
+from QtUI.rawUI.ui_rawCapturePage import Ui_CapturePage
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import pyqtSignal
 

@@ -1,4 +1,4 @@
-from QtUI.views.rawUI.ui_rawDailyTrendCard import Ui_trendCard
+from QtUI.rawUI.ui_rawDailyTrendCard import Ui_trendCard
 from PyQt6.QtWidgets import QWidget
 
 class trendCard(QWidget):

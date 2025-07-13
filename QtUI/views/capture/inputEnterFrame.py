@@ -1,5 +1,5 @@
 from Core.analysis.APITools import getAutoCompletion_API
-from QtUI.views.rawUI.ui_rawInputEnterFrame import Ui_inputEnterFrame
+from QtUI.rawUI.ui_rawInputEnterFrame import Ui_inputEnterFrame
 from PyQt6.QtWidgets import QWidget
 from QtUI.presentors.translator import Translator
 from QtUI.presentors.StateMachinePresenter import StateMachinePresenter

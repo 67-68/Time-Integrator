@@ -59,4 +59,4 @@ class Ui_editorFrame(object):
         self.createNewButton.setText(_translate("editorFrame", "new"))
         self.saveButton.setText(_translate("editorFrame", "confirm"))
         self.rightSwitchButton.setText(_translate("editorFrame", "->"))
-from QtUI.views.inputEnterFrame import InputEnterFrame
+from QtUI.views.capture.inputEnterFrame import InputEnterFrame

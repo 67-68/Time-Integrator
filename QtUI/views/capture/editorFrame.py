@@ -1,5 +1,4 @@
-from Core.analysis.APITools import getTimeSpan_API
-from QtUI.views.rawUI.ui_rawEditorFrame import Ui_editorFrame
+from QtUI.rawUI.ui_rawEditorFrame import Ui_editorFrame
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import pyqtSignal
 from QtUI.presentors.inputValidationPresentor import InputValidation

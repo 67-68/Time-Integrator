@@ -1,4 +1,7 @@
 from enum import Enum
+import datetime
+
+TODAY = datetime.date.today()
 
 class InputState(Enum):
     AWAIT_START = "awaitStart"
@@ -56,3 +59,4 @@ def getEnumValueDict_API(enumClass):
     for item in enumClass:
         temp[item.value] = {"timeSpan":0}
     return temp
+

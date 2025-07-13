@@ -1,10 +1,10 @@
-from Core.analysis.APITools import getTodayDate
+import datetime
 from Core.dataAccess.dataManager import getData_API
 
 #UNIVERSAL; INPUT timeSpan; OUTPUT actionUnits
 def getActionUnit(timeSpan):
         if timeSpan == "today":  # 目前只判断“today”，未来可扩展自定义时间段
-            date_val = getTodayDate()  # could be datetime.date or (Y, M, D)
+            date_val = datetime.date.today()  
             if hasattr(date_val, "strftime"):          # datetime.date instance
                 date_key = date_val.strftime("%Y-%m-%d")
             else:                                      # assume tuple/list

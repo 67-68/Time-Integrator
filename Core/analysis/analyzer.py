@@ -1,6 +1,12 @@
 """
+首先需要说明,对于所有analyzer
+都是输入一个actionUnit, 输出一个dict包裹着的数据
+"""
+
+
+"""
 这些函数进行两个actionUnit间的对比
-使用方法：在创建好了上面的matcher之后，把matcher输入进来作为条件
+使用方法:在创建好了上面的matcher之后,把matcher输入进来作为条件
 """
 def find_sequences(units: list, first_matcher, second_matcher):
     """_summary_
@@ -24,8 +30,21 @@ def find_sequences(units: list, first_matcher, second_matcher):
     return sequences
                     
                     
-                    
-                    
-                    
-                    
-                        
+"""
+这些函数进行特殊数据的获取，类似极值和平均值
+他们接受matcher处理之后的数据
+"""
+def getTotal_timeSpan(actionUnits):
+    total = 0
+    for au in actionUnits:
+        total += au["timeSpan"]
+    return total
+
+def find_longest_timeSpan(actionUnits,config):
+    matcher = config["matchers"]
+    peak = 0
+    for au in actionUnits:
+        if matcher(au) and au["timeSpan"] > peak:
+            data = au
+    
+    return data

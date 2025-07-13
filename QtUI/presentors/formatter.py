@@ -36,7 +36,7 @@ def format_card(data):
         judgement_data.append(randomChoser(jDataList))
     
     #  --- 获取title ---
-    tDataList = dataBase["presentation"][theme_key]
+    tDataList = dataBase["presentation"][theme_key]["title"]
     title = randomChoser(tDataList)
     
     #  --- 获取icon和颜色 ---
@@ -63,4 +63,7 @@ def randomChoser(list):
     这个函数接收一个list
     在里面随机挑选一个返回
     """
+    if len(list) == 1:
+        return list[0]
+    
     return list[random.randint(0,len(list)-1)]

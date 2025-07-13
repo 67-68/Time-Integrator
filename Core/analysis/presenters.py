@@ -5,7 +5,7 @@ from Data import narratives
 presenter take in analyzer处理完成的数据(list)
 给他们附加上外观和文字
 card_type
-semantic_key
+sementic_key
 judgement_key
 """
 def present_peak_timeSpan(data):
@@ -25,7 +25,7 @@ def present_peak_timeSpan(data):
     return {
         "card_type": card_type,
         "judgement_key": judgement_key,
-        "semantic_key": narratives.PEAK_TIMESPAN,
+        "sementic_key": narratives.PEAK_TIMESPAN,
         "data":data
     }
     

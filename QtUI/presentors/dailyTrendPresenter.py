@@ -7,12 +7,16 @@ from QtUI.presentors.formatter import format_card
 class DailyTrendReportPresenter():
     def __init__(self,data):
         self.currentData = data
-        self.today = datetime.date.today
+        # 将日期格式化为 "YYYY-MM-DD" 字符串，例如 "2025-07-13"
+        self.today = "2025-07-13"  #datetime.date.today().strftime("%Y-%m-%d") #TODO
         
     def createTodayReport(self):
         """_summary_
         调用函数，获取所有需要的文本数据和卡片类型
         """  
+        if self.today not in self.currentData:
+            return "No data"
+        
         todayData = self.currentData[self.today] #显然这样比用matcher筛选更方便
         cardData = []
 

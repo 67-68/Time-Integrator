@@ -1,4 +1,4 @@
-from Core.dataAccess.dataManager import getData_API
+from Core.dataAccess.dataManager import getData
 from Core.translation.propertyTranslation import transPropToFast_API
 from Core.translation.fastEnterTranslation import transFastToProp_API
 
@@ -7,7 +7,7 @@ class Translator:
         pass
     
     def fastToProper(self,data):
-        actionData = getData_API("Data/actionData.json")
+        actionData = getData("Data/actionData.json")
         actions = []
         for key in actionData:
             actions.append(key)

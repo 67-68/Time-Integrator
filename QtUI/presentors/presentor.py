@@ -3,7 +3,7 @@ from Core.Definitions import ActionType, Indicators, getEnumValue_API
 from Core.analysis.actionTypeAnalysis import dateToTypeCentric_API, getAverageTime, getSwitchFrequency
 from Core.analysis.dateDataAnalysis import dateToActionCentric_API
 from Core.analysis.simpleDataAnalysis import getSimpleDataStr_API
-from Core.dataAccess.dataManager import getData_API, saveData_API
+from Core.dataAccess.dataManager import getData, saveData
 from Core.translation.dataInput import parseLineInput_API
 from Core.validation.validations import validateData_API, validateIndicator_API
 
@@ -21,21 +21,21 @@ def getActionDataStr_API():
     for i in list:
         temp += i 
         temp += "\n"
-    actiondict = getData_API("action_integration.json") #这个时候它应该是一个大字典{行动{行动细节}}
+    actiondict = getData("action_integration.json") #这个时候它应该是一个大字典{行动{行动细节}}
     for action in actiondict:
         temp += f"{action}:{actiondict[action]['action_type']}\n"
     print("successfully make String data")
     return temp
 
 def setSwitchFrequency(dataLoc,enumName,text):
-    stats = dateToTypeCentric_API(getData_API(dataLoc))
+    stats = dateToTypeCentric_API(getData(dataLoc))
     stats = getSwitchFrequency(stats,enumName)
     text.setText(stats)
     
 
 #SPECIFIC; INPUT json dataLoc,text; OUTPUT simple time data 
 def showSimpleData(dataLoc,text):
-    userData = getData_API(dataLoc)
+    userData = getData(dataLoc)
     data = getSimpleDataStr_API(userData)
     text.setText(text = data)
     print("successfully show data") 
@@ -58,12 +58,12 @@ def promptInput_FUNC(menuPrompt,menuText,menuFrame):
         menuFrame.bottomInfoFrame.showError(dataValidation)
     
     #  ------ 存储进actionData ------
-    actionData = getData_API("Data/actionData.json")
+    actionData = getData("Data/actionData.json")
     actionData = dateToActionCentric_API(userData,actionData)
-    saveData_API(actionData,"Data/actionData.json")
+    saveData(actionData,"Data/actionData.json")
     
     #  ------ 存入文件 ------
-    saveData_API(userData,"Data/dateData.json") 
+    saveData(userData,"Data/dateData.json") 
     
 #UNIVERSAL; INPUT tk label and tk text;OUTPUT data from user
 def getInput_API(prompt,text):
@@ -74,12 +74,12 @@ def getInput_API(prompt,text):
 
 #UNIVERSAL; INPUT str userdata; OUTPUT dict userdata
 def parseInput_API(orgingalData):
-    data = getData_API("Data/dateData.json") #获取文件
+    data = getData("Data/dateData.json") #获取文件
     userData = parseLineInput_API(orgingalData,data,lineIndicator,firstIndicator,secondIndicator) #处理输入
     return userData
 
 def setAverageTime(dataLoc,enumName,text):
-    stats = dateToTypeCentric_API(getData_API(dataLoc))
+    stats = dateToTypeCentric_API(getData(dataLoc))
     stats = getAverageTime(stats,enumName)
     text.setText(stats)
 

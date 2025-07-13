@@ -1,3 +1,4 @@
+from Core.analysis.matchers import get_time_from_str
 from QtUI.rawUI.ui_rawBulkEnterFrame import Ui_bulkEnterFrame
 from PyQt6.QtWidgets import QWidget
 from QtUI.presentors.translator import Translator
@@ -28,7 +29,7 @@ class BulkEnterFrame(QWidget):
         for au in actionUnits:
             advice = self.trans.fastToProper(au)
             property = advice["data"]
-            property["timeSpan"] = getTimeSpan_API(property["start"],property["end"])
+            property["timeSpan"] = get_time_from_str(property["end"]) - get_time_from_str(property["start"])
             
             validity = self.vali.validation(property,"actionUnit")
             if validity != True:

@@ -1,4 +1,4 @@
-from Core.analysis.APITools import getAutoCompletion_API
+from Core.dataAccess.dataManager import getData
 from QtUI.rawUI.ui_rawInputEnterFrame import Ui_inputEnterFrame
 from PyQt6.QtWidgets import QWidget
 from QtUI.presentors.translator import Translator
@@ -21,7 +21,7 @@ class InputEnterFrame(QWidget):
         self.FE = self.IEF.fastEnterFrameBase
         
         #  --- 创建wordBank ---
-        wordBank = getAutoCompletion_API(actionDataLoc)
+        wordBank = getData(actionDataLoc)
         self.FE.setWordBank(wordBank)
         self.PE.setWordBank(wordBank)
         

@@ -1,5 +1,5 @@
 import datetime
-from Core.dataAccess.dataManager import getData_API
+from Core.dataAccess.dataManager import getData, saveData
 
 #UNIVERSAL; INPUT timeSpan; OUTPUT actionUnits
 def getActionUnit(timeSpan):
@@ -11,7 +11,7 @@ def getActionUnit(timeSpan):
                 y, m, d = date_val
                 date_key = f"{y:04d}-{m:02d}-{d:02d}"
 
-            data = getData_API("Data/dateData.json")
+            data = getData("Data/dateData.json")
             if date_key in data:
                 return data[date_key]
         return False
@@ -118,3 +118,12 @@ def getExtremeData(actionUnits):
                                 extremeData["maxUrgen"] = actionUnit
 
         return extremeData
+
+#输入一个au，而不是一个au list
+def updateActionList(actionUnit):
+        actionList = getData("Data/actionList.json")
+        
+        if actionUnit["action"] not in actionList:
+                actionList.append(actionUnit["action"])
+                        
+        saveData(actionList,"Data/actionList.json")

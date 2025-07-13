@@ -19,7 +19,7 @@ UNIVERSAL_NARRATION = {
                 #未来可能加入更多外观，例如副标题
             }
         },
-        "semantic_key": [ ],                #展示数据的文本
+        "sementic_key": [ ],                #展示数据的文本
         "judgement_key": {                  #对数据做出评价的文本
             {不同预先被定义好的judgement_key}: []
         }
@@ -40,7 +40,7 @@ SPECIFIC_NARRATION = {
                 "title": ["数据观察：专注时长异常 🧐","数据异常！一级警报！"]
             }
         },
-        "semantic_key": ["今天，你在“{action}”上创造了长达{timeSpan}的专注记录，时段为 {start} 至 {end}。"],
+        "sementic_key": ["今天，你在“{action}”上创造了长达{timeSpan}的专注记录，时段为 {start} 至 {end}。"],
         "judgement_key":{
                 "praise":UNIVERSAL_NARRATION["praise"],
                 "doubt_accuracy": ["是不是标错了？"],

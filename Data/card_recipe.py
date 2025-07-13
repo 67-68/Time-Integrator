@@ -10,11 +10,11 @@ according to their type, stored in different way and access in different way
 id: 这个故事的id,因此更容易找到它.(虽然不知道有什么用,但留一个id总不会是坏事)
 data: 故事需要哪些(函数获取的)数据？(The 'With What')
 
-semantic_type: 这是什么故事？(The 'What')
+sementic_type: 这是什么故事？(The 'What')
 judgement_type: 这是好是坏？(The 'so what')
 card_appearance: 这个故事的面貌(The 'is what')
 
-对于中间三个key, semantic type, judgement_type和card_appearance, 他们需要被presenter从别的地方获取,填入
+对于中间三个key, sementic type, judgement_type和card_appearance, 他们需要被presenter从别的地方获取,填入
 对于card_progress, presenter需要按照顺序执行函数并把上一个的产物给下一个
 
 对于实际上会填充的数据,它看起来会是这样:三个key

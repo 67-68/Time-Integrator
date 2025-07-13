@@ -28,7 +28,7 @@ class MainWindow(QMainWindow):
         #  ------ 接收 ------
         self.connectSignal()
         
-        self.MW.stackedWidget.setCurrentWidget(self.MP)
+        self.MW.stackedWidget.setCurrentWidget(self.AP)
         
     
     def connectSignal(self):
@@ -68,5 +68,5 @@ class MainWindow(QMainWindow):
         """_summary_
         传递依赖
         """
-        self.AP.initialization(self,data)
+        self.AP.initialization(data)
     

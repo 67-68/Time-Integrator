@@ -1,6 +1,6 @@
 
 def get_time_from_str(time):
-    return time.split(":")[0] * 60 + time.split(":")[1]
+    return int(time.split(":")[0]) * 60 + int(time.split(":")[1])
 
 
 """

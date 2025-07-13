@@ -1,5 +1,4 @@
-from Core.analysis.APITools import getAutoCompleteWithKey_API, getAutoCompletion_API
-from Core.dataAccess.dataManager import getData_API
+from Core.dataAccess.dataManager import getData
 from Core.translation.fastEnterTranslation import transFastToProp_API
 from Core.Definitions import InputState, UserActionType 
 
@@ -9,7 +8,7 @@ actionDataLoc = "Data/actionData.json"
 """  ---------- 状态机 ----------- """
 #UNIVERSAL; INPUT dict action{enum state, userAction, text}; OUTPUT dict result{enum state, keyActionList(to update GUI)}
 def stateMachineParser(currentState,text,eventType,userAction): #这里的userAction是确保如果有什么自定义的key一起传过来
-    actionList = getAutoCompletion_API(actionDataLoc) 
+    actionList = getData(actionDataLoc) 
     
     #  ------ 获取就文本而言的建议 ------
     textAdvice = transFastToProp_API(text,actionList)
@@ -31,10 +30,9 @@ def stateMachineParser(currentState,text,eventType,userAction): #这里的userAc
     #  ---------- 判定 ----------
     #  ------ 补全判定 ------
     if eventType == UserActionType.TEXT_INPUT and suggestions["expectedType"] == InputState.AWAIT_ACTION:
-        completionList = getAutoCompletion_API(actionDataLoc)
         key = textAdvice["data"]["action"]
         
-        suggestions["suggestList"] = getAutoCompleteWithKey_API(key,completionList)
+        suggestions["suggestList"] = "this key do not used any more"
     
     #  ------ 选定判定 ------ 
     if eventType == UserActionType.CONFIRM_SELECT:        

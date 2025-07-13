@@ -1,5 +1,5 @@
 from QtUI.rawUI.ui_rawAnalysisPage import Ui_analysisPage
-from PyQt6.QtWidgets import QFrame
+from PyQt6.QtWidgets import QFrame, QVBoxLayout
 from PyQt6.QtCore import pyqtSignal
 from QtUI.presentors.dailyTrendPresenter import DailyTrendReportPresenter
 from QtUI.views.analysis.trendCard import trendCard
@@ -11,11 +11,14 @@ class AnalysisPage(QFrame):
         super().__init__(parent)
         
         self.AP = Ui_analysisPage()
-        self.AP.setupUi()
+        self.AP.setupUi(self)
         
         self.AP.pageSwitchFrameBase.switchPage_button_clicked.connect(lambda f:self.switchPage_button_clicked.emit(f))
         
         self.CA = self.AP.cardsArea
+        # 为 cardsArea 设置一个垂直布局，使卡片按照自上而下顺序排列
+        self.CA_layout = QVBoxLayout()
+        self.CA.setLayout(self.CA_layout)
         
     def initialization(self,data = None):
         """_summary_
@@ -37,8 +40,11 @@ class AnalysisPage(QFrame):
         #  ------ 获取数据 ------
         textReport = self.presenter.createTodayReport() #这里需要把data转换成report
         
+        if textReport == "No data":
+            return "No data"
         #  ------ 创建类，生成卡片 ------
-        for card in textReport:
-            cards.append(trendCard(textReport,self.CA))
+        for card_data in (textReport):
+            card_widget = trendCard(card_data, parent=self.CA)  # 创建卡片控件
+            cards.append(card_widget)                          # 保存引用，防止被垃圾回收
+            self.CA.layout().addWidget(card_widget)            # 加入垂直布局，自上而下显示
         
-        self.CA.layout.addWidget(card)

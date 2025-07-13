@@ -41,10 +41,12 @@ def getTotal_timeSpan(actionUnits):
     return total
 
 def find_longest_timeSpan(actionUnits,config):
-    matcher = config["matchers"]
+    matcher = config["matcher"]
     peak = 0
+    data = actionUnits[0]
     for au in actionUnits:
         if matcher(au) and au["timeSpan"] > peak:
+            peak = au["timeSpan"]
             data = au
     
     return data

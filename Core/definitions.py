@@ -1,7 +1,7 @@
 from enum import Enum
 import datetime
 
-TODAY = datetime.date.today()
+TODAY = datetime.date.today().strftime("%Y-%m-%d")
 
 class InputState(Enum):
     AWAIT_START = "awaitStart"

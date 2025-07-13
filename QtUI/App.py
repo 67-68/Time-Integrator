@@ -1,5 +1,6 @@
-from Core.analysis.otherAnalysis import getActionUnit
-from Core.dataAccess.dataManager import getData_API, saveData_API
+from Core.analysis.matchers import get_time_from_str
+from Core.analysis.otherAnalysis import getActionUnit, updateActionList
+from Core.dataAccess.dataManager import getData, saveData
 from QtUI.views.MainWindow import MainWindow
 from QtUI.presentors.menuPresenter import MenuPresenter
 from PyQt6.QtWidgets import QApplication
@@ -21,7 +22,7 @@ class TimeIntegrator:
         self.isDebugMode = False
         self.currentDate = None
         self.currentActionUnit = None #改成item
-        self.currentData = getData_API("Data/dateData.json") #初始化的时候获取一份数据，在用户输入之后修改
+        self.currentData = getData("Data/dateData.json") #初始化的时候获取一份数据，在用户输入之后修改
         
         #  ------ 连接信号和槽 ------
         self.connectSignal()
@@ -40,13 +41,19 @@ class TimeIntegrator:
         # 更新 CapturePage，使编辑区与新选中的 actionUnit 同步
         self.mainWindow.switchCPData(data)
         
-    def _on_saveButton_clicked(self,actionUnits):
+    def _on_saveButton_clicked(self,actionUnit):
         #假设数据被validate过了
         date = self.currentDate
         if date not in self.currentData:
             self.currentData[date] = []
-        self.currentData[date].append(actionUnits)
-        saveData_API(self.currentData,"Data/dateData.json")
+        
+        actionUnit["date"] = date
+        actionUnit["timeSpan"] = get_time_from_str(actionUnit["end"]) - get_time_from_str(actionUnit["start"])
+        
+        self.currentData[date].append(actionUnit)
+        
+        updateActionList(actionUnit)
+        saveData(self.currentData,"Data/dateData.json")
         self.initialization()         #初始化
         
         
@@ -59,7 +66,7 @@ class TimeIntegrator:
         
 
     def _on_date_selected(self,date):
-        allData = getData_API("Data/dateData.json")
+        allData = getData("Data/dateData.json")
         
         if date in allData:
             data = allData[date] #这个时候它是列表
@@ -80,7 +87,7 @@ class TimeIntegrator:
         初始化，传递依赖，刷新所有需要数据的功能
         """
         #  --- 获取数据 ---
-        self.currentData = getData_API("Data/dateData.json") 
+        self.currentData = getData("Data/dateData.json") 
         
         #  --- 传递依赖 ---
         self.mainWindow.initialization(self.currentData)

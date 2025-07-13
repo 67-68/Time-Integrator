@@ -2,6 +2,7 @@ from QtUI.rawUI.ui_rawAnalysisPage import Ui_analysisPage
 from PyQt6.QtWidgets import QFrame
 from PyQt6.QtCore import pyqtSignal
 from QtUI.presentors.dailyTrendPresenter import DailyTrendReportPresenter
+from QtUI.views.analysis.trendCard import trendCard
 
 class AnalysisPage(QFrame):
     switchPage_button_clicked = pyqtSignal(str)
@@ -31,15 +32,13 @@ class AnalysisPage(QFrame):
         暂时先堆在一起
         """
         self.presenter = DailyTrendReportPresenter(data)
+        cards = []
         
-        #  ------ 获取文本数据 ------
+        #  ------ 获取数据 ------
         textReport = self.presenter.createTodayReport() #这里需要把data转换成report
-
-        
-        #  ------ 获取UI数据 ------
-        
         
         #  ------ 创建类，生成卡片 ------
-         
+        for card in textReport:
+            cards.append(trendCard(textReport,self.CA))
         
-        
+        self.CA.layout.addWidget(card)

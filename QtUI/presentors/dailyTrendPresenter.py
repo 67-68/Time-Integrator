@@ -14,6 +14,7 @@ class DailyTrendReportPresenter():
         调用函数，获取所有需要的文本数据和卡片类型
         """  
         todayData = self.currentData[self.today] #显然这样比用matcher筛选更方便
+        cardData = []
 
         #  ----- 获取卡片信息 ------
         for card in DAILY_CARD_RECIPE:
@@ -24,5 +25,7 @@ class DailyTrendReportPresenter():
             data = analyzer(todayData,config)
             data = presenter(data)
             data = format_card(data)
-            
-        return data
+
+            cardData.append(data)
+        
+        return cardData

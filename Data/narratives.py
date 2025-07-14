@@ -40,7 +40,7 @@ SPECIFIC_NARRATION = {
                 "title": ["数据观察：专注时长异常 🧐","数据异常！一级警报！"]
             }
         },
-        "sementic_key": ["今天，你在“{action}”上创造了长达{timeSpan}的专注记录，时段为 {start} 至 {end}。"],
+        "sementic_key": ["今天，在所有行动中，你在“{action}”上专注了最多时间，达到了{timeSpan}分钟，时段为 {start} 至 {end}。"],
         "judgement_key":{
                 "praise":UNIVERSAL_NARRATION["praise"],
                 "doubt_accuracy": ["是不是标错了？"],

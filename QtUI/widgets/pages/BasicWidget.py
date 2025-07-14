@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QWidget
-from assets.styles.styleSetting import apply_shadow
+from Core.utils import apply_shadow
 
 class BasicWidget(QWidget):
     def __init__(self, master = None, **kwargs):

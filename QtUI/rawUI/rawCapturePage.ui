@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>893</width>
-    <height>597</height>
+    <width>876</width>
+    <height>647</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -21,25 +21,19 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QFrame" name="mainFrame">
+    <widget class="QWidget" name="mainFrame" native="true">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="frameShape">
-      <enum>QFrame::Shape::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Shadow::Raised</enum>
-     </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QFrame" name="leftToolFrame">
         <property name="minimumSize">
          <size>
-          <width>50</width>
+          <width>100</width>
           <height>0</height>
          </size>
         </property>
@@ -50,22 +44,31 @@
          <enum>QFrame::Shadow::Raised</enum>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
+         <property name="spacing">
+          <number>-1</number>
+         </property>
          <property name="leftMargin">
-          <number>0</number>
+          <number>6</number>
          </property>
          <property name="topMargin">
-          <number>0</number>
+          <number>6</number>
          </property>
          <property name="rightMargin">
-          <number>0</number>
+          <number>6</number>
          </property>
          <property name="bottomMargin">
-          <number>0</number>
+          <number>6</number>
          </property>
          <item>
           <widget class="QRadioButton" name="welcomePageButton">
            <property name="enabled">
             <bool>false</bool>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>30</height>
+            </size>
            </property>
            <property name="text">
             <string>welcome</string>
@@ -77,6 +80,12 @@
          </item>
          <item>
           <widget class="QRadioButton" name="editorFrameButton">
+           <property name="minimumSize">
+            <size>
+             <width>30</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
             <string>basic enter</string>
            </property>
@@ -87,6 +96,12 @@
          </item>
          <item>
           <widget class="QRadioButton" name="bulkEnterFrameButton">
+           <property name="minimumSize">
+            <size>
+             <width>30</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
             <string>bulk mode</string>
            </property>
@@ -94,6 +109,19 @@
             <string notr="true">enterModeGroup</string>
            </attribute>
           </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Orientation::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </widget>
@@ -175,19 +203,19 @@
   <customwidget>
    <class>DateSelectionFrame</class>
    <extends>QWidget</extends>
-   <header>QtUI/views/dateSelectionFrame.h</header>
+   <header>QtUI/views/capture/dateSelectionFrame.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>EditorFrame</class>
    <extends>QWidget</extends>
-   <header>QtUI/views/editorFrame.h</header>
+   <header>QtUI/views/capture/editorFrame.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>BulkEnterFrame</class>
    <extends>QWidget</extends>
-   <header>QtUI/views/bulkEnterFrame.h</header>
+   <header>QtUI/views/capture/bulkEnterFrame.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

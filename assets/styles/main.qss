@@ -4,9 +4,9 @@ QWidget, QMainWindow {
     font-family: "Segoe UI";
 }
 
-QFrame { 
-    border: 1px solid
-    border-radius: 8px;
+BasicFrame {
+    border-radius: 12px;      /* 现代UI中更柔和的圆角 */
+    border: 1px solid #b0b3bb; /* 一个柔和的、几乎看不见的边框，用于勾勒轮廓 */
 }
 
 QScrollArea {
@@ -72,7 +72,6 @@ QToolButton {
     border-radius: 8px;
     font-size: 14px;
     font-weight: bold;
-    box-shadow: 2px 2px 5px rgb(0, 0, 0); /* 添加阴影 */
 }
 QToolButton:hover {
     background-color:rgb(202, 218, 230); /* 悬停时变亮 */

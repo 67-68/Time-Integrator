@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '/Users/lennon/Library/Mobile Documents/com~apple~CloudDocs/Useful files/Projects/Time_Integrater/QtUI/views/rawUI/rawAnalysisPage.ui'
+# Form implementation generated from reading ui file '/Users/lennon/Library/Mobile Documents/com~apple~CloudDocs/Useful files/Projects/Time_Integrater/QtUI/rawUI/rawAnalysisPage.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_analysisPage(object):
     def setupUi(self, analysisPage):
         analysisPage.setObjectName("analysisPage")
-        analysisPage.resize(193, 320)
+        analysisPage.resize(889, 504)
         self.verticalLayout = QtWidgets.QVBoxLayout(analysisPage)
         self.verticalLayout.setContentsMargins(12, -1, -1, -1)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -107,9 +107,10 @@ class Ui_analysisPage(object):
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.cardsScroll = QtWidgets.QScrollArea(parent=self.mainFrame)
         self.cardsScroll.setWidgetResizable(True)
+        self.cardsScroll.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignTop)
         self.cardsScroll.setObjectName("cardsScroll")
         self.cardsArea = QtWidgets.QWidget()
-        self.cardsArea.setGeometry(QtCore.QRect(0, 0, 72, 264))
+        self.cardsArea.setGeometry(QtCore.QRect(0, 0, 753, 448))
         self.cardsArea.setObjectName("cardsArea")
         self.cardsScroll.setWidget(self.cardsArea)
         self.horizontalLayout_3.addWidget(self.cardsScroll)

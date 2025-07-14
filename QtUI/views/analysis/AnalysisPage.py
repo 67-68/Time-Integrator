@@ -3,6 +3,7 @@ from PyQt6.QtWidgets import QFrame, QVBoxLayout
 from PyQt6.QtCore import pyqtSignal
 from QtUI.presentors.dailyTrendPresenter import DailyTrendReportPresenter
 from QtUI.views.analysis.trendCard import trendCard
+from QtUI.presentors.formatter import format_card
 
 class AnalysisPage(QFrame):
     switchPage_button_clicked = pyqtSignal(str)
@@ -12,6 +13,8 @@ class AnalysisPage(QFrame):
         
         self.AP = Ui_analysisPage()
         self.AP.setupUi(self)
+        self.AP.cardsScroll.setWidgetResizable(True)
+        
         
         self.AP.pageSwitchFrameBase.switchPage_button_clicked.connect(lambda f:self.switchPage_button_clicked.emit(f))
         
@@ -43,8 +46,8 @@ class AnalysisPage(QFrame):
         if textReport == "No data":
             return "No data"
         #  ------ 创建类，生成卡片 ------
-        for card_data in (textReport):
-            card_widget = trendCard(card_data, parent=self.CA)  # 创建卡片控件
-            cards.append(card_widget)                          # 保存引用，防止被垃圾回收
-            self.CA.layout().addWidget(card_widget)            # 加入垂直布局，自上而下显示
+        for idx, card_data in enumerate(textReport):
+            data = format_card(card_data)
+            cards.append(trendCard(data, parent=self.CA))     # 保存引用，防止被垃圾回收
+            self.CA.layout().addWidget(cards[idx])            # 加入垂直布局，自上而下显示
         

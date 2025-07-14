@@ -8,7 +8,7 @@ class DailyTrendReportPresenter():
     def __init__(self,data):
         self.currentData = data
         # 将日期格式化为 "YYYY-MM-DD" 字符串，例如 "2025-07-13"
-        self.today = "2025-07-13"  #datetime.date.today().strftime("%Y-%m-%d") #TODO
+        self.today = datetime.date.today().strftime("%Y-%m-%d") #TODO
         
     def createTodayReport(self):
         """_summary_
@@ -28,7 +28,6 @@ class DailyTrendReportPresenter():
             
             data = analyzer(todayData,config)
             data = presenter(data)
-            data = format_card(data)
 
             cardData.append(data)
         

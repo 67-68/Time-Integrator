@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>193</width>
-    <height>320</height>
+    <width>889</width>
+    <height>504</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -230,13 +230,16 @@
            <property name="widgetResizable">
             <bool>true</bool>
            </property>
+           <property name="alignment">
+            <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+           </property>
            <widget class="QWidget" name="cardsArea">
             <property name="geometry">
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>72</width>
-              <height>264</height>
+              <width>753</width>
+              <height>448</height>
              </rect>
             </property>
            </widget>

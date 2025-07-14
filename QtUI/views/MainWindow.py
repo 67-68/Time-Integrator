@@ -28,7 +28,7 @@ class MainWindow(QMainWindow):
         #  ------ 接收 ------
         self.connectSignal()
         
-        self.MW.stackedWidget.setCurrentWidget(self.AP)
+        self.MW.stackedWidget.setCurrentWidget(self.MP)
         
     
     def connectSignal(self):
@@ -40,11 +40,15 @@ class MainWindow(QMainWindow):
         self.MP.switchPage_button_clicked.connect(lambda p: self._on_page_switch_button_clicked(p))
         self.MP.timeSpan_choosed.connect(self.timeSpan_choosed.emit)
         
+        self.AP.switchPage_button_clicked.connect(lambda p: self._on_page_switch_button_clicked(p))
+        
     def _on_page_switch_button_clicked(self,page):
         if page == "menu":
             self.MW.stackedWidget.setCurrentWidget(self.MP)
         elif page == "capture":
             self.MW.stackedWidget.setCurrentWidget(self.CP)
+        elif page == "analysis":
+            self.MW.stackedWidget.setCurrentWidget(self.AP)
     
     
     def updateMenu(self,timeUseRateStr,fourRealmRatioStr,extremeDataStr):

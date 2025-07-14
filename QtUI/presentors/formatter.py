@@ -21,19 +21,19 @@ def format_card(data):
     judgement_key = data["judgement_key"]
     sementic_key = data["sementic_key"]
     theme_key = data["card_type"]
-    au = data["data"]
+    data_payLoad = data["data"]
     
     dataBase = narratives.SPECIFIC_NARRATION[sementic_key]
     #  --- 获取sementic ---
     sDataList = dataBase["sementic_key"]
     sementic_data = randomChoser(sDataList)
-    sementic_data.format(**au)
+    sementic_data = sementic_data.format(**data_payLoad)
     
     #  --- 获取judgement ---
     judgement_data = []
     for judgement in judgement_key:
         jDataList = dataBase["judgement_key"][judgement]
-        judgement_data.append(randomChoser(jDataList))
+        judgement_data.append(randomChoser(jDataList).format(**data_payLoad))
     
     #  --- 获取title ---
     tDataList = dataBase["presentation"][theme_key]["title"]
@@ -66,4 +66,4 @@ def randomChoser(list):
     if len(list) == 1:
         return list[0]
     
-    return list[random.randint(0,len(list)-1)]
+    return random.choice(list)

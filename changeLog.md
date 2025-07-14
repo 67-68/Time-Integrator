@@ -60,3 +60,9 @@ nearly all the function done, time to go next stage
 - 7/9
 - 新增了批量输入的功能
 
+## Alpha 6
+- 7/14
+- Analysis function frame
+- analysis page
+- daily trend cards function
+

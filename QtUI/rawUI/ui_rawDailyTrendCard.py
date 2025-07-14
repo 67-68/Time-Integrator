@@ -12,7 +12,9 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_trendCard(object):
     def setupUi(self, trendCard):
         trendCard.setObjectName("trendCard")
-        trendCard.resize(409, 188)
+        trendCard.resize(427, 180)
+        trendCard.setMinimumSize(QtCore.QSize(0, 180))
+        trendCard.setMaximumSize(QtCore.QSize(16777215, 180))
         self.horizontalLayout = QtWidgets.QHBoxLayout(trendCard)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setSpacing(0)
@@ -42,7 +44,7 @@ class Ui_trendCard(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.titleLabel.sizePolicy().hasHeightForWidth())
         self.titleLabel.setSizePolicy(sizePolicy)
-        self.titleLabel.setText("")
+        self.titleLabel.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.titleLabel.setObjectName("titleLabel")
         self.horizontalLayout_2.addWidget(self.titleLabel)
         self.verticalLayout.addWidget(self.cardIconWidget)
@@ -76,3 +78,4 @@ class Ui_trendCard(object):
     def retranslateUi(self, trendCard):
         _translate = QtCore.QCoreApplication.translate
         trendCard.setWindowTitle(_translate("trendCard", "Form"))
+        self.titleLabel.setText(_translate("trendCard", "<html><head/><body><p><span style=\" font-size:36pt;\">test</span></p></body></html>"))

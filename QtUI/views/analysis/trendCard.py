@@ -1,7 +1,7 @@
 from QtUI.rawUI.ui_rawDailyTrendCard import Ui_trendCard
-from PyQt6.QtWidgets import QWidget
+from QtUI.widgets.pages.BasicWidget import BasicWidget
 
-class trendCard(QWidget):
+class TrendCard(BasicWidget):
     def __init__(self,data,parent = None):
         super().__init__(parent)
         

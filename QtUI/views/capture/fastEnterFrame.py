@@ -1,10 +1,10 @@
-from Core.Definitions import InputState, UserActionType, RawUserAction
+from Core.Definitions import RawUserAction
 from QtUI.rawUI.ui_rawFastEntry import Ui_rawFastEnterFrame
-from PyQt6.QtWidgets import QFrame
-from PyQt6.QtCore import pyqtSignal,Qt,QSignalBlocker
-from PyQt6.QtGui import QShortcut,QKeySequence
+from PyQt6.QtCore import pyqtSignal
 
-class FastEnterFrame(QFrame):
+from QtUI.widgets.pages.BasicFrame import BasicFrame
+
+class FastEnterFrame(BasicFrame):
     #  --- 创建一个信号 ---
     userActionHappen = pyqtSignal(dict) #它用来传递上行的事件
     

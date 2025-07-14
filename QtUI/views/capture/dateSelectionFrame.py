@@ -1,9 +1,10 @@
-from PyQt6.QtWidgets import QWidget,QListWidgetItem
+from PyQt6.QtWidgets import QListWidgetItem
 from PyQt6.QtCore import pyqtSignal,Qt
 
 from QtUI.rawUI.ui_rawDateSelectionFrame import Ui_dateSelection
+from QtUI.widgets.pages.BasicWidget import BasicWidget
 
-class DateSelectionFrame(QWidget):
+class DateSelectionFrame(BasicWidget):
     dateSelected = pyqtSignal(str)
     list_item_selected = pyqtSignal(dict)
     

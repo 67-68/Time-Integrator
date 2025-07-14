@@ -1,9 +1,10 @@
 from QtUI.rawUI.ui_rawEditorFrame import Ui_editorFrame
-from PyQt6.QtWidgets import QWidget
+
 from PyQt6.QtCore import pyqtSignal
 from QtUI.presentors.inputValidationPresentor import InputValidation
+from QtUI.widgets.pages.BasicWidget import BasicWidget
 
-class EditorFrame(QWidget):    
+class EditorFrame(BasicWidget):    
     
     saveData_button_clicked = pyqtSignal(dict)
     actionUnitSelected = pyqtSignal(int)

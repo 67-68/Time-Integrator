@@ -1,14 +1,15 @@
 from Core.dataAccess.dataManager import getData
 from QtUI.rawUI.ui_rawInputEnterFrame import Ui_inputEnterFrame
-from PyQt6.QtWidgets import QWidget
+
 from QtUI.presentors.translator import Translator
 from QtUI.presentors.StateMachinePresenter import StateMachinePresenter
 from PyQt6.QtCore import QSignalBlocker
 from Core.Definitions import InputState, RawUserAction, UserActionType
+from QtUI.widgets.pages.BasicWidget import BasicWidget
 
 actionDataLoc = "Data/actionData.json"
 
-class InputEnterFrame(QWidget):
+class InputEnterFrame(BasicWidget):
     def __init__(self, parent = None):
         #  ------ 初始化 ------
         super().__init__(parent)

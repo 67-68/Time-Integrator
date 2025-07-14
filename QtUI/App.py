@@ -15,6 +15,15 @@ class TimeIntegrator:
         self.app = QApplication(sys.argv)
         self.menuPresenter = MenuPresenter()
         
+        # 1. 读取QSS文件内容
+        try:
+            with open("assets/styles/main.qss", "r") as f:
+                stylesheet = f.read()
+            # 2. 将样式表应用到整个应用程序
+            self.app.setStyleSheet(stylesheet)
+        except FileNotFoundError:
+            print("Warning: main.qss not found. Using default styles.")
+        
         #  ------ 创建UI ------
         self.mainWindow = MainWindow()
         

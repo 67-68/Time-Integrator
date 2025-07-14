@@ -1,8 +1,9 @@
 from QtUI.rawUI.ui_rawCapturePage import Ui_CapturePage
-from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import pyqtSignal
 
-class CapturePage(QWidget):
+from QtUI.widgets.pages.BasicWidget import BasicWidget
+
+class CapturePage(BasicWidget):
     switchPage_button_clicked = pyqtSignal(str)
     saveData_button_clicked = pyqtSignal(dict)
     date_selected = pyqtSignal(str)

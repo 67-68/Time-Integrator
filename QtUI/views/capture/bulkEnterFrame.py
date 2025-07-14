@@ -1,11 +1,12 @@
 from Core.analysis.matchers import get_time_from_str
 from QtUI.rawUI.ui_rawBulkEnterFrame import Ui_bulkEnterFrame
-from PyQt6.QtWidgets import QWidget
 from QtUI.presentors.translator import Translator
 from QtUI.presentors.inputValidationPresentor import InputValidation
 from PyQt6.QtCore import pyqtSignal
 
-class BulkEnterFrame(QWidget):
+from QtUI.widgets.pages.BasicWidget import BasicWidget
+
+class BulkEnterFrame(BasicWidget):
     saveData_button_clicked = pyqtSignal(dict)
     
     def __init__(self, parent = None):

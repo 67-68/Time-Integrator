@@ -1,8 +1,9 @@
 from QtUI.rawUI.ui_rawPropertyEnterFrame import Ui_propertyEnterFrame
-from PyQt6.QtWidgets import QFrame
-from PyQt6.QtCore import pyqtSignal 
+from PyQt6.QtCore import pyqtSignal
 
-class PropertyEnterFrame(QFrame):
+from QtUI.widgets.pages.BasicFrame import BasicFrame 
+
+class PropertyEnterFrame(BasicFrame):
     #  --- 创建信号 ---
     propertyChanged = pyqtSignal(dict)
     

@@ -1,10 +1,12 @@
 from QtUI.rawUI.ui_rawMenuPage import Ui_MenuPage
-from PyQt6.QtWidgets import QWidget,QVBoxLayout
+from PyQt6.QtWidgets import QVBoxLayout
 from PyQt6.QtCore import pyqtSignal
 import pyqtgraph as pg
 
+from QtUI.widgets.pages.BasicWidget import BasicWidget
 
-class MenuPage(QWidget):
+
+class MenuPage(BasicWidget):
     switchPage_button_clicked = pyqtSignal(str)
     timeSpan_choosed = pyqtSignal()
     

@@ -1,8 +1,10 @@
 from QtUI.rawUI.ui_rawPageSwitchFrame import Ui_pageswitchFrame
-from PyQt6.QtWidgets import QFrame
+
 from PyQt6.QtCore import pyqtSignal
 
-class PageSwitchFrame(QFrame):
+from QtUI.widgets.pages.BasicFrame import BasicFrame
+
+class PageSwitchFrame(BasicFrame):
     switchPage_button_clicked = pyqtSignal(str)
     
     def __init__(self, parent = None):

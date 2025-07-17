@@ -1,8 +1,10 @@
+import os
 from Core.analysis.matchers import get_time_from_str
 from Core.analysis.otherAnalysis import getActionUnit, updateActionList
 from Core.dataAccess.dataManager import getData, saveData
+from Core.utils import resource_path
 from QtUI.views.MainWindow import MainWindow
-from QtUI.presentors.menuPresenter import MenuPresenter
+from QtUI.presenters.menuPresenter import MenuPresenter
 from PyQt6.QtWidgets import QApplication
 import sys
 
@@ -15,17 +17,10 @@ class TimeIntegrator:
         self.app = QApplication(sys.argv)
         self.menuPresenter = MenuPresenter()
         
-        # 1. 读取QSS文件内容
-        try:
-            with open("assets/styles/main.qss", "r") as f:
-                stylesheet = f.read()
-            # 2. 将样式表应用到整个应用程序
-            self.app.setStyleSheet(stylesheet)
-        except FileNotFoundError:
-            print("Warning: main.qss not found. Using default styles.")
-        
         #  ------ 创建UI ------
         self.mainWindow = MainWindow()
+        
+        self.app.setStyleSheet(load_qss())
         
         #  ------ 应用状态 ------
         self.isDebugMode = False
@@ -102,3 +97,7 @@ class TimeIntegrator:
         self.mainWindow.initialization(self.currentData)
         
 
+def load_qss():
+    qss_path = resource_path("assets/styles/main.qss")
+    with open(qss_path, 'r', encoding='utf-8') as f:
+        return f.read()

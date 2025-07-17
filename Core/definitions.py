@@ -2,6 +2,7 @@ from enum import Enum
 import datetime
 
 TODAY = datetime.date.today().strftime("%Y-%m-%d")
+YESTERDAY = (datetime.date.today() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
 
 class InputState(Enum):
     AWAIT_START = "awaitStart"

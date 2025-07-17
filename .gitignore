@@ -1,29 +1,26 @@
-# Python
-__pycache__/
-*.pyc
-
-# Virtual Environment
+# Python virtual environment
 venv/
 .venv/
 env/
 .env/
 
-# IDE and OS files
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE and editor configuration files
 .idea/
 .vscode/
-*.DS_Store
+*.suo
+*.ntvs*
 
-# My personal Data
-.other_dev_tools
+# Build and distribution artifacts
+build/
+dist/
+*.egg-info/
 
-
-# ❌ Python 字节码缓存
-__pycache__/
-*.py[cod]
-*$py.class
-
-# ❌ macOS Finder 缓存文件
-.DS_Store
-
-# ❌ 项目根目录下的开发工具文件夹
-/other_dev_tools/
+# Local data or logs
+Data/*.json
+*.log

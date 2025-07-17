@@ -1315,6 +1315,793 @@
             "actionDetail": "",
             "timeSpan": 26,
             "date": "2025-07-14"
+        },
+        {
+            "start": "10:15",
+            "end": "10:23",
+            "action_type": "waste",
+            "action": "分心",
+            "actionDetail": "",
+            "timeSpan": 8,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "10:23",
+            "end": "11:15",
+            "action_type": "work",
+            "action": "DEBUG",
+            "actionDetail": "",
+            "timeSpan": 52,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "11:15",
+            "end": "11:25",
+            "action_type": "waste",
+            "action": "游戏",
+            "actionDetail": "",
+            "timeSpan": 10,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "11:25",
+            "end": "11:43",
+            "action_type": "work",
+            "action": "整理，确认最终路线",
+            "actionDetail": "",
+            "timeSpan": 18,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "11:43",
+            "end": "12:30",
+            "action_type": "waste",
+            "action": "维多利亚3",
+            "actionDetail": "",
+            "timeSpan": 47,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "12:30",
+            "end": "13:18",
+            "action_type": "rest",
+            "action": "吃饭",
+            "actionDetail": "",
+            "timeSpan": 48,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "13:18",
+            "end": "13:54",
+            "action_type": "rest",
+            "action": "睡觉",
+            "actionDetail": "",
+            "timeSpan": 36,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "13:54",
+            "end": "14:38",
+            "action_type": "work",
+            "action": "背诵SAT词汇",
+            "actionDetail": "",
+            "timeSpan": 44,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "14:38",
+            "end": "15:03",
+            "action_type": "waste",
+            "action": "视频",
+            "actionDetail": "",
+            "timeSpan": 25,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "15:03",
+            "end": "16:06",
+            "action_type": "work",
+            "action": "DESIGN整ui的事情",
+            "actionDetail": "",
+            "timeSpan": 63,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "16:06",
+            "end": "16:36",
+            "action_type": "waste",
+            "action": "短视频",
+            "actionDetail": "",
+            "timeSpan": 30,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "16:36",
+            "end": "16:39",
+            "action_type": "rest",
+            "action": "睡觉",
+            "actionDetail": "",
+            "timeSpan": 3,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "16:39",
+            "end": "16:41",
+            "action_type": "waste",
+            "action": "短视频",
+            "actionDetail": "",
+            "timeSpan": 2,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "16:41",
+            "end": "17:19",
+            "action_type": "work",
+            "action": "CODEGUI",
+            "actionDetail": "",
+            "timeSpan": 38,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "17:19",
+            "end": "17:26",
+            "action_type": "waste",
+            "action": "游戏，游戏-学习时间段是两头不讨好的...",
+            "actionDetail": "",
+            "timeSpan": 7,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "17:26",
+            "end": "17:54",
+            "action_type": "work",
+            "action": "做题SAT",
+            "actionDetail": "",
+            "timeSpan": 28,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "17:54",
+            "end": "18:09",
+            "action_type": "rest",
+            "action": "休息",
+            "actionDetail": "",
+            "timeSpan": 15,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "18:09",
+            "end": "18:29",
+            "action_type": "work",
+            "action": "做题SAT",
+            "actionDetail": "",
+            "timeSpan": 20,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "18:29",
+            "end": "18:39",
+            "action_type": "rest",
+            "action": "休息",
+            "actionDetail": "",
+            "timeSpan": 10,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "18:39",
+            "end": "19:06",
+            "action_type": "work",
+            "action": "SAT，数学",
+            "actionDetail": "",
+            "timeSpan": 27,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "19:06",
+            "end": "19:16",
+            "action_type": "rest",
+            "action": "休息",
+            "actionDetail": "",
+            "timeSpan": 10,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "19:16",
+            "end": "19:27",
+            "action_type": "waste",
+            "action": "公众号",
+            "actionDetail": "",
+            "timeSpan": 11,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "19:27",
+            "end": "19:35",
+            "action_type": "work",
+            "action": "杂，把Gemini flash添加进来了",
+            "actionDetail": "",
+            "timeSpan": 8,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "19:35",
+            "end": "19:49",
+            "action_type": "work",
+            "action": "DESIGN GUI设计",
+            "actionDetail": "",
+            "timeSpan": 14,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "19:49",
+            "end": "20:20",
+            "action_type": "rest",
+            "action": "吃饭",
+            "actionDetail": "",
+            "timeSpan": 31,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "20:20",
+            "end": "20:46",
+            "action_type": "waste",
+            "action": "视频",
+            "actionDetail": "",
+            "timeSpan": 26,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "20:46",
+            "end": "21:10",
+            "action_type": "rest",
+            "action": "聊天，关于香港",
+            "actionDetail": "",
+            "timeSpan": 24,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "21:10",
+            "end": "21:24",
+            "action_type": "waste",
+            "action": "犹豫",
+            "actionDetail": "",
+            "timeSpan": 14,
+            "date": "2025-07-14"
+        },
+        {
+            "start": "21:24",
+            "end": "21:45",
+            "action_type": "work",
+            "action": "DESIGN",
+            "actionDetail": "",
+            "timeSpan": 21,
+            "date": "2025-07-14"
+        }
+    ],
+    "2025-07-15": [
+        {
+            "start": "09:40",
+            "end": "09:46",
+            "action_type": "rest",
+            "action": "杂",
+            "actionDetail": "输入昨天的数据",
+            "timeSpan": 6,
+            "date": "2025-07-15"
+        },
+        {
+            "start": "09:46",
+            "end": "10:13",
+            "action_type": "work",
+            "action": "背诵",
+            "actionDetail": "复习之前的词汇",
+            "timeSpan": 27,
+            "date": "2025-07-15"
+        },
+        {
+            "start": "10:13",
+            "end": "10:29",
+            "action_type": "waste",
+            "action": "公众号",
+            "actionDetail": "",
+            "timeSpan": 16,
+            "date": "2025-07-15"
+        },
+        {
+            "start": "10:29",
+            "end": "10:45",
+            "action_type": "work",
+            "action": "背诵",
+            "actionDetail": "输入SAT词汇",
+            "timeSpan": 16,
+            "date": "2025-07-15"
+        },
+        {
+            "start": "10:45",
+            "end": "11:01",
+            "action_type": "rest",
+            "action": "杂",
+            "actionDetail": "拿咖啡",
+            "timeSpan": 16,
+            "date": "2025-07-15"
+        },
+        {
+            "start": "11:01",
+            "end": "11:41",
+            "action_type": "rest",
+            "action": "吃饭",
+            "actionDetail": "",
+            "timeSpan": 40,
+            "date": "2025-07-15"
+        },
+        {
+            "start": "11:41",
+            "end": "12:41",
+            "action_type": "waste",
+            "action": "视频",
+            "actionDetail": "",
+            "timeSpan": 60,
+            "date": "2025-07-15"
+        },
+        {
+            "start": "12:41",
+            "end": "12:57",
+            "action_type": "rest",
+            "action": "睡觉",
+            "actionDetail": "",
+            "timeSpan": 16,
+            "date": "2025-07-15"
+        },
+        {
+            "start": "12:57",
+            "end": "14:22",
+            "action_type": "waste",
+            "action": "TRAVEL",
+            "actionDetail": "",
+            "timeSpan": 85,
+            "date": "2025-07-15"
+        },
+        {
+            "start": "13:24",
+            "end": "13:35",
+            "action_type": "work",
+            "action": "CODE",
+            "actionDetail": "",
+            "timeSpan": 11,
+            "date": "2025-07-15"
+        },
+        {
+            "start": "13:55",
+            "end": "14:07",
+            "action_type": "work",
+            "action": "CODE",
+            "actionDetail": "",
+            "timeSpan": 12,
+            "date": "2025-07-15"
+        },
+        {
+            "start": "15:00",
+            "end": "16:20",
+            "action_type": "work",
+            "action": "上课",
+            "actionDetail": "",
+            "timeSpan": 80,
+            "date": "2025-07-15"
+        },
+        {
+            "start": "16:20",
+            "end": "17:26",
+            "action_type": "waste",
+            "action": "游戏",
+            "actionDetail": "",
+            "timeSpan": 66,
+            "date": "2025-07-15"
+        },
+        {
+            "start": "17:26",
+            "end": "18:05",
+            "action_type": "work",
+            "action": "CODE但是状态完全不行",
+            "actionDetail": "",
+            "timeSpan": 39,
+            "date": "2025-07-15"
+        },
+        {
+            "start": "18:05",
+            "end": "18:25",
+            "action_type": "waste",
+            "action": "游戏",
+            "actionDetail": "",
+            "timeSpan": 20,
+            "date": "2025-07-15"
+        },
+        {
+            "start": "18:25",
+            "end": "18:28",
+            "action_type": "waste",
+            "action": "犹豫",
+            "actionDetail": "",
+            "timeSpan": 3,
+            "date": "2025-07-15"
+        },
+        {
+            "start": "18:28",
+            "end": "18:57",
+            "action_type": "work",
+            "action": "背诵",
+            "actionDetail": "",
+            "timeSpan": 29,
+            "date": "2025-07-15"
+        },
+        {
+            "start": "18:57",
+            "end": "19:09",
+            "action_type": "waste",
+            "action": "杂",
+            "actionDetail": "",
+            "timeSpan": 12,
+            "date": "2025-07-15"
+        },
+        {
+            "start": "19:09",
+            "end": "19:19",
+            "action_type": "work",
+            "action": "背诵",
+            "actionDetail": "",
+            "timeSpan": 10,
+            "date": "2025-07-15"
+        }
+    ],
+    "2025-07-16": [
+        {
+            "start": "08:43",
+            "end": "09:09",
+            "action_type": "work",
+            "action": "AI",
+            "actionDetail": "和gemini讨论如何管理我自己的问题",
+            "timeSpan": 26,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "09:09",
+            "end": "09:13",
+            "action_type": "waste",
+            "action": "不知道干嘛",
+            "actionDetail": "",
+            "timeSpan": 4,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "09:09",
+            "end": "09:13",
+            "action_type": "waste",
+            "action": "不知道干嘛",
+            "actionDetail": "",
+            "timeSpan": 4,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "09:13",
+            "end": "10:05",
+            "action_type": "work",
+            "action": "DESIGN",
+            "actionDetail": "撰写新的每日计划书模式",
+            "timeSpan": 52,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "10:05",
+            "end": "10:18",
+            "action_type": "rest",
+            "action": "犹豫",
+            "actionDetail": "，随便做了点事情，但总而言之就是啥也没做，感觉没啥动力因此决定从词汇开始（动力很重要）",
+            "timeSpan": 13,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "10:18",
+            "end": "10:22",
+            "action_type": "waste",
+            "action": "犹豫",
+            "actionDetail": "",
+            "timeSpan": 4,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "10:22",
+            "end": "10:37",
+            "action_type": "work",
+            "action": "抄写",
+            "actionDetail": "输入单词",
+            "timeSpan": 15,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "10:37",
+            "end": "10:47",
+            "action_type": "work",
+            "action": "背诵",
+            "actionDetail": "单词",
+            "timeSpan": 10,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "10:47",
+            "end": "10:52",
+            "action_type": "rest",
+            "action": "休息",
+            "actionDetail": "",
+            "timeSpan": 5,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "10:52",
+            "end": "11:22",
+            "action_type": "work",
+            "action": "背诵",
+            "actionDetail": "单词，发现它疑似需要比我预想中时间多得多的时间，不过倒也不完全出乎我的意料，我目前还只是使用了输入和复习的两个时间段...但是要不然我先不背单词了，直接开始写sat?虽然会损失一部分的重新熟悉词语成本，但是连着背三个时间段是否会某种不太好？",
+            "timeSpan": 30,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "11:22",
+            "end": "11:37",
+            "action_type": "rest",
+            "action": "休息",
+            "actionDetail": "，我发现休息极为重要，特别是在这种高能量 + 高能量的时候",
+            "timeSpan": 15,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "11:37",
+            "end": "12:02",
+            "action_type": "work",
+            "action": "做题SAT英语",
+            "actionDetail": "",
+            "timeSpan": 25,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "12:02",
+            "end": "12:35",
+            "action_type": "rest",
+            "action": "吃饭",
+            "actionDetail": "",
+            "timeSpan": 33,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "12:35",
+            "end": "13:05",
+            "action_type": "waste",
+            "action": "视频",
+            "actionDetail": "",
+            "timeSpan": 30,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "13:05",
+            "end": "13:36",
+            "action_type": "rest",
+            "action": "睡觉",
+            "actionDetail": "，我突然想到一个问题，即使我使用更为好计算的番茄钟单位时间计算会遇到的——如果遇到小于半个小时的活动怎么办？尽量round 到0.25吧",
+            "timeSpan": 31,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "13:36",
+            "end": "13:59",
+            "action_type": "work",
+            "action": "做题SAT英语",
+            "actionDetail": "",
+            "timeSpan": 23,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "13:59",
+            "end": "14:09",
+            "action_type": "rest",
+            "action": "POOP",
+            "actionDetail": "虽然我不这么干我就没法继续，但它肯定不能算回状态",
+            "timeSpan": 10,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "14:09",
+            "end": "14:14",
+            "action_type": "waste",
+            "action": "小说",
+            "actionDetail": "",
+            "timeSpan": 5,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "14:14",
+            "end": "14:41",
+            "action_type": "work",
+            "action": "背诵",
+            "actionDetail": "sat单词，我发现即使我使用了anki，我作为非母语者还是把单词关联上某些意象——哪怕基本没什么逻辑——更好背诵，这是否和anki的哲学背道而驰？例如，我背canny的时候就觉得连一个can都要收集那么一定很节约",
+            "timeSpan": 27,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "14:41",
+            "end": "14:47",
+            "action_type": "work",
+            "action": "和G讨论我的方法，发现精细化编码以及未来可能的TI知识库功能",
+            "actionDetail": "",
+            "timeSpan": 6,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "14:47",
+            "end": "14:55",
+            "action_type": "rest",
+            "action": "休息",
+            "actionDetail": "",
+            "timeSpan": 8,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "14:55",
+            "end": "14:57",
+            "action_type": "waste",
+            "action": "小说",
+            "actionDetail": "",
+            "timeSpan": 2,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "14:55",
+            "end": "14:57",
+            "action_type": "waste",
+            "action": "小说",
+            "actionDetail": "",
+            "timeSpan": 2,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "14:57",
+            "end": "15:10",
+            "action_type": "work",
+            "action": "背诵",
+            "actionDetail": "这个精细编码真的太好用了必须坚持使用，仅仅使用了一半的unit",
+            "timeSpan": 13,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "15:10",
+            "end": "15:36",
+            "action_type": "waste",
+            "action": "荒野乱斗",
+            "actionDetail": "U聊天,本来打算使用半个单元的时间来打荒野乱斗，想了想还是算了",
+            "timeSpan": 26,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "15:36",
+            "end": "16:00",
+            "action_type": "work",
+            "action": "做题数学SAT",
+            "actionDetail": "",
+            "timeSpan": 24,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "16:00",
+            "end": "16:07",
+            "action_type": "rest",
+            "action": "休息",
+            "actionDetail": "",
+            "timeSpan": 7,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "16:07",
+            "end": "17:00",
+            "action_type": "waste",
+            "action": "DEBUG",
+            "actionDetail": "搞pytest的事情...然后我浪费了一个小时发现我压根搞不了",
+            "timeSpan": 53,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "17:00",
+            "end": "19:00",
+            "action_type": "waste",
+            "action": "上课",
+            "actionDetail": " 实在是太浪费时间了...这老师讲得不好",
+            "timeSpan": 120,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "19:00",
+            "end": "19:35",
+            "action_type": "waste",
+            "action": "游戏",
+            "actionDetail": "",
+            "timeSpan": 35,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "19:35",
+            "end": "19:48",
+            "action_type": "work",
+            "action": "知乎",
+            "actionDetail": "",
+            "timeSpan": 13,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "19:48",
+            "end": "20:10",
+            "action_type": "work",
+            "action": "DEBUG",
+            "actionDetail": "运行pytest",
+            "timeSpan": 22,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "20:10",
+            "end": "20:40",
+            "action_type": "rest",
+            "action": "吃饭",
+            "actionDetail": "",
+            "timeSpan": 30,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "20:40",
+            "end": "21:20",
+            "action_type": "rest",
+            "action": "视频",
+            "actionDetail": "",
+            "timeSpan": 40,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "21:20",
+            "end": "21:25",
+            "action_type": "rest",
+            "action": "视频",
+            "actionDetail": "频",
+            "timeSpan": 5,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "21:25",
+            "end": "21:29",
+            "action_type": "rest",
+            "action": "睡觉",
+            "actionDetail": "",
+            "timeSpan": 4,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "21:29",
+            "end": "22:39",
+            "action_type": "rest",
+            "action": "运动",
+            "actionDetail": "",
+            "timeSpan": 70,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "22:39",
+            "end": "23:05",
+            "action_type": "waste",
+            "action": "小说",
+            "actionDetail": "",
+            "timeSpan": 26,
+            "date": "2025-07-16"
+        },
+        {
+            "start": "23:05",
+            "end": "23:12",
+            "action_type": "rest",
+            "action": "洗澡",
+            "actionDetail": "",
+            "timeSpan": 7,
+            "date": "2025-07-16"
         }
     ]
 }

@@ -1,3 +1,4 @@
+from Core.utils import smart_formatter
 from Data import narratives
 from Data.themes import themes
 import random
@@ -27,8 +28,8 @@ def format_card(data):
     #  --- 获取sementic ---
     sDataList = dataBase["sementic_key"]
     sementic_data = randomChoser(sDataList)
-    sementic_data = sementic_data.format(**data_payLoad)
-    
+    sementic_data = smart_formatter(data_payLoad,sementic_data)
+
     #  --- 获取judgement ---
     judgement_data = []
     for judgement in judgement_key:

@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '/Users/lennon/Library/Mobile Documents/com~apple~CloudDocs/Useful files/Projects/Time_Integrater/QtUI/views/rawUI/rawPropertyEnterFrame.ui'
+# Form implementation generated from reading ui file '/Users/lennon/Library/Mobile Documents/com~apple~CloudDocs/Useful files/Projects/Time_Integrater/QtUI/rawUI/rawPropertyEnterFrame.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -25,6 +25,8 @@ class Ui_propertyEnterFrame(object):
         self.startLabel.setObjectName("startLabel")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.ItemRole.LabelRole, self.startLabel)
         self.startEdit = QtWidgets.QLineEdit(parent=self.propertyEntries)
+        self.startEdit.setMinimumSize(QtCore.QSize(100, 0))
+        self.startEdit.setText("")
         self.startEdit.setObjectName("startEdit")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.ItemRole.FieldRole, self.startEdit)
         self.endLabel = QtWidgets.QLabel(parent=self.propertyEntries)

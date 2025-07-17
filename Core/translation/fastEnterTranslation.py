@@ -1,8 +1,8 @@
-# UNIVERSAL; INPUT str text, list actionList; OUTPUT dict advice
+# UNIVERSAL; INPUT str text, list actionData; OUTPUT dict advice
 from Core.Definitions import ActionType, InputState, getEnumAbbriviation
 
 
-def transFastToProp_API(text, actionList):
+def transFastToProp_API(text, actionData):
     # --------- 初始化返回值 ----------
     advice = {
         "data": {
@@ -90,7 +90,7 @@ def transFastToProp_API(text, actionList):
     
     #注意不要混淆actionText和这里的action
     #  ------ 判断是否转换状态 ------
-    for action in actionList:
+    for action in actionData:
         if actionText.find(action) >= 0: #这里用startWith会出问题，比如输入c会直接输入code
             advice["data"]["action"] = action
             advice["nextState"] = InputState.AWAIT_ACTION_DETAIL

@@ -155,24 +155,24 @@
               </property>
               <layout class="QHBoxLayout" name="horizontalLayout_4">
                <property name="spacing">
-                <number>0</number>
+                <number>-1</number>
                </property>
                <property name="leftMargin">
-                <number>0</number>
+                <number>12</number>
                </property>
                <property name="topMargin">
-                <number>0</number>
+                <number>12</number>
                </property>
                <property name="rightMargin">
-                <number>0</number>
+                <number>12</number>
                </property>
                <property name="bottomMargin">
-                <number>0</number>
+                <number>12</number>
                </property>
                <item>
                 <widget class="QFrame" name="menuTimeFrame">
                  <property name="frameShape">
-                  <enum>QFrame::Shape::NoFrame</enum>
+                  <enum>QFrame::Shape::StyledPanel</enum>
                  </property>
                  <property name="frameShadow">
                   <enum>QFrame::Shadow::Raised</enum>
@@ -208,7 +208,7 @@
                   </size>
                  </property>
                  <property name="frameShape">
-                  <enum>QFrame::Shape::NoFrame</enum>
+                  <enum>QFrame::Shape::StyledPanel</enum>
                  </property>
                  <property name="frameShadow">
                   <enum>QFrame::Shadow::Raised</enum>
@@ -289,16 +289,16 @@
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_6">
             <property name="leftMargin">
-             <number>0</number>
+             <number>12</number>
             </property>
             <property name="topMargin">
-             <number>0</number>
+             <number>12</number>
             </property>
             <property name="rightMargin">
-             <number>0</number>
+             <number>12</number>
             </property>
             <property name="bottomMargin">
-             <number>0</number>
+             <number>12</number>
             </property>
             <item>
              <widget class="QFrame" name="fourRealmFrame">
@@ -309,7 +309,7 @@
                </size>
               </property>
               <property name="frameShape">
-               <enum>QFrame::Shape::NoFrame</enum>
+               <enum>QFrame::Shape::StyledPanel</enum>
               </property>
               <property name="frameShadow">
                <enum>QFrame::Shadow::Plain</enum>

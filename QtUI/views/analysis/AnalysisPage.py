@@ -1,9 +1,9 @@
 from QtUI.rawUI.ui_rawAnalysisPage import Ui_analysisPage
 from PyQt6.QtWidgets import QVBoxLayout
 from PyQt6.QtCore import pyqtSignal
-from QtUI.presentors.dailyTrendPresenter import DailyTrendReportPresenter
+from QtUI.presenters.dailyTrendPresenter import DailyTrendReportPresenter
 from QtUI.views.analysis.trendCard import TrendCard
-from QtUI.presentors.formatter import format_card
+from QtUI.presenters.formatter import format_card
 from QtUI.widgets.pages.BasicFrame import BasicFrame
 
 class AnalysisPage(BasicFrame):

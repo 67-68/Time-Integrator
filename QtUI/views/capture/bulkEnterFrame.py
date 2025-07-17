@@ -1,7 +1,7 @@
 from Core.analysis.matchers import get_time_from_str
 from QtUI.rawUI.ui_rawBulkEnterFrame import Ui_bulkEnterFrame
-from QtUI.presentors.translator import Translator
-from QtUI.presentors.inputValidationPresentor import InputValidation
+from QtUI.presenters.translator import Translator
+from QtUI.presenters.inputValidationPresentor import InputValidation
 from PyQt6.QtCore import pyqtSignal
 
 from QtUI.widgets.pages.BasicWidget import BasicWidget

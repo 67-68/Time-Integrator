@@ -85,7 +85,7 @@ QLineEdit, QTextEdit {
     border: 1px solid #3A3A3A;
     border-radius: 8px;
     padding: 8px;
-    color: #D4D4D4;
+    color:rgb(28, 26, 26);
 }
 
 QLineEdit:focus, QTextEdit:focus {

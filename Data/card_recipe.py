@@ -39,33 +39,17 @@ DAILY_CARD_RECIPE = [
         "id":"peak_work_analysis",
         "analyzer": analyzer.find_longest_timeSpan,
         "analyzer_config": {
-            "matcher": userMatchers.TODAY_WORK_MATCHER     #matcher我放在了userMatchers文件而不是这里
+            "matcher": userMatchers.YESTERDAY_WORK_MATCHER     #matcher我放在了userMatchers文件而不是这里
         },
         "presenter": presenters.present_peak_timeSpan
     },
     {
-        "id":"peak_work_analysis",
-        "analyzer": analyzer.find_longest_timeSpan,
+        "id":"daily_ratio_distribution",
+        "analyzer": analyzer.find_ratio_distribution,
         "analyzer_config": {
-            "matcher": userMatchers.TODAY_WORK_MATCHER     #matcher我放在了userMatchers文件而不是这里
+            "matcher": userMatchers.any_matcher
         },
-        "presenter": presenters.present_peak_timeSpan
-    },
-    {
-        "id":"peak_work_analysis",
-        "analyzer": analyzer.find_longest_timeSpan,
-        "analyzer_config": {
-            "matcher": userMatchers.TODAY_WORK_MATCHER     #matcher我放在了userMatchers文件而不是这里
-        },
-        "presenter": presenters.present_peak_timeSpan
-    },
-    {
-        "id":"peak_work_analysis",
-        "analyzer": analyzer.find_longest_timeSpan,
-        "analyzer_config": {
-            "matcher": userMatchers.TODAY_WORK_MATCHER     #matcher我放在了userMatchers文件而不是这里
-        },
-        "presenter": presenters.present_peak_timeSpan
+        "presenter": presenters.present_ratio_distribution
     }
 ]
 

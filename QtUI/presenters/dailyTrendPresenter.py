@@ -1,6 +1,5 @@
 import datetime 
 from Data.card_recipe import DAILY_CARD_RECIPE
-from QtUI.presentors.formatter import format_card
 """
 主类
 """
@@ -8,7 +7,7 @@ class DailyTrendReportPresenter():
     def __init__(self,data):
         self.currentData = data
         # 将日期格式化为 "YYYY-MM-DD" 字符串，例如 "2025-07-13"
-        self.today = datetime.date.today().strftime("%Y-%m-%d") #TODO
+        self.today = (datetime.date.today() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
         
     def createTodayReport(self):
         """_summary_

@@ -7,9 +7,9 @@ class Translator:
         pass
     
     def fastToProper(self,data):
-        actionData = getData("Data/actionData.json")
+        actionList = getData("Data/actionList.json")
         actions = []
-        for key in actionData:
+        for key in actionList:
             actions.append(key)
         
         data = transFastToProp_API(data,actions) 

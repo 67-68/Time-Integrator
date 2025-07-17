@@ -3,7 +3,7 @@ from Core.translation.fastEnterTranslation import transFastToProp_API
 from Core.Definitions import InputState, UserActionType 
 
     
-actionDataLoc = "Data/actionData.json"
+actionDataLoc = "Data/actionList.json"
 
 """  ---------- 状态机 ----------- """
 #UNIVERSAL; INPUT dict action{enum state, userAction, text}; OUTPUT dict result{enum state, keyActionList(to update GUI)}

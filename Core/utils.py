@@ -1,7 +1,11 @@
+import datetime
 from PyQt6.QtWidgets import QGraphicsDropShadowEffect, QWidget
 from PyQt6.QtSvg import QSvgRenderer
 from PyQt6.QtGui import QPixmap, QPainter, QColor
 from PyQt6.QtCore import QSize
+import re
+import os
+import sys
 
 def apply_shadow(widget: QWidget):
     """
@@ -65,3 +69,50 @@ def load_svg_icon(path: str, size: QSize, fill_color: QColor = None) -> QPixmap:
 
     return pixmap
 
+
+def flatten_dict(d: dict, parent_key: str = '', sep: str = '.') -> dict:
+    """
+    一个递归函数，将一个嵌套字典“智能地”扁平化。
+    例如：{'a': {'b': 1}} 会变成 {'a.b': 1}
+    """
+    items = []
+    for k, v in d.items():
+        new_key = parent_key + sep + k if parent_key else k
+        if isinstance(v, dict):
+            items.extend(flatten_dict(v, new_key, sep=sep).items())
+        else:
+            items.append((new_key, v))
+    
+    return dict(items)
+
+def smart_formatter(data: dict,text: str) -> str:
+    placeholder_pattern = re.compile(r'\{([^{}]+)\}')
+    def replacer(match):
+        key = match.group(1)
+        value = data.get(key, match.group(0))
+        
+        return str(value)
+    
+    return placeholder_pattern.sub(replacer, text)
+
+def resource_path(relative_path):
+        """ 获取资源的绝对路径，无论是开发环境还是打包后。 """
+        try:
+            # PyInstaller 创建一个临时文件夹，并通过 _MEIPASS 存放在 sys 中
+            base_path = sys._MEIPASS
+        except Exception:
+            # 在开发环境中，_MEIPASS 不存在，所以我们用文件的绝对路径
+            base_path = os.path.abspath(".")
+
+        return os.path.join(base_path, relative_path)
+
+LOG_FILE_PATH = "ti_debug_log.txt"
+    
+with open(LOG_FILE_PATH, "w") as f:
+    f.write("--- Log Start ---\n")
+
+def log_message(message):
+    """将一条带有时间戳的消息写入日志文件。"""
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    with open(LOG_FILE_PATH, "a") as f:
+        f.write(f"[{timestamp}] {message}\n")

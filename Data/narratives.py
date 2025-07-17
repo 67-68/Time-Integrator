@@ -4,6 +4,8 @@ presenter会使用一个narrative key在这里寻找对应的文本
 它分为两个部分：universal的通用文本和specific, 对于不同行动的文本
 """
 PEAK_TIMESPAN = "peak_timeSpan"
+SHOW_RATIO = "show_ratio"
+
 
 UNIVERSAL_NARRATION = {
     "praise":["做的很棒！请保持！！！！！","go work!"]
@@ -26,6 +28,16 @@ UNIVERSAL_NARRATION = {
     }
 }
 
+
+    :{
+        "presentation":{
+            "card_info": {
+                "title":
+            }
+        },
+        "sementic_key":[] ,
+        "judgement_key":
+    }
 对于每条存储文本的地方都要加入列表，因此避免重复，每条！
 """
 
@@ -40,13 +52,25 @@ SPECIFIC_NARRATION = {
                 "title": ["数据观察：专注时长异常 🧐","数据异常！一级警报！"]
             }
         },
-        "sementic_key": ["今天，在所有行动中，你在“{action}”上专注了最多时间，达到了{timeSpan}分钟，时段为 {start} 至 {end}。"],
+        "sementic_key": ["昨天，在所有行动中，你在“{action}”上专注了最多时间，达到了{timeSpan}分钟，时段为 {start} 至 {end}。"],
         "judgement_key":{
                 "praise":UNIVERSAL_NARRATION["praise"],
                 "doubt_accuracy": ["是不是标错了？"],
                 "suggest_rest": ["休息会吧我怕你死了"],
-                "prompt_work": ["啥玩意你今天连一小时的专注都没有？"],
-                "ask_attribution": ["咋回事啊？找找自己的原因"]
+                "prompt_work": ["啥玩意你昨天连一小时的专注都没有？太少了"],
+                "ask_attribution": ["咋回事啊？找找自己的原因，是否烈性娱乐过多？"]
+        }
+    },
+    "show_ratio":{
+        "presentation":{
+            "card_info": {
+                "title":["时间分布展示"]
+            }
+        },
+        "sementic_key":["工作:{work.timeSpan}min, {work.ratio}% \n休息:{rest.timeSpan}min, {rest.ratio}% \n浪费:{waste.timeSpan}min, {waste.ratio}%"] ,
+        "judgement_key":{
+            "neutral_showinfo":["test"]
+            
         }
     }
 }

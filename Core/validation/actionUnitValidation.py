@@ -14,7 +14,7 @@ def actionUnitValidation(actionUnit):
     if not endTime.isValid():
         return "end"
     if action_type.lower() not in ("work","waste","rest","unknown"):
-        return "actionDetail"
+        return "actionType"
     if not startTime < endTime:
         return "time span"
     

@@ -14,7 +14,7 @@ class StateMachinePresenter():
     
     
     #UNIVERSAL; INPUT dict userAction(state,text,eventType); UPDATE state and property above
-    def processEvent_API(self,userAction):
+    def processEvent_API(self,userAction: dict) -> dict:
         #  ------ 获取需要的变量 ------
         currentState = self.parsingCurrentState()
         text = userAction["text"]

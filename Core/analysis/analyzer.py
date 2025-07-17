@@ -50,3 +50,38 @@ def find_longest_timeSpan(actionUnits,config):
             data = au
     
     return data
+
+def find_ratio_distribution(actionUnits,config):
+    """
+    这个数据分析函数会返回work, rest和waste在一段时间内的分布
+    """
+    matcher = config["matcher"] #虽然暂时用不着，但还是写上
+    
+    data = {
+        "work":{
+            "timeSpan":0,
+            },
+        "waste":{
+            "timeSpan":0
+            },
+        "rest":{
+            "timeSpan":0
+            },
+        "total":{
+            "timeSpan":0
+            }
+    }
+    
+    for au in actionUnits:
+        if matcher(au):
+            at = au["action_type"]
+            tp = au["timeSpan"]
+            data[at]["timeSpan"] += tp
+            data["total"]["timeSpan"] += tp
+    
+    #计算其他的数据
+    for key in data:
+        data[key]["ratio"] = round(data[key]["timeSpan"]/data["total"]["timeSpan"] * 100,2)
+    
+    return data
+    

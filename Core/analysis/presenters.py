@@ -1,3 +1,4 @@
+from Core.utils import flatten_dict
 from Data import themes
 from Data import narratives
 
@@ -27,6 +28,25 @@ def present_peak_timeSpan(data):
         "judgement_key": judgement_key,
         "sementic_key": narratives.PEAK_TIMESPAN,
         "data":data
+    }
+    
+def present_ratio_distribution(data):
+    """
+    接收类似这样的数据
+    data  {
+        "work":{
+            timeSpan:
+            (maybe...actionUnits)
+        }
+        "waste":
+        "rest":
+    }
+    """
+    return {
+        "card_type": themes.CARD_INFO,
+        "judgement_key":["neutral_showinfo"],
+        "sementic_key":narratives.SHOW_RATIO,
+        "data":flatten_dict(data)
     }
     
     

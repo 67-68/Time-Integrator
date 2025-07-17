@@ -38,5 +38,5 @@
 1. 克隆本仓库：`git clone ...`
 2. 创建并激活一个Python虚拟环境。
 3. 安装依赖：`pip install -r requirements.txt`（并不需要，因为没有依赖）
-4. 从 `actionData.json.example` 复制创建你自己的 `actionData.json` 文件。
+4. 从 `actionList.json.example` 复制创建你自己的 `actionList.json` 文件。
 5. 运行程序：`python main.py`

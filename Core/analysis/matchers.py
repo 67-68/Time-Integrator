@@ -72,6 +72,17 @@ def date_is(intended_date):
         return False
     return matcher
 
+def property_is(intend_property):
+    """
+    这个matcher返回存在某种属性的au
+    简单来说，我拿它作为一个“所有都需要”的占位符
+    """
+    def matcher(au):
+        if intend_property in au:
+            return True
+        return False
+    return matcher
+
 
 """
 这些函数进行条件间的组合

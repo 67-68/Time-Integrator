@@ -9,7 +9,8 @@
             "timeSpan": 59,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-17"
+            "date": "2025-06-17",
+            "id": "abc70223-aeb9-405c-acbb-12bfb820fb24"
         },
         {
             "start": "14:35",
@@ -20,7 +21,8 @@
             "timeSpan": 37,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-17"
+            "date": "2025-06-17",
+            "id": "91aa76db-cdc3-4171-be24-7fbc0734f505"
         },
         {
             "start": "15:12",
@@ -31,7 +33,8 @@
             "timeSpan": 13,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-17"
+            "date": "2025-06-17",
+            "id": "ee8843c4-fb27-4ca8-aaa1-f5c66a52c534"
         },
         {
             "start": "15:25",
@@ -42,7 +45,8 @@
             "timeSpan": 7,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-17"
+            "date": "2025-06-17",
+            "id": "7cb8878b-c906-438a-8ace-b8caa0114405"
         },
         {
             "start": "15:32",
@@ -53,7 +57,8 @@
             "timeSpan": 47,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-17"
+            "date": "2025-06-17",
+            "id": "d46724d6-ef49-447e-8519-eb4dc7775a3c"
         },
         {
             "start": "16:19",
@@ -64,7 +69,8 @@
             "timeSpan": 12,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-17"
+            "date": "2025-06-17",
+            "id": "e25f22b1-6898-472e-bcc3-7851fcb2b9b2"
         },
         {
             "start": "16:31",
@@ -75,7 +81,8 @@
             "timeSpan": 32,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-17"
+            "date": "2025-06-17",
+            "id": "18563ac3-7d00-4503-992a-13449d62bdb1"
         },
         {
             "start": "17:03",
@@ -86,7 +93,8 @@
             "timeSpan": 78,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-17"
+            "date": "2025-06-17",
+            "id": "f7f490e7-203a-43ea-b8aa-99ec480fc365"
         },
         {
             "start": "18:21",
@@ -97,7 +105,8 @@
             "timeSpan": 64,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-17"
+            "date": "2025-06-17",
+            "id": "bea877c6-5403-47e0-8b80-6b41804f73d9"
         },
         {
             "start": "19:25",
@@ -108,7 +117,8 @@
             "timeSpan": 29,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-17"
+            "date": "2025-06-17",
+            "id": "3c428147-46ca-4d49-90a4-80ff1974a9c3"
         },
         {
             "start": "19:54",
@@ -119,7 +129,8 @@
             "timeSpan": 63,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-17"
+            "date": "2025-06-17",
+            "id": "8eec0925-e561-4d04-8313-52bd592303fc"
         }
     ],
     "2025-06-18": [
@@ -132,7 +143,8 @@
             "timeSpan": 17,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-18"
+            "date": "2025-06-18",
+            "id": "b4fe155c-ba6a-490d-99b1-3ee14d3a5434"
         },
         {
             "start": "11:11",
@@ -143,7 +155,8 @@
             "timeSpan": 23,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-18"
+            "date": "2025-06-18",
+            "id": "6e8f8816-8123-4918-b2dd-739f919621b8"
         },
         {
             "start": "11:34",
@@ -154,7 +167,8 @@
             "timeSpan": 67,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-18"
+            "date": "2025-06-18",
+            "id": "0f0b7f5b-6009-4e48-8ee3-c096baa2c0ae"
         },
         {
             "start": "14:26",
@@ -165,7 +179,8 @@
             "timeSpan": 3,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-18"
+            "date": "2025-06-18",
+            "id": "5256dbbf-7526-41f4-9b15-cbaeb464dd7c"
         },
         {
             "start": "14:29",
@@ -176,7 +191,8 @@
             "timeSpan": 8,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-18"
+            "date": "2025-06-18",
+            "id": "0f614455-9fa8-4bb5-891d-b20b72331524"
         },
         {
             "start": "14:37",
@@ -187,7 +203,8 @@
             "timeSpan": 2,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-18"
+            "date": "2025-06-18",
+            "id": "3ccc91f3-69f8-4aaa-b233-9ed2f7f39930"
         },
         {
             "start": "14:39",
@@ -198,7 +215,8 @@
             "timeSpan": 15,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-18"
+            "date": "2025-06-18",
+            "id": "27298e75-cce0-4134-a494-403039a74813"
         },
         {
             "start": "14:54",
@@ -209,7 +227,8 @@
             "timeSpan": 25,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-18"
+            "date": "2025-06-18",
+            "id": "5ea564ac-8ea2-44f7-8be7-88cc14b14d4b"
         },
         {
             "start": "15:19",
@@ -220,7 +239,8 @@
             "timeSpan": 20,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-18"
+            "date": "2025-06-18",
+            "id": "d24600b3-95f9-428e-bf92-040a83db2f5d"
         },
         {
             "start": "15:39",
@@ -231,7 +251,8 @@
             "timeSpan": 14,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-18"
+            "date": "2025-06-18",
+            "id": "9ab92dbe-8306-4be2-92b5-681086dd3a2c"
         },
         {
             "start": "15:53",
@@ -242,7 +263,8 @@
             "timeSpan": 36,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-18"
+            "date": "2025-06-18",
+            "id": "688c4792-845e-4195-98b0-b8c73d103740"
         },
         {
             "start": "16:29",
@@ -253,7 +275,8 @@
             "timeSpan": 45,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-18"
+            "date": "2025-06-18",
+            "id": "7eb15ebf-6ffa-4692-9a8b-6927026eaa03"
         },
         {
             "start": "17:14",
@@ -264,7 +287,8 @@
             "timeSpan": 29,
             "date": "2025-06-18",
             "urgency": null,
-            "importance": null
+            "importance": null,
+            "id": "e724430e-6992-43f4-b9b4-b9305910f134"
         },
         {
             "start": "17:43",
@@ -275,7 +299,8 @@
             "timeSpan": 59,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-18"
+            "date": "2025-06-18",
+            "id": "95c74f42-caac-4f63-b3ce-d2166e9e30f3"
         }
     ],
     "2025-06-19": [
@@ -288,7 +313,8 @@
             "timeSpan": 65,
             "date": "2025-06-19",
             "urgency": null,
-            "importance": null
+            "importance": null,
+            "id": "cf33cb26-4aa0-4920-8c46-7d31ff39d3c4"
         },
         {
             "start": "12:51",
@@ -299,7 +325,8 @@
             "timeSpan": 59,
             "date": "2025-06-19",
             "urgency": null,
-            "importance": null
+            "importance": null,
+            "id": "1de3ee62-a5f0-4352-aba4-12dadf02f29b"
         },
         {
             "start": "13:50",
@@ -310,7 +337,8 @@
             "timeSpan": 40,
             "date": "2025-06-19",
             "urgency": null,
-            "importance": null
+            "importance": null,
+            "id": "44d242d8-aa7b-4bc1-b406-e577f7345430"
         },
         {
             "start": "14:30",
@@ -321,7 +349,8 @@
             "timeSpan": 22,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-19"
+            "date": "2025-06-19",
+            "id": "e4fd0212-a8bb-4681-951a-3fa420c08767"
         },
         {
             "start": "14:52",
@@ -332,7 +361,8 @@
             "timeSpan": 73,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-19"
+            "date": "2025-06-19",
+            "id": "31549f0a-ad48-4c9a-8cac-3a17b9a7807f"
         },
         {
             "start": "16:05",
@@ -343,7 +373,8 @@
             "timeSpan": 30,
             "date": "2025-06-19",
             "urgency": null,
-            "importance": null
+            "importance": null,
+            "id": "395d8110-a51c-4363-9f68-d74a8b44f222"
         },
         {
             "start": "16:35",
@@ -354,7 +385,8 @@
             "timeSpan": 20,
             "date": "2025-06-19",
             "urgency": null,
-            "importance": null
+            "importance": null,
+            "id": "508fae59-e14d-41bd-a753-e71d5827d640"
         },
         {
             "start": "16:55",
@@ -365,7 +397,8 @@
             "timeSpan": 27,
             "date": "2025-06-19",
             "urgency": null,
-            "importance": null
+            "importance": null,
+            "id": "6f989628-433f-44ea-b1a3-20bd7564f752"
         },
         {
             "start": "17:22",
@@ -376,7 +409,8 @@
             "timeSpan": 26,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-19"
+            "date": "2025-06-19",
+            "id": "5ea799b3-c468-4286-85b2-357b34f0ecf2"
         },
         {
             "start": "17:48",
@@ -387,7 +421,8 @@
             "timeSpan": 10,
             "date": "2025-06-19",
             "urgency": null,
-            "importance": null
+            "importance": null,
+            "id": "c12f3e17-f12b-49a9-81eb-9681da365e27"
         },
         {
             "start": "17:58",
@@ -398,7 +433,8 @@
             "timeSpan": 56,
             "date": "2025-06-19",
             "urgency": null,
-            "importance": null
+            "importance": null,
+            "id": "f6d3e8b9-675e-4034-beb4-f0814ff0ae6b"
         },
         {
             "start": "18:54",
@@ -409,7 +445,8 @@
             "timeSpan": 26,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-19"
+            "date": "2025-06-19",
+            "id": "47fc7a44-a586-4e24-a37b-8e94cac2df5a"
         },
         {
             "start": "19:20",
@@ -420,7 +457,8 @@
             "timeSpan": 30,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-19"
+            "date": "2025-06-19",
+            "id": "9c2f4f22-fb92-4a85-85d7-75142e60b859"
         },
         {
             "start": "19:50",
@@ -431,7 +469,8 @@
             "timeSpan": 51,
             "date": "2025-06-19",
             "urgency": null,
-            "importance": null
+            "importance": null,
+            "id": "3a29f389-1176-4c79-b467-37c54f4ea003"
         },
         {
             "start": "20:41",
@@ -442,7 +481,8 @@
             "timeSpan": 8,
             "date": "2025-06-19",
             "urgency": null,
-            "importance": null
+            "importance": null,
+            "id": "e4a43ed7-0161-4bf8-864e-393a74506c86"
         },
         {
             "start": "20:49",
@@ -453,7 +493,8 @@
             "timeSpan": 50,
             "date": "2025-06-19",
             "urgency": null,
-            "importance": null
+            "importance": null,
+            "id": "f113f5be-377f-4059-bf51-89d1844eca7a"
         },
         {
             "start": "22: 20",
@@ -464,7 +505,8 @@
             "timeSpan": 99,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-19"
+            "date": "2025-06-19",
+            "id": "4d60c4a4-2dd5-4f61-a919-263f68d1ebbe"
         },
         {
             "start": "11:46",
@@ -475,7 +517,8 @@
             "urgency": false,
             "importance": false,
             "timeSpan": 65,
-            "date": "2025-06-19"
+            "date": "2025-06-19",
+            "id": "79edeb47-9100-4dfd-ad5c-ccd9e2a5d352"
         },
         {
             "start": "11:46",
@@ -486,7 +529,8 @@
             "urgency": false,
             "importance": false,
             "timeSpan": 65,
-            "date": "2025-06-19"
+            "date": "2025-06-19",
+            "id": "6bbbf338-5ce7-4096-aed5-98bcbfb4b287"
         }
     ],
     "2025-06-20": [
@@ -499,7 +543,8 @@
             "timeSpan": 59,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-20"
+            "date": "2025-06-20",
+            "id": "fc4fa81f-4a4f-4d6f-a55b-830c4df42c3e"
         },
         {
             "start": "10:30",
@@ -510,7 +555,8 @@
             "timeSpan": 20,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-20"
+            "date": "2025-06-20",
+            "id": "04425c83-bafc-4170-b5a9-2cc2cb1aef1d"
         },
         {
             "start": "10:50",
@@ -521,7 +567,8 @@
             "timeSpan": 52,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-20"
+            "date": "2025-06-20",
+            "id": "8cbd8b60-f76d-46c9-9ccd-a6e241246ba2"
         },
         {
             "start": "11:42",
@@ -532,7 +579,8 @@
             "timeSpan": 32,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-20"
+            "date": "2025-06-20",
+            "id": "0c3a67e1-d720-4ec9-9159-c3f631c9a30e"
         },
         {
             "start": "12:14",
@@ -543,7 +591,8 @@
             "timeSpan": 41,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-20"
+            "date": "2025-06-20",
+            "id": "28744123-fca9-435f-b372-9b3c0a8d3f56"
         },
         {
             "start": "12:55",
@@ -554,7 +603,8 @@
             "timeSpan": 5,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-20"
+            "date": "2025-06-20",
+            "id": "2f9be63f-71dd-491e-bff2-a7d1311d0321"
         },
         {
             "start": "13:00",
@@ -565,7 +615,8 @@
             "timeSpan": 38,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-20"
+            "date": "2025-06-20",
+            "id": "857a2bb8-cd15-4e9f-a9a0-cd35ebbfce04"
         },
         {
             "start": "13:38",
@@ -576,7 +627,8 @@
             "timeSpan": 28,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-20"
+            "date": "2025-06-20",
+            "id": "6806ab7b-3c6c-452a-9195-5755192e0573"
         },
         {
             "start": "14:06",
@@ -587,7 +639,8 @@
             "timeSpan": 110,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-20"
+            "date": "2025-06-20",
+            "id": "9c7e8b5c-d875-4f3d-9319-ac4649f30ef6"
         },
         {
             "start": "15:56",
@@ -598,7 +651,8 @@
             "timeSpan": 39,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-20"
+            "date": "2025-06-20",
+            "id": "da7f9275-3ef4-4fb2-a44c-ef3d1f98082a"
         },
         {
             "start": "16:35",
@@ -609,7 +663,8 @@
             "timeSpan": 37,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-20"
+            "date": "2025-06-20",
+            "id": "c671e816-122f-4d7c-8cb5-ace9759b6b47"
         },
         {
             "start": "17:12",
@@ -620,7 +675,8 @@
             "timeSpan": 48,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-20"
+            "date": "2025-06-20",
+            "id": "4c63941e-61ff-4aaa-b6dc-e0e831b7481c"
         },
         {
             "start": "18:00",
@@ -631,7 +687,8 @@
             "timeSpan": 25,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-20"
+            "date": "2025-06-20",
+            "id": "213de2de-0345-4a4b-87b1-c0b697336831"
         },
         {
             "start": "18:25",
@@ -642,7 +699,8 @@
             "timeSpan": 8,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-20"
+            "date": "2025-06-20",
+            "id": "3f8dd450-994d-4dab-879c-ccf291a2f07d"
         },
         {
             "start": "18:33",
@@ -653,7 +711,8 @@
             "timeSpan": 11,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-20"
+            "date": "2025-06-20",
+            "id": "c3022b67-5c63-4876-994e-76f3a812e3c7"
         },
         {
             "start": "18:44",
@@ -664,7 +723,8 @@
             "timeSpan": 99,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-20"
+            "date": "2025-06-20",
+            "id": "7f3f177d-8dff-442d-8358-05fd52990859"
         },
         {
             "start": "20:23",
@@ -675,7 +735,8 @@
             "timeSpan": 33,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-20"
+            "date": "2025-06-20",
+            "id": "358a7be2-bdcb-4557-821d-d226c14e2fab"
         }
     ],
     "2025-06-24": [
@@ -688,7 +749,8 @@
             "timeSpan": 21,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-24"
+            "date": "2025-06-24",
+            "id": "74150f62-86dc-4f2d-8ddd-0bf1b335aa90"
         },
         {
             "start": "10:07",
@@ -699,7 +761,8 @@
             "timeSpan": 13,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-24"
+            "date": "2025-06-24",
+            "id": "ff59031f-cbd5-46be-abb5-38b9febc39ac"
         },
         {
             "start": "10:20",
@@ -710,7 +773,8 @@
             "timeSpan": 10,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-24"
+            "date": "2025-06-24",
+            "id": "8fbf2cb8-ca35-4caa-853e-4b62dc256330"
         },
         {
             "start": "10:30",
@@ -721,7 +785,8 @@
             "timeSpan": 10,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-24"
+            "date": "2025-06-24",
+            "id": "bf14ebf9-113e-43dc-bd42-a5cec30db9f4"
         },
         {
             "start": "10:40",
@@ -732,7 +797,8 @@
             "timeSpan": 99,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-24"
+            "date": "2025-06-24",
+            "id": "ac469a27-484a-43be-83fd-c1a7c2371dc0"
         },
         {
             "start": "12:19",
@@ -743,7 +809,8 @@
             "timeSpan": 37,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-24"
+            "date": "2025-06-24",
+            "id": "c4149b4c-351d-45c4-9fa9-111b9a887cca"
         },
         {
             "start": "12:56",
@@ -754,7 +821,8 @@
             "timeSpan": 12,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-24"
+            "date": "2025-06-24",
+            "id": "ac4554d2-dcf8-4553-ba71-14101346afd5"
         },
         {
             "start": "13:08",
@@ -765,7 +833,8 @@
             "timeSpan": 77,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-24"
+            "date": "2025-06-24",
+            "id": "6e57cf11-d97f-4ed3-8f8f-4cc10fabb22d"
         },
         {
             "start": "14:25",
@@ -776,7 +845,8 @@
             "timeSpan": 54,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-24"
+            "date": "2025-06-24",
+            "id": "d47f8c65-e633-480b-b451-da11a2adf665"
         },
         {
             "start": "15:19",
@@ -787,7 +857,8 @@
             "timeSpan": 21,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-24"
+            "date": "2025-06-24",
+            "id": "c5dc21f2-cc00-4b01-8aeb-a6c53625fcbf"
         },
         {
             "start": "15:40",
@@ -798,7 +869,8 @@
             "timeSpan": 27,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-24"
+            "date": "2025-06-24",
+            "id": "25699a78-c8e0-4bf6-89ec-0cd27d3e729c"
         },
         {
             "start": "16:07",
@@ -809,7 +881,8 @@
             "timeSpan": 79,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-24"
+            "date": "2025-06-24",
+            "id": "9c76e001-04e3-488b-9531-103beb201b0e"
         },
         {
             "start": "17:26",
@@ -820,7 +893,8 @@
             "timeSpan": 49,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-24"
+            "date": "2025-06-24",
+            "id": "45a77a38-f08c-433d-88be-797af246799c"
         },
         {
             "start": "18:15",
@@ -831,7 +905,8 @@
             "timeSpan": 78,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-24"
+            "date": "2025-06-24",
+            "id": "5cd70484-6f5a-4496-bbb0-777707fb0624"
         },
         {
             "start": "19:33",
@@ -842,7 +917,8 @@
             "timeSpan": 61,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-24"
+            "date": "2025-06-24",
+            "id": "cc1b35fa-7df1-4cc5-99e9-55ce46f183be"
         },
         {
             "start": "20:34",
@@ -853,7 +929,8 @@
             "timeSpan": 46,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-24"
+            "date": "2025-06-24",
+            "id": "98c31a1d-e45c-4fc5-bdd2-fd8a251b06c5"
         },
         {
             "start": "21:20",
@@ -864,7 +941,8 @@
             "timeSpan": 84,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-24"
+            "date": "2025-06-24",
+            "id": "fc92d094-cc86-44f2-ab14-4912b640d2e4"
         },
         {
             "start": "22:44",
@@ -875,7 +953,8 @@
             "timeSpan": 37,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-24"
+            "date": "2025-06-24",
+            "id": "d0c701ba-01ab-4356-8ae4-d65bac945957"
         },
         {
             "start": "23:21",
@@ -886,7 +965,8 @@
             "timeSpan": 12,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-24"
+            "date": "2025-06-24",
+            "id": "df128165-fddc-41e2-8632-9e0ef4829242"
         }
     ],
     "2025-06-25": [
@@ -899,7 +979,8 @@
             "timeSpan": 78,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-25"
+            "date": "2025-06-25",
+            "id": "e72faf0e-d487-4ae9-ae68-9fbb906fc1f5"
         },
         {
             "start": "15:48",
@@ -910,7 +991,8 @@
             "timeSpan": 44,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-25"
+            "date": "2025-06-25",
+            "id": "6958cc16-bfda-4951-9355-16000a533834"
         },
         {
             "start": "16:32",
@@ -921,7 +1003,8 @@
             "timeSpan": 6,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-25"
+            "date": "2025-06-25",
+            "id": "059be998-da4f-44dc-8630-fd5b0e76f4db"
         },
         {
             "start": "16:38",
@@ -932,7 +1015,8 @@
             "timeSpan": 79,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-25"
+            "date": "2025-06-25",
+            "id": "e1f092cc-cc87-4da8-8aaf-395cc2301cd5"
         },
         {
             "start": "17:57",
@@ -943,7 +1027,8 @@
             "timeSpan": 53,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-25"
+            "date": "2025-06-25",
+            "id": "86ef95ec-53a4-4551-a0ec-6bc01cefcc62"
         },
         {
             "start": "18:50",
@@ -954,7 +1039,8 @@
             "timeSpan": 40,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-25"
+            "date": "2025-06-25",
+            "id": "6cab608b-0ecf-4c0e-9acd-391208a82427"
         },
         {
             "start": "19:30",
@@ -965,7 +1051,8 @@
             "timeSpan": 29,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-25"
+            "date": "2025-06-25",
+            "id": "17bf6ae8-d722-4c23-9b66-bf5ef5c3a5a8"
         },
         {
             "start": "19:59",
@@ -976,7 +1063,8 @@
             "timeSpan": 38,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-25"
+            "date": "2025-06-25",
+            "id": "c8e2be11-c0f5-4536-9e79-a0d0e4be2eba"
         },
         {
             "start": "20:37",
@@ -987,7 +1075,8 @@
             "timeSpan": 73,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-25"
+            "date": "2025-06-25",
+            "id": "7317af1a-6ec0-4a45-a001-3eba79850977"
         },
         {
             "start": "21:50",
@@ -998,7 +1087,8 @@
             "timeSpan": 60,
             "urgency": null,
             "importance": null,
-            "date": "2025-06-25"
+            "date": "2025-06-25",
+            "id": "42d44ba3-4254-4569-9938-19f5a8780126"
         }
     ],
     "2025-07-08": [
@@ -1011,7 +1101,8 @@
             "urgency": false,
             "importance": false,
             "timeSpan": 20,
-            "date": "2025-07-08"
+            "date": "2025-07-08",
+            "id": "a83ce4d9-b8aa-465b-b48a-43c7ce93c76e"
         },
         {
             "start": "09:50",
@@ -1022,7 +1113,8 @@
             "urgency": false,
             "importance": false,
             "timeSpan": 18,
-            "date": "2025-07-08"
+            "date": "2025-07-08",
+            "id": "37608831-6016-4b7d-bda8-9be77b93983f"
         },
         {
             "start": "10:08",
@@ -1033,7 +1125,8 @@
             "urgency": false,
             "importance": false,
             "timeSpan": 31,
-            "date": "2025-07-08"
+            "date": "2025-07-08",
+            "id": "a37580e3-af46-4c35-903a-d15e6994f73c"
         },
         {
             "start": "10:39",
@@ -1044,7 +1137,8 @@
             "urgency": false,
             "importance": false,
             "timeSpan": 16,
-            "date": "2025-07-08"
+            "date": "2025-07-08",
+            "id": "65a7b1e0-70d9-4640-96ca-ddc4478014e3"
         },
         {
             "start": "10:55",
@@ -1055,7 +1149,8 @@
             "urgency": false,
             "importance": false,
             "timeSpan": 31,
-            "date": "2025-07-08"
+            "date": "2025-07-08",
+            "id": "639cca52-0da9-4dfc-873d-532247c3fc2d"
         },
         {
             "start": "11:26",
@@ -1066,7 +1161,8 @@
             "urgency": false,
             "importance": false,
             "timeSpan": 64,
-            "date": "2025-07-08"
+            "date": "2025-07-08",
+            "id": "2b5ef19d-e2e1-4893-ade3-b1175380c934"
         },
         {
             "start": "12:30",
@@ -1077,7 +1173,8 @@
             "urgency": false,
             "importance": false,
             "timeSpan": 28,
-            "date": "2025-07-08"
+            "date": "2025-07-08",
+            "id": "cf1bb0fb-69cc-4b84-9bdd-5de28e28af74"
         },
         {
             "start": "15:00",
@@ -1088,7 +1185,8 @@
             "urgency": false,
             "importance": false,
             "timeSpan": 37,
-            "date": "2025-07-08"
+            "date": "2025-07-08",
+            "id": "c95275c9-9ff7-4f98-950d-a54c11e35d45"
         },
         {
             "start": "15:37",
@@ -1099,7 +1197,8 @@
             "urgency": false,
             "importance": false,
             "timeSpan": 8,
-            "date": "2025-07-08"
+            "date": "2025-07-08",
+            "id": "1b15324c-8e6b-402f-9869-aff6468317e3"
         },
         {
             "start": "10:55",
@@ -1110,7 +1209,8 @@
             "urgency": false,
             "importance": false,
             "timeSpan": 31,
-            "date": "2025-07-08"
+            "date": "2025-07-08",
+            "id": "9cf0f0b6-a11c-489d-82d0-a7c45b9f4a97"
         }
     ],
     "2025-07-09": [
@@ -1121,7 +1221,8 @@
             "action": "CODE",
             "actionDetail": "写完了大部分bulk enter Frame，但是保存（需要日期）还没做，以及展示当前记录，我需要让date selection frame检测当前状态，并且兼容bulk enterFrame，或许切换界面的时候给它一个状态？",
             "timeSpan": 28,
-            "date": "2025-07-09"
+            "date": "2025-07-09",
+            "id": "ce356262-c244-4732-b79e-ba7534d92a72"
         },
         {
             "start": "11:14",
@@ -1130,7 +1231,8 @@
             "action": "休息",
             "actionDetail": "",
             "timeSpan": 8,
-            "date": "2025-07-09"
+            "date": "2025-07-09",
+            "id": "ce103d72-539c-4ef7-83b6-7130cac920e2"
         },
         {
             "start": "11:22",
@@ -1139,7 +1241,8 @@
             "action": "CODE",
             "actionDetail": "把bulk EnterFrame写完了",
             "timeSpan": 12,
-            "date": "2025-07-09"
+            "date": "2025-07-09",
+            "id": "1cdaef22-db04-42b5-ab0b-a42a3f505d3b"
         },
         {
             "start": "11:34",
@@ -1148,7 +1251,8 @@
             "action": "DEBUG字面意思debug",
             "actionDetail": "",
             "timeSpan": 23,
-            "date": "2025-07-09"
+            "date": "2025-07-09",
+            "id": "d83b9f7b-cd84-421f-a36e-4c311ef724fd"
         }
     ],
     "2025-07-13": [
@@ -1159,7 +1263,8 @@
             "action": "背诵复习之前的牌组",
             "actionDetail": "",
             "timeSpan": 8,
-            "date": "2025-07-13"
+            "date": "2025-07-13",
+            "id": "5cd03734-3080-4f18-8fca-8c3a45febbe4"
         },
         {
             "start": "09:55",
@@ -1168,7 +1273,8 @@
             "action": "抄写 把词语转写上anki",
             "actionDetail": "",
             "timeSpan": 16,
-            "date": "2025-07-13"
+            "date": "2025-07-13",
+            "id": "f207a909-e9ce-418d-acc1-8a00d5ddf603"
         },
         {
             "start": "10:11",
@@ -1177,7 +1283,8 @@
             "action": "小说",
             "actionDetail": "",
             "timeSpan": 8,
-            "date": "2025-07-13"
+            "date": "2025-07-13",
+            "id": "48cb1507-3608-44e2-b6fc-aa90237118f5"
         },
         {
             "start": "10:19",
@@ -1186,7 +1293,8 @@
             "action": "DESIGN和G设计讨论卡片",
             "actionDetail": "",
             "timeSpan": 39,
-            "date": "2025-07-13"
+            "date": "2025-07-13",
+            "id": "5fd918be-ff77-4ef0-be88-a6afad1aac91"
         },
         {
             "start": "10:58",
@@ -1195,7 +1303,8 @@
             "action": "视频",
             "actionDetail": "",
             "timeSpan": 49,
-            "date": "2025-07-13"
+            "date": "2025-07-13",
+            "id": "1242f5ea-9030-40f4-9e42-6987d6503763"
         },
         {
             "start": "11:47",
@@ -1204,7 +1313,8 @@
             "action": "吃饭",
             "actionDetail": "",
             "timeSpan": 43,
-            "date": "2025-07-13"
+            "date": "2025-07-13",
+            "id": "b0445db5-1115-47a3-a840-945424e87c98"
         },
         {
             "start": "12:30",
@@ -1213,7 +1323,8 @@
             "action": "视频",
             "actionDetail": "",
             "timeSpan": 49,
-            "date": "2025-07-13"
+            "date": "2025-07-13",
+            "id": "9bb29d24-8b6c-4b61-9750-174ffa2ae033"
         },
         {
             "start": "13:19",
@@ -1222,7 +1333,8 @@
             "action": "睡觉",
             "actionDetail": "",
             "timeSpan": 21,
-            "date": "2025-07-13"
+            "date": "2025-07-13",
+            "id": "cebb9d5c-979a-47b3-bbe8-c6c9a580cedd"
         },
         {
             "start": "13:40",
@@ -1231,7 +1343,8 @@
             "action": "DESIGN继续重构我的架构",
             "actionDetail": "",
             "timeSpan": 49,
-            "date": "2025-07-13"
+            "date": "2025-07-13",
+            "id": "bb712f7d-b929-4d32-be05-283239690123"
         },
         {
             "start": "14:29",
@@ -1240,7 +1353,8 @@
             "action": "休息",
             "actionDetail": "",
             "timeSpan": 14,
-            "date": "2025-07-13"
+            "date": "2025-07-13",
+            "id": "4d5d0a00-d827-4ec5-89af-2453e9a80e15"
         },
         {
             "start": "14:43",
@@ -1249,7 +1363,8 @@
             "action": "DESIGN继续重构我的架构和整理东西",
             "actionDetail": "",
             "timeSpan": 52,
-            "date": "2025-07-13"
+            "date": "2025-07-13",
+            "id": "b831d394-19d9-4b8a-8f91-6c92e005d5e9"
         },
         {
             "start": "15:35",
@@ -1258,7 +1373,8 @@
             "action": "小说",
             "actionDetail": "",
             "timeSpan": 35,
-            "date": "2025-07-13"
+            "date": "2025-07-13",
+            "id": "84e4b694-e5cd-4dde-8d17-c74e72be4cdf"
         },
         {
             "start": "16:10",
@@ -1267,7 +1383,8 @@
             "action": "CODE我知道了下一步：让analyzer传递的信息多一点，然后presenter更好工作",
             "actionDetail": "",
             "timeSpan": 61,
-            "date": "2025-07-13"
+            "date": "2025-07-13",
+            "id": "51ce8e3d-3bde-4f9e-9db4-660f478502f5"
         },
         {
             "start": "17:11",
@@ -1276,7 +1393,8 @@
             "action": "休息游戏",
             "actionDetail": "",
             "timeSpan": 17,
-            "date": "2025-07-13"
+            "date": "2025-07-13",
+            "id": "e34348a8-cb88-4960-ae98-9cd95df5dedc"
         },
         {
             "start": "17:28",
@@ -1285,7 +1403,8 @@
             "action": "CODE",
             "actionDetail": "",
             "timeSpan": 6,
-            "date": "2025-07-13"
+            "date": "2025-07-13",
+            "id": "6731a36a-e098-4910-be4e-5aa042da2275"
         }
     ],
     "2025-07-14": [
@@ -1296,7 +1415,8 @@
             "action": "CODE",
             "actionDetail": "",
             "timeSpan": 20,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "3d95aae3-d767-46c9-a8d5-6431084ae87e"
         },
         {
             "start": "00:21",
@@ -1305,7 +1425,8 @@
             "action": "杂",
             "actionDetail": "",
             "timeSpan": 10,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "78682c1b-d507-40ed-8323-455781e999a5"
         },
         {
             "start": "09:49",
@@ -1314,7 +1435,8 @@
             "action": "词汇雅思词汇",
             "actionDetail": "",
             "timeSpan": 26,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "b9419a72-1db6-41aa-a4d9-77beacb58339"
         },
         {
             "start": "10:15",
@@ -1323,7 +1445,8 @@
             "action": "分心",
             "actionDetail": "",
             "timeSpan": 8,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "09fecbb9-ab37-4bac-864f-fa7c441b61c3"
         },
         {
             "start": "10:23",
@@ -1332,7 +1455,8 @@
             "action": "DEBUG",
             "actionDetail": "",
             "timeSpan": 52,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "dbb402a6-46be-4b60-86ce-96b781855cf1"
         },
         {
             "start": "11:15",
@@ -1341,7 +1465,8 @@
             "action": "游戏",
             "actionDetail": "",
             "timeSpan": 10,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "aa6389de-83fe-4427-b47a-24b36dc9286a"
         },
         {
             "start": "11:25",
@@ -1350,7 +1475,8 @@
             "action": "整理，确认最终路线",
             "actionDetail": "",
             "timeSpan": 18,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "19e95d52-ec79-4a4d-956b-39033dde1c87"
         },
         {
             "start": "11:43",
@@ -1359,7 +1485,8 @@
             "action": "维多利亚3",
             "actionDetail": "",
             "timeSpan": 47,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "577dee59-e2ff-4e24-89aa-80ef405c275b"
         },
         {
             "start": "12:30",
@@ -1368,7 +1495,8 @@
             "action": "吃饭",
             "actionDetail": "",
             "timeSpan": 48,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "86c43229-61fe-4ca8-b5d3-54ba3191cd2d"
         },
         {
             "start": "13:18",
@@ -1377,7 +1505,8 @@
             "action": "睡觉",
             "actionDetail": "",
             "timeSpan": 36,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "187110d4-3d17-4e7a-8b71-a9516c73231f"
         },
         {
             "start": "13:54",
@@ -1386,7 +1515,8 @@
             "action": "背诵SAT词汇",
             "actionDetail": "",
             "timeSpan": 44,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "990a0824-eafd-4247-b313-2fd70e544e19"
         },
         {
             "start": "14:38",
@@ -1395,7 +1525,8 @@
             "action": "视频",
             "actionDetail": "",
             "timeSpan": 25,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "5f3d4d8b-4d02-4fcb-87b3-8c826ddc9c9c"
         },
         {
             "start": "15:03",
@@ -1404,7 +1535,8 @@
             "action": "DESIGN整ui的事情",
             "actionDetail": "",
             "timeSpan": 63,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "0e9c1e77-028f-4c7f-9b36-b79a4d126baa"
         },
         {
             "start": "16:06",
@@ -1413,7 +1545,8 @@
             "action": "短视频",
             "actionDetail": "",
             "timeSpan": 30,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "6af6178a-36f1-4f37-835e-fe4f96460358"
         },
         {
             "start": "16:36",
@@ -1422,7 +1555,8 @@
             "action": "睡觉",
             "actionDetail": "",
             "timeSpan": 3,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "9f9bb941-e502-4b5f-b5c9-0dacb92fefa3"
         },
         {
             "start": "16:39",
@@ -1431,7 +1565,8 @@
             "action": "短视频",
             "actionDetail": "",
             "timeSpan": 2,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "9b471721-9769-4888-a8a5-cbffa2323493"
         },
         {
             "start": "16:41",
@@ -1440,7 +1575,8 @@
             "action": "CODEGUI",
             "actionDetail": "",
             "timeSpan": 38,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "41070cbe-4b80-4ee2-9851-4440fd8dbfec"
         },
         {
             "start": "17:19",
@@ -1449,7 +1585,8 @@
             "action": "游戏，游戏-学习时间段是两头不讨好的...",
             "actionDetail": "",
             "timeSpan": 7,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "36f4545b-9e65-469e-85e1-41dfbf23c0ad"
         },
         {
             "start": "17:26",
@@ -1458,7 +1595,8 @@
             "action": "做题SAT",
             "actionDetail": "",
             "timeSpan": 28,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "b46091d9-11c1-4b44-ad15-2a71fbab6092"
         },
         {
             "start": "17:54",
@@ -1467,7 +1605,8 @@
             "action": "休息",
             "actionDetail": "",
             "timeSpan": 15,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "b3460a44-6962-48ff-a195-b6d6e90df68d"
         },
         {
             "start": "18:09",
@@ -1476,7 +1615,8 @@
             "action": "做题SAT",
             "actionDetail": "",
             "timeSpan": 20,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "4d36fc2c-76f2-4ec4-a20f-ce339e99d84f"
         },
         {
             "start": "18:29",
@@ -1485,7 +1625,8 @@
             "action": "休息",
             "actionDetail": "",
             "timeSpan": 10,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "db859d0d-558a-4b95-926c-ef2d4a7e1230"
         },
         {
             "start": "18:39",
@@ -1494,7 +1635,8 @@
             "action": "SAT，数学",
             "actionDetail": "",
             "timeSpan": 27,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "a8784d84-4c71-4d6a-8207-0e1a9404f3ac"
         },
         {
             "start": "19:06",
@@ -1503,7 +1645,8 @@
             "action": "休息",
             "actionDetail": "",
             "timeSpan": 10,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "3b7f9448-d036-4468-afb2-394c27a15005"
         },
         {
             "start": "19:16",
@@ -1512,7 +1655,8 @@
             "action": "公众号",
             "actionDetail": "",
             "timeSpan": 11,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "6cd28121-809e-4db6-ad33-0455dc60dc51"
         },
         {
             "start": "19:27",
@@ -1521,7 +1665,8 @@
             "action": "杂，把Gemini flash添加进来了",
             "actionDetail": "",
             "timeSpan": 8,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "ccdebede-8aa2-48c3-ac44-6c00b9f3013d"
         },
         {
             "start": "19:35",
@@ -1530,7 +1675,8 @@
             "action": "DESIGN GUI设计",
             "actionDetail": "",
             "timeSpan": 14,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "26e0725a-d59d-4ac0-9370-3e7d8dd4b468"
         },
         {
             "start": "19:49",
@@ -1539,7 +1685,8 @@
             "action": "吃饭",
             "actionDetail": "",
             "timeSpan": 31,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "5d6f721b-765b-46ba-b67f-85f40b330c58"
         },
         {
             "start": "20:20",
@@ -1548,7 +1695,8 @@
             "action": "视频",
             "actionDetail": "",
             "timeSpan": 26,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "e8ec807f-a707-4d46-8d32-27f2b80acaf9"
         },
         {
             "start": "20:46",
@@ -1557,7 +1705,8 @@
             "action": "聊天，关于香港",
             "actionDetail": "",
             "timeSpan": 24,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "fe0cfd29-ca21-4549-9d78-d3a25fb4ee71"
         },
         {
             "start": "21:10",
@@ -1566,7 +1715,8 @@
             "action": "犹豫",
             "actionDetail": "",
             "timeSpan": 14,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "d9a86466-79a1-4669-a057-71529cb705b6"
         },
         {
             "start": "21:24",
@@ -1575,7 +1725,8 @@
             "action": "DESIGN",
             "actionDetail": "",
             "timeSpan": 21,
-            "date": "2025-07-14"
+            "date": "2025-07-14",
+            "id": "0acfd2f6-bf11-46f4-b01f-f2ee6b280e01"
         }
     ],
     "2025-07-15": [
@@ -1586,7 +1737,8 @@
             "action": "杂",
             "actionDetail": "输入昨天的数据",
             "timeSpan": 6,
-            "date": "2025-07-15"
+            "date": "2025-07-15",
+            "id": "df753cf3-61f2-4ee0-99ce-12297c2fcd6b"
         },
         {
             "start": "09:46",
@@ -1595,7 +1747,8 @@
             "action": "背诵",
             "actionDetail": "复习之前的词汇",
             "timeSpan": 27,
-            "date": "2025-07-15"
+            "date": "2025-07-15",
+            "id": "00c0b8ef-9d9c-462e-81ee-3c55896762c9"
         },
         {
             "start": "10:13",
@@ -1604,7 +1757,8 @@
             "action": "公众号",
             "actionDetail": "",
             "timeSpan": 16,
-            "date": "2025-07-15"
+            "date": "2025-07-15",
+            "id": "84d2932c-5690-4143-b84c-025fec96d4d7"
         },
         {
             "start": "10:29",
@@ -1613,7 +1767,8 @@
             "action": "背诵",
             "actionDetail": "输入SAT词汇",
             "timeSpan": 16,
-            "date": "2025-07-15"
+            "date": "2025-07-15",
+            "id": "f926299c-2e69-4cab-8677-f6fee863de92"
         },
         {
             "start": "10:45",
@@ -1622,7 +1777,8 @@
             "action": "杂",
             "actionDetail": "拿咖啡",
             "timeSpan": 16,
-            "date": "2025-07-15"
+            "date": "2025-07-15",
+            "id": "5734514f-f40c-44e9-9edc-cb996b5e22ad"
         },
         {
             "start": "11:01",
@@ -1631,7 +1787,8 @@
             "action": "吃饭",
             "actionDetail": "",
             "timeSpan": 40,
-            "date": "2025-07-15"
+            "date": "2025-07-15",
+            "id": "e6b4cdb8-426d-4abd-ad5f-cdf75c4ba86e"
         },
         {
             "start": "11:41",
@@ -1640,7 +1797,8 @@
             "action": "视频",
             "actionDetail": "",
             "timeSpan": 60,
-            "date": "2025-07-15"
+            "date": "2025-07-15",
+            "id": "2d1a3efe-079f-45e2-8d4b-a67706fb4085"
         },
         {
             "start": "12:41",
@@ -1649,7 +1807,8 @@
             "action": "睡觉",
             "actionDetail": "",
             "timeSpan": 16,
-            "date": "2025-07-15"
+            "date": "2025-07-15",
+            "id": "482f8c78-ae6a-45b4-8664-4751e94e7cbc"
         },
         {
             "start": "12:57",
@@ -1658,7 +1817,8 @@
             "action": "TRAVEL",
             "actionDetail": "",
             "timeSpan": 85,
-            "date": "2025-07-15"
+            "date": "2025-07-15",
+            "id": "92054a64-5e63-4ad5-8304-5b66aa89aa7e"
         },
         {
             "start": "13:24",
@@ -1667,7 +1827,8 @@
             "action": "CODE",
             "actionDetail": "",
             "timeSpan": 11,
-            "date": "2025-07-15"
+            "date": "2025-07-15",
+            "id": "c85d2357-6d17-4101-98cb-d3ecc7ec6614"
         },
         {
             "start": "13:55",
@@ -1676,7 +1837,8 @@
             "action": "CODE",
             "actionDetail": "",
             "timeSpan": 12,
-            "date": "2025-07-15"
+            "date": "2025-07-15",
+            "id": "6a852329-6dd6-417d-916e-f4a7d90c6916"
         },
         {
             "start": "15:00",
@@ -1685,7 +1847,8 @@
             "action": "上课",
             "actionDetail": "",
             "timeSpan": 80,
-            "date": "2025-07-15"
+            "date": "2025-07-15",
+            "id": "7683b862-58cf-4195-812d-8097a16d8a6c"
         },
         {
             "start": "16:20",
@@ -1694,7 +1857,8 @@
             "action": "游戏",
             "actionDetail": "",
             "timeSpan": 66,
-            "date": "2025-07-15"
+            "date": "2025-07-15",
+            "id": "5cd85f6e-3114-4b1e-bb15-a6cc92539e0e"
         },
         {
             "start": "17:26",
@@ -1703,7 +1867,8 @@
             "action": "CODE但是状态完全不行",
             "actionDetail": "",
             "timeSpan": 39,
-            "date": "2025-07-15"
+            "date": "2025-07-15",
+            "id": "97d738e7-4592-4418-ae3b-06d61d54ff35"
         },
         {
             "start": "18:05",
@@ -1712,7 +1877,8 @@
             "action": "游戏",
             "actionDetail": "",
             "timeSpan": 20,
-            "date": "2025-07-15"
+            "date": "2025-07-15",
+            "id": "9d825ae0-86f6-440b-806a-086ad9c99e76"
         },
         {
             "start": "18:25",
@@ -1721,7 +1887,8 @@
             "action": "犹豫",
             "actionDetail": "",
             "timeSpan": 3,
-            "date": "2025-07-15"
+            "date": "2025-07-15",
+            "id": "c2de4994-8309-4dca-9824-d04fe065ea78"
         },
         {
             "start": "18:28",
@@ -1730,7 +1897,8 @@
             "action": "背诵",
             "actionDetail": "",
             "timeSpan": 29,
-            "date": "2025-07-15"
+            "date": "2025-07-15",
+            "id": "d7ca744c-47e9-4384-ba64-43428049c4d6"
         },
         {
             "start": "18:57",
@@ -1739,7 +1907,8 @@
             "action": "杂",
             "actionDetail": "",
             "timeSpan": 12,
-            "date": "2025-07-15"
+            "date": "2025-07-15",
+            "id": "54d4197c-3891-4034-8671-7fd3ff2751ef"
         },
         {
             "start": "19:09",
@@ -1748,7 +1917,8 @@
             "action": "背诵",
             "actionDetail": "",
             "timeSpan": 10,
-            "date": "2025-07-15"
+            "date": "2025-07-15",
+            "id": "4deba525-9765-4a59-9fcd-a62719aa155c"
         }
     ],
     "2025-07-16": [
@@ -1759,7 +1929,8 @@
             "action": "AI",
             "actionDetail": "和gemini讨论如何管理我自己的问题",
             "timeSpan": 26,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "f09d0984-bffb-4e52-a7f1-e14fcbfec42b"
         },
         {
             "start": "09:09",
@@ -1768,7 +1939,8 @@
             "action": "不知道干嘛",
             "actionDetail": "",
             "timeSpan": 4,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "1224d76a-eed7-4097-bbc9-40d8880a9057"
         },
         {
             "start": "09:09",
@@ -1777,7 +1949,8 @@
             "action": "不知道干嘛",
             "actionDetail": "",
             "timeSpan": 4,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "fc2b3c16-6d6f-476b-ab34-e8c8a3b80321"
         },
         {
             "start": "09:13",
@@ -1786,7 +1959,8 @@
             "action": "DESIGN",
             "actionDetail": "撰写新的每日计划书模式",
             "timeSpan": 52,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "560e53f6-d689-4b23-993f-fc6ac18fce35"
         },
         {
             "start": "10:05",
@@ -1795,7 +1969,8 @@
             "action": "犹豫",
             "actionDetail": "，随便做了点事情，但总而言之就是啥也没做，感觉没啥动力因此决定从词汇开始（动力很重要）",
             "timeSpan": 13,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "132203c9-2f91-4979-847c-0c4dc37ae0a6"
         },
         {
             "start": "10:18",
@@ -1804,7 +1979,8 @@
             "action": "犹豫",
             "actionDetail": "",
             "timeSpan": 4,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "23af2590-bfe8-48fa-9bdd-437414efa416"
         },
         {
             "start": "10:22",
@@ -1813,7 +1989,8 @@
             "action": "抄写",
             "actionDetail": "输入单词",
             "timeSpan": 15,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "06ea442d-c90a-4379-982a-df0bbb45eb0d"
         },
         {
             "start": "10:37",
@@ -1822,7 +1999,8 @@
             "action": "背诵",
             "actionDetail": "单词",
             "timeSpan": 10,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "f630751b-97e5-4cbe-b917-b427ad9e2bc2"
         },
         {
             "start": "10:47",
@@ -1831,7 +2009,8 @@
             "action": "休息",
             "actionDetail": "",
             "timeSpan": 5,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "04741afb-33d3-46d4-89ab-2c19b423ffe1"
         },
         {
             "start": "10:52",
@@ -1840,7 +2019,8 @@
             "action": "背诵",
             "actionDetail": "单词，发现它疑似需要比我预想中时间多得多的时间，不过倒也不完全出乎我的意料，我目前还只是使用了输入和复习的两个时间段...但是要不然我先不背单词了，直接开始写sat?虽然会损失一部分的重新熟悉词语成本，但是连着背三个时间段是否会某种不太好？",
             "timeSpan": 30,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "5a53d90c-f44d-4793-95af-f102cf2464e7"
         },
         {
             "start": "11:22",
@@ -1849,7 +2029,8 @@
             "action": "休息",
             "actionDetail": "，我发现休息极为重要，特别是在这种高能量 + 高能量的时候",
             "timeSpan": 15,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "bbda069b-67d3-4012-9879-c042f165486e"
         },
         {
             "start": "11:37",
@@ -1858,7 +2039,8 @@
             "action": "做题SAT英语",
             "actionDetail": "",
             "timeSpan": 25,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "cd3634d3-c208-43c2-a5e8-31dc7e9be46f"
         },
         {
             "start": "12:02",
@@ -1867,7 +2049,8 @@
             "action": "吃饭",
             "actionDetail": "",
             "timeSpan": 33,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "ed478de6-d5b2-4f00-b741-f4ec664c1e78"
         },
         {
             "start": "12:35",
@@ -1876,7 +2059,8 @@
             "action": "视频",
             "actionDetail": "",
             "timeSpan": 30,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "001ea75c-f09e-4245-b1da-d3d24432062c"
         },
         {
             "start": "13:05",
@@ -1885,7 +2069,8 @@
             "action": "睡觉",
             "actionDetail": "，我突然想到一个问题，即使我使用更为好计算的番茄钟单位时间计算会遇到的——如果遇到小于半个小时的活动怎么办？尽量round 到0.25吧",
             "timeSpan": 31,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "4184eb0d-1cf9-4048-94b8-613ffeed1f06"
         },
         {
             "start": "13:36",
@@ -1894,7 +2079,8 @@
             "action": "做题SAT英语",
             "actionDetail": "",
             "timeSpan": 23,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "4b7adc4f-e2b1-49ac-ac5c-108bcd42ba6c"
         },
         {
             "start": "13:59",
@@ -1903,7 +2089,8 @@
             "action": "POOP",
             "actionDetail": "虽然我不这么干我就没法继续，但它肯定不能算回状态",
             "timeSpan": 10,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "7c3f2b11-259c-4041-b674-50aaa7913a68"
         },
         {
             "start": "14:09",
@@ -1912,7 +2099,8 @@
             "action": "小说",
             "actionDetail": "",
             "timeSpan": 5,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "3297978f-af7c-4478-9169-76f0d3adab85"
         },
         {
             "start": "14:14",
@@ -1921,7 +2109,8 @@
             "action": "背诵",
             "actionDetail": "sat单词，我发现即使我使用了anki，我作为非母语者还是把单词关联上某些意象——哪怕基本没什么逻辑——更好背诵，这是否和anki的哲学背道而驰？例如，我背canny的时候就觉得连一个can都要收集那么一定很节约",
             "timeSpan": 27,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "4c6b82dd-f379-4491-b6f7-8c3197b84658"
         },
         {
             "start": "14:41",
@@ -1930,7 +2119,8 @@
             "action": "和G讨论我的方法，发现精细化编码以及未来可能的TI知识库功能",
             "actionDetail": "",
             "timeSpan": 6,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "4ebce0fe-11ff-4386-819c-15a1f3a0c46e"
         },
         {
             "start": "14:47",
@@ -1939,7 +2129,8 @@
             "action": "休息",
             "actionDetail": "",
             "timeSpan": 8,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "b7c0223a-c35e-4ee5-aa93-6d54bb354632"
         },
         {
             "start": "14:55",
@@ -1948,7 +2139,8 @@
             "action": "小说",
             "actionDetail": "",
             "timeSpan": 2,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "6c131773-2e2c-454a-b64b-ceb38e6c3fc7"
         },
         {
             "start": "14:55",
@@ -1957,7 +2149,8 @@
             "action": "小说",
             "actionDetail": "",
             "timeSpan": 2,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "9e153886-05a1-4685-9bce-3be193897f41"
         },
         {
             "start": "14:57",
@@ -1966,7 +2159,8 @@
             "action": "背诵",
             "actionDetail": "这个精细编码真的太好用了必须坚持使用，仅仅使用了一半的unit",
             "timeSpan": 13,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "9316c645-7839-430f-aa91-e75e76edc1e2"
         },
         {
             "start": "15:10",
@@ -1975,7 +2169,8 @@
             "action": "荒野乱斗",
             "actionDetail": "U聊天,本来打算使用半个单元的时间来打荒野乱斗，想了想还是算了",
             "timeSpan": 26,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "6c6a57f0-4ea9-4829-a698-ee55ec4d9f3e"
         },
         {
             "start": "15:36",
@@ -1984,7 +2179,8 @@
             "action": "做题数学SAT",
             "actionDetail": "",
             "timeSpan": 24,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "f8058da4-540c-4f9d-9233-4ce0b27de538"
         },
         {
             "start": "16:00",
@@ -1993,7 +2189,8 @@
             "action": "休息",
             "actionDetail": "",
             "timeSpan": 7,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "2c2eb590-435f-460b-b2a0-245efa66ad3d"
         },
         {
             "start": "16:07",
@@ -2002,7 +2199,8 @@
             "action": "DEBUG",
             "actionDetail": "搞pytest的事情...然后我浪费了一个小时发现我压根搞不了",
             "timeSpan": 53,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "6bbf1b4e-93db-483c-83f2-08ff8f674de1"
         },
         {
             "start": "17:00",
@@ -2011,7 +2209,8 @@
             "action": "上课",
             "actionDetail": " 实在是太浪费时间了...这老师讲得不好",
             "timeSpan": 120,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "674b0adb-c2a2-44f0-9d08-63c084442b0b"
         },
         {
             "start": "19:00",
@@ -2020,7 +2219,8 @@
             "action": "游戏",
             "actionDetail": "",
             "timeSpan": 35,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "6e96e86d-e441-44b2-b303-db702b5014c1"
         },
         {
             "start": "19:35",
@@ -2029,7 +2229,8 @@
             "action": "知乎",
             "actionDetail": "",
             "timeSpan": 13,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "96822820-0a96-46ff-82a0-e31cf1ed27a9"
         },
         {
             "start": "19:48",
@@ -2038,7 +2239,8 @@
             "action": "DEBUG",
             "actionDetail": "运行pytest",
             "timeSpan": 22,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "d71e42d9-98da-45d5-b8bd-ee0da1bc2ff7"
         },
         {
             "start": "20:10",
@@ -2047,7 +2249,8 @@
             "action": "吃饭",
             "actionDetail": "",
             "timeSpan": 30,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "a4f047e8-1221-4036-b8c2-7bd13fe8852d"
         },
         {
             "start": "20:40",
@@ -2056,7 +2259,8 @@
             "action": "视频",
             "actionDetail": "",
             "timeSpan": 40,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "715c24cf-e9dc-497c-934b-d6156a1e2280"
         },
         {
             "start": "21:20",
@@ -2065,7 +2269,8 @@
             "action": "视频",
             "actionDetail": "频",
             "timeSpan": 5,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "2ef8c5d2-a66a-4a3d-9646-8402587c2ba2"
         },
         {
             "start": "21:25",
@@ -2074,7 +2279,8 @@
             "action": "睡觉",
             "actionDetail": "",
             "timeSpan": 4,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "f11633bf-2ebb-4675-8e42-e17c67bfc102"
         },
         {
             "start": "21:29",
@@ -2083,7 +2289,8 @@
             "action": "运动",
             "actionDetail": "",
             "timeSpan": 70,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "a5cf3da8-c4c1-4dae-b11b-a3dd23540bdd"
         },
         {
             "start": "22:39",
@@ -2092,7 +2299,8 @@
             "action": "小说",
             "actionDetail": "",
             "timeSpan": 26,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "21d3ec25-9620-4429-a4eb-6e276b3f4948"
         },
         {
             "start": "23:05",
@@ -2101,7 +2309,252 @@
             "action": "洗澡",
             "actionDetail": "",
             "timeSpan": 7,
-            "date": "2025-07-16"
+            "date": "2025-07-16",
+            "id": "ec07e56a-dbec-47bc-87dc-9ee4c1d1f058"
+        }
+    ],
+    "2025-07-18": [
+        {
+            "start": "16:10",
+            "end": "16:54",
+            "action": "CODE",
+            "actionDetail": "我的心在滴血啊修改数据之前没有保存今天的数据全没了",
+            "action_type": "work",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 44,
+            "date": "2025-07-18",
+            "id": "bda45fe7-35d4-4d68-9c82-1a5c3994bb1b"
+        },
+        {
+            "start": "16:54",
+            "end": "17:10",
+            "action": "CODE",
+            "actionDetail": "伟大胜利啊现在开始时候会显示今天的纪录了",
+            "action_type": "work",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 16,
+            "date": "2025-07-18",
+            "id": "3a50510e-70a6-4bd1-8b35-2b6f94f2fcdb"
+        },
+        {
+            "start": "17:10",
+            "end": "17:27",
+            "action": "视频",
+            "actionDetail": "频",
+            "action_type": "waste",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 17,
+            "date": "2025-07-18",
+            "id": "c9fc3b5d-9495-4306-b314-215d7730b898"
+        },
+        {
+            "start": "17:27",
+            "end": "17:38",
+            "action": "AI",
+            "actionDetail": "关于我丢失数据恐惧的讨论",
+            "action_type": "work",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 11,
+            "date": "2025-07-18",
+            "id": "6041c4f2-41df-44ee-8883-d0104fbc6165"
+        },
+        {
+            "start": "17:38",
+            "end": "17:53",
+            "action": "DESIGN",
+            "actionDetail": "设想新的架构",
+            "action_type": "work",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 15,
+            "date": "2025-07-18",
+            "id": "6e6a9829-9e7f-4ee2-990a-9c740eb25886"
+        },
+        {
+            "start": "17:53",
+            "end": "18:33",
+            "action": "吃饭",
+            "actionDetail": "",
+            "action_type": "rest",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 40,
+            "date": "2025-07-18",
+            "id": "e05a1eed-d2bf-4377-9c6a-073ae0f9ca51"
+        },
+        {
+            "start": "18:33",
+            "end": "18:53",
+            "action": "视频",
+            "actionDetail": "",
+            "action_type": "waste",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 20,
+            "date": "2025-07-18",
+            "id": "bdaf5058-9f52-4154-86fe-9a8f8a557e57"
+        },
+        {
+            "start": "18:53",
+            "end": "19:23",
+            "action": "游戏",
+            "actionDetail": "",
+            "action_type": "waste",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 30,
+            "date": "2025-07-18",
+            "id": "8f631c65-362a-4093-99ac-728e3f2badd8"
+        },
+        {
+            "start": "19:23",
+            "end": "19:27",
+            "action": "休息",
+            "actionDetail": "",
+            "action_type": "rest",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 4,
+            "date": "2025-07-18",
+            "id": "0708d75b-db34-4937-a3f8-47a9be4821fd"
+        },
+        {
+            "start": "19:27",
+            "end": "20:03",
+            "action": "复习",
+            "actionDetail": "分析之前试卷的问题，感觉用时太长了",
+            "action_type": "work",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 36,
+            "date": "2025-07-18",
+            "id": "50bf130a-117d-4f37-8b55-36a426133e96"
+        },
+        {
+            "start": "20:03",
+            "end": "20:13",
+            "action": "休息",
+            "actionDetail": "",
+            "action_type": "rest",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 10,
+            "date": "2025-07-18",
+            "id": "dd54453a-e989-4497-87fc-c3752bfb1975"
+        },
+        {
+            "start": "20:13",
+            "end": "20:16",
+            "action": "朋友圈",
+            "actionDetail": "",
+            "action_type": "waste",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 3,
+            "date": "2025-07-18",
+            "id": "aae7e24c-6a6a-4856-8c03-aa84aa6e2a0e"
+        },
+        {
+            "start": "20:16",
+            "end": "20:44",
+            "action": "做题",
+            "actionDetail": "SAT英语",
+            "action_type": "work",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 28,
+            "date": "2025-07-18",
+            "id": "00db6a05-5def-4b65-8e21-5411b728c90e"
+        },
+        {
+            "start": "20:44",
+            "end": "21:10",
+            "action": "游戏",
+            "actionDetail": "",
+            "action_type": "waste",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 26,
+            "date": "2025-07-18",
+            "id": "b3aa9b32-1267-4f8e-a659-f44823caa9ea"
+        },
+        {
+            "start": "21:10",
+            "end": "21:27",
+            "action": "做题",
+            "actionDetail": "",
+            "action_type": "work",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 17,
+            "date": "2025-07-18",
+            "id": "22c698f8-5d7c-4151-81cf-5a74546c963c"
+        },
+        {
+            "start": "21:27",
+            "end": "21:34",
+            "action": "QQ",
+            "actionDetail": "",
+            "action_type": "waste",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 7,
+            "date": "2025-07-18",
+            "id": "14f52d5d-64d9-4dc8-9bb8-92c043ea25f7"
+        },
+        {
+            "start": "21:34",
+            "end": "22:32",
+            "action": "运动",
+            "actionDetail": "",
+            "action_type": "rest",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 58,
+            "date": "2025-07-18",
+            "id": "15094bc1-49c0-4719-b6fa-267e1a6b747a"
+        },
+        {
+            "start": "22:32",
+            "end": "23:32",
+            "action": "维多利亚",
+            "actionDetail": "",
+            "action_type": "rest",
+            "urgency": false,
+            "importance": false,
+            "timeSpan": 60,
+            "date": "2025-07-18",
+            "id": "91798f55-78ff-4d61-a106-8929e4b8738f"
+        }
+    ],
+    "2025-07-19": [
+        {
+            "id": "71b5ecb3-f7d2-4662-879f-9ce3ea7ec90c",
+            "date": "2025-07-19",
+            "action": "CODE",
+            "start": "11:36",
+            "end": "11:44",
+            "action_type": "work",
+            "actionDetail": "",
+            "timeSpan": 8,
+            "urgency": false,
+            "importance": false
+        },
+        {
+            "id": "90d224f4-00b6-4bc0-8955-ffbf102a9870",
+            "date": "2025-07-19",
+            "action": "CODE",
+            "start": "11:45",
+            "end": "11:14",
+            "action_type": "work",
+            "actionDetail": "",
+            "timeSpan": -31,
+            "urgency": false,
+            "importance": false
         }
     ]
 }

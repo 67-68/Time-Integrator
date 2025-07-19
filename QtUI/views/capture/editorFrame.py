@@ -1,3 +1,4 @@
+from Core.analysis.matchers import get_time_from_str
 from QtUI.rawUI.ui_rawEditorFrame import Ui_editorFrame
 
 from PyQt6.QtCore import pyqtSignal
@@ -8,6 +9,8 @@ class EditorFrame(BasicWidget):
     
     saveData_button_clicked = pyqtSignal(dict)
     actionUnitSelected = pyqtSignal(int)
+    new_button_selected = pyqtSignal()
+    delete_button_clciked = pyqtSignal(dict)
     
     def __init__(self, parent = None):
         super().__init__(parent)
@@ -18,8 +21,9 @@ class EditorFrame(BasicWidget):
         #  --- 关联回调函数 ---
         self.editorFrame.leftSwitchButton.clicked.connect(lambda: self.actionUnitSelected.emit(-1))
         self.editorFrame.rightSwitchButton.clicked.connect(lambda: self.actionUnitSelected.emit(1))
-        self.editorFrame.saveButton.clicked.connect(self._on_confirmButton_clicked)
-        self.editorFrame.createNewButton.clicked.connect(lambda: self.actionUnitSelected.emit(0))
+        self.editorFrame.confirmButton.clicked.connect(self._on_confirmButton_clicked)
+        self.editorFrame.createNewButton.clicked.connect(self.new_button_selected.emit)
+        #self.editorFrame.deleteButton.clicked.connect()
         
         #  --- 创建检验对象 ---
         self.validation = InputValidation()
@@ -32,7 +36,7 @@ class EditorFrame(BasicWidget):
     #SPECIFIC; DETECT confirmButton; VALIDATE, COLLECT data and EMIT a signal to presentor
     def _on_confirmButton_clicked(self):
         actionUnits = self.collectData()
-        actionUnits["timeSpan"] = getTimeSpan_API(actionUnits["start"],actionUnits["end"])
+        actionUnits["timeSpan"] = get_time_from_str(actionUnits["end"]) - get_time_from_str(actionUnits["start"])
         
         # 把包含 data 键的完整数据包发射出去
         self.saveData_button_clicked.emit(actionUnits)
@@ -45,9 +49,7 @@ class EditorFrame(BasicWidget):
     def fillData(self,actionUnit):
         self.IEF.fillData(actionUnit)
 
-    def setTutorialLabels(self):
-        #新建页面并且初始化标语
-        self.fillData(None)
+
     
 
         

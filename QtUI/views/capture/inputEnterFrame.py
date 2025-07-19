@@ -99,7 +99,8 @@ class InputEnterFrame(BasicWidget):
     def fillData(self,actionUnit):
         with QSignalBlocker(self.PE), QSignalBlocker(self.FE.FE.fastEntry):
             #  --- 拆包 ---
+            # 热补丁：如果是不完整信息那么不翻译
             text = self.translator.properToFast(actionUnit)
-
             self.PE.fillData(actionUnit)
             self.FE.fillData(text)
+        

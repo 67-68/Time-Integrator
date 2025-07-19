@@ -17,6 +17,7 @@ class PageSwitchFrame(BasicFrame):
         self.PSF.menuButton.clicked.connect(lambda: self._on_switchPage_button_clicked("menu"))
         self.PSF.captureButton.clicked.connect(lambda: self._on_switchPage_button_clicked("capture"))
         self.PSF.analysisButton.clicked.connect(lambda: self._on_switchPage_button_clicked("analysis"))
+        self.PSF.settingButton.clicked.connect(lambda: self._on_switchPage_button_clicked("setting"))
         
     def _on_switchPage_button_clicked(self,page):
         self.switchPage_button_clicked.emit(page)

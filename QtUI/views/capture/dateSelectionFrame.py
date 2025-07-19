@@ -101,5 +101,7 @@ class DateSelectionFrame(BasicWidget):
         return None
     
     def switchItem(self,au):
-        item = self.find_item_by_au(au)
-        self.list.setCurrentRow(item)
+        #新建的ui要怎么做呢?
+        if "action" in au:
+            item = self.find_item_by_au(au)
+            self.list.setCurrentRow(item)

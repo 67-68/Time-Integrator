@@ -1,5 +1,5 @@
 import json
-
+import uuid
 from Core.utils import resource_path
 
 #在需要覆盖的时候使用
@@ -32,6 +32,18 @@ def updateDataKey(dataLoc,keyToUpdate):
                     actionUnits[key] = None
 
     saveData(data,dataLoc)
+
+def createNewData():
+    return {
+        "id":str(uuid.uuid4()),
+        "date":"",
+        "action":"",
+        "start":"",
+        "end":"",
+        "action_type":"",
+        "actionDetail":"",
+        "timeSpan":""
+        }
     
 
 

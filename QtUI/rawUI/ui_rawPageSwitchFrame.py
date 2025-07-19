@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '/Users/lennon/Library/Mobile Documents/com~apple~CloudDocs/Useful files/Projects/Time_Integrater/QtUI/views/rawUI/rawPageSwitchFrame.ui'
+# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/QtUI/rawUI/rawPageSwitchFrame.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -56,19 +56,19 @@ class Ui_pageswitchFrame(object):
         self.analysisButton.setFont(font)
         self.analysisButton.setObjectName("analysisButton")
         self.horizontalLayout.addWidget(self.analysisButton)
-        self.InputButton = QtWidgets.QToolButton(parent=pageswitchFrame)
+        self.settingButton = QtWidgets.QToolButton(parent=pageswitchFrame)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(1)
         sizePolicy.setVerticalStretch(1)
-        sizePolicy.setHeightForWidth(self.InputButton.sizePolicy().hasHeightForWidth())
-        self.InputButton.setSizePolicy(sizePolicy)
-        self.InputButton.setMinimumSize(QtCore.QSize(90, 30))
+        sizePolicy.setHeightForWidth(self.settingButton.sizePolicy().hasHeightForWidth())
+        self.settingButton.setSizePolicy(sizePolicy)
+        self.settingButton.setMinimumSize(QtCore.QSize(90, 30))
         font = QtGui.QFont()
         font.setFamily("AppleGothic")
         font.setPointSize(20)
-        self.InputButton.setFont(font)
-        self.InputButton.setObjectName("InputButton")
-        self.horizontalLayout.addWidget(self.InputButton)
+        self.settingButton.setFont(font)
+        self.settingButton.setObjectName("settingButton")
+        self.horizontalLayout.addWidget(self.settingButton)
 
         self.retranslateUi(pageswitchFrame)
         QtCore.QMetaObject.connectSlotsByName(pageswitchFrame)
@@ -79,4 +79,4 @@ class Ui_pageswitchFrame(object):
         self.menuButton.setText(_translate("pageswitchFrame", "Start"))
         self.captureButton.setText(_translate("pageswitchFrame", "Capture"))
         self.analysisButton.setText(_translate("pageswitchFrame", "Analysis"))
-        self.InputButton.setText(_translate("pageswitchFrame", "Strategy and Settings"))
+        self.settingButton.setText(_translate("pageswitchFrame", "Strategy and Settings"))

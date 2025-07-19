@@ -21,6 +21,7 @@
        <number>0</number>
       </property>
       <widget class="AnalysisPage" name="analysisPageBase"/>
+      <widget class="SettingPage" name="settingPage"/>
       <widget class="MenuPage" name="menuPageBase"/>
       <widget class="CapturePage" name="capturePageBase"/>
      </widget>
@@ -32,19 +33,25 @@
   <customwidget>
    <class>CapturePage</class>
    <extends>QWidget</extends>
-   <header>QtUI/views/CapturePage.h</header>
+   <header>QtUI/views/capture/CapturePage.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>MenuPage</class>
    <extends>QWidget</extends>
-   <header>QtUI/views/MenuPage.h</header>
+   <header>QtUI/views/menu/MenuPage.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>AnalysisPage</class>
    <extends>QWidget</extends>
-   <header>QtUI/views/AnalysisPage.h</header>
+   <header>QtUI/views/analysis/AnalysisPage.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SettingPage</class>
+   <extends>QWidget</extends>
+   <header>QtUI/views/SettingPage.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

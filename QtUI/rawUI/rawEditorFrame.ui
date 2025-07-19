@@ -78,6 +78,19 @@
        </widget>
       </item>
       <item>
+       <widget class="QToolButton" name="deleteButton">
+        <property name="minimumSize">
+         <size>
+          <width>60</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>delete</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QToolButton" name="confirmButton">
         <property name="minimumSize">
          <size>

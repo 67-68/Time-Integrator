@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '/Users/lennon/Library/Mobile Documents/com~apple~CloudDocs/Useful files/Projects/Time_Integrater/QtUI/views/rawUI/rawMainWindow.ui'
+# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/QtUI/rawUI/rawMainWindow.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -22,6 +22,9 @@ class Ui_MainWindow(object):
         self.analysisPageBase = AnalysisPage()
         self.analysisPageBase.setObjectName("analysisPageBase")
         self.stackedWidget.addWidget(self.analysisPageBase)
+        self.settingPage = SettingPage()
+        self.settingPage.setObjectName("settingPage")
+        self.stackedWidget.addWidget(self.settingPage)
         self.menuPageBase = MenuPage()
         self.menuPageBase.setObjectName("menuPageBase")
         self.stackedWidget.addWidget(self.menuPageBase)
@@ -38,6 +41,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+from QtUI.views.SettingPage import SettingPage
 from QtUI.views.analysis.AnalysisPage import AnalysisPage
 from QtUI.views.capture.CapturePage import CapturePage
 from QtUI.views.menu.MenuPage import MenuPage

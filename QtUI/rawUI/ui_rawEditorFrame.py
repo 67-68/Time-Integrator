@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '/Users/lennon/Library/Mobile Documents/com~apple~CloudDocs/Useful files/Projects/Time_Integrater/QtUI/views/rawUI/rawEditorFrame.ui'
+# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/QtUI/rawUI/rawEditorFrame.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -39,10 +39,14 @@ class Ui_editorFrame(object):
         self.createNewButton.setMinimumSize(QtCore.QSize(60, 60))
         self.createNewButton.setObjectName("createNewButton")
         self.horizontalLayout.addWidget(self.createNewButton)
-        self.saveButton = QtWidgets.QToolButton(parent=self.bottomToolFrame)
-        self.saveButton.setMinimumSize(QtCore.QSize(60, 60))
-        self.saveButton.setObjectName("confirmButton")
-        self.horizontalLayout.addWidget(self.saveButton)
+        self.deleteButton = QtWidgets.QToolButton(parent=self.bottomToolFrame)
+        self.deleteButton.setMinimumSize(QtCore.QSize(60, 60))
+        self.deleteButton.setObjectName("deleteButton")
+        self.horizontalLayout.addWidget(self.deleteButton)
+        self.confirmButton = QtWidgets.QToolButton(parent=self.bottomToolFrame)
+        self.confirmButton.setMinimumSize(QtCore.QSize(60, 60))
+        self.confirmButton.setObjectName("confirmButton")
+        self.horizontalLayout.addWidget(self.confirmButton)
         self.rightSwitchButton = QtWidgets.QToolButton(parent=self.bottomToolFrame)
         self.rightSwitchButton.setMinimumSize(QtCore.QSize(60, 60))
         self.rightSwitchButton.setObjectName("rightSwitchButton")
@@ -57,6 +61,7 @@ class Ui_editorFrame(object):
         editorFrame.setWindowTitle(_translate("editorFrame", "Form"))
         self.leftSwitchButton.setText(_translate("editorFrame", "<-"))
         self.createNewButton.setText(_translate("editorFrame", "new"))
-        self.saveButton.setText(_translate("editorFrame", "confirm"))
+        self.deleteButton.setText(_translate("editorFrame", "delete"))
+        self.confirmButton.setText(_translate("editorFrame", "confirm"))
         self.rightSwitchButton.setText(_translate("editorFrame", "->"))
 from QtUI.views.capture.inputEnterFrame import InputEnterFrame

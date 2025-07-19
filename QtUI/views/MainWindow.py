@@ -12,6 +12,7 @@ class MainWindow(QMainWindow):
     timeSpan_choosed = pyqtSignal()
     date_selected = pyqtSignal(str)
     list_item_selected = pyqtSignal(dict)
+    new_button_selected = pyqtSignal()
     
     #  ---------- 开始初始化 ----------
     def __init__(self):
@@ -24,6 +25,7 @@ class MainWindow(QMainWindow):
         self.CP = self.MW.capturePageBase
         self.MP = self.MW.menuPageBase
         self.AP = self.MW.analysisPageBase
+        self.SP = self.MW.settingPage
         
         #  ------ 接收 ------
         self.connectSignal()
@@ -36,11 +38,14 @@ class MainWindow(QMainWindow):
         self.CP.saveData_button_clicked.connect(lambda d: self.saveData_button_clicked.emit(d))
         self.CP.date_selected.connect(lambda d: self.date_selected.emit(d))
         self.CP.list_item_selected.connect(lambda d: self.list_item_selected.emit(d))
+        self.CP.new_button_selected.connect(self.new_button_selected.emit)
         
         self.MP.switchPage_button_clicked.connect(lambda p: self._on_page_switch_button_clicked(p))
         self.MP.timeSpan_choosed.connect(self.timeSpan_choosed.emit)
         
         self.AP.switchPage_button_clicked.connect(lambda p: self._on_page_switch_button_clicked(p))
+        
+        self.SP.switchPage_button_clicked.connect(lambda p: self._on_page_switch_button_clicked(p))
         
     def _on_page_switch_button_clicked(self,page):
         if page == "menu":
@@ -49,6 +54,8 @@ class MainWindow(QMainWindow):
             self.MW.stackedWidget.setCurrentWidget(self.CP)
         elif page == "analysis":
             self.MW.stackedWidget.setCurrentWidget(self.AP)
+        elif page == "setting":
+            self.MW.stackedWidget.setCurrentWidget(self.SP)
     
     
     def updateMenu(self,timeUseRateStr,fourRealmRatioStr,extremeDataStr):

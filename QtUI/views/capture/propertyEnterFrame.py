@@ -41,20 +41,12 @@ class PropertyEnterFrame(BasicFrame):
     #  ------ 下行指令承接 ------    
     #SPECIFIC; INPUT actionUnit, UPDATE data
     def fillData(self,actionData):
-        if actionData is not None:
-            self.pe.startEdit.setText(actionData["start"])
-            self.pe.endEdit.setText(actionData["end"])
-            self.pe.actionEdit.setText(actionData["action"])
-            self.pe.actionTypeEdit.setText(actionData["action_type"])
-            self.pe.actionDetailEdit.setText(actionData["actionDetail"])
-        else:
-            print("reset propeertyEnterFrame")
-            self.pe.startEdit.setText("")
-            self.pe.endEdit.setText("")
-            self.pe.actionEdit.setText("")
-            self.pe.actionDetailEdit.setText("")
-            self.pe.actionTypeEdit.setText("")
-            #TODO:importance和urgency的初始化
+    
+        self.pe.startEdit.setText(actionData["start"])
+        self.pe.endEdit.setText(actionData["end"])
+        self.pe.actionEdit.setText(actionData["action"])
+        self.pe.actionTypeEdit.setText(actionData["action_type"])
+        self.pe.actionDetailEdit.setText(actionData["actionDetail"])
     
     def getData(self):
         actionUnit = {

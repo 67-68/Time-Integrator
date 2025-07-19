@@ -6,6 +6,7 @@ from PyQt6.QtCore import QSize
 import re
 import os
 import sys
+from pathlib import Path
 
 def apply_shadow(widget: QWidget):
     """
@@ -96,17 +97,24 @@ def smart_formatter(data: dict,text: str) -> str:
     return placeholder_pattern.sub(replacer, text)
 
 def resource_path(relative_path):
-        """ 获取资源的绝对路径，无论是开发环境还是打包后。 """
-        try:
-            # PyInstaller 创建一个临时文件夹，并通过 _MEIPASS 存放在 sys 中
-            base_path = sys._MEIPASS
-        except Exception:
-            # 在开发环境中，_MEIPASS 不存在，所以我们用文件的绝对路径
-            base_path = os.path.abspath(".")
+    """ 
+    获取资源的绝对路径。
+    在开发环境中，它相对于主脚本工作。
+    在PyInstaller打包后（无论单文件还是单文件夹），它相对于可执行文件工作。
+    """
+    # 检查是否被PyInstaller打包
+    if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+        # 单文件模式打包
+        base_path = sys._MEIPASS
+    else:
+        # 开发环境或单文件夹模式打包
+        # os.path.dirname(os.path.abspath(__file__)) 是获取当前文件所在目录
+        # 我们需要的是主入口文件所在的目录，所以用sys.argv[0]更稳妥
+        base_path = os.path.dirname(os.path.abspath(sys.argv[0]))
 
-        return os.path.join(base_path, relative_path)
+    return os.path.join(base_path, relative_path)
 
-LOG_FILE_PATH = "ti_debug_log.txt"
+LOG_FILE_PATH = Path.home() / "ti_debug_log.txt"
     
 with open(LOG_FILE_PATH, "w") as f:
     f.write("--- Log Start ---\n")

@@ -44,10 +44,12 @@ class BulkEnterFrame(BasicWidget):
         this function is used to fill data when date is selected
         it will take in the action units of that day, translate them into fast entry, then present them
         """
-        text = ""
-        for au in data:
-            fastEntry = self.trans.properToFast(au)
-            text = text + fastEntry + "\n"
         
-        self.BE.setText(text)
+        text = ""
+        if data:
+            for au in data:
+                fastEntry = self.trans.properToFast(au)
+                text = text + fastEntry + "\n"
+            
+            self.BE.setText(text)
             

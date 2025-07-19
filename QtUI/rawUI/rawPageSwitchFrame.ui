@@ -108,7 +108,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QToolButton" name="InputButton">
+    <widget class="QToolButton" name="settingButton">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
        <horstretch>1</horstretch>

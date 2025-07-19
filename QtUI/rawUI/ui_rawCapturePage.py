@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '/Users/lennon/Library/Mobile Documents/com~apple~CloudDocs/Useful files/Projects/Time_Integrater/QtUI/rawUI/rawCapturePage.ui'
+# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/QtUI/rawUI/rawCapturePage.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -37,12 +37,6 @@ class Ui_CapturePage(object):
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.leftToolFrame)
         self.verticalLayout_2.setContentsMargins(6, 6, 6, 6)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.welcomePageButton = QtWidgets.QRadioButton(parent=self.leftToolFrame)
-        self.welcomePageButton.setEnabled(False)
-        self.welcomePageButton.setMinimumSize(QtCore.QSize(0, 30))
-        self.welcomePageButton.setCheckable(True)
-        self.welcomePageButton.setObjectName("welcomePageButton")
-        self.verticalLayout_2.addWidget(self.welcomePageButton)
         self.editorFrameButton = QtWidgets.QRadioButton(parent=self.leftToolFrame)
         self.editorFrameButton.setMinimumSize(QtCore.QSize(30, 0))
         self.editorFrameButton.setObjectName("editorFrameButton")
@@ -75,20 +69,6 @@ class Ui_CapturePage(object):
         self.editorFrameBase = EditorFrame()
         self.editorFrameBase.setObjectName("editorFrameBase")
         self.stackedWidget.addWidget(self.editorFrameBase)
-        self.welcomeFrame = QtWidgets.QWidget()
-        self.welcomeFrame.setObjectName("welcomeFrame")
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.welcomeFrame)
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.label = QtWidgets.QLabel(parent=self.welcomeFrame)
-        self.label.setObjectName("label")
-        self.verticalLayout_3.addWidget(self.label)
-        self.label_2 = QtWidgets.QLabel(parent=self.welcomeFrame)
-        self.label_2.setObjectName("label_2")
-        self.verticalLayout_3.addWidget(self.label_2)
-        self.label_3 = QtWidgets.QLabel(parent=self.welcomeFrame)
-        self.label_3.setObjectName("label_3")
-        self.verticalLayout_3.addWidget(self.label_3)
-        self.stackedWidget.addWidget(self.welcomeFrame)
         self.bulkEnterFrameBase = BulkEnterFrame()
         self.bulkEnterFrameBase.setObjectName("bulkEnterFrameBase")
         self.stackedWidget.addWidget(self.bulkEnterFrameBase)
@@ -102,17 +82,14 @@ class Ui_CapturePage(object):
         self.verticalLayout.addWidget(self.pageSwitchFrameBase)
 
         self.retranslateUi(CapturePage)
+        self.stackedWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(CapturePage)
 
     def retranslateUi(self, CapturePage):
         _translate = QtCore.QCoreApplication.translate
         CapturePage.setWindowTitle(_translate("CapturePage", "Form"))
-        self.welcomePageButton.setText(_translate("CapturePage", "welcome"))
         self.editorFrameButton.setText(_translate("CapturePage", "basic enter"))
         self.bulkEnterFrameButton.setText(_translate("CapturePage", "bulk mode"))
-        self.label.setText(_translate("CapturePage", "<-here"))
-        self.label_2.setText(_translate("CapturePage", "choose your date"))
-        self.label_3.setText(_translate("CapturePage", "to see or record the actionUnits"))
 from QtUI.views.capture.bulkEnterFrame import BulkEnterFrame
 from QtUI.views.capture.dateSelectionFrame import DateSelectionFrame
 from QtUI.views.capture.editorFrame import EditorFrame

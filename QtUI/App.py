@@ -1,15 +1,11 @@
-import os
-from Core.analysis.matchers import get_time_from_str
 from Core.analysis.otherAnalysis import getActionUnit, updateActionList
-from Core.dataAccess.dataManager import createNewData, getData, saveData
-from Core.utils import log_message, resource_path
+from Core.dataAccess.dataService import createNewData, getData, saveData
+from Core.utils import load_qss, log_message, resource_path
 from QtUI.views.MainWindow import MainWindow
 from QtUI.presenters.menuPresenter import MenuPresenter
 from PyQt6.QtWidgets import QApplication
 import sys
 from Core.Definitions import TODAY
-        
-
 log_message("Application starting...")
 
 class TimeIntegrator:
@@ -22,21 +18,12 @@ class TimeIntegrator:
         
         #  ------ 创建UI ------
         self.mainWindow = MainWindow()
-        log_message("MainWindow instantiated.")
         
-        log_message("Loading QSS...")
         styleSheet = load_qss()
-        log_message("QSS loaded successfully.")
-        
         self.app.setStyleSheet(styleSheet)
-        log_message("Stylesheet applied.")
         
         #  ------ 持有的状态 ------
-        self.isDebugMode = False
-        self.currentDate = None
-        self.currentActionUnit = None 
-        self.currentData = getData("Data/dateData.json") #初始化的时候获取一份数据，在用户输入之后修改
-        self.previousAU = None
+        self.createState()
         
         #  ------ 连接信号和槽 ------
         self.connectSignal()
@@ -46,13 +33,22 @@ class TimeIntegrator:
         
         #  ------ 初始化今天 -----
         self._on_date_selected(TODAY)
-    
+
+
+    """ ------------------------------ Basic functions ------------------------------"""
     def connectSignal(self):
         self.mainWindow.timeSpan_choosed.connect(self._on_Time_Choosed)
         self.mainWindow.saveData_button_clicked.connect(lambda f:self._on_saveButton_clicked(f))
         self.mainWindow.date_selected.connect(self._on_date_selected)
         self.mainWindow.list_item_selected.connect(self._on_list_item_selected)
         self.mainWindow.new_button_selected.connect(self.createNewRecord)
+    
+    def createState(self):
+        self.isDebugMode = False
+        self.currentDate = None
+        self.currentActionUnit = None 
+        self.currentData = getData("Data/dateData.json") #初始化的时候获取一份数据，在用户输入之后修改
+        self.previousAU = None
     
     def createNewRecord(self):
         """
@@ -70,7 +66,6 @@ class TimeIntegrator:
         #新数据暂时不放进总的数据中，等到修改之后再检测
         
         self._on_list_item_selected(nR)
-        
     
     def _on_list_item_selected(self,data):
         """
@@ -87,7 +82,7 @@ class TimeIntegrator:
         
     def _on_saveButton_clicked(self,actionUnit):
         self.saveData(actionUnit)
-    
+
     def saveData(self,actionUnit):
         """
         保存一条数据
@@ -120,14 +115,14 @@ class TimeIntegrator:
         saveData(self.currentData,"Data/dateData.json")
         self.refreshWidget()         #初始化
         self.mainWindow.fillCPData(data,self.currentActionUnit)
-        
+        self.mainWindow.switchCPData(self.currentActionUnit)
+    
     #UNIVERSAL; INPUT Str timeChoosed; OUTPUT the data that should update
     def _on_Time_Choosed(self,newTimeChoosed):
         actionUnits = getActionUnit(newTimeChoosed)
         if not actionUnits:
             return
         self.mainWindow.updateMenu(self.menuPresenter.processData(actionUnits))
-        
 
     def _on_date_selected(self,date):
         allData = getData("Data/dateData.json")
@@ -154,19 +149,3 @@ class TimeIntegrator:
         
         #  --- 传递依赖 ---
         self.mainWindow.initialization(self.currentData)
-        
-
-def load_qss():
-    log_message("Entering load_qss function.")
-    
-    qss_path = resource_path("assets/styles/main.qss")
-    log_message(f"Resolved QSS path to: {qss_path}")
-    
-    try:
-        with open(qss_path, 'r', encoding='utf-8') as f:
-            log_message("Successfully read QSS file content.")
-            return f.read()
-    except Exception as e:
-        log_message(f"!!!!!!!! FAILED to read QSS file: {e}")
-        raise e
-    

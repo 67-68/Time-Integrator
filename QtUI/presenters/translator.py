@@ -1,4 +1,4 @@
-from Core.dataAccess.dataManager import getData
+from Core.dataAccess.dataService import getData
 from Core.translation.propertyTranslation import transPropToFast_API
 from Core.translation.fastEnterTranslation import transFastToProp_API
 

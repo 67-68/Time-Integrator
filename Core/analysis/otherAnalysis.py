@@ -1,5 +1,5 @@
 import datetime
-from Core.dataAccess.dataManager import getData, saveData
+from Core.dataAccess.dataService import getData, saveData
 
 #UNIVERSAL; INPUT timeSpan; OUTPUT actionUnits
 def getActionUnit(timeSpan):

@@ -1,5 +1,5 @@
 from Core.Definitions import InputState, UserActionType
-from Core.dataAccess.dataManager import getData
+from Core.dataAccess.dataService import getData
 from Core.translation.fastEnterTranslation import transFastToProp_API
 from QtUI.presenters.StateMachinePresenter import StateMachinePresenter
 

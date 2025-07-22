@@ -124,3 +124,18 @@ def log_message(message):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(LOG_FILE_PATH, "a") as f:
         f.write(f"[{timestamp}] {message}\n")
+        
+def load_qss():
+    log_message("Entering load_qss function.")
+    
+    qss_path = resource_path("assets/styles/main.qss")
+    log_message(f"Resolved QSS path to: {qss_path}")
+    
+    try:
+        with open(qss_path, 'r', encoding='utf-8') as f:
+            log_message("Successfully read QSS file content.")
+            return f.read()
+    except Exception as e:
+        log_message(f"!!!!!!!! FAILED to read QSS file: {e}")
+        raise e
+    

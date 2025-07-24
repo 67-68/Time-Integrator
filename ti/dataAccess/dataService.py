@@ -1,7 +1,7 @@
 import uuid
 
-from Core.Definitions import YESTERDAY
-from Core.dataAccess.dataAccess import getData
+from ti.dataAccess.dataAccess import getData
+from ti.core.definitions import YESTERDAY
 
 """
 这个文件用来存储数据相关的操作，作为

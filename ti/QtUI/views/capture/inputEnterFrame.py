@@ -1,4 +1,4 @@
-from Core.dataAccess.dataService import getData
+from Core.dataAccess.dataAccess import getData
 from QtUI.rawUI.ui_rawInputEnterFrame import Ui_inputEnterFrame
 
 from QtUI.presenters.translator import Translator

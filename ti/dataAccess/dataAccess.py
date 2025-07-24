@@ -33,17 +33,7 @@ def updateDataKey(dataLoc,keyToUpdate):
 
     saveData(data,dataLoc)
 
-def createNewData():
-    return {
-        "id":str(uuid.uuid4()),
-        "date":"",
-        "action":"",
-        "start":"",
-        "end":"",
-        "action_type":"",
-        "actionDetail":"",
-        "timeSpan":""
-        }
+
     
 
 

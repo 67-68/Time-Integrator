@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QWidget
-from Core.dataAccess.dataService import getData, saveData
+from Core.dataAccess.dataAccess import getData, saveData
 from QtUI.rawUI.ui_rawSettingPage import Ui_SettingPage
 from PyQt6.QtCore import pyqtSignal
 import uuid

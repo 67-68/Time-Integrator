@@ -1,5 +1,5 @@
 import datetime 
-from Data.card_recipe import DAILY_CARD_RECIPE
+from ti.dataAccess.card_recipe import DAILY_CARD_RECIPE
 """
 主类
 """

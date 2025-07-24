@@ -1,4 +1,4 @@
-from Core.dataAccess.dataService import getData
+from Core.dataAccess.dataAccess import getData
 from Core.translation.fastEnterTranslation import transFastToProp_API
 from Core.Definitions import InputState, UserActionType 
 

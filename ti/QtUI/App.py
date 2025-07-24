@@ -1,6 +1,7 @@
 from Core.analysis.otherAnalysis import getActionUnit, updateActionList
-from Core.dataAccess.dataService import createNewData, getData, saveData
-from Core.utils import load_qss, log_message, resource_path
+from Core.dataAccess.dataAccess import getData, saveData
+from Core.dataAccess.dataService import createNewData
+from Core.utils import load_qss, log_message
 from QtUI.views.MainWindow import MainWindow
 from QtUI.presenters.menuPresenter import MenuPresenter
 from PyQt6.QtWidgets import QApplication

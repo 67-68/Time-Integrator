@@ -30,7 +30,7 @@
   <customwidget>
    <class>RealTimeSearchEdit</class>
    <extends>QLineEdit</extends>
-   <header>QtUI/widgets/other/RealTimeSearchEdit.h</header>
+   <header>ti/UI/widgets/other/RealTimeSearchEdit.py</header>
   </customwidget>
  </customwidgets>
  <resources/>

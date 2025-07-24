@@ -1,8 +1,6 @@
 """ 数据往下，事件往上,任何尝试修改其自己的行为，指令都必须来源于上面 """
 from PyQt6.QtWidgets import QLineEdit,QCompleter,QAbstractItemView
-from PyQt6.QtCore import QStringListModel,Qt,QSignalBlocker
-
-from Core.Definitions import UserActionType
+from PyQt6.QtCore import QStringListModel,Qt
 from PyQt6.QtCore import QModelIndex
 
 class RealTimeSearchEdit(QLineEdit):

@@ -142,7 +142,7 @@
   <customwidget>
    <class>PageSwitchFrame</class>
    <extends>QFrame</extends>
-   <header>QtUI/views/pageSwitchFrame.h</header>
+   <header>ti/UI/views/pageSwitchFrame.py</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

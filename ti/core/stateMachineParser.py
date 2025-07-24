@@ -1,8 +1,9 @@
-from Core.dataAccess.dataAccess import getData
-from Core.translation.fastEnterTranslation import transFastToProp_API
-from Core.Definitions import InputState, UserActionType 
 
-    
+from ti.core.definitions import InputState, UserActionType
+from ti.core.translation.fastEnterTranslation import transFastToProp_API
+from ti.dataAccess.dataAccess import getData
+
+
 actionDataLoc = "Data/actionList.json"
 
 """  ---------- 状态机 ----------- """

@@ -3,15 +3,18 @@ from ti.assets.card_recipe import DAILY_CARD_RECIPE
 """
 主类
 """
-class DailyTrendReportPresenter():
+class ReportPresenter():
     def __init__(self,data):
         self.currentData = data
         # 将日期格式化为 "YYYY-MM-DD" 字符串，例如 "2025-07-13"
         self.today = (datetime.date.today() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
         
-    def createTodayReport(self):
+    def create_yesterday_report(self):
         """_summary_
-        调用函数，获取所有需要的文本数据和卡片类型
+        function: 创建昨天的报告
+        流程:
+        使用insightEngine类处理信息
+        然后把需要检测的actionUnit输入进去
         """  
         if self.today not in self.currentData:
             return "No data"

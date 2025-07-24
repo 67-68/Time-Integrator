@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '/Users/lennon/Library/Mobile Documents/com~apple~CloudDocs/Useful files/Projects/Time_Integrater/QtUI/views/rawUI/rawInputEnterFrame.ui'
+# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/ti/UI/rawUI/rawInputEnterFrame.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -32,5 +32,5 @@ class Ui_inputEnterFrame(object):
     def retranslateUi(self, inputEnterFrame):
         _translate = QtCore.QCoreApplication.translate
         inputEnterFrame.setWindowTitle(_translate("inputEnterFrame", "Form"))
-from QtUI.views.capture.fastEnterFrame import FastEnterFrame
-from QtUI.views.capture.propertyEnterFrame import PropertyEnterFrame
+from ti.UI.views.capture.fastEnterFrame import FastEnterFrame
+from ti.UI.views.capture.propertyEnterFrame import PropertyEnterFrame

@@ -1,8 +1,9 @@
 from PyQt6.QtWidgets import QMainWindow
-from QtUI.rawUI.ui_rawMainWindow import Ui_MainWindow
+
 from PyQt6.QtCore import pyqtSignal
 import pyqtgraph as pg
 
+from ti.UI.rawUI.ui_rawMainWindow import Ui_MainWindow
 
 #MVP中的view, 即用户直接看的GUI
 class MainWindow(QMainWindow):

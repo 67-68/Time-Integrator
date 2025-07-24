@@ -1,10 +1,14 @@
-from QtUI.rawUI.ui_rawAnalysisPage import Ui_analysisPage
 from PyQt6.QtWidgets import QVBoxLayout
 from PyQt6.QtCore import pyqtSignal
-from QtUI.presenters.dailyTrendPresenter import DailyTrendReportPresenter
-from QtUI.views.analysis.trendCard import TrendCard
-from QtUI.presenters.formatter import format_card
-from QtUI.widgets.pages.BasicFrame import BasicFrame
+
+
+from ti.UI.presenters.ReportPresenter import ReportPresenter
+from ti.UI.presenters.formatter import format_card
+from ti.UI.rawUI.ui_rawAnalysisPage import Ui_analysisPage
+from ti.UI.views.analysis.trendCard import TrendCard
+from ti.UI.widgets.pages.BasicFrame import BasicFrame
+
+
 
 class AnalysisPage(BasicFrame):
     switchPage_button_clicked = pyqtSignal(str)
@@ -38,11 +42,11 @@ class AnalysisPage(BasicFrame):
         我还没有想好是要点击daily trend按钮之后才初始化，或者一开始就初始化
         暂时先堆在一起
         """
-        self.presenter = DailyTrendReportPresenter(data)
+        self.presenter = ReportPresenter(data)
         cards = []
         
         #  ------ 获取数据 ------
-        textReport = self.presenter.createTodayReport() #这里需要把data转换成report
+        textReport = self.presenter.create_yesterday_report() #这里需要把data转换成report
         
         if textReport == "No data":
             return "No data"

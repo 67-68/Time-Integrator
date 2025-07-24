@@ -1,7 +1,9 @@
-from QtUI.rawUI.ui_rawCapturePage import Ui_CapturePage
+
 from PyQt6.QtCore import pyqtSignal
-from Core.Definitions import TODAY
-from QtUI.widgets.pages.BasicWidget import BasicWidget
+
+from ti.UI.rawUI.ui_rawCapturePage import Ui_CapturePage
+from ti.UI.widgets.pages.BasicWidget import BasicWidget
+
 
 class CapturePage(BasicWidget):
     switchPage_button_clicked = pyqtSignal(str)
@@ -123,4 +125,7 @@ class CapturePage(BasicWidget):
         if au["action"] != "":
             self.DSF.switchItem(au)
             
+        
+        
+        
         

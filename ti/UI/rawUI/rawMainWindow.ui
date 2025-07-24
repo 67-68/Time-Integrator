@@ -33,25 +33,25 @@
   <customwidget>
    <class>CapturePage</class>
    <extends>QWidget</extends>
-   <header>QtUI/views/capture/CapturePage.h</header>
+   <header>ti/UI/views/capture/bulkEnterFrame.py</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>MenuPage</class>
    <extends>QWidget</extends>
-   <header>QtUI/views/menu/MenuPage.h</header>
+   <header>ti/UI/views/menu/MenuPage.py</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>AnalysisPage</class>
    <extends>QWidget</extends>
-   <header>QtUI/views/analysis/AnalysisPage.h</header>
+   <header>ti/UI/views/analysis/AnalysisPage.py</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>SettingPage</class>
    <extends>QWidget</extends>
-   <header>QtUI/views/SettingPage.h</header>
+   <header>ti/UI/views/SettingPage.py</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

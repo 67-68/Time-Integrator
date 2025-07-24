@@ -40,13 +40,13 @@
   <customwidget>
    <class>PropertyEnterFrame</class>
    <extends>QFrame</extends>
-   <header>QtUI/views/propertyEnterFrame.h</header>
+   <header>ti/UI/views/capture/propertyEnterFrame.py</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>FastEnterFrame</class>
    <extends>QFrame</extends>
-   <header>QtUI/views/fastEnterFrame.h</header>
+   <header>ti/UI/views/capture/fastEnterFrame.py</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

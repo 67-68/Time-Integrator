@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '/Users/lennon/Library/Mobile Documents/com~apple~CloudDocs/Useful files/Projects/Time_Integrater/QtUI/rawUI/rawAnalysisPage.ui'
+# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/ti/UI/rawUI/rawAnalysisPage.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -131,4 +131,4 @@ class Ui_analysisPage(object):
         self.dailyTrendButton.setText(_translate("analysisPage", "daily trend"))
         self.modeButton3.setText(_translate("analysisPage", "test"))
         self.modeButton1.setText(_translate("analysisPage", "test"))
-from QtUI.views.pageSwitchFrame import PageSwitchFrame
+from ti.UI.views.pageSwitchFrame import PageSwitchFrame

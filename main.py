@@ -1,5 +1,7 @@
-from QtUI.App import TimeIntegrator
+
 import sys
+
+from ti.UI.App import TimeIntegrator
 
 if __name__ == "__main__":
     integrator = TimeIntegrator()

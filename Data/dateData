@@ -3957,6 +3957,66 @@
             "timeSpan": 48,
             "urgency": false,
             "importance": false
+        },
+        {
+            "id": "db6ad0a6-e31c-4a0c-896d-e914d17f5b3b",
+            "date": "2025-07-24",
+            "action": "通勤",
+            "start": "16:28",
+            "end": "16:48",
+            "action_type": "waste",
+            "actionDetail": "",
+            "timeSpan": 20,
+            "urgency": false,
+            "importance": false
+        },
+        {
+            "id": "80381593-a3b9-4f95-8749-926aa1cd4908",
+            "date": "2025-07-24",
+            "action": "情绪低落",
+            "start": "16:48",
+            "end": "17:00",
+            "action_type": "waste",
+            "actionDetail": "",
+            "timeSpan": 12,
+            "urgency": false,
+            "importance": false
+        },
+        {
+            "id": "f1502376-fbde-459c-ab94-0492c7ca94ee",
+            "date": "2025-07-24",
+            "action": "归因",
+            "start": "17:00",
+            "end": "18:00",
+            "action_type": "work",
+            "actionDetail": "寻找自己情绪低落的原因，写小短文",
+            "timeSpan": 60,
+            "urgency": false,
+            "importance": false
+        },
+        {
+            "action": "知乎",
+            "actionDetail": "乎",
+            "action_type": "work",
+            "date": "2025-07-24",
+            "end": "18:40",
+            "id": "3e81548f-da91-409d-9875-8c4ff817235f",
+            "importance": false,
+            "start": "18:00",
+            "timeSpan": 40,
+            "urgency": false
+        },
+        {
+            "id": "e4bbab94-736b-4350-9870-0bd4dd06705f",
+            "date": "2025-07-24",
+            "action": "DEBUG",
+            "start": "18:40",
+            "end": "19:14",
+            "action_type": "work",
+            "actionDetail": "",
+            "timeSpan": 34,
+            "urgency": false,
+            "importance": false
         }
     ]
 }

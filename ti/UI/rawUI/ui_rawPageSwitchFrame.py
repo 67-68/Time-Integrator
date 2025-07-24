@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/QtUI/rawUI/rawPageSwitchFrame.ui'
+# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/ti/UI/rawUI/rawPageSwitchFrame.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #

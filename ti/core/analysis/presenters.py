@@ -1,6 +1,7 @@
-from Core.utils import flatten_dict
+
 from Data import themes
 from Data import narratives
+from ti.utils import flatten_dict
 
 """
 presenter take in analyzer处理完成的数据(list)

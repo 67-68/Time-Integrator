@@ -1,6 +1,8 @@
-from Core.dataAccess.dataAccess import getData
-from Core.translation.propertyTranslation import transPropToFast_API
-from Core.translation.fastEnterTranslation import transFastToProp_API
+
+from ti.core.translation.fastEnterTranslation import transFastToProp_API
+from ti.core.translation.propertyTranslation import transPropToFast_API
+from ti.dataAccess.dataAccess import getData
+
 
 class Translator:
     def __init__(self):

@@ -4,7 +4,10 @@ This is a PRESENTER class integrate different function of validation, change inp
 INPUT 1 actionUnit at a time
 OUTPUT True for not wrong, name of key for wrong
 """
-from Core.validation.actionUnitValidation import actionUnitValidation
+
+
+
+from ti.core.validations import validateData
 
 
 class InputValidation():
@@ -14,13 +17,13 @@ class InputValidation():
     def validation(self,data,module):
         #  --- 判断是什么服务 ---
         if module == "actionUnit":
-            valid = actionUnitValidation(data)
+            valid = validateData(data)
             if valid != True:
                 return valid
             
         elif module == "actionUnits":
             for actionUnit in data:
-                valid = actionUnitValidation(actionUnit)
+                valid = validateData(actionUnit)
                 if valid != True:
                     return valid
         

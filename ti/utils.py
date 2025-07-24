@@ -128,7 +128,7 @@ def log_message(message):
 def load_qss():
     log_message("Entering load_qss function.")
     
-    qss_path = resource_path("assets/styles/main.qss")
+    qss_path = resource_path("ti/assets/styles/main.qss")
     log_message(f"Resolved QSS path to: {qss_path}")
     
     try:

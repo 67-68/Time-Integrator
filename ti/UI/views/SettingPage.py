@@ -1,8 +1,9 @@
 from PyQt6.QtWidgets import QWidget
-from Core.dataAccess.dataAccess import getData, saveData
-from QtUI.rawUI.ui_rawSettingPage import Ui_SettingPage
+
 from PyQt6.QtCore import pyqtSignal
 import uuid
+
+from ti.UI.rawUI.ui_rawSettingPage import Ui_SettingPage
 
 class SettingPage(QWidget):
     switchPage_button_clicked = pyqtSignal(str)
@@ -17,13 +18,8 @@ class SettingPage(QWidget):
         
         #self.SP.uidButton.clicked.connect(self.re_construct_uuid)
         
-    def re_construct_uuid(self):
-        data = getData("Data/dateData.json")
-        for date in data:
-            for au in data[date]:
-                au["id"] = str(uuid.uuid4())
+
         
-        saveData(data,"Data/dateData.json")
         
         
         

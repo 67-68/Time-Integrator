@@ -1,6 +1,8 @@
-from Core.Definitions import InputState, UserActionType
-from Core.logic.stateMachineParser import stateMachineParser
-from Core.translation.fastEnterTranslation import transFastToProp_API
+
+
+from ti.core.definitions import InputState, UserActionType
+from ti.core.stateMachineParser import stateMachineParser
+from ti.core.translation.fastEnterTranslation import transFastToProp_API
 
 
 class StateMachinePresenter():

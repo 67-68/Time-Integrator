@@ -1,5 +1,7 @@
-from Core.Definitions import YESTERDAY,ActionType
-from Core.analysis.matchers import matchAll,date_is, action_type_is, property_is
+
+
+from ti.core.analysis.matchers import action_type_is, date_is, matchAll, property_is
+from ti.core.definitions import YESTERDAY, ActionType
 
 
 YESTERDAY_WORK_MATCHER = matchAll(

@@ -1,8 +1,10 @@
-from Core.utils import load_svg_icon
-from QtUI.rawUI.ui_rawDailyTrendCard import Ui_trendCard
-from QtUI.widgets.pages.BasicWidget import BasicWidget
+
 from PyQt6.QtCore import QSize
 from PyQt6.QtGui import QColor
+
+from ti.UI.rawUI.ui_rawDailyTrendCard import Ui_trendCard
+from ti.UI.widgets.pages.BasicWidget import BasicWidget
+from ti.utils import load_svg_icon
 
 class TrendCard(BasicWidget):
     def __init__(self,data,parent = None):

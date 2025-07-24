@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '/Users/lennon/Library/Mobile Documents/com~apple~CloudDocs/Useful files/Projects/Time_Integrater/QtUI/views/rawUI/rawFastEntry.ui'
+# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/ti/UI/rawUI/rawFastEntry.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -29,4 +29,4 @@ class Ui_rawFastEnterFrame(object):
         _translate = QtCore.QCoreApplication.translate
         rawFastEnterFrame.setWindowTitle(_translate("rawFastEnterFrame", "Form"))
         self.fastEntryLabel.setText(_translate("rawFastEnterFrame", "fast entry"))
-from QtUI.widgets.other.RealTimeSearchEdit import RealTimeSearchEdit
+from ti.UI.widgets.other.RealTimeSearchEdit import RealTimeSearchEdit

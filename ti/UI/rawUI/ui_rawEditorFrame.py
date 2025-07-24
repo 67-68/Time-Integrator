@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/QtUI/rawUI/rawEditorFrame.ui'
+# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/ti/UI/rawUI/rawEditorFrame.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -64,4 +64,4 @@ class Ui_editorFrame(object):
         self.deleteButton.setText(_translate("editorFrame", "delete"))
         self.confirmButton.setText(_translate("editorFrame", "confirm"))
         self.rightSwitchButton.setText(_translate("editorFrame", "->"))
-from QtUI.views.capture.inputEnterFrame import InputEnterFrame
+from ti.UI.views.capture.inputEnterFrame import InputEnterFrame

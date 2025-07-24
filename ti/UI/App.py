@@ -1,12 +1,13 @@
-from Core.analysis.otherAnalysis import getActionUnit, updateActionList
-from Core.dataAccess.dataAccess import getData, saveData
-from Core.dataAccess.dataService import createNewData
-from Core.utils import load_qss, log_message
-from QtUI.views.MainWindow import MainWindow
-from QtUI.presenters.menuPresenter import MenuPresenter
 from PyQt6.QtWidgets import QApplication
 import sys
-from Core.Definitions import TODAY
+
+from ti.UI.presenters.menuPresenter import MenuPresenter
+from ti.UI.views.MainWindow import MainWindow
+from ti.core.analysis.otherAnalysis import updateActionList
+from ti.core.definitions import TODAY
+from ti.dataAccess.dataService import DataService
+from ti.utils import load_qss, log_message
+
 log_message("Application starting...")
 
 class TimeIntegrator:
@@ -48,8 +49,8 @@ class TimeIntegrator:
         self.isDebugMode = False
         self.currentDate = None
         self.currentActionUnit = None 
-        self.currentData = getData("Data/dateData.json") #初始化的时候获取一份数据，在用户输入之后修改
         self.previousAU = None
+        self.dataService = DataService()
     
     def createNewRecord(self):
         """
@@ -59,11 +60,9 @@ class TimeIntegrator:
         """
         self.previousAU = self.currentActionUnit
         
-        nR = createNewData()
+        nR = self.dataService.createNewData()
         nR["date"] = self.currentDate
         self.currentActionUnit = nR
-        if self.currentDate not in self.currentData:
-            self.currentData[self.currentDate] = []
         #新数据暂时不放进总的数据中，等到修改之后再检测
         
         self._on_list_item_selected(nR)
@@ -92,30 +91,15 @@ class TimeIntegrator:
         （同时，保存之前的数据状态)
         """
         date = self.currentDate
-        if date not in self.currentData:
-            self.currentData[date] = []
-        
         actionUnit["date"] = date
         # 这里的id没有必要，因为新建的时候就有了id
-        
-        data = self.currentData[date]
-        
-        assign = None
-        #这里是针对一般数据的修改模块
-        for i in range (len(data)):
-            if data[i]["id"] == actionUnit["id"]:
-                data[i] = actionUnit
-                assign = True
-                break
-        if assign != True:
-            data.append(actionUnit)
-        
-        self.currentData[date] = data
-        
+                
         updateActionList(actionUnit)
-        saveData(self.currentData,"Data/dateData.json")
+        self.dataService.add_actionUnit(actionUnit)
+        
+        
         self.refreshWidget()         #初始化
-        self.mainWindow.fillCPData(data,self.currentActionUnit)
+        self.mainWindow.fillCPData(self.dataService.get_data()[date],self.currentActionUnit)
         self.mainWindow.switchCPData(self.currentActionUnit)
     
     #UNIVERSAL; INPUT Str timeChoosed; OUTPUT the data that should update
@@ -126,27 +110,20 @@ class TimeIntegrator:
         self.mainWindow.updateMenu(self.menuPresenter.processData(actionUnits))
 
     def _on_date_selected(self,date):
-        allData = getData("Data/dateData.json")
-        
-        if date in allData:
-            data = allData[date] #这个时候它是列表
-            data = sorted(data, key=lambda au: au.get("start", ""))
-            self.currentActionUnit = data[0]
-        else:
-            data = None
-            self.currentActionUnit = None
-            
-        #  --- 存储状态 ---
+        data = self.dataService.get_date_data(date)
         self.currentDate = date
         
+        data = sorted(data, key=lambda au: au.get("start", ""))
+        try:
+            self.currentActionUnit = data[0] 
+        except:
+            self.currentActionUnit = self.dataService.createNewData()
+                
         self.mainWindow.fillCPData(data,self.currentActionUnit)
     
     def refreshWidget(self): 
         """_summary_
         初始化，传递依赖，刷新所有需要数据的功能
-        """
-        #  --- 获取数据 ---
-        self.currentData = getData("Data/dateData.json") 
-        
+        """    
         #  --- 传递依赖 ---
-        self.mainWindow.initialization(self.currentData)
+        self.mainWindow.initialization(self.dataService.get_data())

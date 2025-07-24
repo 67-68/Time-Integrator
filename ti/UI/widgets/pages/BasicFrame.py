@@ -1,6 +1,7 @@
 from PyQt6.QtWidgets import QFrame
 
-from Core.utils import apply_shadow
+from ti.utils import apply_shadow
+
 
 class BasicFrame(QFrame):
     def __init__(self, parent = None):

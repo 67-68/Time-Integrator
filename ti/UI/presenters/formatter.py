@@ -1,7 +1,9 @@
-from Core.utils import smart_formatter
+
 from Data import narratives
 from Data.themes import themes
 import random
+
+from ti.utils import smart_formatter
 
 """
 接收presenter(小)处理完成的数据

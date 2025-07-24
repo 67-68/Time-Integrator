@@ -1,9 +1,12 @@
-from Core.analysis.matchers import get_time_from_str
-from QtUI.rawUI.ui_rawEditorFrame import Ui_editorFrame
 
 from PyQt6.QtCore import pyqtSignal
-from QtUI.presenters.inputValidationPresentor import InputValidation
-from QtUI.widgets.pages.BasicWidget import BasicWidget
+
+
+from ti.UI.presenters.inputValidationPresentor import InputValidation
+from ti.UI.rawUI.ui_rawEditorFrame import Ui_editorFrame
+from ti.UI.widgets.pages.BasicWidget import BasicWidget
+from ti.core.analysis.matchers import get_time_from_str
+
 
 class EditorFrame(BasicWidget):    
     

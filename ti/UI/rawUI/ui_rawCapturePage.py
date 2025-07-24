@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/QtUI/rawUI/rawCapturePage.ui'
+# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/ti/UI/rawUI/rawCapturePage.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -90,7 +90,7 @@ class Ui_CapturePage(object):
         CapturePage.setWindowTitle(_translate("CapturePage", "Form"))
         self.editorFrameButton.setText(_translate("CapturePage", "basic enter"))
         self.bulkEnterFrameButton.setText(_translate("CapturePage", "bulk mode"))
-from QtUI.views.capture.bulkEnterFrame import BulkEnterFrame
-from QtUI.views.capture.dateSelectionFrame import DateSelectionFrame
-from QtUI.views.capture.editorFrame import EditorFrame
-from QtUI.views.pageSwitchFrame import PageSwitchFrame
+from ti.UI.views.capture.bulkEnterFrame import BulkEnterFrame
+from ti.UI.views.capture.dateSelectionFrame import DateSelectionFrame
+from ti.UI.views.capture.editorFrame import EditorFrame
+from ti.UI.views.pageSwitchFrame import PageSwitchFrame

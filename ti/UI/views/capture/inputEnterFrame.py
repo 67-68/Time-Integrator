@@ -1,11 +1,13 @@
-from Core.dataAccess.dataAccess import getData
-from QtUI.rawUI.ui_rawInputEnterFrame import Ui_inputEnterFrame
-
-from QtUI.presenters.translator import Translator
-from QtUI.presenters.StateMachinePresenter import StateMachinePresenter
 from PyQt6.QtCore import QSignalBlocker
-from Core.Definitions import InputState, RawUserAction, UserActionType
-from QtUI.widgets.pages.BasicWidget import BasicWidget
+
+
+from ti.UI.presenters.StateMachinePresenter import StateMachinePresenter
+from ti.UI.presenters.translator import Translator
+from ti.UI.rawUI.ui_rawInputEnterFrame import Ui_inputEnterFrame
+from ti.UI.widgets.pages.BasicWidget import BasicWidget
+from ti.core.definitions import InputState, RawUserAction, UserActionType
+from ti.dataAccess.dataAccess import getData
+
 
 actionDataLoc = "Data/actionList.json"
 

@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/QtUI/rawUI/rawSettingPage.ui'
+# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/ti/UI/rawUI/rawSettingPage.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -87,4 +87,4 @@ class Ui_SettingPage(object):
         self.toolButton_5.setText(_translate("SettingPage", "..."))
         self.toolButton_3.setText(_translate("SettingPage", "..."))
         self.label_3.setText(_translate("SettingPage", "TextLabel"))
-from QtUI.views.pageSwitchFrame import PageSwitchFrame
+from ti.UI.views.pageSwitchFrame import PageSwitchFrame

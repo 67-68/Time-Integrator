@@ -1,22 +1,9 @@
-import datetime
-from Core.dataAccess.dataAccess import getData, saveData
 
-#UNIVERSAL; INPUT timeSpan; OUTPUT actionUnits
-def getActionUnit(timeSpan):
-        if timeSpan == "today":  # 目前只判断“today”，未来可扩展自定义时间段
-            date_val = datetime.date.today()  
-            if hasattr(date_val, "strftime"):          # datetime.date instance
-                date_key = date_val.strftime("%Y-%m-%d")
-            else:                                      # assume tuple/list
-                y, m, d = date_val
-                date_key = f"{y:04d}-{m:02d}-{d:02d}"
 
-            data = getData("Data/dateData.json")
-            if date_key in data:
-                return data[date_key]
-        return False
-    
 #UNIVERSAL; INPUT list actionUnits; OUTPUT high quality time ratio
+from ti.dataAccess.dataAccess import getData, saveData
+
+
 def getHighQualityRatio(actionUnits):
         totalTime = 0
         totalHighQuaTime = 0

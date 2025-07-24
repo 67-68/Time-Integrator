@@ -1,8 +1,10 @@
-from Core.Definitions import RawUserAction
-from QtUI.rawUI.ui_rawFastEntry import Ui_rawFastEnterFrame
+
 from PyQt6.QtCore import pyqtSignal
 
-from QtUI.widgets.pages.BasicFrame import BasicFrame
+from ti.UI.rawUI.ui_rawFastEntry import Ui_rawFastEnterFrame
+from ti.UI.widgets.pages.BasicFrame import BasicFrame
+from ti.core.definitions import RawUserAction
+
 
 class FastEnterFrame(BasicFrame):
     #  --- 创建一个信号 ---

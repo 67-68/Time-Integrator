@@ -1,8 +1,10 @@
 from PyQt6.QtWidgets import QListWidgetItem
 from PyQt6.QtCore import pyqtSignal,Qt
 
-from QtUI.rawUI.ui_rawDateSelectionFrame import Ui_dateSelection
-from QtUI.widgets.pages.BasicWidget import BasicWidget
+from ti.UI.rawUI.ui_rawDateSelectionFrame import Ui_dateSelection
+from ti.UI.widgets.pages.BasicWidget import BasicWidget
+
+
 
 class DateSelectionFrame(BasicWidget):
     dateSelected = pyqtSignal(str)
@@ -105,3 +107,5 @@ class DateSelectionFrame(BasicWidget):
         if "action" in au:
             item = self.find_item_by_au(au)
             self.list.setCurrentRow(item)
+            
+            

@@ -1,5 +1,8 @@
 # UNIVERSAL; INPUT str text, list actionData; OUTPUT dict advice
-from Core.Definitions import ActionType, InputState, getEnumAbbriviation
+
+
+
+from ti.core.definitions import ActionType, InputState, getEnumAbbriviation
 
 
 def transFastToProp_API(text, actionData):

@@ -1,9 +1,12 @@
-from QtUI.rawUI.ui_rawMenuPage import Ui_MenuPage
+
 from PyQt6.QtWidgets import QVBoxLayout
 from PyQt6.QtCore import pyqtSignal
 import pyqtgraph as pg
 
-from QtUI.widgets.pages.BasicWidget import BasicWidget
+from ti.UI.rawUI.ui_rawMenuPage import Ui_MenuPage
+from ti.UI.widgets.pages.BasicWidget import BasicWidget
+
+
 
 
 class MenuPage(BasicWidget):
@@ -59,3 +62,6 @@ class MenuPage(BasicWidget):
         x = list(range(len(value))) 
         bars = pg.BarGraphItem(x = x,height = value,width = 0.6,colors = colors)
         self.fourRealmChart.addItem(bars)
+        
+        
+        

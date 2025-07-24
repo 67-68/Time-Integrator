@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '/Users/lennon/Library/Mobile Documents/com~apple~CloudDocs/Useful files/Projects/Time_Integrater/QtUI/rawUI/rawMenuPage.ui'
+# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/ti/UI/rawUI/rawMenuPage.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -156,4 +156,4 @@ class Ui_MenuPage(object):
         self.dayReviewButton.setText(_translate("MenuPage", "start review your day!"))
         self.exploitationLabel.setText(_translate("MenuPage", "高价值时间利用率"))
         self.bigNumLabel.setText(_translate("MenuPage", "<html><head/><body><p align=\"center\"><span style=\" font-style:italic;\">text!</span></p></body></html>"))
-from QtUI.views.pageSwitchFrame import PageSwitchFrame
+from ti.UI.views.pageSwitchFrame import PageSwitchFrame

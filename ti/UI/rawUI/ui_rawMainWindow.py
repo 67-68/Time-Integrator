@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/QtUI/rawUI/rawMainWindow.ui'
+# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/ti/UI/rawUI/rawMainWindow.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -41,7 +41,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-from QtUI.views.SettingPage import SettingPage
-from QtUI.views.analysis.AnalysisPage import AnalysisPage
-from QtUI.views.capture.CapturePage import CapturePage
-from QtUI.views.menu.MenuPage import MenuPage
+from ti.UI.views.SettingPage import SettingPage
+from ti.UI.views.analysis.AnalysisPage import AnalysisPage
+from ti.UI.views.capture.CapturePage import CapturePage
+from ti.UI.views.menu.MenuPage import MenuPage

@@ -1,7 +1,10 @@
-from QtUI.rawUI.ui_rawPropertyEnterFrame import Ui_propertyEnterFrame
+
 from PyQt6.QtCore import pyqtSignal
 
-from QtUI.widgets.pages.BasicFrame import BasicFrame 
+from ti.UI.rawUI.ui_rawPropertyEnterFrame import Ui_propertyEnterFrame
+from ti.UI.widgets.pages.BasicFrame import BasicFrame
+
+
 
 class PropertyEnterFrame(BasicFrame):
     #  --- 创建信号 ---

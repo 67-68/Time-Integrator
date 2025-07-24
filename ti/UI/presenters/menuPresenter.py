@@ -1,4 +1,7 @@
-from Core.analysis.otherAnalysis import getExtremeData, getFourRealmRatio, getHighQualityRatio
+
+from ti.core.analysis.otherAnalysis import getExtremeData, getFourRealmRatio, getHighQualityRatio
+
+
 class MenuPresenter():
     def __init__(self):
         pass

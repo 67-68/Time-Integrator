@@ -1,5 +1,8 @@
-from Core.Definitions import ActionType, Indicators, getEnumValueDict_API
-from Core.analysis.APITools import getTotalTime_API
+
+
+
+from ti.core.analysis.matchers import get_time_from_str
+from ti.core.definitions import ActionType, Indicators, getEnumValueDict_API
 
 
 lineIndicator = Indicators.LINE_INDICATOR.value
@@ -27,8 +30,8 @@ def dateValidation_API(date):
     
 #UNIVERSAL; INPUT str time, start and end; VALIDATE if the time period reasonable    
 def isValidTimePeriod_API(start,end):
-    start = getTotalTime_API(start)
-    end = getTotalTime_API(end)
+    start = get_time_from_str(start)
+    end = get_time_from_str(end)
     if end < start:
         return False
     return True
@@ -78,7 +81,7 @@ def validateIndicator_API(orgingalData):
     
     
 #UNIVERSAL; INPUT indicator(maybe user setting list in the future) and dict data; Validate/OUTPUT error message 
-def validateData_API(userData):
+def validateData(userData):
     enumVal = getEnumValueDict_API(ActionType)
     #检查时间
     for date in userData:

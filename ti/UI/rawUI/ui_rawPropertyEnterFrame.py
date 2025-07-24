@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '/Users/lennon/Library/Mobile Documents/com~apple~CloudDocs/Useful files/Projects/Time_Integrater/QtUI/rawUI/rawPropertyEnterFrame.ui'
+# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/ti/UI/rawUI/rawPropertyEnterFrame.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -81,4 +81,4 @@ class Ui_propertyEnterFrame(object):
         self.actionDetailLabel.setText(_translate("propertyEnterFrame", "ActionDetail"))
         self.urgenCheckBox.setText(_translate("propertyEnterFrame", "urgency"))
         self.imporCheckBox.setText(_translate("propertyEnterFrame", "importance"))
-from QtUI.widgets.other.RealTimeSearchEdit import RealTimeSearchEdit
+from ti.UI.widgets.other.RealTimeSearchEdit import RealTimeSearchEdit

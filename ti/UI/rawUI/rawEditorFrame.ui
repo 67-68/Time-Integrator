@@ -125,7 +125,7 @@
   <customwidget>
    <class>InputEnterFrame</class>
    <extends>QWidget</extends>
-   <header>QtUI/views/inputEnterFrame.h</header>
+   <header>ti/UI/views/capture/bulkEnterFrame.py</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

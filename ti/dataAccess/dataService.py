@@ -45,7 +45,7 @@ class DataService:
         
         self.data[date] = curData
         
-        saveData(self.data,"Data/dateData")
+        saveData(self.data,"Data/dateData.json")
         
     def get_date_data(self,date):
         return self.data[date] if date in self.data else {}

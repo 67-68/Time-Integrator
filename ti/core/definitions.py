@@ -1,8 +1,12 @@
 from enum import Enum
 import datetime
 
+# 时间日期
 TODAY = datetime.date.today().strftime("%Y-%m-%d")
 YESTERDAY = (datetime.date.today() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+
+# 文件地址
+INSIGHT_CACHE = "Data/insightCache.json"
 
 class InputState(Enum):
     AWAIT_START = "awaitStart"

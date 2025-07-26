@@ -1,6 +1,7 @@
 
 from Data import userMatchers
 from ti.core.analysis import analyzer, presenters
+from ti.core.analysis.detectors.detector import BaseDetector
 
 """
 This file store all the recipe of cards
@@ -48,7 +49,7 @@ DAILY_CARD_RECIPE = [
         "id":"daily_ratio_distribution",
         "analyzer": analyzer.find_ratio_distribution,
         "analyzer_config": {
-            "matcher": userMatchers.any_matcher
+            "matcher": userMatchers.ANY_MATCHER
         },
         "presenter": presenters.present_ratio_distribution
     }
@@ -57,8 +58,24 @@ DAILY_CARD_RECIPE = [
 
 """
 condition card recipe
-These card will be used when some weird condition was met
-eg. work for 3 hours
+这些卡片的结构和上面的一般卡片一样
+但会多包含一个detecter
+
 """
 #in the future, it can change to a list of cards that each contain the condition as a key, or even maybe a matcher in it and been scanned forth and backwards
-CONDITION_CARD_RECIPE = []
+CONDITION_CARD_RECIPE = [
+    {
+        "detector": BaseDetector,
+        "config":{
+            "matchers":userMatchers.POST_EAT_WASTE,
+            "id":"post_eat_waste"
+        },
+        "presenter":presenters.
+    }
+]
+
+
+
+
+
+# the great lord! gimme a suitable girlfriend!

@@ -49,6 +49,8 @@ def present_ratio_distribution(data):
         "sementic_key":narratives.SHOW_RATIO,
         "data":flatten_dict(data)
     }
+
+def present_sequence_data
     
     
     

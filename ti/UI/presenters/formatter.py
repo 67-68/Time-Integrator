@@ -29,7 +29,7 @@ def format_card(data):
     dataBase = narratives.SPECIFIC_NARRATION[sementic_key]
     #  --- 获取sementic ---
     sDataList = dataBase["sementic_key"]
-    sementic_data = randomChoser(sDataList)
+    sementic_data = randomChoser(sDataList["text"])
     sementic_data = smart_formatter(data_payLoad,sementic_data)
 
     #  --- 获取judgement ---

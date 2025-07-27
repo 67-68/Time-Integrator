@@ -70,7 +70,7 @@ CONDITION_CARD_RECIPE = [
             "matchers":userMatchers.POST_EAT_WASTE,
             "id":"post_eat_waste"
         },
-        "presenter":presenters.
+        "presenter":presenters.present_sequence_data
     }
 ]
 

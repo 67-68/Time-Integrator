@@ -1,4 +1,5 @@
 
+import uuid
 from ti.core.definitions import INSIGHT_CACHE
 from ti.dataAccess.dataAccess import getData
 
@@ -18,11 +19,11 @@ class InsightCache_service:
             dict: 卡片数据
         """
         if id: 
-            return self.data[id]
+            if id in self.data:
+                return self.data[id]
         return self.data
     
-        #TODO:需要加一个检测是否已经存在了，如果存在了那么修改
-        #TODO:同时，我需要卡片id系统，但是加在哪里好呢？
+        
     
     def create_new_data(self) -> dict:
         """_summary_
@@ -34,7 +35,8 @@ class InsightCache_service:
             "weight":0,
             "history":{},
             "id":"",
-            "data":[]
+            "data":[],
+            "card_id":str(uuid.uuid4())
         }
     
     def add_history_data(self,card:dict) -> None:
@@ -49,8 +51,13 @@ class InsightCache_service:
                     "timeSpan":0,
                     "count":0
                 }
-            }        
-        data["data"].append(card)
+            }   
+            data["data"].append(card)
+        else:
+            for c in data["data"]:
+                if c["card_id"] == card["card_id"]:
+                    c = card
+                    break
         
         # 这里目前用的是一个手动提取，未来可能换成子类注入的函数 不限制data的结构
         for au in card["data"]:

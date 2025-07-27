@@ -15,8 +15,11 @@ class Translator:
             actions.append(key)
         
         data = transFastToProp_API(data,actions) 
+        
         return data
     
     def properToFast(self,data):
         data = transPropToFast_API(data)
         return data
+    
+    

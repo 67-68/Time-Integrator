@@ -1,3 +1,4 @@
+
 """
 narrative文本库
 presenter会使用一个narrative key在这里寻找对应的文本
@@ -5,6 +6,7 @@ presenter会使用一个narrative key在这里寻找对应的文本
 """
 PEAK_TIMESPAN = "peak_timeSpan"
 SHOW_RATIO = "show_ratio"
+POST_EAT_WASTE = "post_eat_waste"
 
 
 UNIVERSAL_NARRATION = {
@@ -52,7 +54,10 @@ SPECIFIC_NARRATION = {
                 "title": ["数据观察：专注时长异常 🧐","数据异常！一级警报！"]
             }
         },
-        "sementic_key": ["昨天，在所有行动中，你在“{action}”上专注了最多时间，达到了{timeSpan}分钟，时段为 {start} 至 {end}。"],
+        "sementic_key": {
+                "text": ["昨天，在所有行动中，你在“{action}”上专注了最多时间，达到了{timeSpan}分钟，时段为 {start} 至 {end}。"],
+                "history_text": []
+            },
         "judgement_key":{
                 "praise":UNIVERSAL_NARRATION["praise"],
                 "doubt_accuracy": ["是不是标错了？"],
@@ -67,12 +72,26 @@ SPECIFIC_NARRATION = {
                 "title":["时间分布展示"]
             }
         },
-        "sementic_key":["工作:{work.timeSpan}min, {work.ratio}% \n休息:{rest.timeSpan}min, {rest.ratio}% \n浪费:{waste.timeSpan}min, {waste.ratio}%"] ,
+        "sementic_key":{
+            "text": ["工作:{work.timeSpan}min, {work.ratio}% \n休息:{rest.timeSpan}min, {rest.ratio}% \n浪费:{waste.timeSpan}min, {waste.ratio}%"]
+            },
         "judgement_key":{
             "neutral_showinfo":["test"]
             
         }
+    },
+    "post_eat_waste":{
+        "presentation":{
+            "card_warning": {
+                "title":["饭后摸鱼陷阱"]
+            }
+        },
+        "sementic_key":{
+            "text": ["你在“{data.0.action}”之后，立刻就开始“{data.1.action}”，持续了{data.1.timeSpan}分钟。"],
+            "history_text": ["数据显示这已经不是第一次发生这种情况了。"]
+        },
+        "judgement_key":{
+            "warning":["饭后的放松很重要，但长时间的无意义消耗会打乱你的节奏。试着设定一个短暂的休息时间，然后回到正轨。"]
+        }
     }
 }
-
-

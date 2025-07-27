@@ -10,18 +10,24 @@ class BaseDetector(QObject):
     它负责管理所有detector共用的方法 例如call和状态管理
     
     它的使用方法为: 输入config 和insight service cache, 创建一个实例
-    \n然后直接类似普通函数一样调用
+    
+    然后直接类似普通函数一样调用
     """
     pattern_detected = pyqtSignal(dict)
     
     def __init__(self,config: dict,insight_cache_service: InsightCache_service):
         """
-        输入一个config来创建 \n
-        一般包含: \n
-        一个key = matchers的list of matchers\n
-        一个权重计算器（也可以不写\n
+        输入一个config来创建 
+
+        一般包含: 
+
+        一个key = matchers的list of matchers
+
+        一个权重计算器（也可以不写
+
         一个id
         """
+        super().__init__()
         # 获取matchers
         self.matchers = config["matchers"]
         
@@ -97,6 +103,8 @@ class BaseDetector(QObject):
         data["history"] = self.ICS.get_history_data(self.id)
         data["id"] = self.id
         
+        return data
+        
     
     def _on_weight_calculation(self,actionUnits: list) -> float:
         """_summary_
@@ -110,4 +118,3 @@ class BaseDetector(QObject):
         for au in actionUnits:
             total += au["timeSpan"]
         return total
-    

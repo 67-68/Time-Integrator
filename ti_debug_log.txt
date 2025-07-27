@@ -1,9 +1,0 @@
---- Log Start ---
-[2025-07-17 19:43:01] Application starting...
-[2025-07-17 19:43:01] MainWindow instantiated.
-[2025-07-17 19:43:01] Loading QSS...
-[2025-07-17 19:43:01] Entering load_qss function.
-[2025-07-17 19:43:01] Resolved QSS path to: /Users/lennon/Projects/Time_Integrater/assets/styles/main.qss
-[2025-07-17 19:43:01] Successfully read QSS file content.
-[2025-07-17 19:43:01] QSS loaded successfully.
-[2025-07-17 19:43:01] Stylesheet applied.

@@ -2,6 +2,7 @@
 
 
 
+from ti.core.analysis.matchers import get_time_from_str
 from ti.core.definitions import ActionType, InputState, getEnumAbbriviation
 
 
@@ -120,6 +121,9 @@ def transFastToProp_API(text, actionData):
     #  ---------- ACTION_DETAIL阶段 ----------
     detailText = text[advice["parseIndex"]:]
     advice["data"]["actionDetail"] = detailText
+    
+    #  ---------- 其他计算 ----------
+    advice["data"]["timeSpan"] = get_time_from_str(advice["data"]["end"]) - get_time_from_str(advice["data"]["start"])
     
     #  ---------- 最终返回 ----------
     return advice

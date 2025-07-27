@@ -50,7 +50,13 @@ def present_ratio_distribution(data):
         "data":flatten_dict(data)
     }
 
-def present_sequence_data
+def present_sequence_data(data):
+    return {
+        "card_type": themes.CARD_WARNING,
+        "judgement_key":["warning"],
+        "sementic_key":narratives.SHOW_RATIO,
+        "data":flatten_dict(data)
+    }
     
     
     

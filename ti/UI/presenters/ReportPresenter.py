@@ -1,5 +1,7 @@
 import datetime 
-from ti.assets.card_recipe import DAILY_CARD_RECIPE
+from ti.assets.card_recipe import DAILY_CARD_RECIPE,CONDITION_CARD_RECIPE
+from ti.engine.insightEngine import InsightEngine
+
 """
 主类
 """
@@ -8,6 +10,8 @@ class ReportPresenter():
         self.currentData = data
         # 将日期格式化为 "YYYY-MM-DD" 字符串，例如 "2025-07-13"
         self.today = (datetime.date.today() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+        
+        self.IE = InsightEngine(CONDITION_CARD_RECIPE)
         
     def create_yesterday_report(self):
         """_summary_
@@ -32,5 +36,13 @@ class ReportPresenter():
             data = presenter(data)
 
             cardData.append(data)
+        
+        for au in todayData:
+            self.IE(au)
+        
+        conditional_card = self.IE.get_cur_cards()
+        
+        for card in conditional_card:
+            cardData.append(card)
         
         return cardData

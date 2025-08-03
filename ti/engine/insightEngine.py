@@ -40,7 +40,6 @@ class InsightEngine(QObject):
                 "presenter":recipe["presenter"]
             }
             
-        
     def __call__(self,au: dict) -> None:
         """_summary_
         这个函数会接收行动单元
@@ -56,14 +55,20 @@ class InsightEngine(QObject):
         for id in self.cards:
             self.cards[id]["detector"](au)
         
-    def pattern_detected(self,data: dict) -> None:
+    def pattern_detected(self,rawData: dict) -> None:
         """_summary_
         这个函数是卡片模式被检测出来之后首先执行的
         它会把卡片信息加入insight manager, 以供调用
         Args:
             data (dict): 卡片模式的数据
         """
-        self.IM.add_card(data)
+        # 获取卡片id
+        id = rawData["id"]
+        presenter = self.cards[id]["presenter"]
+        
+        # 使用presenter处理
+        pre_data = presenter(rawData)
+        self.IM.add_card(rawData,pre_data)
 
         
     def get_cur_cards(self):

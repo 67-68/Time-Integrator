@@ -24,7 +24,7 @@ class TestInsightEngine:
         
         cards = configured_insight_engine.get_cur_cards()
         
-        
+        breakpoint()
         assert len(cards) == 1
-        assert cards[0]["id"] == "post_eat_waste"
+        assert cards[0]["data"]["id"] == "post_eat_waste"
         

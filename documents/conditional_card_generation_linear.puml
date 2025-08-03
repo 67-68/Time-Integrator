@@ -1,0 +1,100 @@
+@startuml
+
+' 创建所有需要的部分
+
+actor "dataService: trigger" as trigger
+participant "ReportGenerator: presenter" as presenter
+participant "InsightEngine: engine" as engine
+participant "Detectors: detector" as detector
+
+note left of trigger
+    这张表是每天自动生成的, 线性的, 上一天的conditional card流程
+    并不是实时生成的conditioanl card流程
+    首先 reportGenerator类会获取所有的昨天数据
+    一条条喂给insightEngine
+    最后通过方法调用回收
+end note
+
+activate trigger
+note over trigger: 用户打开程序
+trigger -> presenter: create_yesterday_report()
+
+note over presenter: 收集数据，喂给engine
+activate presenter
+
+' 如果没有数据就提前返回
+opt yesterday not in data or data[yesterday] = None:
+    presenter --> trigger: return False
+end
+
+note over presenter: actionUnits = data[yesterday]
+
+' 开始喂数据
+loop for au in data: 
+    note right of presenter: 调用engine处理actionUnit
+    presenter -> engine: process_event(au: dict)
+    activate engine
+
+    loop for id in self.cards:
+        note over engine: detector = self.cards[id]["detector"]
+        
+        ' 进入detector部分，开始使用状态机
+        note right of detector: 传递au给它，匹配模式
+        engine -> detector: process_event(au)
+        activate detector
+        
+        ' detector内部行动
+        note over detector
+            currentMatcher = self.sequence[self.currentIndex]["matcher"]
+            根据数据库和当前状态序号，获取当前matcher
+        end note
+
+        ' detector判断逻辑
+        alt currentMatcher(au) == True
+            ' 这里需不需要细化到获取stateName呢？
+            note over detector
+                如果当前状态匹配模式：
+                根据当前状态序号获取statename
+                根据stateName，把au赋值入通过au的字典
+            end note
+
+            note over detector: currentIndex += 1
+            
+            ' 如果状态被检测到
+            opt currentIndex >= len(sequence):
+                detector -> detector: _on_state_complete()
+                note right of detector
+                    状态被检测到
+                    在调用_on_state_complete方法后
+                    首先会调用packer打包发送信号
+                    然后会重置当前状态
+                end note
+
+                ' 打包，发送信号
+                detector -> detector: packer()
+                note over detector: data = packer()
+                note over detector
+                    packer() -> dict
+                    data["weight"] = self.weight_calc(self.passed_au)
+                    data["data"] = self.passed_au
+                    data["history"] = self.ICS.get_history_data(self.id)
+                    data["id"] = self.id
+                end note
+                detector --> engine: pattern_detected.emit(data)
+                detector -> detector: reset()
+            end
+        ' 如果模式不匹配
+        else currentIndex > 0:
+            detector -> detector: reset()
+        end
+        deactivate detector
+    end
+
+    deactivate engine
+end
+
+presenter --> trigger: return card_data: dict
+deactivate presenter
+
+
+@enduml

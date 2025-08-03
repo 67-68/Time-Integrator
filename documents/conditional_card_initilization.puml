@@ -1,0 +1,143 @@
+@startuml
+title "Conditional_card_initialize"
+
+actor "User" as user
+participant "mainWindow" as ui
+participant "AnalysisPage" as page
+participant "ReportPresenter" as presenter
+database "Card_recipe" as database
+participant "InsightEngine: engine" as engine
+participant "InsightManager" as manager
+participant "EachDetectors: detector" as detector
+participant "InsightCacheService" as cache
+
+
+' 用户行动
+user -> ui: 打开程序
+
+' 创建Analysis Page
+activate ui
+ui -> page: initialization(data): None
+
+activate page
+page -> page: dailyTrend_initialization(data)
+note right of page: 注入依赖，创建所有的detector
+
+
+
+'' 创建reportPresenter类
+
+page -> presenter: __init__(data): ReportPresenter
+activate presenter
+
+'' 获取卡片信息
+presenter -> database: get_conditional_card(): list
+activate database
+database --> presenter: conditional_card_recipe(): list
+deactivate database
+
+'' 把卡片信息输入insightEngine作为依赖
+presenter -> engine: __init__(conditional_card_recipe)
+activate engine
+
+'' InsightEngine初始化
+''' 初始化Cache和Service
+engine -> manager: __init__(ICS)
+activate manager
+manager --> engine: return InsightManager
+deactivate manager
+
+''' 初始化detector
+loop for recipe in recipes
+  ' 创建实例
+  note right of engine: 从recipe中获取config
+  engine -> detector: __init__(config,ICS)
+  activate detector
+  note over detector: 内部初始化
+  note over detector: self.sequence = config["sequence"]
+
+  ' 重量计算函数的依赖获取
+  alt "weight_calc" in config:
+    note over detector
+      weight_calc = config["weight_calc"]
+      如果有传入依赖直接获取
+    end note
+  else
+    note over detector
+      weight_calc = self._on_weight_calculation
+      如果没有传入依赖，使用默认的重量分析函数
+      会直接计算出所有相关au的时间总和
+    end note
+  end
+
+  ' 创建其他变量
+  group 类变量创建
+    note over detector
+      **self.currentIndex = 0**
+      当前的状态序号，用来表示当前进行到了第几个状态
+      最少是0，最多是状态的个数-1
+    end note
+
+    note over detector
+      **self.passed_au = {}**
+      用来存储所有通过检测的au，会在最后作为数据统一发送出去
+      使用字典，每个au的key name是它的状态名称
+    end note
+
+    note over detector
+      **self.ICS = insight_cache_service**
+      把传入进来的依赖存入自己的变量
+      会调用它的方法获取数据，作为历史数据
+      在最后打包的时候传出去
+    end note
+
+    note over detector
+      **self.id = config["id"]**
+      获取卡片的id
+      会在最后打包数据的时候传送出去
+    end note
+
+  end
+
+  ' 初始化完成，返回变量
+  note over detector: 返回创建完成的detector
+  detector --> engine: return detector
+  
+  ' 关注信号
+  engine -> detector: subscribe_to_pattern_detected()
+  deactivate detector
+
+  ' 更新内部变量
+  note right of engine: self.cards[id] = {detector, id,presenter)
+end
+
+
+'' InsightEngine创建完成
+engine --> presenter: return InsightEngine
+deactivate engine
+
+'' ReportPresenter创建完成
+presenter --> page: return presenter: ReportPresenter
+deactivate presenter
+
+'' 开始创建昨天的报告
+page -> presenter: create_yesterday_report(): list
+
+opt self.today not in self.currentData:
+  presenter --> page: return "no data"
+end
+
+'' 报告创建完成
+presenter --> page: return report: dict
+
+''' 创建每日报告
+'我会掠过这一部分，鉴于不是要关注的
+''' 完成创建每日报告
+
+' 开始加载ui
+
+' UI加载完毕
+deactivate page
+deactivate ui
+
+@enduml

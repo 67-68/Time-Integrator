@@ -9,6 +9,9 @@ presenter take in analyzer处理完成的数据(list)
 card_type
 sementic_key
 judgement_key
+
+它的另一个职责是翻译数据结构, 把analyzer/detector生成的数据结构翻译为formatter可应用的
+以及，给数据附上价值判断
 """
 def present_peak_timeSpan(data):
     timeSpan = data["timeSpan"]
@@ -50,13 +53,26 @@ def present_ratio_distribution(data):
         "data":flatten_dict(data)
     }
 
-def present_sequence_data(data):
-    return {
+def present_sequence_data(data: dict) -> dict:
+    """_summary_
+
+    Args:
+        data (dict): 一个从detector传递过来的, 适合于它的数据结构
+
+    Returns:
+        dict: 一个可以被formatter使用的,良好的数据结构
+    """
+    returnData = {
         "card_type": themes.CARD_WARNING,
         "judgement_key":["warning"],
-        "sementic_key":narratives.SHOW_RATIO,
-        "data":flatten_dict(data)
-    }
+        "sementic_key":narratives.POST_EAT_WASTE, #注意，这里present的是post_eat_waste, 而不是一个通用的sequence_data
+        "data":flatten_dict(data), #是不是这里出问题了？为什么数据结构会是一个data套data?我估计是无法处理列表导致的.我得想个法子处理一下它
+        "weight":data["weight"],
+        "id":data["id"]
+        }
+
+    return returnData
+
     
     
     

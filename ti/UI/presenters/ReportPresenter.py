@@ -1,5 +1,5 @@
 import datetime 
-from ti.assets.card_recipe import DAILY_CARD_RECIPE,CONDITION_CARD_RECIPE
+from ti.assets.card_recipe import Card_recipe
 from ti.engine.insightEngine import InsightEngine
 
 """
@@ -10,8 +10,9 @@ class ReportPresenter():
         self.currentData = data
         # 将日期格式化为 "YYYY-MM-DD" 字符串，例如 "2025-07-13"
         self.today = (datetime.date.today() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+        self.card_recipe = Card_recipe()
         
-        self.IE = InsightEngine(CONDITION_CARD_RECIPE)
+        self.IE = InsightEngine(self.card_recipe.get_conditional_card())
         
     def create_yesterday_report(self):
         """_summary_
@@ -24,10 +25,11 @@ class ReportPresenter():
             return "No data"
         
         todayData = self.currentData[self.today] #显然这样比用matcher筛选更方便
+        recipe = self.card_recipe.get_daily_card()
         cardData = []
 
         #  ----- 获取卡片信息 ------
-        for card in DAILY_CARD_RECIPE:
+        for card in recipe:
             config = card["analyzer_config"]
             analyzer = card["analyzer"]
             presenter = card["presenter"]

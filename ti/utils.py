@@ -87,6 +87,16 @@ def flatten_dict(d: dict, parent_key: str = '', sep: str = '.') -> dict:
     return dict(items)
 
 def smart_formatter(data: dict,text: str) -> str:
+    """_summary_
+    用来处理数据，把数据放进narrative的文本中
+
+    Args:
+        data (dict): _description_
+        text (str): _description_
+
+    Returns:
+        str: _description_
+    """
     placeholder_pattern = re.compile(r'\{([^{}]+)\}')
     def replacer(match):
         key = match.group(1)

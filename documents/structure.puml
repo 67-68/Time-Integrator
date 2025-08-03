@@ -1,0 +1,92 @@
+' 这个类图存储所有的类的定义, 也就是方法和函数
+' 它不能包括任何的关系
+' 作为其他uml图的基础
+' 在其他uml图需要使用的时候, 使用!include 语法导入
+
+@startuml
+class CardRecipe {
+    - conditional_card_recipe: list
+    - daily_card_recipe: list
+    + get_daily_card(): list
+    + get_conditional_card(): list
+}
+
+class ReportPresenter {
+    + __init__(data): ReportPresenter
+    + create_yesterday_report(): dict 
+    '创建昨天的所有卡片
+    - card_recipe: Card_recipe
+    - IE: InsightEngine
+}
+
+ReportPresenter o-- CardRecipe
+ReportPresenter o-- InsightEngine
+
+class AnalysisPage {
+    + dailyTrend_initialization()
+}
+
+class InsightEngine {
+    + __init__(card_recipe): InsightEngine
+    + process_event(actionUnit: dict) -> None
+    + ()这个函数用来处理单个新的,线性的actionUnit
+    + cards: dict
+    + ICS: InsightCacheService
+    + IM: InsightManager
+}
+
+InsightEngine o-- InsightCacheService
+InsightEngine o-- InsightManager
+
+class InsightCacheService {
+
+}
+
+class InsightManager {
+    + __init__(ICS) -> InsightManager
+}
+
+class Detectors extends BaseDetecor{
+    + __init__(ICS,config) -> Detectors
+    + process_event(au: dict)
+    - sequence: list
+    用来存储matchers及其顺序
+
+    - weight_calc
+    用来存储计算重量的方法，可能从外面导入依赖也可能用内置的
+
+    - _on_weight_calculation(actionUnits: list) -> float
+    ()内置的用来计算重量的方法
+
+    - currentIndex: int
+    当前的状态序号，用来表示当前进行到了第几个状态
+    最少是0，最多是状态的个数-1
+
+    - passed_au: dict
+    用来存储所有通过检测的au，会在最后作为数据统一发送出去
+    使用字典，每个au的key name是它的状态名称
+
+    - ICS: InsightCacheService
+    把传入进来的依赖存入自己的变量
+    会调用它的方法获取数据，作为历史数据
+    在最后打包的时候传出去
+    - id: str
+    获取卡片的id
+    会在最后打包数据的时候传送出去
+
+    + _on_state_complete()
+
+    + reset()
+
+    + packer()
+
+}
+
+InsightEngine o-- Detectors
+
+class BaseDetecor {
+    + __call__(au: dict)
+}
+
+
+@enduml

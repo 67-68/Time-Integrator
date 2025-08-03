@@ -20,16 +20,12 @@ class BaseDetector(QObject):
         输入一个config来创建 
 
         一般包含: 
-
-        一个key = matchers的list of matchers
-
-        一个权重计算器（也可以不写
-
-        一个id
+        分别包含matcher和state name的sequence key
+        , 一个权重计算器（也可以不写), 一个id
         """
         super().__init__()
         # 获取matchers
-        self.matchers = config["matchers"]
+        self.sequence = config["sequence"]
         
         # 获取权重计算函数 如果没有那么使用默认的
         if "weight_calc" in config:
@@ -43,7 +39,7 @@ class BaseDetector(QObject):
         self.currentIndex = 0
         
         # 通过的au
-        self.passed_au = []
+        self.passed_au = {} #使用字典 也可以表示不同阶段
         
         # 历史管理
         self.ICS = insight_cache_service
@@ -58,16 +54,19 @@ class BaseDetector(QObject):
         Args:
             au (dict): 一个行动单元
         """
-        currentMatcher = self.matchers[self.currentIndex]
+        currentMatcher = self.sequence[self.currentIndex]["matcher"]
+        
         if currentMatcher(au) == True:    
             """
             这个函数用来进入下一个阶段 它的职责包括：
             修改currentIndex
             判断是否满足了所有条件 如果满足了 自动调用完成函数
             """
-            self.passed_au.append(au)
+            state_name = self.sequence[self.currentIndex]["state_name"]
+            self.passed_au[state_name] = au
+            
             self.currentIndex += 1 
-            if self.currentIndex >= len(self.matchers):
+            if self.currentIndex >= len(self.sequence):
                 self._on_state_complete()
         else:
             if self.currentIndex > 0:
@@ -94,8 +93,8 @@ class BaseDetector(QObject):
         """
         用来打包
         会从cache Service获取一个包裹
-        填充上数据之后
-        返回
+        填充上数据之后返回
+        它会打包: 重要程度,所有匹配的行动单元,历史数据,卡片类型id
         """
         data = self.ICS.create_new_data()
         data["weight"] = self.weight_calc(self.passed_au)
@@ -115,6 +114,6 @@ class BaseDetector(QObject):
             float: _description_
         """
         total = 0
-        for au in actionUnits:
-            total += au["timeSpan"]
+        for state_name in actionUnits:
+            total += actionUnits[state_name]["timeSpan"]
         return total

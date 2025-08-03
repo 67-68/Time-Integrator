@@ -14,20 +14,23 @@ class InsightManager:
         self.cards = {}
         self.ICS = ICS
         
-    def add_card(self,card:dict) -> None:
+    def add_card(self,raw_card_data:dict,pre_card_data:dict) -> None:
         """_summary_
         这个函数负责把卡片加入insight Manager中
-        它会把卡片添加进历史数据
+        首先 它会把原始卡片数据添加进历史数据
+        然后 它会把经过presenter处理过的卡片信息加入待选列表(因此,presenter should pack weight key)
         并输出适合的卡片，当被要求输出的时候
         Args:
-            card (dict): 卡片信息
+            raw_card_data (dict): 原始的卡片信息和数据
+            pre_card_data (dict): 经过presenter加工的卡片信息
+            
         """
-        id = card["id"]
+        id = raw_card_data["card_id"]
         if id not in self.cards:
-            self.cards[id] = [card]
+            self.cards[id] = [pre_card_data] #这里搞错了 不是id而是card_id
+        # 这里的设计应该是使用card_id来检测是否是修改
         
-        
-        self.ICS.add_history_data(card)
+        self.ICS.add_history_data(raw_card_data)
     
     def get_current_cards(self):
         """_summary_

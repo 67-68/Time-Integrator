@@ -1,6 +1,6 @@
 from PyQt6.QtCore import QObject
 
-from ti.dataAccess.insightCacheService import InsightCache_service
+from ti.dataAccess.insightCacheService import InsightCacheService
 
 class InsightManager:
     """_summary_
@@ -10,7 +10,7 @@ class InsightManager:
     会输出每个卡片id下最重要的一张卡片
     同时,它会帮助把当前卡片归档
     """
-    def __init__(self,ICS: InsightCache_service):
+    def __init__(self,ICS: InsightCacheService):
         self.cards = {}
         self.ICS = ICS
         
@@ -30,6 +30,7 @@ class InsightManager:
             self.cards[id] = [pre_card_data] #这里搞错了 不是id而是card_id
         # 这里的设计应该是使用card_id来检测是否是修改
         
+        # TODO: present_pack会检测，原始数据就不会了？
         self.ICS.add_history_data(raw_card_data)
     
     def get_current_cards(self):

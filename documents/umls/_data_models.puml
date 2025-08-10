@@ -1,0 +1,39 @@
+@startuml
+package "核心数据模型": {
+    class insight_pack <<data>> {
+        ' 详情参见DATA_DICTIONARY
+        + weight
+        + data
+        + history
+        + id
+    }
+
+    insight_pack -> present_pack: presenter(insight_pack) -> present_pack
+
+    class present_pack <<data>> {
+        + card_type
+        + judgement_key
+        + sementic_key
+        + data
+        + id 
+        + weight
+    }
+
+    
+
+    class conditional_card_matcher {
+        + matcher
+        + state_name
+    }
+
+    class conditional_card_recipe {
+        + detector
+        + config \n{
+            + sequence
+            + id \n}
+        + presenter
+    }
+
+    conditional_card_recipe *-- conditional_card_matcher
+}
+@enduml

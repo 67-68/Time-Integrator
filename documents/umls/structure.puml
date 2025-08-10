@@ -11,16 +11,20 @@ class CardRecipe {
     + get_conditional_card(): list
 }
 
-class ReportPresenter {
-    + __init__(data): ReportPresenter
+class ReportGenerator {
+    + __init__(data): ReportGenerator
     + create_yesterday_report(): dict 
     '创建昨天的所有卡片
     - card_recipe: Card_recipe
     - IE: InsightEngine
 }
 
-ReportPresenter o-- CardRecipe
-ReportPresenter o-- InsightEngine
+ReportGenerator --* CardController
+note left of ReportGenerator
+    这个类的职责就是协调创建卡片
+end note
+
+ReportGenerator o-- CardRecipe
 
 class AnalysisPage {
     + dailyTrend_initialization()
@@ -35,7 +39,6 @@ class InsightEngine {
     + IM: InsightManager
 }
 
-InsightEngine o-- InsightCacheService
 InsightEngine o-- InsightManager
 
 class InsightCacheService {
@@ -44,40 +47,28 @@ class InsightCacheService {
 
 class InsightManager {
     + __init__(ICS) -> InsightManager
+    + add_card(insight_pack,present_pack) -> None 
+    ()这个方法用来把卡片数据加入状态数据库并且存入历史数据
+
+    ' 以后，insight_pack要和存入数据库的数据区分开
+    + get_current_cards() -> list
+    () 首先对自己存储的卡片进行重要程度排序，返回前十张, 有图
 }
+ReportGenerator o-- InsightManager
+InsightManager o-- InsightCacheService
 
 class Detectors extends BaseDetecor{
     + __init__(ICS,config) -> Detectors
     + process_event(au: dict)
     - sequence: list
-    用来存储matchers及其顺序
-
     - weight_calc
-    用来存储计算重量的方法，可能从外面导入依赖也可能用内置的
-
     - _on_weight_calculation(actionUnits: list) -> float
-    ()内置的用来计算重量的方法
-
     - currentIndex: int
-    当前的状态序号，用来表示当前进行到了第几个状态
-    最少是0，最多是状态的个数-1
-
     - passed_au: dict
-    用来存储所有通过检测的au，会在最后作为数据统一发送出去
-    使用字典，每个au的key name是它的状态名称
-
     - ICS: InsightCacheService
-    把传入进来的依赖存入自己的变量
-    会调用它的方法获取数据，作为历史数据
-    在最后打包的时候传出去
     - id: str
-    获取卡片的id
-    会在最后打包数据的时候传送出去
-
     + _on_state_complete()
-
     + reset()
-
     + packer()
 
 }
@@ -87,6 +78,35 @@ InsightEngine o-- Detectors
 class BaseDetecor {
     + __call__(au: dict)
 }
+
+class Presenters {
+    ' 这里是presenter的API接口们
+    + process_data(insight_pack: dict) -> dict
+    ()presenter使用这个方法来处理insight_pack, 赋值narrative和卡片外观
+}
+ InsightEngine o-- Presenters
+
+class PresenterController {
+    + 这个类用来注册和管理所有的presenter
+}
+
+PresenterController --* CardController
+
+note left of PresenterController
+     这个类受CardController管辖
+     因为它的主要职责就是制作卡片的原料
+end note
+
+class MainCoodinator {
+    + 这个类相当于宰相/元老院，用来管理所有的附属controller
+}
+
+
+
+class CardController {
+    + 这个类用来管理所有的卡片分析相关事宜
+}
+
 
 
 @enduml

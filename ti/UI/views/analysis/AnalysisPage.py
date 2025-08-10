@@ -13,13 +13,15 @@ from ti.UI.widgets.pages.BasicFrame import BasicFrame
 class AnalysisPage(BasicFrame):
     switchPage_button_clicked = pyqtSignal(str)
     
-    def __init__(self, parent = None):
+    def __init__(self,parent = None):
         super().__init__(parent)
         
         self.AP = Ui_analysisPage()
         self.AP.setupUi(self)
         self.AP.cardsScroll.setWidgetResizable(True)
         
+        #self.service = service
+        self.services = {}
         
         self.AP.pageSwitchFrameBase.switchPage_button_clicked.connect(lambda f:self.switchPage_button_clicked.emit(f))
         
@@ -42,7 +44,7 @@ class AnalysisPage(BasicFrame):
         我还没有想好是要点击daily trend按钮之后才初始化，或者一开始就初始化
         暂时先堆在一起
         """
-        self.presenter = ReportPresenter(data)
+        self.presenter = ReportPresenter(data,self.services)
         cards = []
         
         #  ------ 获取数据 ------
@@ -51,8 +53,8 @@ class AnalysisPage(BasicFrame):
         if textReport == "No data":
             return "No data"
         #  ------ 创建类，生成卡片 ------
-        for idx, card_data in enumerate(textReport):
-            data = format_card(card_data)
-            cards.append(TrendCard(data, parent=self.CA))     # 保存引用，防止被垃圾回收
-            self.CA.layout().addWidget(cards[idx])            # 加入垂直布局，自上而下显示
+        # for idx, card_data in enumerate(textReport):
+        #     data = format_card(card_data)
+        #     cards.append(TrendCard(data, parent=self.CA))     # 保存引用，防止被垃圾回收
+        #     self.CA.layout().addWidget(cards[idx])            # 加入垂直布局，自上而下显示
         

@@ -1,3 +1,7 @@
+from ti.dataAccess.insightManager import InsightManager
+from ti.engine.insightEngine import InsightEngine
+
+
 class TestInsightEngine:
     # tests/test_engine.py
 
@@ -5,7 +9,7 @@ class TestInsightEngine:
 
     def test_engine_correctly_detects_sequence_pattern(
         self,
-        configured_insight_engine, # <-- 道具1: 已配置好的引擎
+        configured_insight_engine: InsightEngine, # <-- 道具1: 已配置好的引擎
         translator,              # <-- 道具2: 翻译器
         raw_test_data_stream     # <-- 道具3: 原始数据
     ):
@@ -19,12 +23,26 @@ class TestInsightEngine:
         for au in raw_test_data_stream:
             newData.append(translator.fastToProper(au)["data"])
         
+                # 断言数据流处理正确
+        assert newData[0] == {
+            "start":"14:00",
+            "end":"14:40",
+            "action_type":"rest",
+            "action":"吃饭"
+        }
+        
         for d in newData:
             configured_insight_engine(d)
         
-        cards = configured_insight_engine.get_cur_cards()
+        IM: InsightManager = configured_insight_engine.IM
+        cards = IM.get_current_cards()
         
         breakpoint()
+        
+        # 断言卡片生成了
         assert len(cards) == 1
+        
+        # 断言卡片生成正确
         assert cards[0]["data"]["id"] == "post_eat_waste"
+        
         

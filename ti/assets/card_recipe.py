@@ -64,9 +64,13 @@ class Card_recipe:
         condition card recipe
         这些卡片的结构和上面的一般卡片一样
         但会多包含一个detecter
-
         """
-        #in the future, it can change to a list of cards that each contain the condition as a key, or even maybe a matcher in it and been scanned forth and backwards
+        
+        """
+        in the future, 
+        it can change to a list of cards that each contain the condition as a key, 
+        or even maybe a matcher in it and been scanned forth and backwards
+        """
         self.conditional_card_recipe = [
             # {
             #     "detector": BaseDetector,

@@ -1,6 +1,6 @@
 from PyQt6.QtCore import pyqtSignal,QObject
 
-from ti.dataAccess.insightCacheService import InsightCache_service
+from ti.dataAccess.insightCacheService import InsightCacheService
 
 class BaseDetector(QObject):
     """
@@ -15,7 +15,7 @@ class BaseDetector(QObject):
     """
     pattern_detected = pyqtSignal(dict)
     
-    def __init__(self,config: dict,insight_cache_service: InsightCache_service):
+    def __init__(self,config: dict,insight_cache_service: InsightCacheService):
         """
         输入一个config来创建 
 
@@ -24,7 +24,10 @@ class BaseDetector(QObject):
         , 一个权重计算器（也可以不写), 一个id
         """
         super().__init__()
+        
         # 获取matchers
+        breakpoint()
+        
         self.sequence = config["sequence"]
         
         # 获取权重计算函数 如果没有那么使用默认的
@@ -47,7 +50,7 @@ class BaseDetector(QObject):
         # 卡片id
         self.id = config["id"]
     
-    def __call__(self,au):
+    def process_action_unit(self,au):
         """_summary_
         这个函数用来验证是否输入进来的actionUnit符合当前阶段要求
         如果不符合 返回False, 反之直接进入下一个阶段

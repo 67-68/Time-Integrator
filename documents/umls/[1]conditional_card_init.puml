@@ -1,0 +1,98 @@
+@startuml
+title "Conditional_card_initialize"
+
+participant "mainCoodinator" as coodinator
+participant "CardController" as controller
+participant "ReportGenerator" as presenter
+database "Card_recipe" as database
+participant "InsightEngine: engine" as engine
+participant "InsightManager" as manager
+participant "EachDetectors: detector" as detector
+participant "InsightCacheService" as cache
+
+' 创建Controller
+activate coodinator
+coodinator -> controller: initialization(data,service): None
+note over controller
+  注入所有的数据和服务
+  包括所有的detector
+end note
+
+activate controller
+controller -> controller: dailyTrend_initialization(data)
+note right of controller: 注入依赖，创建所有的detector
+
+
+
+'' 创建ReportGenerator类
+
+controller -> presenter: __init__(data): ReportGenerator
+activate presenter
+
+'' 获取卡片信息
+presenter -> database: get_conditional_card(): list
+activate database
+database --> presenter: conditional_card_recipe(): list
+deactivate database
+
+'' 把卡片信息输入insightEngine作为依赖
+presenter -> engine: inilialization(conditional_card_recipe)
+activate engine
+
+'' InsightEngine初始化
+''' 初始化Cache和Service
+note over engine: 从service 包中获取cache和service
+
+''' 初始化detector
+loop for recipe in recipes
+  ' 创建实例
+  note right of engine: 从recipe中获取config
+  engine -> detector: __init__(config,ICS)
+  activate detector
+  note over detector
+    开始初始化
+    参见[2]detector_state_init.puml
+  end note
+
+  ' 初始化完成，返回变量
+  note over detector: 返回创建完成的detector
+  detector --> engine: return detector
+  
+  ' 关注信号
+  engine -> detector: subscribe_to_pattern_detected()
+  deactivate detector
+
+  ' 更新内部变量
+  note right of engine: self.cards[id] = {detector, id,presenter)
+end
+
+
+'' InsightEngine创建完成
+engine --> presenter: return InsightEngine
+deactivate engine
+
+'' ReportGenerator创建完成
+presenter --> controller: return presenter: ReportGenerator
+deactivate presenter
+
+'' 开始创建昨天的报告
+controller -> presenter: create_yesterday_report(): list
+
+opt self.today not in self.currentData:
+  presenter --> controller: return "no data"
+end
+
+'' 报告创建完成
+presenter --> controller: return report: dict
+
+''' 创建每日报告
+'我会掠过这一部分，鉴于不是要关注的
+''' 完成创建每日报告
+
+' 开始加载ui
+
+' UI加载完毕
+deactivate controller
+deactivate coodinator
+
+@enduml

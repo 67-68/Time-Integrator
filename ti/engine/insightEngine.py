@@ -1,6 +1,5 @@
 from PyQt6.QtCore import QObject
-from ti.dataAccess.insightCacheService import InsightCache_service
-from ti.dataAccess.insightManager import InsightManager
+from ti.core.analysis.detectors.detector import BaseDetector
 
 class InsightEngine(QObject):
     """
@@ -9,7 +8,7 @@ class InsightEngine(QObject):
     最终从Insight manager那里获取需要输出的卡片
     传送给presenter
     """        
-    def __init__(self,recipes:list,parent = None):
+    def __init__(self,services: dict,parent = None):
         """_summary_
         这个类会接收所有配方,
         给每个id的卡片创建一个字典，包含所有信息
@@ -18,18 +17,20 @@ class InsightEngine(QObject):
         Args:
             recipes (list): 所有配方的列表
         """
-        super().__init__(parent)    
+        super().__init__(parent = None)    
         
         # 创建状态
         self.cards = {}
-        self.ICS = InsightCache_service()
-        self.IM = InsightManager(self.ICS)
-        
+        # self.ICS = services["ICS"]
+        # self.IM = services["IM"]
+    
+    def inillialize(self,recipes:list):
         for recipe in recipes:
             id = recipe["config"]["id"]
             config = recipe["config"]
             
-            detector = recipe["detector"](config,self.ICS)
+            detector: BaseDetector = recipe["detector"]
+            detector.process_action_unit(config,self.ICS)
             
             #这里，这一行，如果detector通过了，卡片模式被识别出来，会首先执行这一条
             detector.pattern_detected.connect(lambda f : self.pattern_detected(f))
@@ -39,8 +40,8 @@ class InsightEngine(QObject):
                 "id":id,
                 "presenter":recipe["presenter"]
             }
-            
-    def __call__(self,au: dict) -> None:
+    
+    def process_action_unit(self,au: dict) -> None:
         """_summary_
         这个函数会接收行动单元
         并按照内置的detector处理它们
@@ -69,11 +70,4 @@ class InsightEngine(QObject):
         # 使用presenter处理
         pre_data = presenter(rawData)
         self.IM.add_card(rawData,pre_data)
-
-        
-    def get_cur_cards(self):
-        """_summary_
-        这个函数会首先通过insight manager获取当前的卡片数据, 把它们
-        """
-        return self.IM.get_current_cards()
     

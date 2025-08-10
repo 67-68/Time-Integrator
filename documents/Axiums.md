@@ -17,3 +17,73 @@
 
 > 上行事件
 
+**测试驱动开发**
+
+**新MVP架构**
+
+<critique>
+```
+@startuml
+
+class AnalysisPage {
+
++ functionButton
+
+}
+
+class AnalysisPage_Controller {
+
++ _on_functionButton_clicked()
+
+()这个函数用来写这个button被clicked 之后会发生什么
+
+  
+
+- services
+
+}
+
+AnalysisPage_Controller *-- AnalysisPage
+
+' 这个关系正确吗？是不是反了?
+
+  
+
+class App {
+
+- services: list
+
+}
+
+  
+
+App o-- AnalysisPage_Controller
+
+App o-- Other_Controllers
+
+Other_Controllers *-- Other_UIs
+
+  
+
+@enduml
+
+  
+
+@startuml
+
+participant "Application: app" as app
+
+participant "AnalysisPage_Controller: Controller" as control
+
+  
+
+app -> control: __init__(services)
+
+  
+
+@enduml
+```
+
+让我用uml的语言来简单的描述一下，大概是这么个逻辑?
+
+让我用语言对它进行进一步的描述：是否最终的结果看起来像是一张大网（天罗地网lol）覆盖在ui的地上，每一个ui的活动都需要经过这张网来表达，这张网的组成部分就是一堆的controller, 在最中心是app类？简单来说，原本我们使用一个容器类容纳ui和逻辑，现在，我们把容器类看作单纯的容器，一个工具，而不是这张事件和信号之网中的一部分？它原本的生态位被现在的controller替代了

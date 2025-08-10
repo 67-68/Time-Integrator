@@ -1,0 +1,15 @@
+@startuml
+title Detector_State_Init
+
+object "anonymos_detector: Detectors" as Detector {
+    weight_calc = config["weight_calc"]
+    self.currentIndex = 0
+    self.passed_au = {}
+    self.ICS = insight_cache_service
+    self.id = config["id"]
+}
+note as h1
+  关于细节, 参考[3]detector_init_doc.md
+end note
+
+@enduml

@@ -4,7 +4,7 @@ from ti.core.definitions import INSIGHT_CACHE
 from ti.dataAccess.dataAccess import getData
 
 
-class InsightCache_service:
+class InsightCacheService:
     def __init__(self):
         self.data = getData(INSIGHT_CACHE)
     

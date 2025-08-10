@@ -1,0 +1,56 @@
+这个文件用来表示最上层的report_generation功能,即卡片生成
+但目前只有conditional_Card
+
+@startuml
+actor user
+participant "Time_Integrator: app" as app
+participant "MainCoodinator: coodinator" as coodinator
+participant "CardController: controller" as controller
+
+group Initialization
+    ' 程序启动
+    user -> app: Start()
+    activate app
+    
+    ' 获取服务和数据
+    'TODO
+
+    ' 创建Coodinator, 注入依赖
+    app -> coodinator: __init__(data,service)
+    activate coodinator
+
+    ' 创建controller
+    coodinator -> controller: __init__(data,service)
+    activate controller
+
+    ref over controller
+        此处的图纸在conditional_card_initialization.puml
+    end ref
+
+    controller --> coodinator: return cardCtrl: CardController
+    deactivate controller
+
+end group
+
+' 自动生成卡片
+group Generation
+    coodinator -> controller: create_ytd_report()
+    activate controller
+
+    ref over controller
+        生成卡片
+        这里的图纸参考conditional_card_generation_linear
+        但是这张图中缺了生成卡片的路径，也就是card_controller的序列图
+    end ref
+
+    controller --> coodinator: return None
+    deactivate controller
+end group
+
+' 结束程序
+coodinator --> app: return None
+app --> user: return None
+
+
+
+@enduml

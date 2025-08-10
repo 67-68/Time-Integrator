@@ -1,0 +1,57 @@
+@startuml
+
+|detector|
+
+start
+:currentMatcher = self.sequence[self.currentIndex]["matcher"];
+note
+    根据数据库和当前状态序号，获取当前matcher
+end note
+:test;
+if (currentMatcher(au) == True) then (当前状态匹配)
+    :currentIndex += 1;
+
+    note
+        把状态序号往前推进一步
+    end note
+
+    if (currentIndex >= len(sequence)) then (模式匹配)
+        :_on_state_complete();
+        
+        note
+            状态被检测到
+            在调用_on_state_complete方法后
+            首先会调用packer打包发送信号
+            然后会重置当前状态
+        end note
+
+        :packer() -> dict;
+        :data["weight"] = self.weight_calc(self.passed_au)
+        data["data"] = self.passed_au
+        data["history"] = self.ICS.get_history_data(self.id)
+        data["id"] = self.id;
+
+        note
+            打包，赋值
+        end note
+        
+        :pattern_detected.emit(data);
+
+        |engine|
+        :receive_pattern_detected.emit(data);
+
+        |detector|
+        :reset();
+
+        stop
+    endif
+else (当前matcher不匹配)
+    if (currentIndex > 0) then (已经有了进度)
+        :reset();
+    endif
+endif
+
+stop
+@enduml
+
+

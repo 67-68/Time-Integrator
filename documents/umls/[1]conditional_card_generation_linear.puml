@@ -1,0 +1,157 @@
+@startuml
+' 创建所有需要的部分
+
+actor "dataService: trigger" as trigger
+participant "ReportGenerator: generator" as generator
+participant "InsightEngine: engine" as engine
+participant "Detectors: detector" as detector
+participant "Presenters: presenter" as presenter
+participant "InsightManager: manager" as manager
+
+note left of trigger
+    这张表是每天自动生成的, 线性的, 上一天的conditional card流程
+    并不是实时生成的conditioanl card流程
+    首先 reportGenerator类会获取所有的昨天数据
+    一条条喂给insightEngine
+    最后通过方法调用回收
+end note
+
+activate trigger
+note over trigger: 用户打开程序
+trigger -> generator: create_yesterday_report()
+
+note over generator: 收集数据，喂给engine
+activate generator
+
+' 如果没有数据就提前返回
+opt yesterday not in data or data[yesterday] = None:
+    generator --> trigger: return False
+end
+
+note over generator: actionUnits = data[yesterday]
+
+' 开始喂数据
+loop for au in data: 
+    note right of generator: 调用engine处理actionUnit
+    generator -> engine: process_event(au: dict)
+    activate engine
+
+    loop for id in self.cards:
+        note over engine: detector = self.cards[id]["detector"]
+        
+        ' 进入detector部分，开始使用状态机
+        note right of detector: 传递au给它，匹配模式
+        engine -> detector: process_event(au)
+        activate detector
+        
+        ' 这里有一张关于detector内部的活动图
+
+        detector --> engine: pattern_detected(insight_pack)
+        note right of detector
+            传输insight_pack
+        end note
+        deactivate detector
+
+        ' 开始处理传送回来的数据
+        note over engine: 获取卡片id并获取相关presenter
+        engine -> presenter: process_insight_pack(insight_pack: dict) -> dict
+        activate presenter
+
+        note right of presenter
+            处理，返回打包好的数据
+            这里可能存在动态图
+            对于每一个单独的presenter函数
+        end note
+        presenter --> engine: return present_pack: dict
+        deactivate presenter
+
+        ' 把卡片加入InsightManager类
+        note right of engine
+            把卡片加入InsightManager类
+        end note
+
+        engine -> manager: add_card(insight_pack: dict,present_pack: dict)
+        activate manager
+        note left of manager
+            在这里，manager首先会检测是否卡片在当前库中
+            如果在，修改而不是添加
+            然后把卡片的原始数据加入库中
+        end note
+
+        ' manager执行完毕
+        manager --> engine: return None: 函数执行完毕
+        deactivate manager
+    end
+
+    ' Engine执行完毕
+    engine -> generator: return None: 函数执行完毕
+    deactivate engine
+end
+
+' generator调用，展示数据
+generator -> manager: get_current_cards()
+activate manager
+
+note over manager: 进行内部的重要程度排序
+manager --> generator: return cards: list
+deactivate manager
+
+' 把卡片信息用来制造trendCards
+
+loop for card in conditional_cards
+    note over generator: cardData.append(card)
+end
+
+generator --> trigger: return card_data: list
+deactivate generator
+note over generator: 缺少了analysis Page，但这和主要逻辑无关
+' 
+@enduml
+
+
+
+
+' ' detector内部行动
+' note over detector
+'     currentMatcher = self.sequence[self.currentIndex]["matcher"]
+'     根据数据库和当前状态序号，获取当前matcher
+' end note
+
+' ' detector判断逻辑
+' alt currentMatcher(au) == True
+'     ' 这里需不需要细化到获取stateName呢？
+'     note over detector
+'         如果当前状态匹配模式：
+'         根据当前状态序号获取statename
+'         根据stateName，把au赋值入通过au的字典
+'     end note
+
+'     note over detector: currentIndex += 1
+    
+'     ' 如果状态被检测到
+'     opt currentIndex >= len(sequence):
+'         detector -> detector: _on_state_complete()
+'         note right of detector
+'             状态被检测到
+'             在调用_on_state_complete方法后
+'             首先会调用packer打包发送信号
+'             然后会重置当前状态
+'         end note
+
+'         ' 打包，发送信号
+'         detector -> detector: packer()
+'         note over detector: data = packer()
+'         note over detector
+'             packer() -> dict
+'             data["weight"] = self.weight_calc(self.passed_au)
+'             data["data"] = self.passed_au
+'             data["history"] = self.ICS.get_history_data(self.id)
+'             data["id"] = self.id
+'         end note
+'         detector --> engine: pattern_detected.emit(data)
+'         detector -> detector: reset()
+'     end
+' ' 如果模式不匹配
+' else currentIndex > 0:
+'     detector -> detector: reset()
+' end

@@ -73,6 +73,18 @@ def present_sequence_data(data: dict) -> dict:
 
     return returnData
 
+
+def regist_presenter():
+    """_summary_
+    这个函数被用来登记所有的presenter函数
+    它会创建一个字典
+    aim for 输入事件模式，输出presenter函数
+    """
+    
+    presenters = {}
+    
+    
+
     
     
     

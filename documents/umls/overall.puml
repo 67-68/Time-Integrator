@@ -1,0 +1,62 @@
+@startuml
+
+package Function {
+    class "Conditional_Card" <<function>> {
+        + 条件卡片功能
+    }
+}
+
+package [0]层级 {
+    class "generate_report_overview" <<Sequence.puml>> {
+        + 生成卡片的部分
+    }
+    generate_report_overview --* Conditional_Card
+
+    class "structure" <<class.puml>> {
+        + 类图，表示类之间的关系
+    }
+    structure --o Conditional_Card
+
+    class "data_model" <<class.puml>> {
+        + 根据数据模型文档整出来的类图
+    }
+    data_model --o Conditional_Card
+}
+
+package [1]层级 {
+    class "conditional_card_init" <<Sequence.puml>> {
+        + 初始化生成卡片的组件
+    }
+    conditional_card_init --* generate_report_overview
+
+    class "conditional_card_generation_linear" <<Sequence.puml>> {
+        + 生成卡片
+    }
+    conditional_card_generation_linear --* generate_report_overview
+
+    class "DATA_DICTIONARY" <<dictionary.md>> {
+        + 数据文档
+    }
+    DATA_DICTIONARY --* data_model
+}
+
+package [2]层级 {
+    class "detector_activity" <<activity.puml>> {
+        + detectors在被engine调用之后的活动
+    }
+    detector_activity --* conditional_card_generation_linear
+
+    class "detector_init" <<object.puml>> {
+        + 初始化detector之后,detector的状态
+    }
+    detector_init --* conditional_card_init
+}
+
+package [3]层级 {
+    class detector_init_doc <<document.md>> {
+        + 用来记录detector初始化的逻辑和配置的细节
+    }
+    detector_init_doc --* detector_init
+}
+
+@enduml

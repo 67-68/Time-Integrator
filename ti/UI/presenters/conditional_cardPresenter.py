@@ -1,0 +1,56 @@
+from ti.dataAccess.insightManager import InsightManager
+from ti.engine.insightEngine import InsightEngine
+
+class Conditional_ReportGenerator():
+    """_summary_
+    这个类管理conditionalCard的创建
+    同时管理engine和manager的通信
+    """
+    def __init__(
+        self,
+        data: dict,
+        recipe: dict,
+        IE: InsightEngine,
+        IM: InsightManager,
+    ):
+        self.IE = IE
+        self.IM = IM
+        self.data = data
+        self.recipe = recipe
+        self.IE.initialize(recipe)
+        
+        # 连接信号
+        self.IE._on_pattern_detected.connect(lambda d: self._on_pattern_detected(d))
+        
+    def create_report(self) -> None:
+        """_summary_
+        创建条件判断卡片的报告
+        卡片会放进manager, 如果需要，去那里取
+        """  
+        cardData = []
+
+        # 创建卡片
+        for au in self.data:
+            self.IE.process_action_unit(au)
+        
+        conditional_card = self.IM.get_current_cards()
+        
+        for card in conditional_card:
+            cardData.append(card)
+        
+
+    
+    def _on_pattern_detected(self,cardData:tuple):
+        """_summary_
+        这个函数连接了engine检测到模式之后的信号
+        会把engine的信号和数据转接到Manager那里
+        Args:
+            cardData (tuple): 一个元组的数据，包含需要展示和需要储存的数据
+        """
+        
+        # 提取元组
+        rawData, preData = cardData
+        
+        # 添加卡片
+        self.IM.add_card(rawData,preData)
+    

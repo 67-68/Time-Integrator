@@ -34,7 +34,7 @@ end group
 
 ' 自动生成卡片
 group Generation
-    coodinator -> controller: create_ytd_report()
+    coodinator -> controller: create_ytd_card()
     activate controller
 
     ref over controller
@@ -43,14 +43,7 @@ group Generation
         但是这张图中缺了生成卡片的路径，也就是card_controller的序列图
     end ref
 
-    controller --> coodinator: return None
+    controller --> coodinator: return (CardGenerated,cards)
     deactivate controller
 end group
-
-' 结束程序
-coodinator --> app: return None
-app --> user: return None
-
-
-
 @enduml

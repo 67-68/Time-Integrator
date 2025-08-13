@@ -42,6 +42,7 @@ class InsightManager:
         """
         newCards = []
         #这里出过问题
+        
         # 1. 遍历字典中所有的ID
         for id in self.cards:
             # 2. 对每个ID下的卡片列表(self.cards[id])进行排序，并选出最重的一张

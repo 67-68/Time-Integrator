@@ -87,11 +87,11 @@ SPECIFIC_NARRATION = {
             }
         },
         "sementic_key":{
-            "text": ["你在“{data.0.action}”之后，立刻就开始“{data.1.action}”，持续了{data.1.timeSpan}分钟。"],
+            "text": ["昨天，你在“{data.meal.action}”({data.meal.start} - {data.meal.end})之后，立刻就开始“{data.waste.action}(到{data.waste.end})”，持续了{data.waste.timeSpan}分钟。"],
             "history_text": ["数据显示这已经不是第一次发生这种情况了。"]
         },
         "judgement_key":{
-            "warning":["饭后的放松很重要，但长时间的无意义消耗会打乱你的节奏。试着设定一个短暂的休息时间，然后回到正轨。"]
+            "warning":["你浪费了很多时间哦～这些时间本可以用来睡觉，如今隔断了你的时间，让你更不容易睡着，污染了你的正反馈，即使是工作也不能专心。\n下次注意吧，喵。"]
         }
     }
 }

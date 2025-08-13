@@ -72,27 +72,27 @@ class Card_recipe:
         or even maybe a matcher in it and been scanned forth and backwards
         """
         self.conditional_card_recipe = [
-            # {
-            #     "detector": BaseDetector,
-            #     "config":{
-            #         "sequence": [
-            #             {
-            #                 "state_name": "meal",
-            #                 "matcher": userMatchers.action_is("吃饭")
-            #             },
-            #             {
-            #                 "state_name": "waste",
-            #                 "matcher": userMatchers.action_type_is("waste")
-            #             }
-            #         ],
-            #         "id":"post_eat_waste"
-            #     },
-            #     "presenter":presenters.present_sequence_data
-            # }
+            {
+                "detector": BaseDetector,
+                "config":{
+                    "sequence": [
+                        {
+                            "state_name": "meal",
+                            "matcher": userMatchers.action_is("吃饭")
+                        },
+                        {
+                            "state_name": "waste",
+                            "matcher": userMatchers.action_type_is("waste")
+                        }
+                    ],
+                    "id":"post_eat_waste"
+                },
+                "presenter":presenters.present_sequence_data
+            }
         ]
     
-    def get_daily_card(self):
+    def get_fixed_recipe(self):
         return self.daily_card_recipe
     
-    def get_conditional_card(self):
+    def get_conditional_recipe(self):
         return self.conditional_card_recipe

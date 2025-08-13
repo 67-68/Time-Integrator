@@ -118,9 +118,12 @@ def resource_path(relative_path):
         base_path = sys._MEIPASS
     else:
         # 开发环境或单文件夹模式打包
-        # os.path.dirname(os.path.abspath(__file__)) 是获取当前文件所在目录
-        # 我们需要的是主入口文件所在的目录，所以用sys.argv[0]更稳妥
-        base_path = os.path.dirname(os.path.abspath(sys.argv[0]))
+        # 使用 __file__ 来定位，这在 .py 文件中是可靠的。
+        # sys.argv[0] 在 pytest 等场景下会指向测试工具，导致路径错误。
+        # 我们假设此 utils.py 文件位于项目的一个子目录中（例如 'ti'），
+        # 并且资源（如 'Data' 文件夹）位于项目根目录。
+        # 因此，我们从当前文件位置 (ti/utils.py) 上溯一级以找到项目根目录。
+        base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
     return os.path.join(base_path, relative_path)
 

@@ -98,8 +98,12 @@ note left of PresenterController
 end note
 
 class MainCoodinator {
+    + service: ServiceContainer
+    + C_CTRL: CardController
     + 这个类相当于宰相/元老院，用来管理所有的附属controller
 }
+
+MainCoodinator *-- CardController
 
 
 

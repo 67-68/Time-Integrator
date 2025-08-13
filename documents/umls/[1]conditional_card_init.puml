@@ -75,22 +75,6 @@ deactivate engine
 presenter --> controller: return presenter: ReportGenerator
 deactivate presenter
 
-'' 开始创建昨天的报告
-controller -> presenter: create_yesterday_report(): list
-
-opt self.today not in self.currentData:
-  presenter --> controller: return "no data"
-end
-
-'' 报告创建完成
-presenter --> controller: return report: dict
-
-''' 创建每日报告
-'我会掠过这一部分，鉴于不是要关注的
-''' 完成创建每日报告
-
-' 开始加载ui
-
 ' UI加载完毕
 deactivate controller
 deactivate coodinator

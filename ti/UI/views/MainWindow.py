@@ -23,17 +23,44 @@ class MainWindow(QMainWindow):
         self.MW.setupUi(self)
         
         #  --- 赋值 ---
-        self.CP = self.MW.capturePageBase
-        self.MP = self.MW.menuPageBase
-        self.AP = self.MW.analysisPageBase
-        self.SP = self.MW.settingPage
+        self.createUI()
         
         #  ------ 接收 ------
         self.connectSignal()
         
         self.MW.stackedWidget.setCurrentWidget(self.MP)
-        
+
+    def getUIs(self):
+        """
+        这个函数返回所有的UI实例
+        包括CP, AP和MP
+        """
+        return self.ui
     
+    def getUI(self,ui: str):
+        """_summary_
+        返回单个ui
+        可选的有AP,CP,MP
+        Args:
+            ui (str): ui的名称
+        """
+        return self.ui[ui]
+    
+    def createUI(self):
+        """_summary_
+        这个函数创建UI的引用
+        """
+        self.CP = self.MW.capturePageBase
+        self.MP = self.MW.menuPageBase
+        self.AP = self.MW.analysisPageBase
+        self.SP = self.MW.settingPage
+        
+        self.ui = {
+            "CP": self.CP,
+            "AP": self.AP,
+            "MP": self.MP
+        }
+        
     def connectSignal(self):
         self.CP.switchPage_button_clicked.connect(lambda p: self._on_page_switch_button_clicked(p))
         self.CP.saveData_button_clicked.connect(lambda d: self.saveData_button_clicked.emit(d))
@@ -80,5 +107,5 @@ class MainWindow(QMainWindow):
         """_summary_
         传递依赖
         """
-        self.AP.initialization(data)
+        pass
     

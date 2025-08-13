@@ -26,10 +26,8 @@ class BaseDetector(QObject):
         super().__init__()
         
         # 获取matchers
-        breakpoint()
-        
         self.sequence = config["sequence"]
-        
+            
         # 获取权重计算函数 如果没有那么使用默认的
         if "weight_calc" in config:
             self.weight_calc = config["weight_calc"]
@@ -87,6 +85,7 @@ class BaseDetector(QObject):
         - 发出信号
         """
         self.currentIndex = 0
+        #breakpoint()
         self.pattern_detected.emit(self.packer())
         
     def reset(self):

@@ -3,12 +3,12 @@ import sys
 
 from ti.UI.presenters.menuPresenter import MenuPresenter
 from ti.UI.views.MainWindow import MainWindow
+from ti.controller.cardController import CardController
+from ti.controller.mainCoodinator import MainCoodinator
 from ti.core.analysis.otherAnalysis import updateActionList
-from ti.core.definitions import TODAY
-from ti.dataAccess.insightCacheService import InsightCacheService
+from ti.core.definitions import TODAY,YESTERDAY
 from ti.dataAccess.dataService import DataService
-from ti.dataAccess.insightManager import InsightManager
-from ti.engine.insightEngine import InsightEngine
+from ti.services.serviceContainer import ServiceContainer
 from ti.utils import load_qss, log_message
 
 log_message("Application starting...")
@@ -30,6 +30,11 @@ class TimeIntegrator:
         #  ------ 持有的状态 ------
         self.createState()
         
+        #  ------ 创建所有的服务实例 ------
+        self.services = ServiceContainer()
+        self.dataService: DataService = self.services.getService("DS")
+        self.coodinator = MainCoodinator(self.services,self.ui)
+                
         #  ------ 连接信号和槽 ------
         self.connectSignal()
         
@@ -38,27 +43,10 @@ class TimeIntegrator:
         
         #  ------ 初始化今天 -----
         self._on_date_selected(TODAY)
-        
-        #  ------ 创建所有的服务实例 ------
-        self.services = self.createServices()
-
-
-    """ ------------------------------ Basic functions ------------------------------"""
-    def createServices(self) -> dict:
-        self.services = {}
-        
-        cache = InsightCacheService()
-        self.services["ICS"] = cache
-        
-        manager = InsightManager(cache)
-        self.services["IM"] = manager
-        
-        engine = InsightEngine(manager,cache)
-        self.services["IE"] = engine
+            
         
 
-        
-    
+    """ ------------------------------ Basic functions ------------------------------"""    
     def connectSignal(self):
         self.mainWindow.timeSpan_choosed.connect(self._on_Time_Choosed)
         self.mainWindow.saveData_button_clicked.connect(lambda f:self._on_saveButton_clicked(f))
@@ -71,7 +59,7 @@ class TimeIntegrator:
         self.currentDate = None
         self.currentActionUnit = None 
         self.previousAU = None
-        self.dataService = DataService()
+        self.ui = self.mainWindow.getUIs()
     
     def createNewRecord(self):
         """
@@ -147,4 +135,5 @@ class TimeIntegrator:
         初始化，传递依赖，刷新所有需要数据的功能
         """    
         #  --- 传递依赖 ---
-        self.mainWindow.initialization(self.dataService.get_data())
+        # se-lf.mainWindow.initialization(self.dataService.get_data())
+        pass

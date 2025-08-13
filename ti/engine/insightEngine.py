@@ -1,5 +1,7 @@
-from PyQt6.QtCore import QObject
+from PyQt6.QtCore import QObject,pyqtSignal
 from ti.core.analysis.detectors.detector import BaseDetector
+from ti.dataAccess.insightCacheService import InsightCacheService
+
 
 class InsightEngine(QObject):
     """
@@ -7,8 +9,13 @@ class InsightEngine(QObject):
     并接收它们的信号,传送给insightManager
     最终从Insight manager那里获取需要输出的卡片
     传送给presenter
-    """        
-    def __init__(self,services: dict,parent = None):
+    """
+    _on_pattern_detected = pyqtSignal(tuple)
+    def __init__(
+        self,
+        ICS: InsightCacheService,
+        parent = None
+    ):
         """_summary_
         这个类会接收所有配方,
         给每个id的卡片创建一个字典，包含所有信息
@@ -20,17 +27,16 @@ class InsightEngine(QObject):
         super().__init__(parent = None)    
         
         # 创建状态
+        self.ICS = ICS
         self.cards = {}
-        # self.ICS = services["ICS"]
-        # self.IM = services["IM"]
     
-    def inillialize(self,recipes:list):
+    def initialize(self,recipes:list):
         for recipe in recipes:
             id = recipe["config"]["id"]
             config = recipe["config"]
             
             detector: BaseDetector = recipe["detector"]
-            detector.process_action_unit(config,self.ICS)
+            detector = detector(config,self.ICS)
             
             #这里，这一行，如果detector通过了，卡片模式被识别出来，会首先执行这一条
             detector.pattern_detected.connect(lambda f : self.pattern_detected(f))
@@ -54,7 +60,8 @@ class InsightEngine(QObject):
             au (dict):一个行动单元
         """
         for id in self.cards:
-            self.cards[id]["detector"](au)
+            detector: BaseDetector = self.cards[id]["detector"]
+            detector.process_action_unit(au)
         
     def pattern_detected(self,rawData: dict) -> None:
         """_summary_
@@ -69,5 +76,8 @@ class InsightEngine(QObject):
         
         # 使用presenter处理
         pre_data = presenter(rawData)
-        self.IM.add_card(rawData,pre_data)
+        
+        # 发送信号
+        #breakpoint()
+        self._on_pattern_detected.emit((rawData,pre_data)) #这里曾经出过问题，把元组作为参数发送
     

@@ -6,7 +6,7 @@ from ti.dataAccess.dataAccess import getData
 
 class InsightCacheService:
     def __init__(self):
-        self.data = getData(INSIGHT_CACHE)
+        self.allData = getData(INSIGHT_CACHE)
     
     def get_history_data(self,id:str = None) -> dict:
         """_summary_
@@ -19,9 +19,9 @@ class InsightCacheService:
             dict: 卡片数据
         """
         if id: 
-            if id in self.data:
-                return self.data[id]
-        return self.data
+            if id in self.allData:
+                return self.allData[id]
+        return self.allData
     
         
     
@@ -53,8 +53,15 @@ class InsightCacheService:
                 au uid
                 au date(鬼知道未来会不会涉及跨天检测)
         """
+        # 获取id
         id = card["id"]
-        if id not in self.data:
+        
+        # 初始化
+        data = {}
+        
+        # 如果不存在
+        if id not in self.allData:
+            # 赋值data
             data = {
                 "data":[],
                 "total":{
@@ -63,28 +70,33 @@ class InsightCacheService:
                 }
             }   
             data["data"].append(card)
-        else:
-            for c in data["data"]:
+        else: # 如果存在
+            # 首先检查是否卡片存在，需要修改
+            for c in self.allData[id]["data"]:
                 if c["card_id"] == card["card_id"]:
                     c = card
                     break
+            
+            # 赋值data
+            data = self.allData[id]
         
         # 这里目前用的是一个手动提取，未来可能换成子类注入的函数 不限制data的结构
         
         # 我决定加个补丁...如果是列表那么分开搞，如果是字典也分开搞
         
         # 补丁1: 列表检测
-        if isinstance(card[data],list):
+        #breakpoint() 
+        if isinstance(card["data"],list):
             for au in card["data"]: 
                 data["total"]["timeSpan"] += au["timeSpan"]
                 data["total"]["count"] += 1
         # 补丁2: 字典检测
         elif isinstance(card["data"],dict):
             for key in card["data"]:
-                data["total"]["timeSpan"] += card[data][key]["timeSpan"]
+                data["total"]["timeSpan"] += card["data"][key]["timeSpan"]
                 data["total"]["count"] += 1
         
-        self.data[id] = data    
+        self.allData[id] = data    
         
     def add_bulk_history_data(self,cards:list) -> None:
         """_summary_

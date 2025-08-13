@@ -26,7 +26,20 @@ ANY_MATCHER = property_is("action")
 """
 
 # 要做一个匹配餐后浪费时间的
+
+"""
+在这些配方中(conditional card matchers)
+每个列表的item是一个字典
+包含着两个key:
+状态名称和matcher匹配符
+"""
 POST_EAT_WASTE = [
-    action_is("吃饭"),
-    action_type_is(ActionType.WASTE.value)
+    {
+        "matcher": action_is("吃饭"),
+        "state_name": "eat"
+    },
+    {
+        "matcher": action_type_is(ActionType.WASTE.value),
+        "state_name":"waste"
+    }
 ]

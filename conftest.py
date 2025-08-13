@@ -1,29 +1,60 @@
 # conftest.py
 
 import pytest
+from unittest.mock import MagicMock
 
 from Data import userMatchers
 from ti.UI.presenters.translator import Translator
+from ti.UI.views.MainWindow import MainWindow
+from ti.controller.mainCoodinator import MainCoodinator
 from ti.core.analysis import presenters
-from ti.core.analysis.detectors.detector import BaseDetector # 假设这是你的SequenceDetector
-from ti.dataAccess.insightCacheService import InsightCacheService
-from ti.dataAccess.insightManager import InsightManager
-from ti.engine.insightEngine import InsightEngine
+from ti.core.analysis.detectors.detector import BaseDetector 
+from ti.services.serviceContainer import ServiceContainer
+
+#  ----- 服务 ------
+@pytest.fixture
+def mock_analysis_page():
+    """提供一个带 add_card 方法的 AnalysisPage (AP) 模拟对象。"""
+    mock_ap = MagicMock()
+    mock_ap.add_card = MagicMock()
+    return mock_ap
 
 @pytest.fixture
-def get_services():
-    services = {}
+def mainWindow(mock_analysis_page):
+    """提供一个使用模拟 AP 对象的 MainWindow 模拟对象。"""
+    mock_window = MagicMock()
+    mock_window.getUIs.return_value = {"AP": mock_analysis_page}
+    return mock_window
+
+@pytest.fixture
+def UI(mainWindow: MainWindow):
+    """_summary_
+    返回一个UI Dict
+    """
+    return mainWindow.getUIs()
+
+@pytest.fixture
+def serviceContainer():
+    """_summary_
+
+    Returns:
+        service: 一个ServiceContainer实例，而不是service列表
+    """
+    return ServiceContainer()
     
-    cache = InsightCacheService()
-    services["ICS"] = cache
-    
-    manager = InsightManager(cache)
-    services["IM"] = manager
-    
-    engine = InsightEngine(manager,cache)
-    services["IE"] = engine
-    
-    return services
+
+@pytest.fixture
+def mainCoodinator(serviceContainer,UI):
+    """_summary_
+    这个函数作为pytest的fixture,
+    返回一个初始化完成的Coodinator
+    Args:
+        serviceContainer (ServiceContainer): 持有服务
+
+    Returns:
+        MainCoodinator: 主管
+    """
+    return MainCoodinator(serviceContainer,UI)
 
 @pytest.fixture
 def post_eat_waste_recipe():
@@ -43,16 +74,6 @@ def post_eat_waste_recipe():
 def translator():
     """提供一个Translator实例。"""
     return Translator()
-
-@pytest.fixture
-def configured_insight_engine(post_eat_waste_recipe,services):
-    """
-    提供一个已经根据特定配方，配置好的InsightEngine实例。
-    注意：它依赖于上面的'post_eat_waste_recipe' fixture！
-    它依赖于上面的get_services fixture
-    """
-    engine: InsightEngine = services["IE"]
-    return engine.inillialize(post_eat_waste_recipe)
 
 @pytest.fixture
 def raw_test_data_stream():

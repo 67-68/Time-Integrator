@@ -1,0 +1,20 @@
+@startuml
+title Fixed_Card_Generation
+
+start
+
+while (card in self.recipe)
+    :config = card["analyzer_config"];
+    :analyzer = card["analyzer"];
+    :presenter = card["presenter"];
+    :card = analyzer(self.data,config);
+    :card = presenter(card);
+    :cardData.append(card);
+endwhile
+
+:return cardData;
+
+end 
+
+
+@enduml

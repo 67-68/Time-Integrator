@@ -14,9 +14,9 @@ from ti.services.serviceContainer import ServiceContainer
 #  ----- 服务 ------
 @pytest.fixture
 def mock_analysis_page():
-    """提供一个带 add_card 方法的 AnalysisPage (AP) 模拟对象。"""
+    """提供一个带 add_cards 方法的 AnalysisPage (AP) 模拟对象。"""
     mock_ap = MagicMock()
-    mock_ap.add_card = MagicMock()
+    mock_ap.add_cards = MagicMock()  # 修正: add_card -> add_cards
     return mock_ap
 
 @pytest.fixture

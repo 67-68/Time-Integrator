@@ -13,32 +13,38 @@ class Test_Accept_Conditional_Card:
     def test_conditional_card_function(
         self,
         mainCoodinator: MainCoodinator,
-        mock_analysis_page: MagicMock  # <-- 请求新的 fixture
+        mock_analysis_page: MagicMock
         ):
         """
         GIVEN: mainCoodinator, 包含特殊模式的数据源
-        WHEN:  mainCoodinator开始初始化
-        THEN:  可以看到昨天的Conditional_Card, 并且UI的add_card方法被调用
+        WHEN:  mainCoodinator初始化(fixture中已完成)
+        THEN:  AnalysisPage的add_cards方法应该被调用，且参数是一个列表
         
         本测试架构来源于[0]generate_report_overview.puml
         """
-        # 已经在mainCoodinator的fixture中初始化并生成了卡片
+        # mainCoodinator已经在fixture中初始化，并调用了create_yesterday_report
         
-        # 1. 验证 add_card 方法被调用
-        mock_analysis_page.add_card.assert_called()
+        # 1. 验证 add_cards 方法被调用
+        mock_analysis_page.add_cards.assert_called()
         
-        # 2. 打印出第一次调用的参数
-        #    call_args[0] 是位置参数 (args)
-        #    call_args[1] 是关键字参数 (kwargs)
-        first_call_args = mock_analysis_page.add_card.call_args
-        print("add_card was called with:", first_call_args)
+        # 2. 验证 add_cards 方法只被调用了一次
+        mock_analysis_page.add_cards.assert_called_once()
         
-        # 3. 您可以对参数进行更具体的断言
-        #    例如，验证第一个参数是一个字典
-        assert isinstance(first_call_args[0][0], dict)
+        # 3. 获取调用参数
+        first_call_args = mock_analysis_page.add_cards.call_args
         
-        # 4. 原有的断言，验证卡片确实生成了
-        service = mainCoodinator.service.getServices()
-        im: InsightManager = service["IM"]
-        cards = im.get_current_cards()
-        assert len(cards) > 0
+        # 4. 验证调用参数的结构
+        # call_args 是一个元组 (args, kwargs)
+        # 我们期望只有一个位置参数 (一个列表)，没有关键字参数
+        assert len(first_call_args[0]) == 1
+        assert len(first_call_args[1]) == 0
+        
+        # 5. 验证该位置参数是一个列表
+        cards_list = first_call_args[0][0]
+        assert isinstance(cards_list, list)
+        
+        # 6. 验证列表不为空 (因为我们的测试数据应该能生成卡片)
+        assert len(cards_list) > 0
+        
+        # 7. (可选) 验证列表中每个元素都是字典
+        assert all(isinstance(card, dict) for card in cards_list)

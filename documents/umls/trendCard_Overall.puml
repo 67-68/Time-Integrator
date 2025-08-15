@@ -23,33 +23,65 @@ package [0]层级 {
     data_model --o Conditional_Card
 }
 
+package [0,5]层级 {
+    class "cardController_generation" <<sequence.puml>> {
+        + cardController生成卡片的流程
+    }
+    cardController_generation --* generate_report_overview
+
+    class "cardController_init" <<sequence.puml>> {
+        + cardController初始化的流程
+    }
+    cardController_init --* generate_report_overview
+}
+
 package [1]层级 {
     class "conditional_card_init" <<Sequence.puml>> {
         + 初始化生成卡片的组件
     }
-    conditional_card_init --* generate_report_overview
+    conditional_card_init --* cardController_init
 
-    class "conditional_card_generation_linear" <<Sequence.puml>> {
+    class "conditional_card_generation" <<Sequence.puml>> {
         + 生成卡片
     }
-    conditional_card_generation_linear --* generate_report_overview
+    conditional_card_generation --* cardController_generation
 
     class "DATA_DICTIONARY" <<dictionary.md>> {
         + 数据文档
     }
     DATA_DICTIONARY --* data_model
+
+    class "fixed_card_generation" <<Sequence.puml>> {
+        + 表示fixed_card的生成
+    }
+    fixed_card_generation --* cardController_generation
+
+    class "cardController_init_state" <<state.puml>> {
+        + 完成初始化的cardController状态图
+    }
+    cardController_init_state --*cardController_init
+
+    class "cardController" <<doc.md>> {
+        + cardController为什么要这样初始化的md文档
+    }
+    cardController --* cardController_init
 }
 
 package [2]层级 {
     class "detector_activity" <<activity.puml>> {
         + detectors在被engine调用之后的活动
     }
-    detector_activity --* conditional_card_generation_linear
+    detector_activity --* conditional_card_generation
 
     class "detector_init" <<object.puml>> {
         + 初始化detector之后,detector的状态
     }
     detector_init --* conditional_card_init
+
+    class "engine_generates_insight" <<activity.puml>> {
+        + engine活动图
+    }
+    engine_generates_insight --* conditional_card_generation
 }
 
 package [3]层级 {

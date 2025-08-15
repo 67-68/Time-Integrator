@@ -2,18 +2,12 @@
 但目前只有conditional_Card
 
 @startuml
-actor user
 participant "Time_Integrator: app" as app
 participant "MainCoodinator: coodinator" as coodinator
 participant "CardController: controller" as controller
 
 group Initialization
-    ' 程序启动
-    user -> app: Start()
     activate app
-    
-    ' 获取服务和数据
-    'TODO
 
     ' 创建Coodinator, 注入依赖
     app -> coodinator: __init__(data,service)
@@ -24,7 +18,7 @@ group Initialization
     activate controller
 
     ref over controller
-        此处的图纸在conditional_card_initialization.puml
+        此处的图纸在Documents/umls/[1.5]cardController_init
     end ref
 
     controller --> coodinator: return cardCtrl: CardController
@@ -39,11 +33,10 @@ group Generation
 
     ref over controller
         生成卡片
-        这里的图纸参考conditional_card_generation_linear
-        但是这张图中缺了生成卡片的路径，也就是card_controller的序列图
+        这里的图纸参考Documents/umls/[1.5]cardController_generation
     end ref
 
-    controller --> coodinator: return (CardGenerated,cards)
+    controller --> coodinator: return None
     deactivate controller
 end group
 @enduml

@@ -1,0 +1,15 @@
+
+@startuml
+title card
+
+object "CardController" as controller {
+    + service: ServiceContainer = service
+    + dataService: DataService = dataservice
+    + CR: Condional_ReportGenerator
+    + FR: Fixed_ReportGenerator
+    + cards = {}
+    + ui: AnalysisPage  
+}
+
+
+@enduml

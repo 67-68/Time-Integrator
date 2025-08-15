@@ -22,10 +22,11 @@ class Conditional_ReportGenerator():
         # 连接信号
         self.IE._on_pattern_detected.connect(lambda d: self._on_pattern_detected(d))
         
-    def create_report(self) -> None:
+    def create_report(self) -> list:
         """_summary_
         创建条件判断卡片的报告
-        卡片会放进manager, 如果需要，去那里取
+        卡片会放进manager, 
+        返回的时候，首先获取manager的卡片，作为返回值
         """  
         cardData = []
 
@@ -37,6 +38,8 @@ class Conditional_ReportGenerator():
         
         for card in conditional_card:
             cardData.append(card)
+            
+        return cardData
         
 
     

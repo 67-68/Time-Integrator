@@ -1,0 +1,43 @@
+@startuml
+title Card_Generation
+
+participant "MainCoodinator" as coodinator
+participant "CardController" as controller
+participant "Conditional_CardGenerator" as cond_generator
+participant "Fixed_CardGenerator" as fixed_generator
+participant "AnalysisPage: UI" as ui
+
+' 开始生成
+activate coodinator
+
+coodinator -> controller: create_yesterday_report()
+activate controller
+
+' 获取固定卡片
+controller -> fixed_generator: create_report()
+activate fixed_generator
+
+ref over fixed_generator: [1]fixed_card_generation.puml
+
+fixed_generator --> controller: return fixed_cards
+deactivate fixed_generator
+
+' 获取条件卡片
+controller -> cond_generator: create_report()
+activate cond_generator
+
+ref over cond_generator: [1]conditional_card_generation_linear.puml
+
+cond_generator --> controller: return cond_cards
+deactivate cond_generator
+
+' 填充进入UI
+controller -> ui: add_cards(cards)
+activate ui
+
+ui --> controller: 卡片填充进去
+deactivate ui
+
+
+
+@enduml

@@ -1,101 +1,8 @@
-' 这个类图存储所有的类的定义, 也就是方法和函数
-' 它不能包括任何的关系
-' 作为其他uml图的基础
-' 在其他uml图需要使用的时候, 使用!include 语法导入
-
 @startuml
-class CardRecipe {
-    - conditional_card_recipe: list
-    - daily_card_recipe: list
-    + get_daily_card(): list
-    + get_conditional_card(): list
-}
+' 这个类图存储所有核心类的定义、属性和方法。
+' 它反映了当前最新的架构。
 
-class ReportGenerator {
-    + __init__(data): ReportGenerator
-    + create_yesterday_report(): dict 
-    '创建昨天的所有卡片
-    - card_recipe: Card_recipe
-    - IE: InsightEngine
-}
-
-ReportGenerator --* CardController
-note left of ReportGenerator
-    这个类的职责就是协调创建卡片
-end note
-
-ReportGenerator o-- CardRecipe
-
-class AnalysisPage {
-    + dailyTrend_initialization()
-}
-
-class InsightEngine {
-    + __init__(card_recipe): InsightEngine
-    + process_event(actionUnit: dict) -> None
-    + ()这个函数用来处理单个新的,线性的actionUnit
-    + cards: dict
-    + ICS: InsightCacheService
-    + IM: InsightManager
-}
-
-InsightEngine o-- InsightManager
-
-class InsightCacheService {
-
-}
-
-class InsightManager {
-    + __init__(ICS) -> InsightManager
-    + add_card(insight_pack,present_pack) -> None 
-    ()这个方法用来把卡片数据加入状态数据库并且存入历史数据
-
-    ' 以后，insight_pack要和存入数据库的数据区分开
-    + get_current_cards() -> list
-    () 首先对自己存储的卡片进行重要程度排序，返回前十张, 有图
-}
-ReportGenerator o-- InsightManager
-InsightManager o-- InsightCacheService
-
-class Detectors extends BaseDetecor{
-    + __init__(ICS,config) -> Detectors
-    + process_event(au: dict)
-    - sequence: list
-    - weight_calc
-    - _on_weight_calculation(actionUnits: list) -> float
-    - currentIndex: int
-    - passed_au: dict
-    - ICS: InsightCacheService
-    - id: str
-    + _on_state_complete()
-    + reset()
-    + packer()
-
-}
-
-InsightEngine o-- Detectors
-
-class BaseDetecor {
-    + __call__(au: dict)
-}
-
-class Presenters {
-    ' 这里是presenter的API接口们
-    + process_data(insight_pack: dict) -> dict
-    ()presenter使用这个方法来处理insight_pack, 赋值narrative和卡片外观
-}
- InsightEngine o-- Presenters
-
-class PresenterController {
-    + 这个类用来注册和管理所有的presenter
-}
-
-PresenterController --* CardController
-
-note left of PresenterController
-     这个类受CardController管辖
-     因为它的主要职责就是制作卡片的原料
-end note
+' --- 核心协调层 ---
 
 class MainCoodinator {
     + service: ServiceContainer
@@ -103,14 +10,69 @@ class MainCoodinator {
     + 这个类相当于宰相/元老院，用来管理所有的附属controller
 }
 
-MainCoodinator *-- CardController
-
-
-
 class CardController {
+    + service: ServiceContainer
+    + ui: AnalysisPage
+    + cond_presenter: ConditionalCardPresenter
+    + fixed_presenter: FixedCardPresenter
+    + __init__(service, ui)
+    + create_ytd_card()
     + 这个类用来管理所有的卡片分析相关事宜
 }
 
+MainCoodinator *-- CardController
 
+' --- Presenter 层 ---
+
+class ConditionalCardPresenter {
+    + __init__(data, recipe, engine, manager)
+    + generate() : list
+}
+
+class FixedCardPresenter {
+    + __init__(data, recipe)
+    + generate() : list
+}
+
+CardController *-- ConditionalCardPresenter
+CardController *-- FixedCardPresenter
+
+
+' --- 服务与引擎层 ---
+
+class InsightEngine {
+    + __init__(card_recipe, services)
+    + run(actionUnits: list) : list
+    + cards: dict
+    + ICS: InsightCacheService
+}
+
+class InsightManager {
+    + __init__(ICS)
+    + add_cards(insights: list) : None
+    + get_current_cards() : list
+}
+
+class InsightCacheService {
+    ' 负责洞见的历史数据读写
+}
+
+InsightEngine o-- InsightManager
+InsightManager o-- InsightCacheService
+
+
+' --- Detector 层 ---
+
+class Detectors extends BaseDetecor{
+    + __init__(ICS, config)
+    + match(au: dict) : insight_pack
+    ' ... 其他内部方法 ...
+}
+
+class BaseDetecor {
+    + match(au: dict)
+}
+
+InsightEngine o-- Detectors
 
 @enduml

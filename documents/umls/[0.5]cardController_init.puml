@@ -1,0 +1,24 @@
+
+@startuml
+participant "CardController" as control
+participant "Conditional_ReportGenerator" as cond_presenter
+participant "Fixed_ReportGenerator" as fixed_presenter
+
+ref over control: 参考Documents/umls/[1]cardController.md
+
+activate control
+control -> cond_presenter: init(yesterday_data,cond_recipe,IE,IM)
+activate cond_presenter
+
+cond_presenter -> control: return Conditional_ReportGenerator
+deactivate cond_presenter
+
+control -> fixed_presenter: init(yesterday_data,fixed_recipe)
+activate fixed_presenter
+
+fixed_presenter -> control: return Fixed_ReportGenerator
+deactivate fixed_presenter
+
+ref over control: 这里的状态参考[1]cardController_init_state.puml
+deactivate control
+@enduml

@@ -17,7 +17,7 @@
     - cardController增加了ui绑定
 11. engine和manager新的交互
     - 修改engine卡片检测到之后直接添加数据到manager为发送元组信号
-    - conditional_cardpresenter检测信号并转接到manager, 使用一个函数
+    - Conditional_ReportGenerator检测信号并转接到manager, 使用一个函数
 12. 新的controller和UI绑定机制
     - 原本的绑定在创建之后，但创建的时候就需要把卡片塞进UI, 因此把UI作为依赖
 13. 修改了insightCache的添加历史记录函数，让其真正可以调用
@@ -40,7 +40,7 @@
 2. 
     - Engine如何和manager交互呢？它需要持有一个manager实例，然后调用函数往里面放东西吗？
     也就是说，你希望借由第三方，一个同时持有engine和manager实例的第三方，完成他们的通讯？那么为什么不选择生成卡片报告这个功能的宗主 - reportgenerator呢？亦或者serviceContainer? 亦或者这么一点的耦合同样也是可以接受的？
-    - 选择在conditional_cardPresenter中交互
+    - 选择在Conditional_ReportGenerator中交互
 
 3. 
     - 发现app类本来就有一个刷新的方法，在想是否要借它的路子来传递依赖，正好也刷新了，但还是先走coodinator

@@ -65,11 +65,7 @@ class CardController():
         fixed_cards = self.FR.create_report()
         
         # 创建条件卡片
-        self.CR.create_report()
-        
-        # 从manager获取条件卡片
-        IM: InsightManager = self.service.getService("IM")
-        cond_cards = IM.get_current_cards()
+        cond_cards = self.CR.create_report()
         
         # breakpoint()
         

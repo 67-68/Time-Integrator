@@ -1,0 +1,64 @@
+@startuml
+title InsightEngine: 从 ActionUnit 到 Insight 的诞生流程
+
+|ConditionalCardPresenter|
+start
+:调用 engine.run(actionUnits);
+
+|InsightEngine|
+:接收 ActionUnits 列表;
+:创建空的 insights 结果列表;
+
+while (遍历 ActionUnits 列表) is (还有 unnit)
+    :获取下一个 ActionUnit (au);
+
+    while (遍历 Engine 内部注册的 Detectors) is (还有 detector)
+        :获取下一个 Detector;
+
+        |Detector|
+        :调用 detector.match(au);
+        if (au 匹配 detector 的模式?) then (是)
+            :打包生成 insight_pack;
+            note right
+                包含 data, weight, history, id
+                详情参见 [2]detector_activity.puml
+            end note
+            :返回 insight_pack;
+        else (否)
+            :返回 None;
+        endif
+
+        |InsightEngine|
+        if (Detector 返回了有效的 insight_pack?) then (是)
+            |Presenter|
+            :获取与该 Detector 关联的 Presenter;
+            :调用 presenter(insight_pack);
+            :返回处理后的 present_pack;
+            note right
+                增加了 card_type, judgement_key 等
+                用于UI展示的元数据
+            end note
+
+            |InsightEngine|
+            :将 (insight_pack, present_pack) 打包;
+            :添加到 insights 结果列表;
+        endif
+    endwhile (detector 遍历结束)
+endwhile (actionUnit 遍历结束)
+
+:返回完整的 insights 结果列表;
+
+|ConditionalCardPresenter|
+:接收到 insights 列表;
+:调用 manager.add_cards(insights);
+
+|InsightManager|
+:接收 insights 并进行处理;
+note right
+  - 存入状态数据库
+  - 排序
+  - 存入历史缓存
+end note
+stop
+
+@enduml

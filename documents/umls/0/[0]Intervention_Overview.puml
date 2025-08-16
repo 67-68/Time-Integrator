@@ -7,11 +7,14 @@
 
 title: 干涉功能流程图
 
-participant "MainCoodinator" as coodinator
+participant "MainCoodinator" as coodinator 
 participant "CardController" as controller
 participant "Conditional_ReportGenerator" as generator
-Actor "User" as user
+participant "InsightCards" as ui
+participant "InterventionLogger" as logger
 participant "InterventionService" as service
+participant "RealTimeMonitorService" as monitor
+
 
 activate coodinator
 group 准备: 卡片和干涉创建
@@ -22,7 +25,7 @@ group 准备: 卡片和干涉创建
     ' 创建干涉卡片UI
     controller -> generator: create_report()
     activate generator
-
+    
     ref over generator
         [1]InterventionCard_init.puml
         干涉卡片创建完毕
@@ -33,21 +36,74 @@ group 准备: 卡片和干涉创建
     deactivate generator
 
     controller --> coodinator: return None 
-    deactivate controller
 end group
 
+
 group 开场: 创建干涉实体
+    controller -> ui: __init__
+    activate ui
+
     ' 用户和UI交互
-    ref over generator: [1]Intervention_dataflow_User_Interaction
+    ref over ui: [1]Intervention_dataflow_User_Interaction
     ' Documents/umls/1/[1]Intervention_dataflow_User_Interaction
     
-    user --> generator: _on_user_choose(data)
-    activate generator
+    ui --> controller: _on_user_choose(UI)
+    deactivate ui
 
     ' 创建干涉实体逻辑类
+    controller -> service: create_new_intervention(UI)
+    activate service
 
+    service -> monitor: __init__()
+    activate monitor
+
+    service --> controller: return None 创建完毕
+    deactivate service
+    deactivate controller
+
+    ref over service: 这里可能需要一张关于创建的动态图
+end group
+
+group 铺垫:检测是否需要干涉
+    ' 检测
+    monitor --> coodinator: _on_promise_detected()
+    deactivate monitor
+
+    coodinator -> ui: showPromise()
+    activate ui
+
+    ref over ui: 我不确定这里需不需要一张图
+
+    ' 借由Coodinator传递信息
+    ui --> coodinator: _on_user_choose(data)
+    deactivate ui
+
+    coodinator -> service: process_user_choice()
+    activate service
+
+    service --> coodinator: _on_change_appearance()
+    deactivate service
+
+    coodinator -> ui: _on_change_appearance()
+    activate ui
+    ui --> coodinator: return None, UI改变了
+    deactivate ui
     
-    deactivate generator
+end group
 
+group 后记: 整理干涉实体
+    coodinator -> logger: clean_up_intervention
+    activate logger
+
+    logger -> service: get_and_reset_intervention()
+    activate service
+
+    ref over logger: 这里需要一张动态图来表示获取和存储
+
+    service --> logger: return interventions: list
+    deactivate service
+
+    logger --> coodinator: return None, 完成清理
+    deactivate logger
 end group
 @enduml

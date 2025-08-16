@@ -1,0 +1,30 @@
+@startuml
+title Fixed_Card_Generation
+
+start
+
+while (card in self.recipe)
+    :config = card["analyzer_config"];
+    :analyzer = card["analyzer"];
+    :presenter = card["presenter"];
+    :card = analyzer(self.data,config);
+    :card = presenter(card);
+    :cardData.append(card);
+endwhile
+
+:return cardData;
+
+end 
+
+
+@enduml
+
+
+好主意，根据我的设计，我们首先应该画出这个功能的uml图和补充文档，为此，我需要根据现有的架构修改当前的uml和文档，鉴于它建立在当前功能的基础上。你知道蓝图驱动测试开发工作流吗？在测试驱动的框架下使用蓝图辅助开发。首先，我们需要修改当前uml和文档，让其符合当前的架构，文档在这个文件夹，/Users/lennon/Projects/Time_Integrater/Documents，uml在这个文件夹/Users/lennon/Projects/Time_Integrater/Documents/umls。 我已经自己修改完成了
+我需要澄清一下当前的架构：卡片生成功能大概的流向是，由App类创建main coodinater类，管理所有controller(虽然现在只有一个),maincoodinator创建cardController类，管理“昨日卡片生成”功能，它创建conditional_cardPresenter和fixed_cardPresenter类，分别创建conditional_card和固定的卡片，原本的cardGenerator的位置被这两个类代替了——我觉得固定生成的卡片和conditional_card还是区分开为好。conditional_cardPresenter类作为conditional_card功能的管理者，它接受服务和配方，初始化engine和创建，获取卡片，通过InsightEngine(engine)和InsightManager(manager)类，同时cardController类持有ui实例(AnalysisPage)作为依赖，并负责最终输入卡片
+
+我完成了uml图纸的更新，我已经完成了，请你检阅。
+此外，我建立了一套文档的层级系统，一个功能文档的入口是一个uml类图，表示不同文档的层级，在它里面提到的文件（可能名称有变化），引用比它抽象层级低的来表示某个特定的点，因此建立了一套类似可以缩放的谷歌地图一样的表示方式。入口是这个/Users/lennon/Projects/Time_Integrater/Documents/umls/trendCard_Overall.puml
+
+
+Excellent, but let us use mandarin. 首先，我们需要创建一个类似这个overall图的文档，作为整个功能架构的开始。然后，我们应该创建一个用户感受文件，即这个功能在用户看起来是什么样的，感受起来是如何的，然后可以根据这个文件开始设计这个功能

@@ -1,0 +1,66 @@
+@startuml
+' 社交领域
+class Socialize {
+    + brothers
+    + the_most_impressive_girl
+    + vagueness_but_no_further_action_girl
+    + the_girl_who_rage_me
+    + teachers
+}
+
+' 生活领域
+class Living { 
+    ' 生活
+    + time_management: TimeManagement
+    + living_environment: Living_Environment
+    + task_progress: Tasks_progress
+    + money_managment: Money_management
+    + exercise: Exercise
+    + rules: Rules
+}
+Living o-- Rules
+
+class Rules {
+    + 进香港的时候使用了错误的卡片
+    + 没有准备礼服
+}
+
+
+class TimeManagement {
+
+}
+
+class Living_Environment {
+
+}
+
+' 个人任务进展领域
+class Tasks_progress{
+    + code_project: TimeIntegrator
+    + study_project: SATWords
+    + Reading: Reading
+}
+
+Tasks_progress o-- Reading
+Tasks_progress *-- TimeIntegrator
+Tasks_progress *-- SATWords
+
+class Reading {
+    + zhihu
+    + lesswrong
+    + book
+}
+
+class TimeIntegrator {
+    + canvas_management: Canvas_management
+    + conditional_card: Conditional_card
+    + new_functions: New_functions
+}
+
+class SATWords {
+    
+}
+
+
+
+@enduml

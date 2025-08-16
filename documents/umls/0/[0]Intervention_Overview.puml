@@ -1,0 +1,53 @@
+@startuml
+' 功能:
+' 0. 卡片+干涉创建
+' 1. 创建干涉实体
+' 2. 检测是否干涉
+' 3. 干涉操作
+
+title: 干涉功能流程图
+
+participant "MainCoodinator" as coodinator
+participant "CardController" as controller
+participant "Conditional_ReportGenerator" as generator
+Actor "User" as user
+participant "InterventionService" as service
+
+activate coodinator
+group 准备: 卡片和干涉创建
+    ' 创建报告
+    coodinator -> controller: create_yesterday_report()
+    activate controller
+
+    ' 创建干涉卡片UI
+    controller -> generator: create_report()
+    activate generator
+
+    ref over generator
+        [1]InterventionCard_init.puml
+        干涉卡片创建完毕
+        ' Documents/umls/1/[1]InterventionCard_init.puml
+    end ref
+
+    generator --> controller: return cards
+    deactivate generator
+
+    controller --> coodinator: return None 
+    deactivate controller
+end group
+
+group 开场: 创建干涉实体
+    ' 用户和UI交互
+    ref over generator: [1]Intervention_dataflow_User_Interaction
+    ' Documents/umls/1/[1]Intervention_dataflow_User_Interaction
+    
+    user --> generator: _on_user_choose(data)
+    activate generator
+
+    ' 创建干涉实体逻辑类
+
+    
+    deactivate generator
+
+end group
+@enduml

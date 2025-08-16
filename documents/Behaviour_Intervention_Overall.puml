@@ -1,0 +1,23 @@
+@startuml
+package Function {
+    class "Behaviour_Intervention" <<function>> {
+        + 行为干预功能
+        + Documents/Behaviour_Intervention_Overall.puml
+    }
+}
+package [0]层级 {
+    class "Behaviour_Intervention_Doc" <<doc.md>> {
+        + 这个功能的文档
+        + 包含架构和功能设计
+        + Documents/Behaviour_Intervention_Doc.md
+    }
+    Behaviour_Intervention_Doc --* Behaviour_Intervention
+
+    class "Intervention_Overview" <<sequence.puml>> {
+        + 这个功能总体的的uml序列图
+        + Documents/umls/0/[0]Intervention_Overview.puml
+    }
+    Intervention_Overview --* Behaviour_Intervention
+}
+
+@enduml

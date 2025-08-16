@@ -1,6 +1,10 @@
+# 功能: **TrendCard**
 
 ## 用户感受
 
 ## 架构
 我需要澄清一下当前的架构：卡片生成功能大概的流向是，由App类创建main coodinater类，管理所有controller(虽然现在只有一个), maincoodinator创建cardController类，管理“昨日卡片生成”功能，它创建Conditional_ReportGenerator和Fixed_ReportGenerator类，分别创建conditional_card和固定的卡片，原本的cardGenerator的位置被这两个类代替了——我觉得固定生成的卡片和conditional_card还是区分开为好。Conditional_ReportGenerator类作为conditional_card功能的管理者，它接受服务和配方，初始化engine和创建，获取卡片，通过InsightEngine(engine)和InsightManager(manager)类，同时cardController类持有ui实例(AnalysisPage)作为依赖，并负责最终输入卡片
+
+## 文档
+
 

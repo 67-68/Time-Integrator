@@ -17,40 +17,39 @@ class InsightManager:
     def add_card(self,raw_card_data:dict,pre_card_data:dict) -> None:
         """_summary_
         这个函数负责把卡片加入insight Manager中
-        首先 它会把原始卡片数据添加进历史数据
-        然后 它会把经过presenter处理过的卡片信息加入待选列表(因此,presenter should pack weight key)
-        并输出适合的卡片，当被要求输出的时候
+        它会把原始卡片数据添加进历史数据
+        然后，它会检查新卡片的权重，只保留每个配方ID(recipe_id)下权重最高的卡片。
+
         Args:
-            raw_card_data (dict): 原始的卡片信息和数据
-            pre_card_data (dict): 经过presenter加工的卡片信息
+            raw_card_data (dict): 原始的卡片信息和数据, 必须包含 "id" (配方ID)
+            pre_card_data (dict): 经过presenter加工的卡片信息, 必须包含 "weight" 键
             
         """
-        id = raw_card_data["card_id"]
-        if id not in self.cards:
-            self.cards[id] = [pre_card_data] #这里搞错了 不是id而是card_id
-        # 这里的设计应该是使用card_id来检测是否是修改
+        recipe_id = raw_card_data["id"]
+        new_card_weight = pre_card_data["weight"]
+
+        # 如果这个配方的卡片还不存在，或者新卡片的权重更高
+        if recipe_id not in self.cards or new_card_weight > self.cards[recipe_id]["weight"]:
+            self.cards[recipe_id] = pre_card_data
         
-        # TODO: present_pack会检测，原始数据就不会了？
+        # 无论如何，都记录原始数据历史
         self.ICS.add_history_data(raw_card_data)
     
     def get_current_cards(self):
         """_summary_
-        这个函数用来筛选和输出需要的卡片
-        首先它会对每个id内的卡片进行筛选
-        挑选出最重要的一张卡片，去除其他的
-        然后在所有id中选出前十最重要的卡片
+        这个函数用来筛选和输出需要的卡片.
+        在新的逻辑下, self.cards 中每个id只存储了权重最高的一张卡片.
+        因此, 只需要收集所有卡片, 按权重排序, 并返回前10张.
         """
-        newCards = []
-        #这里出过问题
+        # 1. 收集所有已经筛选过的最佳卡片
+        all_best_cards = list(self.cards.values())
         
-        # 1. 遍历字典中所有的ID
-        for id in self.cards:
-            # 2. 对每个ID下的卡片列表(self.cards[id])进行排序，并选出最重的一张
-            best_card_for_id = sorted(self.cards[id], key=lambda card: card["weight"], reverse=True)[0]
-            newCards.append(best_card_for_id)
+        # 2. 对收集到的“最佳卡片”列表进行最终排序
+        final_sorted_cards = sorted(all_best_cards, key=lambda card: card["weight"], reverse=True)
         
-        # 3. 对收集到的“最佳卡片”列表(newCards)进行最终排序
-        final_sorted_cards = sorted(newCards, key=lambda card: card["weight"], reverse=True)
-        
-        # 4. 返回前10张卡片，如果不足10张则全部返回
+        # 3. 返回前10张卡片，如果不足10张则全部返回
         return final_sorted_cards[:10]
+
+    def reset(self):
+        """Clears the current state of the manager."""
+        self.cards = {}

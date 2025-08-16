@@ -28,6 +28,9 @@ class Conditional_ReportGenerator():
         卡片会放进manager, 
         返回的时候，首先获取manager的卡片，作为返回值
         """  
+        # 在每次报告生成前, 重置Manager的状态
+        self.IM.reset()
+        
         cardData = []
 
         # 创建卡片

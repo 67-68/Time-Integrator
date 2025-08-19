@@ -1,0 +1,9 @@
+这张图描述从获取配方到创建含有intervention的Insight_Card的全过程
+序列图
+
+@startuml
+database 
+
+@enduml
+
+

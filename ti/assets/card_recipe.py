@@ -1,5 +1,6 @@
 
 from Data import userMatchers
+from ti.assets import Intervention_Recipes 
 from ti.core.analysis import analyzer, presenters
 from ti.core.analysis.detectors.detector import BaseDetector
 
@@ -87,7 +88,8 @@ class Card_recipe:
                     ],
                     "id":"post_eat_waste"
                 },
-                "presenter":presenters.present_sequence_data
+                "presenter":presenters.present_sequence_data,
+                "intervention": Intervention_Recipes.meal_waste_intervention
             }
         ]
     

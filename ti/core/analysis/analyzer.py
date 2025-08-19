@@ -49,7 +49,7 @@ def find_ratio_distribution(actionUnits,config):
         if matcher(au):
             at = au["action_type"]
             tp = au["timeSpan"]
-            data[at]["timeSpan"] += tp
+            data[at ]["timeSpan"] += tp
             data["total"]["timeSpan"] += tp
     
     #计算其他的数据

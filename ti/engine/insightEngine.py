@@ -31,6 +31,11 @@ class InsightEngine(QObject):
         self.cards = {}
     
     def initialize(self,recipes:list):
+        """_summary_
+        这是Recipe传递的最后一环
+        Args:
+            recipes (list): _description_
+        """
         for recipe in recipes:
             id = recipe["config"]["id"]
             config = recipe["config"]
@@ -40,12 +45,19 @@ class InsightEngine(QObject):
             
             #这里，这一行，如果detector通过了，卡片模式被识别出来，会首先执行这一条
             detector.pattern_detected.connect(lambda f : self.pattern_detected(f))
-        
+
             self.cards[id] = {
                 "detector": detector,
                 "id":id,
                 "presenter":recipe["presenter"]
             }
+            
+            # Intervention初始化，判断是否存在，是否直接使用Detector
+            if ("intervention" in recipe) and (recipe["intervention"] is not None):
+                self.cards[id]["intervention"] = recipe["intervention"]
+                if recipe["intervention"].detector is None:
+                    self.cards[id]["intervention"].detector = detector #这里，我使用了对待字典的方法对待数据模型类，因此错误
+                    
     
     def process_action_unit(self,au: dict) -> None:
         """_summary_
@@ -73,6 +85,10 @@ class InsightEngine(QObject):
         # 获取卡片id
         id = rawData["id"]
         presenter = self.cards[id]["presenter"]
+        
+        # 手动加入Intervention
+        intervention = self.cards[id]["intervention"]
+        rawData["intervention"] = intervention
         
         # 使用presenter处理
         pre_data = presenter(rawData)

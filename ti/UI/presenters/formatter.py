@@ -27,6 +27,7 @@ def format_card(data):
     data_payLoad = data["data"]
     
     dataBase = narratives.SPECIFIC_NARRATION[sementic_key]
+    
     #  --- 获取sementic ---
     sDataList = dataBase["sementic_key"]
     sementic_data = randomChoser(sDataList["text"])
@@ -45,7 +46,7 @@ def format_card(data):
     #  --- 获取icon和颜色 ---
     icon = themes["icon"][theme_key]
     color = themes["color"][theme_key]
-    
+
     #  --- 打包 ---
     pack = {
         "text":{
@@ -56,9 +57,31 @@ def format_card(data):
             "title":title,
             "icon":icon,
             "color":color
-        }
+        },
     }
     
+    #  --- 获取Intervention ---
+    if "intervention" in data and data["intervention"] is not None:
+        intervention = data["intervention"] #应该包含ID和Detector
+        intervention_key = intervention.intervention_id #这里的Presenter传递出问题了，没有传送Detector
+        intervention_base = narratives.INTERVENTION_TEXT
+        
+        intervention_data = intervention_base[intervention_key] #包含Presentation和Choice
+        
+        intervention_title_list = intervention_data["presentation"]["title"]
+        intervention_title = randomChoser(intervention_title_list)
+        
+        choice = {}
+        
+        intervention_choices_data = intervention_data["choice"]
+        for choice_id in intervention_choices_data:
+            choice_text = randomChoser(intervention_choices_data[choice_id])
+            choice[choice_id] = choice_text
+
+        pack["intervention"] = {
+            "title": intervention_title,
+            "choice": choice
+        }
     return pack
 
 def randomChoser(list):

@@ -1,0 +1,148 @@
+@startuml
+
+' 功能:
+' 0. 卡片+干涉创建
+' 1. 创建干涉实体
+' 2. 检测是否干涉
+' 3. 干涉操作
+
+title: 干涉功能流程图
+
+participant "MainCoodinator" as coodinator
+participant "CardController" as controller
+participant "Conditional_ReportGenerator" as generator
+participant "AnalysisPage(Cards)" as ui
+participant "InterventionService" as service
+participant "RealTimeMonitorService" as monitor
+participant "InterventionLogger" as logger
+
+
+activate coodinator
+group 准备: 卡片和干涉创建
+    ' 创建报告
+    coodinator -> controller: create_yesterday_report()
+    activate controller
+    
+    ' 创建干涉卡片UI
+    controller -> generator: create_report()
+    activate generator
+
+    ref over generator
+        [1]InterventionCard_init.puml
+        干涉卡片创建完毕
+        ' Documents/umls/1/[1]InterventionCard_init.puml
+    end ref
+
+    generator --> controller: return cards
+    deactivate generator
+
+    controller -> ui: fill_card()
+    activate ui
+
+    ui -> controller: return AnalysisPage
+    deactivate ui
+
+    controller -> coodinator: return 页面创建完毕
+    deactivate controller
+    
+    coodinator -> service: __init__()
+    activate service
+
+    service --> coodinator: return InterventionService
+    deactivate service
+
+    coodinator -> monitor: __init__()
+    activate monitor
+
+    monitor --> coodinator: return RealTimeMonitorService
+    deactivate monitor
+
+    coodinator -> logger: __init__()
+    activate logger
+
+    logger --> coodinator: return InterventionLogger
+    deactivate logger
+end group
+
+group 后记: 整理干涉实体
+    coodinator -> logger: clean_up_intervention
+    activate logger
+
+    logger -> service: get_and_reset_intervention()
+    activate service
+
+    ref over logger: 这里需要一张动态图来表示获取和存储
+    
+    service --> logger: return interventions: list
+    deactivate service
+
+    logger --> coodinator: return None, 完成清理
+    deactivate logger
+end group
+
+group 开场: 用户查看界面 | 创建干涉实体
+    ' 切换界面到AP: 这一部分和当前的不一样
+    coodinator -> controller: show_analysis_page()
+    activate controller
+
+    controller -> ui: display()
+    activate ui
+
+    ui --> controller: 展示完成
+    deactivate ui
+
+    ' 用户和UI交互
+    ref over ui: [1]Intervention_dataflow_User_Interaction
+
+    ui --> controller: _on_user_action(data)
+    
+
+    ' 创建干涉实体逻辑类
+    controller -> service: create_new_intervention(UI)
+    activate service
+
+    service --> controller: return None 创建完毕
+    deactivate service
+
+    controller -> monitor: setNewWarning()
+    activate monitor
+
+    monitor --> controller: return True
+    deactivate monitor
+    
+    controller --> coodinator: return None
+    deactivate controller
+
+    ref over service: 这里可能需要一张关于创建的动态图
+end group
+
+group 铺垫:检测是否需要干涉
+    ' 检测
+    monitor --> coodinator: _on_promise_detected()
+    deactivate monitor
+
+    coodinator -> ui: showPromise()
+    activate ui
+
+    ref over ui: 我不确定这里需不需要一张图
+
+    ui -> service: 用户做出选择(data)
+    activate service
+
+    service --> ui: change_appearance
+    deactivate service
+
+    ui --> controller: return None
+    deactivate ui
+    activate controller
+
+    controller --> coodinator: return None
+    deactivate controller
+end group
+
+
+
+@enduml
+
+
+

@@ -2,27 +2,38 @@ from ti.dataAccess.dataService import DataService
 from ti.dataAccess.insightCacheService import InsightCacheService
 from ti.dataAccess.insightManager import InsightManager
 from ti.engine.insightEngine import InsightEngine
+from ti.services.InterventionLoggerService import InterventionLogger
+from ti.services.interventionService import InterventionService
+from ti.services.realTimeMonitorService import RealTimeMonitor
+from dataclasses import dataclass
 
-
+@dataclass
 class ServiceContainer:
-    def __init__(self):
-        """_summary_
-        负责创建和保持所有的服务
-        """
-        self.services = {}
+    services = {}
         
-        # 现在先不区分"哪一套的"IM, IE
-        cache =  InsightCacheService()
-        self.services["ICS"] = cache
-        
-        manager = InsightManager(cache)
-        self.services["IM"] = manager
-        
-        engine = InsightEngine(cache)
-        self.services["IE"] = engine
-        
-        dataService = DataService()
-        self.services["DS"] = dataService
+    # 现在先不区分"哪一套的"IM, IE
+    cache =  InsightCacheService()
+    services["ICS"] = cache
+    
+    manager = InsightManager(cache)
+    services["IM"] = manager
+    
+    engine = InsightEngine(cache)
+    services["IE"] = engine
+    
+    dataService = DataService()
+    services["DS"] = dataService
+    
+    # Intervention功能相关
+    intervention = InterventionService()
+    services["IS"] = intervention
+    
+    monitor = RealTimeMonitor()
+    services["RTM"] = monitor
+    
+    logger = InterventionLogger()
+    services["IL"] = logger
+    
             
     def getServices(self):
         """_summary_
@@ -35,6 +46,12 @@ class ServiceContainer:
         IE: InsightEngine
         
         DS: DataService
+        
+        IS: InterventionService
+        
+        IL: InterventionLogger
+        
+        RTL: RealTimeMonitor
         """
         return self.services
     

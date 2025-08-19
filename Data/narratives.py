@@ -95,3 +95,28 @@ SPECIFIC_NARRATION = {
         }
     }
 }
+
+INTERVENTION_TEXT = {
+    "post_meal_waste":{
+        "presentation":{
+            "title":["在吃饭后不要浪费时间的请求"]
+        },
+        "choice": {
+            "choice_giveUp":["放弃"],
+            "choice_accept":["接受挑战"]
+        }
+    }
+}
+# 目前对于Intervention, 是写多少选项生成多少。同时，卡片选项会添加到list中，id(choice_giveUp)作为key, 文本直接展示
+
+"""
+在被Formatter处理过之后，形成类似这样的数据结构
+pack = {
+    "intervention" {
+        "title": aaa,
+        "choice": [
+            "choice_id":"choice_text"
+        ]
+    }
+}
+"""

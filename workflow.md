@@ -1,0 +1,3 @@
+我完成了uml图纸的更新，我已经完成了，请你检阅。此外，我建立了一套文档的层级系统，一个功能文档的入口是一个uml类图，表示不同文档的层级，在它里面提到的文件（可能名称有变化），引用比它抽象层级低的来表示某个特定的点，因此建立了一套类似可以缩放的谷歌地图一样的表示方式。入口是这个/Users/lennon/Projects/Time_Integrater/Documents/umls/trendCard_Overall.puml
+
+同样的，我完成了这一部分的设计，你可以在这里找到文档Documents/behaviour_intervention.md

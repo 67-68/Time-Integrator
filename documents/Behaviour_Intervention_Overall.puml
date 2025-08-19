@@ -20,4 +20,22 @@ package [0]层级 {
     Intervention_Overview --* Behaviour_Intervention
 }
 
+package [0,5]层级 {
+    class "Intervention_init" <<sequence.puml>> {
+        + 干涉功能初始化图
+    }
+    Intervention_init --* Intervention_Overview
+
+    class "Intervention_Generation" <<sequence.puml>> {
+        + 干涉功能卡片生成图
+    }
+    Intervention_Generation --* Intervention_Overview
+
+    class "Intervention_detect" <<sequence.puml>> {
+        + 干涉卡片检测图
+    }
+    Intervention_detect --* Intervention_Overview
+}
 @enduml
+
+

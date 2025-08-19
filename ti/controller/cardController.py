@@ -71,7 +71,8 @@ class CardController():
         
         # 卡片汇总
         self.cards = cond_cards + fixed_cards
-        print(cond_cards[0]["data"])
+    
+        # 这里需要一步生成Intervention
         
         # 填充入GUI
         self.ui.add_cards(self.cards)

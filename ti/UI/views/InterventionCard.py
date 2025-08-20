@@ -1,13 +1,22 @@
 from PyQt6.QtWidgets import QWidget
+from PyQt6.QtCore import pyqtSignal
 
 from ti.UI.rawUI.ui_InterventionCard import Ui_interventionWidget
 from ti.UI.widgets.other.BasicButton import BasicButton
 
 class InterventionCard(QWidget):
+    user_promise = pyqtSignal(dict)
+    # 会包含self和detector
+    
+    user_giveUp = pyqtSignal(dict)
+    # 还没想好放什么
+    
     def __init__(
         self,
         title: str,
         choices: list,
+        detector,
+        id,
         parent = None
         ):
         """_summary_
@@ -23,6 +32,9 @@ class InterventionCard(QWidget):
         # 初始化外观
         self.ui.title.setText(title)
         
+        self.detector = detector
+        self.id = id
+        
         self.buttons = {}
         
         for choice in choices:
@@ -33,6 +45,24 @@ class InterventionCard(QWidget):
             self.buttons[id].setText(text)
             
             self.ui.choiceLayout.addWidget(self.buttons[id])
+        
+        # 连接信号
+        self.buttons["choice_giveUp"].clicked.connect(self._on_giveUp_clicked)
+        self.buttons["choice_accept"].clicked.connect(self._on_user_promised)
+        
+    def _on_giveUp_clicked(self):
+        pack = {
+            "ui": self,
+            "detector": self.detector,
+            "id":self.id
+        }
+        
+        self.user_promise.emit(pack)
+    
+    def _on_user_promised(self):
+        pass
+        
+        
             
             
         

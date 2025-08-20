@@ -80,7 +80,8 @@ def format_card(data):
 
         pack["intervention"] = {
             "title": intervention_title,
-            "choice": choice
+            "choice": choice,
+            "id": intervention_key
         }
     return pack
 

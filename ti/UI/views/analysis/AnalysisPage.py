@@ -48,7 +48,16 @@ class AnalysisPage(BasicFrame):
                 interventionData["detector"] = card_data["intervention"].detector #这里不能再传承之前的Intervenion数据模型类了
                 title = interventionData["title"]
                 choices = interventionData["choice"]
-                ic = InterventionCard(title,choices,parent = currentCards[idx])
+                detector = interventionData["detector"]
+                id = interventionData["id"]
+                
+                ic = InterventionCard(
+                    title,
+                    choices,
+                    detector,
+                    id,
+                    parent = currentCards[idx]
+                )
                 currentCards[idx].TC.interventionLayout.addWidget(ic)
             
             self.cards.append(currentCards[idx])     # 保存引用，防止被垃圾回收

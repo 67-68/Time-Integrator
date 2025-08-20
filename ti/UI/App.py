@@ -2,12 +2,14 @@ from PyQt6.QtWidgets import QApplication
 import sys
 
 from ti.UI.presenters.menuPresenter import MenuPresenter
+from ti.UI.views.BasicDialog import BasicDialog
 from ti.UI.views.MainWindow import MainWindow
 from ti.controller.cardController import CardController
 from ti.controller.mainCoodinator import MainCoodinator
 from ti.core.analysis.otherAnalysis import updateActionList
 from ti.core.definitions import TODAY,YESTERDAY
 from ti.dataAccess.dataService import DataService
+from ti.services.realTimeMonitorService import RealTimeMonitor
 from ti.services.serviceContainer import ServiceContainer
 from ti.utils import load_qss, log_message
 
@@ -26,15 +28,16 @@ class TimeIntegrator:
         
         styleSheet = load_qss()
         self.app.setStyleSheet(styleSheet)
-        
-        #  ------ 持有的状态 ------
-        self.createState()
+        self.ui = self.mainWindow.getUIs()
         
         #  ------ 创建所有的服务实例 ------
         self.services = ServiceContainer()
         self.dataService: DataService = self.services.getService("DS")
         self.coodinator = MainCoodinator(self.services,self.ui)
-                
+        
+        #  ------ 持有的状态 ------
+        self.createState()
+                        
         #  ------ 连接信号和槽 ------
         self.connectSignal()
         
@@ -53,13 +56,15 @@ class TimeIntegrator:
         self.mainWindow.date_selected.connect(self._on_date_selected)
         self.mainWindow.list_item_selected.connect(self._on_list_item_selected)
         self.mainWindow.new_button_selected.connect(self.createNewRecord)
+        self.monitor.intervention_needed.connect(lambda ui: self.show_dialog(ui))
     
     def createState(self):
         self.isDebugMode = False
         self.currentDate = None
         self.currentActionUnit = None 
         self.previousAU = None
-        self.ui = self.mainWindow.getUIs()
+        
+        self.monitor: RealTimeMonitor = self.services.getService("RTM")
     
     def createNewRecord(self):
         """
@@ -75,6 +80,10 @@ class TimeIntegrator:
         #新数据暂时不放进总的数据中，等到修改之后再检测
         
         self._on_list_item_selected(nR)
+    
+    def show_dialog(self,ui):
+        dialog = BasicDialog(ui)
+        
     
     def _on_list_item_selected(self,data):
         """

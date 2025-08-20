@@ -24,17 +24,18 @@ class ServiceContainer:
     dataService = DataService()
     services["DS"] = dataService
     
+    monitor = RealTimeMonitor(dataService)
+    services["RTM"] = monitor
+    
     # Intervention功能相关
-    intervention = InterventionService()
+    intervention = InterventionService(monitor)
     services["IS"] = intervention
     
-    monitor = RealTimeMonitor()
-    services["RTM"] = monitor
+
     
     logger = InterventionLogger()
     services["IL"] = logger
-    
-            
+          
     def getServices(self):
         """_summary_
         返回一个字典，以下是可用的key
@@ -51,7 +52,7 @@ class ServiceContainer:
         
         IL: InterventionLogger
         
-        RTL: RealTimeMonitor
+        RTM: RealTimeMonitor
         """
         return self.services
     

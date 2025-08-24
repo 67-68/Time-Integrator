@@ -58,7 +58,8 @@ class MainWindow(QMainWindow):
         self.ui = {
             "CP": self.CP,
             "AP": self.AP,
-            "MP": self.MP
+            "MP": self.MP,
+            "SP": self.SP
         }
         
     def connectSignal(self):

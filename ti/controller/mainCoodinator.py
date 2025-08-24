@@ -1,4 +1,4 @@
-from ti.controller.cardController import CardController
+from ti.controller.cardController import CardPresenter
 from ti.services.serviceContainer import ServiceContainer
 
 
@@ -16,7 +16,7 @@ class MainCoodinator():
         self.AP = ui["AP"]
         
         # 创建下辖的controller
-        self.card_controller = CardController(service,self.AP)
+        self.card_controller = CardPresenter(service,self.AP)
 
         self.controller = {}
         self.controller["CCT"] = self.card_controller

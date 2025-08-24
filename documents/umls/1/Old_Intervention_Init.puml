@@ -1,0 +1,60 @@
+
+participant "MainCoodinator" as coodinator
+participant "CardPresenter" as presenter
+participant "CardRecipe" as recipe
+participant "DataService" as ds
+participant "Conditional_ReportGenerator" as crg
+participant "InsightEngine" as engine
+
+activate coodinator
+
+group 初始化
+    coodinator -> presenter: __init__(service,AP: AnalysisPage)
+    activate presenter
+
+    ' 获取配方
+    presenter -> recipe: __init__()
+    activate recipe
+
+    recipe --> presenter: return Recipe
+    deactivate recipe
+
+    presenter -> recipe: get_conditional_recipe()
+    activate recipe
+
+    recipe --> presenter: return recipe: dict
+    deactivate recipe
+
+    ' 获取数据
+    presenter -> ds: get_yesterday_AU()
+    activate ds
+
+    ds --> presenter: return data: list
+    deactivate ds
+
+    ' 初始化卡片
+    presenter -> crg: __init__(data,recipe,IE:engine,IM:manager)
+    activate crg
+
+    crg -> engine: initialize(recipe)
+    activate engine
+    
+    ref over engine
+        内部逻辑处理配方, 让其符合接口的要求
+        1. 可以处理传入的AU
+        2. 打包的时候包括id
+        3. 处理Intervention配方
+    end ref
+
+    engine --> crg: return None
+    deactivate engine
+
+    crg --> presenter: return None
+    deactivate crg
+
+    presenter --> coodinator: return CardController
+    deactivate presenter
+end group
+
+
+

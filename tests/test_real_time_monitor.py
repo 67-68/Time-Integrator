@@ -15,12 +15,13 @@ class MockDataService(QObject):
 
 # Mock Detector for testing
 class MockDetector(BaseDetector):
-    # Re-implement pattern_detected as a class attribute for mocking
     pattern_detected = pyqtSignal(object)
 
     def __init__(self, config=None, services=None):
+        # Provide a default config to satisfy the super().__init__
+        if config is None:
+            config = {"sequence": []}
         super().__init__(config, services)
-        # Mock the process_action_unit method
         self.process_action_unit = Mock()
 
     def emit_pattern_detected(self, ui_obj):
@@ -33,29 +34,24 @@ class TestRealTimeMonitor(unittest.TestCase):
     def setUp(self):
         """Set up the test environment."""
         self.mock_ds = MockDataService()
-        # It's better to pass the real object to connect, 
-        # but mock its methods if needed.
-        # Here we spy on the connect method.
-        self.mock_ds.actionUnit_added.connect = Mock()
-        
+        # We don't mock the connect method here to allow for more realistic testing
         self.monitor = RealTimeMonitor(DS=self.mock_ds)
-        
-        # Restore the original connect method after __init__
-        # This is a bit of a workaround to verify the connection call.
-        # A better approach might be dependency injection for the signal itself.
-        self.mock_ds.actionUnit_added.connect = self.mock_ds.actionUnit_added.connect
 
     def test_initialization_connects_to_data_service(self):
         """
         Test if the monitor connects to the DataService's signal upon initialization.
+        This is an indirect test. We'll verify by emitting the signal and checking the result.
         """
-        # We mocked 'connect' in setUp to check if it was called.
-        # Let's re-check the mock object that was used during init.
-        mock_connect = self.monitor.DS.actionUnit_added.connect
-        mock_connect.assert_called_once()
-        # Check that it's connected to the right slot
-        connected_slot = mock_connect.call_args[0][0]
-        self.assertTrue(callable(connected_slot))
+        # To test the connection, we'll add a project and then emit the signal.
+        mock_detector = MockDetector()
+        monitor_pack = {"detector": mock_detector, "ui": {}, "id": "test_id_1"}
+        self.monitor.add_monitor_project(monitor_pack)
+
+        test_action_unit = {"action": "test"}
+        self.mock_ds.actionUnit_added.emit(test_action_unit)
+
+        # If the connection was made in __init__, the detector's method should have been called.
+        mock_detector.process_action_unit.assert_called_with(test_action_unit)
 
 
     def test_add_monitor_project_stores_project_and_connects_signal(self):
@@ -63,6 +59,7 @@ class TestRealTimeMonitor(unittest.TestCase):
         Test if a new monitor project is added correctly and its signal is connected.
         """
         mock_detector = MockDetector()
+        # Spy on the connect method to verify the connection
         mock_detector.pattern_detected.connect = Mock()
         
         mock_ui = {"name": "Test UI"}
@@ -81,46 +78,49 @@ class TestRealTimeMonitor(unittest.TestCase):
 
         # 2. Check if the detector's signal is connected
         mock_detector.pattern_detected.connect.assert_called_once()
-        connected_slot = mock_detector.pattern_detected.connect.call_args[0][0]
-        self.assertTrue(callable(connected_slot))
+        connected_slot = mock_detector.pattern_-detected.connect.call_args[0][0]
+        self.assertEqual(connected_slot, self.monitor._on_pattern_detected)
 
 
-    def test_monitor_triggers_detector_on_action_recorded(self):
+    def test_monitor_triggers_all_detectors_on_action_recorded(self):
         """
-        Test if the monitor calls the detector's process method when an action is recorded.
+        Test if the monitor calls all registered detectors' process methods.
         """
-        mock_detector = MockDetector()
-        monitor_pack = {"detector": mock_detector, "ui": {}, "id": "test_id_1"}
-        self.monitor.add_monitor_project(monitor_pack)
+        # GIVEN: A monitor with multiple projects
+        mock_detector1 = MockDetector()
+        mock_detector2 = MockDetector()
+        monitor_pack1 = {"detector": mock_detector1, "ui": {}, "id": "test_id_1"}
+        monitor_pack2 = {"detector": mock_detector2, "ui": {}, "id": "test_id_2"}
+        self.monitor.add_monitor_project(monitor_pack1)
+        self.monitor.add_monitor_project(monitor_pack2)
 
-        test_action_unit = {"action": "test"}
-        
-        # Manually connect the signal for the test since we mocked it in setUp
-        self.monitor.DS.actionUnit_added.connect(self.monitor._on_action_recorded)
-        self.monitor.DS.actionUnit_added.emit(test_action_unit)
+        # WHEN: A new action unit is emitted from the data service
+        test_action_unit = {"action": "multi-test"}
+        self.mock_ds.actionUnit_added.emit(test_action_unit)
 
-        # Verify that the detector's process method was called with the action unit
-        mock_detector.process_action_unit.assert_called_with(test_action_unit)
+        # THEN: Both detectors should have been called
+        mock_detector1.process_action_unit.assert_called_with(test_action_unit)
+        mock_detector2.process_action_unit.assert_called_with(test_action_unit)
 
 
     def test_intervention_needed_signal_emitted_when_pattern_detected(self):
         """
         Test if the intervention_needed signal is emitted when a detector finds a pattern.
         """
+        # GIVEN: A monitor with a project
         mock_detector = MockDetector()
         mock_ui = {"name": "Test UI Object"}
         monitor_pack = {"detector": mock_detector, "ui": mock_ui, "id": "test_id_1"}
-        
         self.monitor.add_monitor_project(monitor_pack)
 
-        # Mock the slot that will receive the final signal
+        # and a slot connected to the monitor's output signal
         mock_slot = Mock()
         self.monitor.intervention_needed.connect(mock_slot)
 
-        # Manually trigger the detector's signal, simulating a pattern match
+        # WHEN: The detector emits that it has found a pattern
         mock_detector.emit_pattern_detected(mock_ui)
 
-        # Verify that the final signal was emitted with the correct UI object
+        # THEN: The monitor's final signal should have been emitted with the correct UI object
         mock_slot.assert_called_once_with(mock_ui)
 
 

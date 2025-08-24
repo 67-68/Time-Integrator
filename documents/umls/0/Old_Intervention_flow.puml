@@ -1,0 +1,52 @@
+
+title: 系统核心流程导航图 (Master Flow)
+
+participant "App: TimeIntergrator" as app
+participant "MainCoodinator" as coodinator
+participant "CardPresenter" as presenter
+participant "RealTimeMonitor" as monitor
+
+activate app
+
+' 创建Coodinator
+app -> coodinator: __init__(services, ui)
+activate coodinator
+
+group 初始化阶段
+    ref over coodinator, presenter
+        详细流程参见:
+        /umls/1/Intervention_Init.puml
+    end ref
+    coodinator <-- presenter: (完成初始化)
+end group
+
+group 卡片创建阶段
+    ref over coodinator, presenter
+        详细流程参见:
+        Documents/umls/1/Intervention_Card_Creation.puml
+    end ref
+    coodinator <-- presenter: (完成卡片创建)
+end group
+
+coodinator --> app: 完成初始化
+
+
+group 用户承诺阶段
+    ref over monitor, coodinator
+        详细流程参见:
+        Documents/umls/1/Intervention_user.puml
+    end ref
+end group
+
+group 实时干涉阶段
+    ref over monitor, app
+        详细流程参见:
+        Documents/umls/1/Interventon_Detect.puml
+    end ref
+end group
+
+coodinator --> app: 完成功能
+deactivate coodinator
+
+' intervention_Recipe被Card_Recipe引用,Card_Recipe被CardController获取来创建卡片,数据经过Detector,Presenter和Formatter流入TrendCard, 在创建的时候被作为依赖传入CardPresenter, 受其管理,Intervention数据流入其内部的InterventionCard,如果InterventionCard上按钮被按下就激活CardPresenter创建InterventionPresenter, 把InterventionCard作为依赖传入,受其管理.在创建InterventionPresenter的同时把一个干涉(也就是检测事件模式的Detector)传入RealTimeMonitor.它会监测DataService发出的创建新ActionUnit信号, 然后获取, 用Detector处理. 如果模式匹配那么给App类传送信号激活模态窗口, 但具体怎么激活还没做. 
+

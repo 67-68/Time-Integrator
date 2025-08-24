@@ -1,10 +1,12 @@
 from PyQt6.QtWidgets import QApplication
 import sys
 
+from ti.UI.presenters.interventionPresenter import InterventionPresenter
 from ti.UI.presenters.menuPresenter import MenuPresenter
 from ti.UI.views.BasicDialog import BasicDialog
 from ti.UI.views.MainWindow import MainWindow
-from ti.controller.cardController import CardController
+from ti.UI.views.SettingPage import SettingPage
+from ti.controller.cardController import CardPresenter
 from ti.controller.mainCoodinator import MainCoodinator
 from ti.core.analysis.otherAnalysis import updateActionList
 from ti.core.definitions import TODAY,YESTERDAY
@@ -46,7 +48,6 @@ class TimeIntegrator:
         
         #  ------ 初始化今天 -----
         self._on_date_selected(TODAY)
-            
         
 
     """ ------------------------------ Basic functions ------------------------------"""    
@@ -57,12 +58,19 @@ class TimeIntegrator:
         self.mainWindow.list_item_selected.connect(self._on_list_item_selected)
         self.mainWindow.new_button_selected.connect(self.createNewRecord)
         self.monitor.intervention_needed.connect(lambda ui: self.show_dialog(ui))
+        
+        self.SP.dialog_test.connect(lambda: self.show_dialog(self.AP))
+        
+        
     
     def createState(self):
         self.isDebugMode = False
         self.currentDate = None
         self.currentActionUnit = None 
         self.previousAU = None
+        
+        self.SP: SettingPage = self.mainWindow.getUI("SP")
+        self.AP = self.mainWindow.getUI("AP")
         
         self.monitor: RealTimeMonitor = self.services.getService("RTM")
     
@@ -81,10 +89,11 @@ class TimeIntegrator:
         
         self._on_list_item_selected(nR)
     
-    def show_dialog(self,ui):
-        dialog = BasicDialog(ui)
+    def show_dialog(self,presenter: InterventionPresenter):
+        ui = presenter.create_new_card()
+        dialog = BasicDialog(ui,parent=self.mainWindow)
+        result = dialog.exec()
         
-    
     def _on_list_item_selected(self,data):
         """
         这个函数用来更新

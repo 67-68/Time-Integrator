@@ -1,0 +1,55 @@
+
+participant "InterventionCard" as ic
+participant "InsightCardPresenter" as icp
+participant "RealTimeMonitor" as monitor
+participant "InterventionService" as is
+participant "InterventionCardPresnter" as int_pre
+participant "FormatService" as fs
+
+group 白天
+    ic --> icp: 用户按下按钮(intervention_pack)
+    ' 按理来说InterventionPack包含卡片本身，id和Detector,state
+    activate icp
+    
+    ' 这里的逻辑是，把两个按钮的信号连接到presenter上(硬编码)
+    ' button[choice_giveUp]和button[choice_accept]
+
+    icp -> is: create_intervention(intervention_pack)
+    deactivate icp
+    activate is
+
+    group intervention_presenter logic
+        is -> int_pre: __init__(ui,state,FS:FormatService)
+        activate int_pre
+
+        int_pre -> int_pre:process_user_action(state)
+        int_pre -> fs: interventionFormat(inter_data_dict: 包括id和state)
+        activate fs
+
+        fs --> int_pre: return text(包含title和choice的text)
+        deactivate fs
+
+        int_pre -> ic: deleteButton(state.user_accpeted.value)
+        activate ic
+
+        ic --> int_pre: return None
+        deactivate ic
+
+        note over int_pre: 创建了一个新的label, 放在之前按钮的位置
+
+        int_pre -> ic: addWidget_inButtonPlace(label)
+        activate ic
+
+        ic --> int_pre: return None
+        deactivate ic
+        deactivate int_pre
+    end group
+
+    is -> monitor: add_monitor_project(monitor_pack)
+    activate monitor
+
+    monitor --> is: return None
+    deactivate monitor
+
+    deactivate is
+end group

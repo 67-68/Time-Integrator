@@ -41,6 +41,11 @@ class RawUserAction(Enum):
     TEXT_CHANGED = "textChanged"
     RETURN_PRESSED = "returnPressed"
 
+class Intervention_Card_State(Enum):
+    USER_ACCEPTED = "choice_accept"
+    USER_REJECTED = "choice_giveUp" #使用narrative中的文本
+    INIT = "choice_init"
+
 
 #UNIVERSAL; INPUT enum ActionType; OUTPUT list of enum abbreviations
 def getEnumAbbriviation(enumClass):

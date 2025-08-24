@@ -1,5 +1,6 @@
 from PyQt6.QtCore import QObject,pyqtSignal
 from ti.core.analysis.detectors.detector import BaseDetector
+from ti.core.definitions import Intervention_Card_State
 from ti.dataAccess.insightCacheService import InsightCacheService
 
 
@@ -55,6 +56,7 @@ class InsightEngine(QObject):
             # Intervention初始化，判断是否存在，是否直接使用Detector
             if ("intervention" in recipe) and (recipe["intervention"] is not None):
                 self.cards[id]["intervention"] = recipe["intervention"]
+                self.cards[id]["intervention"].state = Intervention_Card_State.INIT
                 if recipe["intervention"].detector is None:
                     self.cards[id]["intervention"].detector = detector #这里，我使用了对待字典的方法对待数据模型类，因此错误
                     

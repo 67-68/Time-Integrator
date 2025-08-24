@@ -1,11 +1,13 @@
 from PyQt6.QtWidgets import QVBoxLayout
 from PyQt6.QtCore import pyqtSignal
 
-from ti.UI.presenters.formatter import format_card
+from ti.UI.presenters.InsightCardPresenter import InsightCardPresenter
+from ti.UI.presenters.formatter import FormatService
 from ti.UI.rawUI.ui_rawAnalysisPage import Ui_analysisPage
 from ti.UI.views.InterventionCard import InterventionCard
 from ti.UI.views.analysis.trendCard import TrendCard
 from ti.UI.widgets.pages.BasicFrame import BasicFrame
+from ti.services.interventionService import InterventionService
 
 
 
@@ -28,8 +30,15 @@ class AnalysisPage(BasicFrame):
         self.CA_layout = QVBoxLayout()
         self.CA.setLayout(self.CA_layout)
         
+        # 卡片逻辑类存储
+        self.currentLogicCards = {}
     
-    def add_cards(self,cards):
+    def add_cards(
+        self,
+        cards,
+        IS: InterventionService,
+        FS: FormatService
+        ):
         """_summary_
 
         Args:
@@ -38,27 +47,35 @@ class AnalysisPage(BasicFrame):
         # ------ 创建类，生成卡片 ------
         currentCards = {}
         
+        
         for idx, card_data in enumerate(cards): # card_data也就是formatter处理后的pre_data
-            data = format_card(card_data)
+            data = FS.format_card(card_data)
             currentCards[idx] = TrendCard(data, parent=self.CA) #接下来需要创建Intervention Card UI
             
             # 创建Intervention, 按理来说这里的数据是Formatter处理的
             if "intervention" in data and data["intervention"] is not None: #这里之前搞错过，不是CardData而是被formatter处理之后的data
-                interventionData = data["intervention"]
+                interventionData = data["intervention"] # 来自formatter
                 interventionData["detector"] = card_data["intervention"].detector #这里不能再传承之前的Intervenion数据模型类了
                 title = interventionData["title"]
                 choices = interventionData["choice"]
                 detector = interventionData["detector"]
                 id = interventionData["id"]
+                state = interventionData["state"]
                 
                 ic = InterventionCard(
                     title,
                     choices,
                     detector,
                     id,
+                    state,
                     parent = currentCards[idx]
                 )
                 currentCards[idx].TC.interventionLayout.addWidget(ic)
+            
+                # 填充卡片逻辑类
+                self.currentLogicCards[idx] = InsightCardPresenter(currentCards[idx],IS,intervention = ic)
+            else:
+                self.currentLogicCards[idx] = InsightCardPresenter(currentCards[idx],IS)
             
             self.cards.append(currentCards[idx])     # 保存引用，防止被垃圾回收
             self.CA.layout().addWidget(self.cards[idx])            # 加入垂直布局，自上而下显示

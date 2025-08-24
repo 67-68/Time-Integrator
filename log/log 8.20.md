@@ -10,5 +10,7 @@
 - 修改了App类服务建立逻辑
 - app类中增加了模态窗口函数
 - 增加了basic dialog控件
+- 简单测试了一下，按理来说可以生成Intervention和添加进入monitor
 
 ## 代办
+- 写一个Pytest

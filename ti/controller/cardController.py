@@ -8,7 +8,7 @@ from ti.services.serviceContainer import ServiceContainer
 from PyQt6.QtCore import pyqtSignal
 
 
-class CardController():
+class CardPresenter():
     # 创建信号
     card_generated = pyqtSignal(dict)
     
@@ -72,7 +72,9 @@ class CardController():
         # 卡片汇总
         self.cards = cond_cards + fixed_cards
     
-        # 这里需要一步生成Intervention
+        # 临时传递，按理来说不应该这么搞. UI + service -> mess
+        IS = self.service.getService("IS")
+        FS = self.service.getService("FS")
         
         # 填充入GUI
-        self.ui.add_cards(self.cards)
+        self.ui.add_cards(self.cards,IS,FS)

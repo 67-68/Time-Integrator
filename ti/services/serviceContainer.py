@@ -1,3 +1,4 @@
+from ti.UI.presenters.formatter import FormatService
 from ti.dataAccess.dataService import DataService
 from ti.dataAccess.insightCacheService import InsightCacheService
 from ti.dataAccess.insightManager import InsightManager
@@ -7,34 +8,38 @@ from ti.services.interventionService import InterventionService
 from ti.services.realTimeMonitorService import RealTimeMonitor
 from dataclasses import dataclass
 
-@dataclass
-class ServiceContainer:
-    services = {}
-        
-    # 现在先不区分"哪一套的"IM, IE
-    cache =  InsightCacheService()
-    services["ICS"] = cache
-    
-    manager = InsightManager(cache)
-    services["IM"] = manager
-    
-    engine = InsightEngine(cache)
-    services["IE"] = engine
-    
-    dataService = DataService()
-    services["DS"] = dataService
-    
-    monitor = RealTimeMonitor(dataService)
-    services["RTM"] = monitor
-    
-    # Intervention功能相关
-    intervention = InterventionService(monitor)
-    services["IS"] = intervention
-    
 
-    
-    logger = InterventionLogger()
-    services["IL"] = logger
+class ServiceContainer:
+    def __init__(self):
+        self.services = {}
+            
+        # 现在先不区分"哪一套的"IM, IE
+        cache =  InsightCacheService()
+        self.services["ICS"] = cache
+        
+        formatter = FormatService()
+        self.services["FS"] = formatter
+        
+        manager = InsightManager(cache)
+        self.services["IM"] = manager
+        
+        engine = InsightEngine(cache)
+        self.services["IE"] = engine
+        
+        dataService = DataService()
+        self.services["DS"] = dataService
+        
+        monitor = RealTimeMonitor(dataService)
+        self.services["RTM"] = monitor
+        
+        # Intervention功能相关
+        intervention = InterventionService(monitor,formatter)
+        self.services["IS"] = intervention
+
+        logger = InterventionLogger()
+        self.services["IL"] = logger
+        
+        
           
     def getServices(self):
         """_summary_
@@ -53,6 +58,8 @@ class ServiceContainer:
         IL: InterventionLogger
         
         RTM: RealTimeMonitor
+        
+        FS: FormatService
         """
         return self.services
     

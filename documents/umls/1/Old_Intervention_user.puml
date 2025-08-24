@@ -1,0 +1,21 @@
+
+participant "App: TimeIntergrator" as app
+participant "DataService" as ds
+participant "RealTimeMonitor" as monitor
+group 监测用户
+    ds --> monitor: new_actionUnit_added()
+    activate monitor
+
+    monitor -> monitor: _on_action_recorded
+
+    activate detector
+    monitor -> detector: process_action_unit
+
+    detector --> monitor: pattern_detected
+    deactivate detector
+
+    monitor --> app: intervention_needed.emit(ui)
+    deactivate monitor
+
+    app -> app: show_dialog(ui)
+end group

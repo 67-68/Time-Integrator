@@ -1,0 +1,64 @@
+
+participant "MainCoodinator" as coodinator
+participant "CardPresenter" as presenter
+participant "Conditional_ReportGenerator" as crg
+participant "InsightEngine" as engine
+participant "InsightManager" as manager
+participant "AnalysisPage" as page
+participant "InterventionCard" as ic
+participant "InsightCardPresenter" as icp
+
+group 开始创建卡片
+    coodinator -> presenter: create_yesterday_report()
+    activate presenter
+
+    presenter -> crg: create_report
+    activate crg
+
+    ' 清空之前的卡片
+    crg -> manager: reset()
+    activate manager
+
+    manager --> crg: None
+    deactivate manager
+
+    ' 创建新的卡片
+    crg -> engine: process_action_unit(au)
+    activate engine
+    
+    engine -> crg: return None
+    deactivate engine
+
+    crg -> manager: get_current_cards
+    activate manager
+
+    manager --> crg: return cards
+    deactivate manager
+
+    crg --> presenter: cards: list
+    deactivate crg
+
+    presenter -> page: add_cards(cards,IS: InterventionService, FS: FormatService)
+    activate page
+
+    ref over page: 在这里处理Intervention的转换为文本和创建UI
+
+    page -> ic: __init__(title,choices,detector,id,state,parent = currentCard)
+    activate ic
+
+    ref over ic: 需要有一张图解释它们干嘛的
+
+    ic --> page: return None
+    deactivate ic
+
+    page -> icp: __init__(currentCard,IS:interventionService,intervention = ic)
+    activate icp
+
+    icp --> page: None
+    deactivate icp
+    deactivate page
+
+    presenter --> coodinator: return None(完成卡片创建)
+    deactivate presenter
+    deactivate coodinator
+end group

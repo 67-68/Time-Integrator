@@ -99,9 +99,11 @@ SPECIFIC_NARRATION = {
 INTERVENTION_TEXT = {
     "post_meal_waste":{
         "presentation":{
-            "title":["在吃饭后不要浪费时间的请求"]
+            "choice_init": {"title":["在吃饭后不要浪费时间的请求"]},
+            "choice_giveUp": {"title":["我们只是朋友"]},
+            "choice_accept": {"title":["我愿意"]}
         },
-        "choice": {
+        "choice": { #到时候这里可以搞第一轮第二轮
             "choice_giveUp":["放弃"],
             "choice_accept":["接受挑战"]
         }
@@ -120,3 +122,12 @@ pack = {
     }
 }
 """
+
+# class Narrative_Text_Service:
+#     def __init__(self):
+#         """_summary_
+#         帮助获取Narrative数据
+#         """
+#         self.intervention_text = INTERVENTION_TEXT
+    
+#     def getInterventionText()

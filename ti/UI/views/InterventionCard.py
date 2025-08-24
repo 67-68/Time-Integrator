@@ -17,6 +17,7 @@ class InterventionCard(QWidget):
         choices: list,
         detector,
         id,
+        state,
         parent = None
         ):
         """_summary_
@@ -34,6 +35,7 @@ class InterventionCard(QWidget):
         
         self.detector = detector
         self.id = id
+        self.state = state
         
         self.buttons = {}
         
@@ -51,16 +53,24 @@ class InterventionCard(QWidget):
         self.buttons["choice_accept"].clicked.connect(self._on_user_promised)
         
     def _on_giveUp_clicked(self):
+        pass
+    
+    def _on_user_promised(self):
         pack = {
             "ui": self,
             "detector": self.detector,
-            "id":self.id
+            "id":self.id,
+            "state": self.state
         }
         
         self.user_promise.emit(pack)
     
-    def _on_user_promised(self):
-        pass
+    def deleteButton(self,name):
+        self.ui.choiceLayout.removeWidget(self.buttons[name])
+    
+    def addWidget_inButtonPlace(self,widget):
+        self.ui.choiceLayout.addWidget(widget)
+        
         
         
             

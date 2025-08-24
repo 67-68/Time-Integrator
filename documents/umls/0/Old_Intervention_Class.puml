@@ -1,0 +1,236 @@
+' FUNCTION: Intervention
+' SUBJECT: Role of each class
+' EXPRESS: UML_CLASS
+' BELONG: Intervention
+
+@startuml class
+
+package Orchestrator {
+    class "App" as app{ }
+
+    note left of app
+        RESPONSIBILITY: 
+        Object creation and wiring
+        Function Lifecycle(init -> other)
+    end note
+
+    class "MainCoodinator" as coodinator {
+
+    }
+
+    note left of coodinator
+        RESPONSIBILITY:
+        Control lifecycle
+        controller management
+    end note
+
+    coodinator --* app
+
+
+}
+
+
+
+' --- VIEW ---
+
+package View {
+    class "MainWindow" as mw {}
+
+    app *-- "1" mw: - mainWindow
+
+    note left of mw
+        RESPONSIBILITY:
+        拥有Analysis Page
+        间接提供展示区域
+    end note
+
+    class "AnalysisPage" as ap {}
+
+    mw *-- "1" ap: - AnalysisPage
+    coodinator ..> "1" mw: 管理UI
+
+    note left of ap
+        RESPONSIBILITY:
+        直接提供卡片的展示区域
+        容纳卡片UI
+    end note
+
+    class "TrendCard" as tc {}
+    note left of tc
+        RES:
+        被展示的卡片本身
+        给文本和Intervention提供场地
+    end note
+    tc --* ap
+
+    class "InterventionCard" as ic{}
+    note left of ic
+        干涉展示卡片
+        给选项和问题提供地方
+        用户做出选择的地方
+    end note
+    ic --* tc
+}
+
+package Presenter {
+    class "CardPresenter" as cp {
+        + init(service,ui)
+        + create_yesterday_report()
+    }
+    note left of cp
+        RESPONSIBILITY:
+        管理整个卡片生成的流程
+        从(服务/Model?/Generator?)中获取数据
+        并传送给UI
+    end note
+
+    note right of cp
+        Init:
+        - service: 传递依赖
+        - ui: 管理卡片生成功能
+    end note
+
+    coodinator ..> cp: 管理生成卡片功能
+
+    class "InsightCardPresenter" as icp {}
+    note left of icp
+        RES:
+        - 管理洞察卡片/TrendCard
+        - 负责对其内的事件做出反应
+    end note
+
+    icp --> tc: 管理
+}
+
+package Controller {}
+
+package Infrastructure {
+    class "ServiceContainer" as container {
+        + getServices()
+        + getService(serviceName: str)
+    }
+    note right of container
+        RESPONSIBILITY:
+        Create all of the services
+    end note
+    container --* app
+}
+
+package Model {
+    class "CardRecipe" as recipe {
+        + get_fixed_recipe()
+        + get_conditional_recipe
+    }
+    note right of recipe
+        RESPONSIBILITY:
+        Store card_recipe data
+        这个类不是纯种Model, 以后要分解为存储和获取存储
+    end note
+    cp ..> recipe: 获取配方来制作卡片
+
+    class "Intervention_Recipe" as int_recipe {}
+    note right of int_recipe
+        RES:
+        Store the recipe of intervention
+        it contain how to make an intervention
+    end note
+    recipe ..> int_recipe: 作为卡片内Intervention原料
+}
+
+package Service {
+    class "DataService" as ds {
+        + get_yesterday_AU()
+    }
+    note left of ds
+        RES: 
+        provide other service with data
+        warning other that a data created
+    end note
+    cp ..> ds: get data
+
+    class "Conditional_ReportGenerator" as crg {
+        + create_report()
+        - _on_pattern_detected(cardData: tuple)
+        ' 在找到模式之后执行，信号和数据来源于Engine, 这个函数把数据放入manager管理
+    }
+    note left of crg
+        RES:
+        Generate card report from data
+    end note
+    note right of crg
+        Init:
+        - IE: InsightEngine   
+        for generate cards
+        - IM: InsightManager
+        for get cards
+        - recipe: dict
+        for generate cards
+        - data: dict
+        for generate cards
+    end note
+    cp ..> crg
+
+    class "InsightEngine" as engine {
+        + init(ICS)
+        + initialize(recipes:list) 
+        ' 这个函数应该在process_event之前被执行
+        + process_action_unit(au): 分析actionUnit, 每次仅分析一个
+        - pattern_detected(rawData:dict): 在模式被发现之后执行
+    }
+    note left of engine
+        RES:
+        manage detector, analysis data
+        find time pattern
+    end note
+    note right of engine
+        - ICS: InsightServiceCache
+        用来分析出来的模式
+        - recipe: list
+        手动注入依赖，用来初始化detector
+    end note
+    crg ..> engine: analysis data
+
+    class "InsightManager" as manager {
+        + __init__()
+        + add_card(card)
+        + get_current_cards()
+        + reset()
+    }
+    note left of manager
+        RES:
+        管理生成的卡片
+    end note
+    note right of manager
+        Init:
+        - ICS: InsightServiceCache
+        用来存储历史卡片数据
+    end note
+    crg ..> manager: 获取卡片数据
+
+    class "RealTimeMonitor" as monitor {
+        + add_monitor_project(monitor_pack)
+        ' 加入需要被监测的东西
+        - _on_action_recorded(au)
+        ' 监测行为本身，检测au是否符合要求
+        - _on_pattern_detected(ui)
+        ' 如果行为模式被监测到
+    }
+    note left of monitor
+        RES:
+        管理内部所有的Detector
+        实时监测行为模式
+    end note
+    app ..> monitor: 监听有没有新的请求
+
+    class "InterventionService" as is {
+        + create_intervention(intervention_init_pack)
+    }
+    note left of is
+        用来管理和创建现存Intervention
+    end note
+    is ..> monitor: 创建新的监控
+
+
+
+}
+@enduml

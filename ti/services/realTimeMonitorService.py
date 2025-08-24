@@ -44,7 +44,9 @@ class RealTimeMonitor(QObject):
             detector:BaseDetector = self.monitor_projects[id]["detector"]
             detector.process_action_unit(au)
             
+            print(au)
+            
     def _on_pattern_detected(self, ui):
-        # 汇报Coodinator
+        # 汇报Coodinator. app
         self.intervention_needed.emit(ui)
         

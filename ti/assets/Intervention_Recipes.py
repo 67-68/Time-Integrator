@@ -4,5 +4,6 @@ from dataclasses import dataclass
 class InterventionRecipe:
     intervention_id: str
     detector = None
+    state = None
 
 meal_waste_intervention = InterventionRecipe("post_meal_waste")

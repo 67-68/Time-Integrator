@@ -15,9 +15,7 @@ class InterventionCard(QWidget):
         self,
         title: str,
         choices: list,
-        detector,
         id,
-        state,
         parent = None
         ):
         """_summary_
@@ -33,9 +31,7 @@ class InterventionCard(QWidget):
         # 初始化外观
         self.ui.title.setText(title)
         
-        self.detector = detector
         self.id = id
-        self.state = state
         
         self.buttons = {}
         

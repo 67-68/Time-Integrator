@@ -3,8 +3,10 @@ from ti.core.eventBus import EventBus
 from ti.dataAccess.dataService import DataService
 from ti.dataAccess.insightCacheService import InsightCacheService
 from ti.dataAccess.insightManager import InsightManager
+from ti.domain.detector.detectorFactory import DetectorFactory
+from ti.domain.detector.detectorRepository import DetectocRepository
 from ti.engine.insightEngine import InsightEngine
-from ti.features.intervention.InterventionLoggerService import InterventionLogger
+from ti.features.intervention.logger import InterventionLogger
 from ti.features.intervention.interventionService import InterventionService
 from ti.services.realTimeMonitorService import RealTimeMonitor
 from dataclasses import dataclass
@@ -18,13 +20,19 @@ class ServiceContainer:
         cache =  InsightCacheService()
         self.services["ICS"] = cache
         
+        detector_rep = DetectocRepository()
+        self.services["DR"] = detector_rep
+        
+        detector_fac = DetectorFactory(detector_rep)
+        self.services["DF"] = detector_fac
+        
         formatter = FormatService()
         self.services["FS"] = formatter
         
         manager = InsightManager(cache)
         self.services["IM"] = manager
         
-        engine = InsightEngine(cache)
+        engine = InsightEngine(cache,detector_fac)
         self.services["IE"] = engine
         
         dataService = DataService()
@@ -42,6 +50,8 @@ class ServiceContainer:
         
         bus = EventBus()
         self.services["bus"] = bus
+        
+        
         
         
           
@@ -64,6 +74,12 @@ class ServiceContainer:
         RTM: RealTimeMonitor
         
         FS: FormatService
+        
+        bus
+        
+        DR
+        
+        DF
         """
         return self.services
     

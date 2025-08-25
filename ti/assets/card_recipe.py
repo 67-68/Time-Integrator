@@ -1,7 +1,8 @@
 
 from Data import userMatchers
 from ti.core.analysis import analyzer, presenters
-from ti.core.analysis.detectors.detector import BaseDetector
+from ti.domain.detector.baseDetector import BaseDetector
+
 
 """
 This file store all the recipe of cards
@@ -73,20 +74,7 @@ class Card_recipe:
         """
         self.conditional_card_recipe = [
             {
-                "detector": BaseDetector,
-                "config":{
-                    "sequence": [
-                        {
-                            "state_name": "meal",
-                            "matcher": userMatchers.action_is("吃饭")
-                        },
-                        {
-                            "state_name": "waste",
-                            "matcher": userMatchers.action_type_is("waste")
-                        }
-                    ],
-                    "id":"post_eat_waste"
-                },
+                "detector": "post_eat_waste", #detector id
                 "presenter":presenters.present_sequence_data,
             }
         ]

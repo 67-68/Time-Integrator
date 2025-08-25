@@ -1,6 +1,6 @@
 
 
-from ti.core.analysis.matchers import action_type_is, date_is, matchAll, property_is,action_is
+from ti.core.analysis.matchers import Matcher
 from ti.core.definitions import YESTERDAY, ActionType
 
 
@@ -10,12 +10,14 @@ basically, 和matcher本身在结构中的地位是同构的
 被analyzer_config使用来过滤信息
 使用matcherall或者matcherany 把不同的matcher结合起来
 """
-YESTERDAY_WORK_MATCHER = matchAll(
-    date_is(YESTERDAY),
-    action_type_is(ActionType.WORK.value)
+matcher = Matcher()
+
+YESTERDAY_WORK_MATCHER = matcher.matchAll(
+    matcher.date_is(YESTERDAY),
+    matcher.action_type_is(ActionType.WORK.value)
 )
 
-ANY_MATCHER = property_is("action")
+ANY_MATCHER = matcher.property_is("action")
 
 """ sequence matchers
 这里用来存放detector使用的matcher列表
@@ -35,11 +37,11 @@ ANY_MATCHER = property_is("action")
 """
 POST_EAT_WASTE = [
     {
-        "matcher": action_is("吃饭"),
+        "matcher": matcher.action_is("吃饭"),
         "state_name": "eat"
     },
     {
-        "matcher": action_type_is(ActionType.WASTE.value),
+        "matcher": matcher.action_type_is(ActionType.WASTE.value),
         "state_name":"waste"
     }
 ]

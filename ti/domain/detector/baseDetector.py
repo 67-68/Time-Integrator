@@ -26,13 +26,11 @@ class BaseDetector(QObject):
         super().__init__()
         
         # 获取matchers
-        self.sequence = config["sequence"]
+        self.sequence = config.sequence #这里已经是一个list了
             
         # 获取权重计算函数 如果没有那么使用默认的
-        if "weight_calc" in config:
-            self.weight_calc = config["weight_calc"]
-        else:
-            self.weight_calc = self._on_weight_calculation
+
+        self.weight_calc = self._on_weight_calculation
         
         # ------ 创建状态 ------
             
@@ -46,7 +44,7 @@ class BaseDetector(QObject):
         self.ICS = insight_cache_service
         
         # 卡片id
-        self.id = config["id"]
+        self.id = config.card_type_id
     
     def process_action_unit(self,au):
         """_summary_
@@ -55,7 +53,7 @@ class BaseDetector(QObject):
         Args:
             au (dict): 一个行动单元
         """
-        currentMatcher = self.sequence[self.currentIndex]["matcher"]
+        currentMatcher = self.sequence[self.currentIndex].matcher
         
         if currentMatcher(au) == True:    
             """
@@ -63,7 +61,7 @@ class BaseDetector(QObject):
             修改currentIndex
             判断是否满足了所有条件 如果满足了 自动调用完成函数
             """
-            state_name = self.sequence[self.currentIndex]["state_name"]
+            state_name = self.sequence[self.currentIndex].state_name
             self.passed_au[state_name] = au
             
             self.currentIndex += 1 

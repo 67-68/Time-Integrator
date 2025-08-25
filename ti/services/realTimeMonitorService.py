@@ -1,6 +1,10 @@
-from ti.core.analysis.detectors.detector import BaseDetector
+
 from ti.dataAccess.dataService import DataService
 from PyQt6.QtCore import pyqtSignal,QObject
+
+from ti.domain.detector.baseDetector import BaseDetector
+
+
 
 class RealTimeMonitor(QObject):
     # App类传递信号

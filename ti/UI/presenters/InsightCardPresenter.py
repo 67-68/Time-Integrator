@@ -1,6 +1,6 @@
 from PyQt6.QtCore import QObject
 
-from ti.features.intervention.view.InterventionCard import InterventionCard
+from ti.features.intervention.view.card import InterventionCard
 from ti.UI.views.analysis.trendCard import TrendCard
 from ti.UI.widgets.other.BasicButton import BasicButton
 
@@ -18,11 +18,11 @@ class InsightCardPresenter(QObject):
         super().__init__(parent)
         self.ui = card_ui
         
-        if intervention:
-            self.intervention_ui = intervention
-            self.intervention_connect()
+        # if intervention:
+        #     self.intervention_ui = intervention
+        #     self.intervention_connect()
         
-        self.IS = IS
+        # self.IS = IS
 
     
         

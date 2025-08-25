@@ -5,9 +5,10 @@ from ti.UI.presenters.InsightCardPresenter import InsightCardPresenter
 from ti.UI.presenters.formatter import FormatService
 from ti.UI.rawUI.ui_rawAnalysisPage import Ui_analysisPage
 from ti.core.eventBus import EventBus
-from ti.features.intervention.view.InterventionCard import InterventionCard
+from ti.features.intervention.view.card import InterventionCard
 from ti.UI.views.analysis.trendCard import TrendCard
 from ti.UI.widgets.pages.BasicFrame import BasicFrame
+from ti.services.sessionCache import SessionCache
 
 class AnalysisPage(BasicFrame):
     switchPage_button_clicked = pyqtSignal(str)
@@ -35,7 +36,8 @@ class AnalysisPage(BasicFrame):
         self,
         cards,
         FS: FormatService,
-        bus: EventBus
+        bus: EventBus,
+        cache: SessionCache
         ):
         """_summary_
 
@@ -50,11 +52,10 @@ class AnalysisPage(BasicFrame):
             data = FS.format_card(card_data)
             card = TrendCard(data, parent=self.CA) 
             
-            bus.publish("insight_card_ui_created",card)
-            
-            cardPresenter = InsightCardPresenter(currentCards[idx])
+            bus.publish("insight_card_ui_created",(card,cache))
             
             currentCards[idx] = card
+            cardPresenter = InsightCardPresenter(currentCards[idx])
             self.currentLogicCards[idx] = cardPresenter
             
             self.cards.append(currentCards[idx])     # 保存引用，防止被垃圾回收

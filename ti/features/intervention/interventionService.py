@@ -1,5 +1,5 @@
 from ti.UI.presenters.formatter import FormatService
-from ti.features.intervention.presenter.interventionPresenter import InterventionPresenter
+from ti.features.intervention.presenter.cardPresenter import InterventionPresenter
 from ti.services.realTimeMonitorService import RealTimeMonitor
 
 

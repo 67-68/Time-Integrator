@@ -8,6 +8,8 @@ from ti.dataAccess.insightManager import InsightManager
 from ti.services.serviceContainer import ServiceContainer
 from PyQt6.QtCore import pyqtSignal
 
+from ti.services.sessionCache import SessionCache
+
 
 class CardPresenter():
     # 创建信号
@@ -25,10 +27,11 @@ class CardPresenter():
         它相当于替代了原本的analysis page的地位
         
         data: 处理的数据，由app类分发
-        """
+        """    
         # 获取服务
         self.service = service
         self.dataService: DataService = service.getService("DS")
+        self.cache = SessionCache()
         
         # 获取配方
         recipe = Card_recipe()
@@ -48,7 +51,8 @@ class CardPresenter():
             self.yesterday_data,
             cond_recipe,
             IE,
-            IM
+            IM,
+            self.cache
         )
         
         self.FR = Fixed_ReportGenerator(
@@ -77,4 +81,4 @@ class CardPresenter():
         self.cards = cond_cards + fixed_cards
         
         # 填充入GUI
-        self.ui.add_cards(self.cards,FS,self.bus)
+        self.ui.add_cards(self.cards,FS,self.bus,self.cache)

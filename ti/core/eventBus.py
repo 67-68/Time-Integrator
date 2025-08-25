@@ -27,8 +27,8 @@ class EventBus:
             data (dict): 希望发布的信息
         """
         if signal_id not in self.signals:
-            self.signals[id] = []
-            print(f"this signal({id}) is not registed by subscriber or publisher")
+            self.signals[signal_id] = []
+            print(f"this signal({signal_id}) is not registed by subscriber or publisher")
         
         signal_list = self.signals[signal_id]
         

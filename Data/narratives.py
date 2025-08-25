@@ -95,39 +95,3 @@ SPECIFIC_NARRATION = {
         }
     }
 }
-
-INTERVENTION_TEXT = {
-    "post_meal_waste":{
-        "presentation":{
-            "choice_init": {"title":["在吃饭后不要浪费时间的请求"]},
-            "choice_giveUp": {"title":["我们只是朋友"]},
-            "choice_accept": {"title":["我愿意"]}
-        },
-        "choice": { #到时候这里可以搞第一轮第二轮
-            "choice_giveUp":["放弃"],
-            "choice_accept":["接受挑战"]
-        }
-    }
-}
-# 目前对于Intervention, 是写多少选项生成多少。同时，卡片选项会添加到list中，id(choice_giveUp)作为key, 文本直接展示
-
-"""
-在被Formatter处理过之后，形成类似这样的数据结构
-pack = {
-    "intervention" {
-        "title": aaa,
-        "choice": [
-            "choice_id":"choice_text"
-        ]
-    }
-}
-"""
-
-# class Narrative_Text_Service:
-#     def __init__(self):
-#         """_summary_
-#         帮助获取Narrative数据
-#         """
-#         self.intervention_text = INTERVENTION_TEXT
-    
-#     def getInterventionText()

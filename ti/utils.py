@@ -1,4 +1,5 @@
 import datetime
+import random
 from PyQt6.QtWidgets import QGraphicsDropShadowEffect, QWidget
 from PyQt6.QtSvg import QSvgRenderer
 from PyQt6.QtGui import QPixmap, QPainter, QColor
@@ -152,3 +153,14 @@ def load_qss():
         log_message(f"!!!!!!!! FAILED to read QSS file: {e}")
         raise e
     
+    
+
+def randomChoser(list):
+    """
+    这个函数接收一个list
+    在里面随机挑选一个返回
+    """
+    if len(list) == 1:
+        return list[0]
+    
+    return random.choice(list)

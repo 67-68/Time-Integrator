@@ -1,7 +1,8 @@
 from PyQt6.QtCore import QObject,pyqtSignal
-from ti.core.analysis.detectors.detector import BaseDetector
-from ti.core.definitions import Intervention_Card_State
 from ti.dataAccess.insightCacheService import InsightCacheService
+from ti.domain.detector.detectorFactory import DetectorFactory
+from ti.domain.detector.baseDetector import BaseDetector
+from ti.services.sessionCache import SessionCache
 
 
 class InsightEngine(QObject):
@@ -15,6 +16,7 @@ class InsightEngine(QObject):
     def __init__(
         self,
         ICS: InsightCacheService,
+        factory: DetectorFactory,
         parent = None
     ):
         """_summary_
@@ -29,21 +31,20 @@ class InsightEngine(QObject):
         
         # 创建状态
         self.ICS = ICS
+        self.factory = factory
         self.cards = {}
     
-    def initialize(self,recipes:list):
+    def initialize(self,recipes:list,cache: SessionCache):
         """_summary_
         这是Recipe传递的最后一环
         Args:
             recipes (list): _description_
         """
         for recipe in recipes:
-            id = recipe["config"]["id"]
-            config = recipe["config"]
-            
-            detector: BaseDetector = recipe["detector"]
-            detector = detector(config,self.ICS)
-            
+            id = recipe["detector"] 
+            card_type_id = id
+            detector: BaseDetector = self.factory.create_detector(id,card_type_id,self.ICS)
+                        
             #这里，这一行，如果detector通过了，卡片模式被识别出来，会首先执行这一条
             detector.pattern_detected.connect(lambda f : self.pattern_detected(f))
 
@@ -53,14 +54,8 @@ class InsightEngine(QObject):
                 "presenter":recipe["presenter"]
             }
             
-            # Intervention初始化，判断是否存在，是否直接使用Detector
-            if ("intervention" in recipe) and (recipe["intervention"] is not None):
-                self.cards[id]["intervention"] = recipe["intervention"]
-                self.cards[id]["intervention"].state = Intervention_Card_State.INIT
-                if recipe["intervention"].detector is None:
-                    self.cards[id]["intervention"].detector = detector #这里，我使用了对待字典的方法对待数据模型类，因此错误
-                    
-    
+            cache.store(id,self.cards[id])
+            
     def process_action_unit(self,au: dict) -> None:
         """_summary_
         这个函数会接收行动单元

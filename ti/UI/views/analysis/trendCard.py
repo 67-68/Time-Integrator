@@ -15,6 +15,9 @@ class TrendCard(BasicWidget):
         
         pre = data["presentation"]
         
+        # 卡片ID
+        self.id = data["id"]
+        
         #这里手动填充各项数据
         sementic = data["text"]["sementic"]
         judgements = data["text"]["judgement"]
@@ -47,6 +50,9 @@ class TrendCard(BasicWidget):
         self.TC.judgementLabel.setText(judgements_text)
         
         self.TC.titleLabel.setText(title)
+    
+    def addWidget_inBottomLayout(self,widget):
+        self.TC.interventionLayout.addWidget(widget)
         
         
         

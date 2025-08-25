@@ -1,5 +1,6 @@
 from ti.dataAccess.insightManager import InsightManager
 from ti.engine.insightEngine import InsightEngine
+from ti.services.sessionCache import SessionCache
 
 class Conditional_ReportGenerator():
     """_summary_
@@ -12,12 +13,13 @@ class Conditional_ReportGenerator():
         recipe: dict,
         IE: InsightEngine,
         IM: InsightManager,
+        cache: SessionCache
     ):
         self.IE = IE
         self.IM = IM
         self.data = data
         self.recipe = recipe
-        self.IE.initialize(recipe)
+        self.IE.initialize(recipe,cache)
         
         # 连接信号
         self.IE._on_pattern_detected.connect(lambda d: self._on_pattern_detected(d))

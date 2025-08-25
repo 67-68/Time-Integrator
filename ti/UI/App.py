@@ -1,15 +1,13 @@
 from PyQt6.QtWidgets import QApplication
 import sys
 
-from ti.features.intervention.presenter.interventionPresenter import InterventionPresenter
 from ti.UI.presenters.menuPresenter import MenuPresenter
 from ti.UI.views.BasicDialog import BasicDialog
 from ti.UI.views.MainWindow import MainWindow
 from ti.UI.views.SettingPage import SettingPage
-from ti.UI.presenters.cardPresenter import CardPresenter
 from ti.controller.mainCoodinator import MainCoodinator
 from ti.core.analysis.otherAnalysis import updateActionList
-from ti.core.definitions import TODAY,YESTERDAY
+from ti.core.definitions import TODAY
 from ti.dataAccess.dataService import DataService
 from ti.services.realTimeMonitorService import RealTimeMonitor
 from ti.services.serviceContainer import ServiceContainer
@@ -89,10 +87,10 @@ class TimeIntegrator:
         
         self._on_list_item_selected(nR)
     
-    def show_dialog(self,presenter: InterventionPresenter):
-        ui = presenter.create_new_card()
-        dialog = BasicDialog(ui,parent=self.mainWindow)
-        result = dialog.exec()
+    # def show_dialog(self,presenter: InterventionPresenter):
+    #     ui = presenter.create_new_card()
+    #     dialog = BasicDialog(ui,parent=self.mainWindow)
+    #     result = dialog.exec()
         
     def _on_list_item_selected(self,data):
         """

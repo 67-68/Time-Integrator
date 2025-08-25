@@ -1,10 +1,11 @@
 from ti.UI.presenters.formatter import FormatService
+from ti.core.eventBus import EventBus
 from ti.dataAccess.dataService import DataService
 from ti.dataAccess.insightCacheService import InsightCacheService
 from ti.dataAccess.insightManager import InsightManager
 from ti.engine.insightEngine import InsightEngine
-from ti.services.InterventionLoggerService import InterventionLogger
-from ti.services.interventionService import InterventionService
+from ti.features.intervention.InterventionLoggerService import InterventionLogger
+from ti.features.intervention.interventionService import InterventionService
 from ti.services.realTimeMonitorService import RealTimeMonitor
 from dataclasses import dataclass
 
@@ -38,6 +39,9 @@ class ServiceContainer:
 
         logger = InterventionLogger()
         self.services["IL"] = logger
+        
+        bus = EventBus()
+        self.services["bus"] = bus
         
         
           

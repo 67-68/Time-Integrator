@@ -1,4 +1,4 @@
-from ti.controller.cardController import CardPresenter
+from ti.UI.presenters.cardPresenter import CardPresenter
 from ti.services.serviceContainer import ServiceContainer
 
 
@@ -8,21 +8,29 @@ class MainCoodinator():
         service: ServiceContainer,  # <-- 应该传入一个实例
         ui: dict # <--- 所有UI的包
     ):
-        # 获取服务
+        
         self.service = service
-        
-        # 获取UI
         self.ui = ui
-        self.AP = ui["AP"]
+    
+        self.create_state()
         
-        # 创建下辖的controller
-        self.card_controller = CardPresenter(service,self.AP)
-
-        self.controller = {}
-        self.controller["CCT"] = self.card_controller
+        # 插件加载先于业务逻辑
+        self.activatePlugins()
         
         # 初始化卡片
         self.card_controller.create_yesterday_report()
+        
+    def create_state(self):
+        self.controller = {}
+        
+        self.AP = self.ui["AP"]
+        self.card_controller = CardPresenter(self.service,self.AP)
+        self.controller["CCT"] = self.card_controller
+        
+        
+        
+        
+        self.eventBus = self.service.getService("bus")
         
     def getController(self,controller):
         """_summary_
@@ -35,3 +43,12 @@ class MainCoodinator():
             controller (str): controller name
         """
         return self.controller[controller]
+    
+    def activatePlugins(self):
+        """_summary_
+        这个函数创建插件的实例并激活他们
+        """
+        monitor = self.service.getService("RTM")
+        format = self.service.getService("FS")
+        
+        

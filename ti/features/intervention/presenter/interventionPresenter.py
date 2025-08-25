@@ -2,7 +2,7 @@ from PyQt6.QtCore import QObject
 from dataclasses import dataclass
 from Data.narratives import INTERVENTION_TEXT
 from ti.UI.presenters.formatter import FormatService
-from ti.UI.views.InterventionCard import InterventionCard
+from ti.features.intervention.view.InterventionCard import InterventionCard
 from ti.UI.widgets.other.BasicLabel import BasicLabel
 from ti.core.definitions import Intervention_Card_State
 

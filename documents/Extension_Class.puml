@@ -1,0 +1,33 @@
+
+interface "ExtensionInterface" as interface {
+    + name: str
+    + initilialize(eventBus)
+    + shutdown()
+}
+
+note left of interface
+    RES:
+    作为所有插件类的模板
+    所有继承它的类都要实现这几个方法
+end note
+
+class "ExtensionRegister" as register {
+    + regist(实例)
+    ' 用来注册
+}
+
+note left of register
+    作为所有扩展的第一推动力
+    和中间人，让他们得以和主体部分交流
+end note
+
+class "EventBus" as signal {
++ publish(name)
+' 发送一条信号
++ subscribe(name)
+}
+
+note left of signal
+作为事件总线
+让一个类和另一个类可以解耦的相互交流
+end note

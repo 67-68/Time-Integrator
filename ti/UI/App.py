@@ -1,12 +1,12 @@
 from PyQt6.QtWidgets import QApplication
 import sys
 
-from ti.UI.presenters.interventionPresenter import InterventionPresenter
+from ti.features.intervention.presenter.interventionPresenter import InterventionPresenter
 from ti.UI.presenters.menuPresenter import MenuPresenter
 from ti.UI.views.BasicDialog import BasicDialog
 from ti.UI.views.MainWindow import MainWindow
 from ti.UI.views.SettingPage import SettingPage
-from ti.controller.cardController import CardPresenter
+from ti.UI.presenters.cardPresenter import CardPresenter
 from ti.controller.mainCoodinator import MainCoodinator
 from ti.core.analysis.otherAnalysis import updateActionList
 from ti.core.definitions import TODAY,YESTERDAY

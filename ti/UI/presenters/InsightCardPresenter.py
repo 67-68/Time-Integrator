@@ -1,16 +1,13 @@
 from PyQt6.QtCore import QObject
 
-from ti.UI.views.InterventionCard import InterventionCard
+from ti.features.intervention.view.InterventionCard import InterventionCard
 from ti.UI.views.analysis.trendCard import TrendCard
 from ti.UI.widgets.other.BasicButton import BasicButton
-from ti.services.interventionService import InterventionService
 
 class InsightCardPresenter(QObject):
     def __init__(
         self,
         card_ui: TrendCard,
-        IS: InterventionService,
-        intervention: InterventionCard = None,
         parent = None
     ):
         """_summary_

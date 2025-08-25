@@ -2,6 +2,7 @@ from ti.UI.presenters.conditional_cardPresenter import Conditional_ReportGenerat
 from ti.UI.presenters.fixed_cardPresenter import Fixed_ReportGenerator
 from ti.UI.views.analysis.AnalysisPage import AnalysisPage
 from ti.assets.card_recipe import Card_recipe
+from ti.core.eventBus import EventBus
 from ti.dataAccess.dataService import DataService
 from ti.dataAccess.insightManager import InsightManager
 from ti.services.serviceContainer import ServiceContainer
@@ -40,6 +41,7 @@ class CardPresenter():
         # 获取传入的服务
         IE = self.service.getService("IE")
         IM = self.service.getService("IM")
+        self.bus: EventBus = self.service.getService("bus")
         
         # 开始初始化卡片相关
         self.CR = Conditional_ReportGenerator(
@@ -69,12 +71,10 @@ class CardPresenter():
         
         # breakpoint()
         
-        # 卡片汇总
-        self.cards = cond_cards + fixed_cards
-    
-        # 临时传递，按理来说不应该这么搞. UI + service -> mess
-        IS = self.service.getService("IS")
         FS = self.service.getService("FS")
         
+        # 卡片汇总
+        self.cards = cond_cards + fixed_cards
+        
         # 填充入GUI
-        self.ui.add_cards(self.cards,IS,FS)
+        self.ui.add_cards(self.cards,FS,self.bus)

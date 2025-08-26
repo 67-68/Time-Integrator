@@ -19,6 +19,10 @@ class InterventionNarrator:
 
         Args:
             intervention_id (str): _description_
+            sementic_id (str): _description_
+
+        Returns:
+            _type_: _description_
         """
         data = NARRATIONS[intervention_id][sementic_id]
         

@@ -35,7 +35,7 @@ class InterventionCard_Factory:
             # 首先获取数据
             recipe: InterventionRecipe
             id = recipe.intervention_id
-            state = recipe.state # 获取第一个状态
+            state = recipe.initial_state # 获取第一个状态
             
             data = self.formatter.format(id,state)
             

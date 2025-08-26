@@ -83,10 +83,6 @@ class InsightEngine(QObject):
         id = rawData["id"]
         presenter = self.cards[id]["presenter"]
         
-        # 手动加入Intervention
-        intervention = self.cards[id]["intervention"]
-        rawData["intervention"] = intervention
-        
         # 使用presenter处理
         pre_data = presenter(rawData)
         

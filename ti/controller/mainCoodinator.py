@@ -1,4 +1,6 @@
 from ti.UI.presenters.cardPresenter import CardPresenter
+from ti.core.extensionRegister import ExtensionRegister
+from ti.features.intervention.coodinator import InterventionCoodinator
 from ti.services.serviceContainer import ServiceContainer
 
 
@@ -27,8 +29,7 @@ class MainCoodinator():
         self.card_controller = CardPresenter(self.service,self.AP)
         self.controller["CCT"] = self.card_controller
         
-        
-        
+        self.ER:ExtensionRegister = self.service.getService("ER")
         
         self.eventBus = self.service.getService("bus")
         
@@ -50,5 +51,11 @@ class MainCoodinator():
         """
         monitor = self.service.getService("RTM")
         format = self.service.getService("FS")
+        
+        intervention = InterventionCoodinator()
+        
+        self.ER.regist_plugin(intervention)
+        
+        
         
         

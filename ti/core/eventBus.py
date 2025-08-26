@@ -15,8 +15,8 @@ class EventBus:
             func (function): 回调函数，在这里放上希望接受信号之后激活的函数
         """
         if signal_id not in self.signals:
-            self.signals[id] = []
-        self.signals[id].append(func)
+            self.signals[signal_id] = []
+        self.signals[signal_id].append(func)
     
     def publish(self,signal_id,data):
         """_summary_

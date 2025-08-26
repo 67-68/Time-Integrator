@@ -5,7 +5,7 @@ from ti.UI.rawUI.ui_InterventionCard import Ui_interventionWidget
 from ti.UI.widgets.other.BasicButton import BasicButton
 
 class InterventionCard(QWidget):
-    user_promise = pyqtSignal(dict)
+    user_promise = pyqtSignal()
     # 会包含self和detector
     
     user_giveUp = pyqtSignal(dict)
@@ -52,14 +52,7 @@ class InterventionCard(QWidget):
         pass
     
     def _on_user_promised(self):
-        pack = {
-            "ui": self,
-            "detector": self.detector,
-            "id":self.id,
-            "state": self.state
-        }
-        
-        self.user_promise.emit(pack)
+        self.user_promise.emit()
     
     def deleteButton(self,name):
         self.ui.choiceLayout.removeWidget(self.buttons[name])

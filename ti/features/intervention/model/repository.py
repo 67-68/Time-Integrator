@@ -1,4 +1,4 @@
-from ti.features.intervention.model.model import Intervention_ID, InterventionRecipe
+from ti.features.intervention.model.model import Intervention_ID, InterventionEvent, InterventionRecipe, InterventionState
 
 
 class InterventionRepository:
@@ -25,19 +25,36 @@ class InterventionRepository:
         """
         recipe = recipes[intervention_id]
         id = recipe["id"]
-        state = recipe["state"]
+        recipe_states = recipe["state"]
         detector = recipe["detector"]
+        initial_state = recipe["initial_state"]
         
-        recipe_dataClass = InterventionRecipe(id,state,detector = detector)
+        states_dataClass = {}
+        
+        for state_key in recipe_states:
+            transitions = recipe_states[state_key]
+            states_dataClass[state_key] = InterventionState(state_key,transitions)
+        
+        
+        recipe_dataClass = InterventionRecipe(id,states_dataClass,initial_state,detector)
         
         return recipe_dataClass
 
 
+
+
 recipes = {
     Intervention_ID.POST_EAT_WASTE.value: {
-        "id":"post_meal_waste",
-        "state":[
-            "init"
-        ]
+        "id":"post_eat_waste",
+        "state":{
+            "init": {
+                InterventionEvent.USER_ACCEPTED:"create_intervention",
+                InterventionEvent.USER_REJECTED:"ask_attribution"
+            },
+            "create_intervention":None
+        },
+        "initial_state":"init",
+        "detector":None
+        
     }
 }

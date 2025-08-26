@@ -1,13 +1,8 @@
 from dataclasses import dataclass
 from enum import Enum
 
+from ti.domain.detector.baseDetector import BaseDetector
 from ti.features.intervention.view.card import InterventionCard
-
-@dataclass
-class InterventionRecipe:
-    intervention_id: str
-    detector = None
-    state:list[str]
 
 class Intervention_ID(Enum):
     POST_EAT_WASTE = "post_eat_waste"
@@ -24,12 +19,18 @@ class InterventionEvent(Enum):
 @dataclass
 class InterventionState:
     """_summary_
-    这个类表示当前的状态
-    包括大概的事件/状态和具体的ID
-    同样的结构用来读取
+    这个类表示一个状态要包含的东西
+    对应状态key + 它的所有规则
     """
-    event: InterventionEvent
-    sementic_id: str
+    name: str
+    transitions: dict[InterventionEvent,str]
+    
+@dataclass
+class InterventionRecipe:
+    intervention_id: str
+    state: dict[str,InterventionState]
+    initial_state: str
+    detector: type[BaseDetector]
     
 @dataclass
 class InterventionFactory_Pack:

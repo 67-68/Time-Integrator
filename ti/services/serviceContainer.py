@@ -1,5 +1,6 @@
 from ti.UI.presenters.formatter import FormatService
 from ti.core.eventBus import EventBus
+from ti.core.extensionRegister import ExtensionRegister
 from ti.dataAccess.dataService import DataService
 from ti.dataAccess.insightCacheService import InsightCacheService
 from ti.dataAccess.insightManager import InsightManager
@@ -51,6 +52,8 @@ class ServiceContainer:
         bus = EventBus()
         self.services["bus"] = bus
         
+        ER = ExtensionRegister(bus)
+        self.services["ER"] = ER
         
         
         
@@ -80,7 +83,10 @@ class ServiceContainer:
         DR
         
         DF
+        
+        ER
         """
+        
         return self.services
     
     def getService(self,ID: str):

@@ -68,7 +68,7 @@ class CardPresenter():
         
     def create_yesterday_report(self):
         # 获取固定卡片
-        fixed_cards = self.FR.create_report()
+        fixed_cards = self.FR.create_report(self.cache)
         
         # 创建条件卡片
         cond_cards = self.CR.create_report()

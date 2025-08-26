@@ -12,7 +12,7 @@ class InterventionFormatter:
     
     def format(
         self,
-        id: str,
+        intervention_id: str,
         state: InterventionState
         ) -> dict:
         """_summary_
@@ -35,8 +35,8 @@ class InterventionFormatter:
             }
         """
         # 首先获取对应ID数据
-        sementic_id = state.sementic_id
-        data = self.IN.get_text_by_id(id,sementic_id)
+        sementic_id = state
+        data = self.IN.get_text_by_id(intervention_id,sementic_id)
 
         intervention_title_list = data["presentation"]["title"]
         intervention_title = randomChoser(intervention_title_list)

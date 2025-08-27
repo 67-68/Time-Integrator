@@ -7,30 +7,40 @@
 from ti.UI.views.analysis.trendCard import TrendCard
 from ti.core.Interfaces.Extension_Interface import ExtensionInterface
 from ti.core.eventBus import EventBus
-from ti.features.intervention.cardFactory import InterventionCard_Factory
-from ti.features.intervention.formatter import InterventionFormatter
-from ti.features.intervention.model.model import InterventionFactory_Pack
+from ti.features.intervention.cardFactory import InterventionCard_Factory, InterventionFactory_Pack
+from ti.features.intervention.formatter import INV_Formatter
+from ti.features.intervention.interventionService import InterventionService
+from ti.features.intervention.logger import InterventionLogger
 from ti.features.intervention.model.narratives import InterventionNarrator
-from ti.features.intervention.model.repository import InterventionRepository
+from ti.features.intervention.model.repository import INV_Repository
 from ti.features.intervention.presenter.cardPresenter import InterventionPresenter
+from ti.services.realTimeMonitorService import RealTimeMonitor
 from ti.services.sessionCache import SessionCache
 
 
 class InterventionCoodinator(ExtensionInterface):
-    def __init__(self):
+    def __init__(
+        self,
+        monitor: RealTimeMonitor,
+        bus: EventBus
+    ):
         """_summary_
         这是Intervention插件的主类
         掌管不同生命周期下的Intervention应该做什么
         首先它会获取卡片，然后在后面卡片制造的时候把它塞进去
         插件应该是先于主体部分加载的
         """
+        # 获取服务
+        self.monitor = monitor
+        self.bus = bus
         
         # 创建服务
-        self.repository = InterventionRepository()
         self.narrator = InterventionNarrator()
-        self.formatter = InterventionFormatter(self.narrator)
-        self.factory = InterventionCard_Factory(self.repository,self.formatter)
-        
+        self.formatter = INV_Formatter(self.narrator)
+        self.repository = INV_Repository(self.formatter)
+        self.factory = InterventionCard_Factory(self.repository)
+        self.service = InterventionService(self.monitor,self.bus)
+        self.logger = InterventionLogger()
         
         # 创建配方中的卡片；主要的数据交给Coodinator管理
         self.cards: list[InterventionFactory_Pack] = self.factory.create_cards()
@@ -50,6 +60,7 @@ class InterventionCoodinator(ExtensionInterface):
             eventBus (_type_): _description_
         """
         eventBus.subscribe("insight_card_ui_created",self._on_card_created)
+        self.bus = eventBus
     
     def shutdown(self):
         return super().shutdown()
@@ -85,10 +96,11 @@ class InterventionCoodinator(ExtensionInterface):
                 
                 # 创建卡片
                 intervention_ui = self.cards[intervention_id].ui
+                presenter = InterventionPresenter(intervention_ui,recipe,self.bus)
                 card_ui.addWidget_inBottomLayout(intervention_ui)
                 
                 # 创建Presenter
-                presenter = InterventionPresenter(intervention_ui,self.formatter,recipe)
+                
 
         
         # 另一个问题：Intervention如何接触数据？ 塞进SessionCache吧

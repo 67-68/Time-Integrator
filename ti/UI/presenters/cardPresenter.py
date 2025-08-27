@@ -4,7 +4,6 @@ from ti.UI.views.analysis.AnalysisPage import AnalysisPage
 from ti.assets.card_recipe import Card_recipe
 from ti.core.eventBus import EventBus
 from ti.dataAccess.dataService import DataService
-from ti.dataAccess.insightManager import InsightManager
 from ti.services.serviceContainer import ServiceContainer
 from PyQt6.QtCore import pyqtSignal
 

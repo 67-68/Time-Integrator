@@ -1,5 +1,10 @@
+from dataclasses import dataclass
 from ti.UI.presenters.formatter import FormatService
-from ti.features.intervention.presenter.cardPresenter import InterventionPresenter
+from ti.core.eventBus import EventBus
+
+from ti.domain.detector.baseDetector import BaseDetector
+from ti.features.intervention.presenter.cardPresenter import INV_State_Publish, InterventionPresenter
+from ti.features.intervention.view.card import InterventionCard
 from ti.services.realTimeMonitorService import RealTimeMonitor
 
 
@@ -11,29 +16,38 @@ class InterventionService():
     def __init__(
         self,
         monitor: RealTimeMonitor,
-        FS : FormatService
+        bus: EventBus
     ):
         self.interventions = {}
         self.monitor = monitor
-        self.FS = FS
+        self.bus = bus
 
-    def create_intervention(
+        events = ["create_intervention"] # 首先使用硬编码，扩展性之后再说吧.或许在配方中加一个key说这个state需要创建
+
+        for event in events:
+            self.bus.subscribe(f"{event}_created",self._on_create_intervention)
+
+    def _on_create_intervention(
         self,
-        intervention_init_pack #按理来说包含ui,id和detector 2 keys
+        publish_pack:INV_State_Publish # 包含配方和当前的状态, ui
     ): 
-        inter_id = intervention_init_pack["id"]
-        inter_ui = intervention_init_pack["ui"]
-        detector = intervention_init_pack["detector"]
-        state = intervention_init_pack["state"]
-        
-        self.interventions[inter_id] = InterventionPresenter(inter_ui,state,self.FS)
+        inv_ui = publish_pack.ui # 不用ID, 因为必要的信号传输都包含在ui内。它在创建的时候和presenter连接了。在处理按钮返回的事件之后发出一个关闭模态窗口事件
+        detector = publish_pack.recipe.detector # TODO: 这里是类还是实例?
+        INV_id = publish_pack.recipe.intervention_id
         
         # 打包
-        monitor_pack = {
-            "id":inter_id,
-            "ui":inter_ui,
-            "detector":detector
-        }
+        monitor_pack = INV_Monitor_Pack(inv_ui,detector,INV_id)
         
         # 存档到Monitor
-        self.monitor.add_monitor_project(monitor_pack)
+        self.monitor.add_monitor_project({
+            "detector": detector,
+            "id": INV_id,
+            "ui": inv_ui
+        })
+        print(f"添加项目{INV_id}到监视器")
+
+@dataclass
+class INV_Monitor_Pack:
+    ui:InterventionCard
+    detector:type[BaseDetector]
+    INV_id: str

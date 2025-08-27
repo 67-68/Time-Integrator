@@ -43,7 +43,7 @@ class InsightEngine(QObject):
         for recipe in recipes:
             id = recipe["detector"] 
             card_type_id = id
-            detector: BaseDetector = self.factory.create_detector(id,card_type_id,self.ICS)
+            detector: BaseDetector = self.factory.create_detector(id,card_type_id)
                         
             #这里，这一行，如果detector通过了，卡片模式被识别出来，会首先执行这一条
             detector.pattern_detected.connect(lambda f : self.pattern_detected(f))

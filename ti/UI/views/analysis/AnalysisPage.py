@@ -5,7 +5,6 @@ from ti.UI.presenters.InsightCardPresenter import InsightCardPresenter
 from ti.UI.presenters.formatter import FormatService
 from ti.UI.rawUI.ui_rawAnalysisPage import Ui_analysisPage
 from ti.core.eventBus import EventBus
-from ti.features.intervention.view.card import InterventionCard
 from ti.UI.views.analysis.trendCard import TrendCard
 from ti.UI.widgets.pages.BasicFrame import BasicFrame
 from ti.services.sessionCache import SessionCache

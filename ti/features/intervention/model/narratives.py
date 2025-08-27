@@ -1,4 +1,4 @@
-from ti.features.intervention.model.model import Intervention_ID, InterventionRecipe
+from ti.features.intervention.model.model import INV_ID, INVEvent, INVRecipe
 
 
 class InterventionNarrator:
@@ -29,14 +29,22 @@ class InterventionNarrator:
         return data
     
 NARRATIONS = {
-    Intervention_ID.POST_EAT_WASTE.value:{
+    INV_ID.POST_EAT_WASTE.value:{
         "init":{
             "presentation":{
                 "title":["在吃饭后不要浪费时间的请求"],
-            },
-            "choice": { #到时候这里可以搞第一轮第二轮
-                "choice_giveUp":["放弃"],
-                "choice_accept":["接受挑战"]
+                "button":{
+                    INVEvent.USER_ACCEPTED.value:"接受挑战",
+                    INVEvent.USER_REJECTED.value:"放弃"
+                }
+            }
+        },
+        "create_intervention":{
+            "presentation":{
+                "title":[""],
+                "button":{
+                    INVEvent.USER_ACCEPTED.value:"接受挑战",
+                }
             }
         }
     }

@@ -1,6 +1,5 @@
 from PyQt6.QtCore import QObject
 
-from ti.features.intervention.view.card import InterventionCard
 from ti.UI.views.analysis.trendCard import TrendCard
 from ti.UI.widgets.other.BasicButton import BasicButton
 

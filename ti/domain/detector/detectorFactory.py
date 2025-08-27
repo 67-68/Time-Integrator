@@ -6,7 +6,8 @@ from ti.domain.detector.modal import Detector_Recipe, Detector_Recipe_ID
 class DetectorFactory:
     def __init__(
         self,
-        repository: DetectocRepository
+        repository: DetectocRepository,
+        ICS: InsightCacheService
         ):
         """_summary_
         这个类负责创建所有的Detector实例
@@ -15,8 +16,9 @@ class DetectorFactory:
         它从Repository获取配方
         """
         self.repository = repository
+        self.ICS = ICS
         
-    def create_detector(self,id: Detector_Recipe_ID,card_type_id,ICS: InsightCacheService):
+    def create_detector(self,id,card_type_id):
         """_summary_
         输入一个Detector_Recipe_ID Enum类作为ID
         返回一个Detecotr实例
@@ -31,7 +33,7 @@ class DetectorFactory:
         detector_class = recipe.detector
         config = recipe.config
         
-        detector = detector_class(config,ICS)
+        detector = detector_class(config,self.ICS)
         
         return detector
         

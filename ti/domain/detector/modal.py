@@ -9,11 +9,11 @@ from ti.core.analysis.matchers import Matcher
 from ti.domain.detector.baseDetector import BaseDetector
 from enum import Enum
 
+from ti.features.intervention.model.model import INVEvent
+
 
 class Detector_Recipe_ID(Enum):
     POST_EAT_WASTE = "post_eat_waste"
-
-
 
 @dataclass
 class Detector_State:

@@ -3,6 +3,7 @@ from ti.dataAccess.dataService import DataService
 from PyQt6.QtCore import pyqtSignal,QObject
 
 from ti.domain.detector.baseDetector import BaseDetector
+from ti.domain.detector.detectorFactory import DetectorFactory
 
 
 
@@ -18,29 +19,31 @@ class RealTimeMonitor(QObject):
     def __init__(
         self,
         DS: DataService, #用来检测信号发出
+        DF: DetectorFactory,
         parent = None
     ):
         super().__init__(parent)
         
         # 用来存储每个需要Monitor的Intervention的Detector和卡片ui
         self.monitor_projects = {} #按理来说应该包含Detector key和id 和
+        self.DF = DF
         
         # 连接信号
         DS.actionUnit_added.connect(lambda au: self._on_action_recorded(au))
         
     
     def add_monitor_project(self,monitor_pack):
-        # 按理来说, Monitor_pack 应该包含detector和id
-        detector:BaseDetector = monitor_pack["detector"]
+        # 按理来说, Monitor_pack 应该包含detector和id和ui
+        
         ui = monitor_pack["ui"]
         id = monitor_pack["id"]
         
+        detector= self.DF.create_detector(id,id)
+        
+        
         detector.pattern_detected.connect(lambda f: self._on_pattern_detected(f))
         
-        self.monitor_projects[id] = {
-            "detector": detector,
-            "ui":ui
-        }
+        self.monitor_projects[id] = monitor_pack
         
     def _on_action_recorded(self,au):
         # 过一遍所有Detector

@@ -1,5 +1,5 @@
 from ti.UI.presenters.cardPresenter import CardPresenter
-from ti.core.extensionRegister import ExtensionRegister
+from ti.core.extensionRegister import DynamicExtensionLoader, ExtensionRegister
 from ti.features.intervention.coodinator import InterventionCoodinator
 from ti.services.serviceContainer import ServiceContainer
 
@@ -29,7 +29,7 @@ class MainCoodinator():
         self.card_controller = CardPresenter(self.service,self.AP)
         self.controller["CCT"] = self.card_controller
         
-        self.ER:ExtensionRegister = self.service.getService("ER")
+        self.loader:DynamicExtensionLoader = self.service.getService("loader")
         
         self.eventBus = self.service.getService("bus")
         
@@ -48,13 +48,10 @@ class MainCoodinator():
     def activatePlugins(self):
         """_summary_
         这个函数创建插件的实例并激活他们
-        """
-        monitor = self.service.getService("RTM")
-        format = self.service.getService("FS")
+        """        
+        plugins = [InterventionCoodinator]
         
-        intervention = InterventionCoodinator()
-        
-        self.ER.regist_plugin(intervention)
+        self.loader.discover_and_register_plugins(plugins)
         
         
         

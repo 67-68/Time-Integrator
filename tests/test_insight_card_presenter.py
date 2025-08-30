@@ -4,13 +4,13 @@ from unittest.mock import Mock, MagicMock
 from ti.UI.presenters.InsightCardPresenter import InsightCardPresenter
 from ti.services.interventionService import InterventionService
 from ti.features.intervention.view.card import InterventionCard
-from ti.UI.views.analysis.trendCard import TrendCard
+from ti.UI.views.analysis.trendCard import InsightCard
 
 class TestInsightCardPresenter(unittest.TestCase):
 
     def setUp(self):
         """Set up the test environment for the presenter."""
-        self.mock_card_ui = Mock(spec=TrendCard)
+        self.mock_card_ui = Mock(spec=InsightCard)
         self.mock_intervention_ui = Mock(spec=InterventionCard)
         self.mock_intervention_service = Mock(spec=InterventionService)
 

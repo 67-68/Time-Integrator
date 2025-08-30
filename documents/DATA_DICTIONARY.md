@@ -79,3 +79,28 @@
         - sequence: 它来源于另一个matcher的数据包。正如其名字，detector会根据它的内容创建状态并依次判断是否通过。在储存数据的时候，状态名称会作为数据的key
         - id: 一般来说，它是对于这张卡片所检测的模式的一个概括性的名称，例如"post_eat_waste"检测一个在吃饭之后浪费时间的模式，同时，它表示"一类"卡片，在重要程度排序的时候会被用于分组
     - presenter: 它用来处理detector产生的数据包，给数据包添加上表示外观的，和用来和narrtive查找的key。*产生<<data>>present_pack*
+
+
+
+## 5.INV_Contract
+- **来源**: INV_ContractRepository把json文件翻译为INV_Contract
+
+- **被谁使用**: INV_Contract_Orchestrator
+
+- **用途**: 作为干涉的model存储所有这个干涉的数据. Each intervention contract represent one time of intervention. Maybe will be contracts class in future.
+
+- **包括**: 
+    - create_time: The time that the intervention was created
+    - duration: the duration of the contract. Determine when it is legal to be used.
+    - solve_time: the time that the intervention is solved
+    - solved: whether the contract is solved(not passed, only mean it saw by the user, regardless their choice)
+    - success: is the contract intervene user and change their choice correctly
+    - contract_id: The ID of the contract itself, should it 耦合, which means same to intervention_id or card_id or detector_id? *Actually these ids are mess, I can't distinguish them*
+    - current_state: the general state of the contract. *Should it differ from the intervention Card state? The state of it may look like "before_start", "active", "complete".*
+    - contract_category_id: 这个干涉类的ID, 代表着可以具体怎么干涉的方案
+    - recipe_id: the recipe id
+
+- **详细说明**: 
+
+
+- success_after: after they change their choice, is they really change? or changed for temporarily then return back to wrong path. *Maybe this field should be in the log but not there*

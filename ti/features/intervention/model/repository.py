@@ -1,9 +1,9 @@
 import copy
-from ti.features.intervention.formatter import INV_Formatter
-from ti.features.intervention.model.model import INV_ID, INV_State_Btn, INV_State_Presentation, INVEvent, INVRecipe, INVState
+from ti.features.intervention.service.formatter import INV_Formatter
+from ti.features.intervention.model.model import INV_ID, INV_State_Btn, INV_State_Presentation, INVEvent, INV_View_Recipe, INVState
 
 
-class INV_Repository:
+class INV_Card_Repository:
     def __init__(
         self,
         formatter: INV_Formatter
@@ -22,57 +22,69 @@ class INV_Repository:
         return recipe_dataClass
     
     def get_recipe_by_id(self, intervention_id: str):
+        """_summary_
+
+        Args:
+            intervention_id (str): _description_
+
+        Returns:
+            recipe: INV_Recipe
         """
-        重写后的方法，适配了新的 formatter.format()。
-        现在它会为每个状态调用一次format方法，来获取所有格式化后的文本，
-        而不是在按钮循环中为每个按钮单独调用。
-        """
-            
-        recipe = copy.deepcopy(recipes[intervention_id])
+        
+        # 第一层 
+        recipe_dataClass: INV_View_Recipe
+        recipe = recipes[intervention_id]
         id = recipe["id"]
         recipe_states = recipe["state"]
         detector = recipe["detector"]
         initial_state = recipe["initial_state"]
         
+        
+        # 第二层: States
         states_dataClass = {}
         
         for state_key in recipe_states:
             state = recipe_states[state_key]
-            
-            # --- 核心改动开始 ---
-            formatted_texts = self.formatter.format(intervention_id, state_key)
-            
-            # 从格式化后的文本包中提取标题和按钮文本
-            formatted_title = formatted_texts["title"]
-            formatted_buttons_text = formatted_texts["buttons"]
-            # --- 核心改动结束 ---
-
-            # 创建Transitions
             transitions = state["transition"]
-            
-            # 创建Presentation
             presentation = state["presentation"]
-            pre_copy = copy.deepcopy(presentation)
-            buttons_structure = pre_copy["button"]
             
+            # 第三层: Presentation
             button_dataClasses = {}
             
-            for button_id in buttons_structure:
-                # 2. 直接从 formatted_buttons_text 中获取对应按钮的文本
-                # 不再需要判断 text_key 或 text
-                text = formatted_buttons_text[button_id]
-                eventReturn = button_id
-                                    
-                button_dataClasses[button_id] = INV_State_Btn(eventReturn, text)
+            button_recipes = presentation["button"]
+            title = presentation["title"]
             
-            # 3. 使用格式化后的标题创建 Presentation DataClass
-            pre_dataClass = INV_State_Presentation(button_dataClasses, formatted_title)
+            # 第四层: Button
+            for button_id in button_recipes:
+                text_key = button_recipes[button_id] #全部使用text_key
+                returnEvent = button_id
+                button_dataClasses[button_id] = INV_State_Btn(
+                    returnEvent, 
+                    text_key
+                )
+            # 第四层结束
             
-            # 创建并存储 State DataClass
-            states_dataClass[state_key] = INVState(state_key, transitions, pre_dataClass)
+            pre_dataClass = INV_State_Presentation(
+                button_dataClasses,
+                title
+            )
+            # 第三层结束
+            
+            states_dataClass[state_key] = INVState(
+                state_key,
+                transitions,
+                pre_dataClass
+            )
+            # 第二层结束
         
+        recipe_dataClass = INV_View_Recipe(
+            id,
+            states_dataClass,
+            initial_state,
+            detector
+        )
+        # 第一层结束
         
-        recipe_dataClass = INVRecipe(id, states_dataClass, initial_state, detector)
         
         return recipe_dataClass
 
@@ -112,6 +124,9 @@ recipes = {
             }
         },
         "initial_state":"init",
-        "detector":None
+        "detector":None #应该是在后面获取了卡片的Detector
     }
 }
+
+
+# TODO: 修改卡片的Detector配方为数据模型，同时加上hook和result的matcher作为分别

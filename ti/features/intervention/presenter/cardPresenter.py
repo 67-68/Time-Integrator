@@ -1,14 +1,14 @@
 from dataclasses import dataclass
 from PyQt6.QtCore import QObject
 from ti.core.eventBus import EventBus
-from ti.features.intervention.model.model import INVRecipe, INVState
+from ti.features.intervention.model.model import INV_View_Recipe, INVState
 from ti.features.intervention.view.card import InterventionCard
 
 class InterventionPresenter(QObject):
     def __init__(
         self,
         ui: InterventionCard,
-        recipe: INVRecipe,
+        recipe: INV_View_Recipe,
         bus: EventBus
     ):
         """
@@ -43,47 +43,14 @@ class InterventionPresenter(QObject):
         """
         print(f"Presenter for '{self.id}' received event: '{event_id}' from state '{self.current_state_key}'")
 
-        # 1. 获取当前状态的完整对象
-        current_state: INVState = self.recipe.state.get(self.current_state_key)
-        
-        
-        event_id = event_id.value
-    
-        
-        if not current_state:
-            print(f"错误：在配方中找不到当前状态 '{self.current_state_key}'")
-            return
-
-        # 2. 从当前状态的转换规则(transition)中，查找此事件应该去往哪个新状态
-        next_state_key = current_state.transition.get(event_id)
-        
-        if not next_state_key:
-            print(f"警告：在状态 '{self.current_state_key}' 中没有为事件 '{event_id}' 定义转换规则。")
-            # 在这里你可以决定是保持不动，还是进入一个错误/结束状态
-            return
-            
-        # 3. 获取下一个状态的完整对象
-        next_state: INVState = self.recipe.state.get(next_state_key)
-        
-        if not next_state:
-            print(f"错误：在配方中找不到目标状态 '{next_state_key}'")
-            return
-
         publish_pack = INV_State_Publish(
             self.recipe,
             self.current_state_key,
             self.ui
         )
-
+        
         # 广播事件
         self.bus.publish(f"{next_state_key}_created",publish_pack)
-
-        # 4. 更新Presenter的内部状态记录
-        print(f"Transitioning from '{self.current_state_key}' to '{next_state_key}'")
-        self.current_state_key = next_state_key
-        
-        # 5. 获取新状态的 "presentation" 配方
-        presentation_to_apply = next_state.presentation
         
         # 6. 命令UI卡片应用新的 "presentation" 配方
         #    这会更新标题和按钮
@@ -91,6 +58,6 @@ class InterventionPresenter(QObject):
 
 @dataclass
 class INV_State_Publish:
-    recipe: INVRecipe
+    recipe: INV_View_Recipe
     current_state_key: str
     ui: InterventionCard

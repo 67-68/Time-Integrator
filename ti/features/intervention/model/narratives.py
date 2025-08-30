@@ -1,4 +1,4 @@
-from ti.features.intervention.model.model import INV_ID, INVEvent, INVRecipe
+from ti.features.intervention.model.model import INV_ID, INVEvent, INV_View_Recipe
 
 
 class InterventionNarrator:

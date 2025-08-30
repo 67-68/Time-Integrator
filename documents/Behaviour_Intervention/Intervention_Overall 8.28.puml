@@ -1,0 +1,183 @@
+@startuml class
+title: Intervention功能类图
+' 这张图会统计所有的类，他们之间的关系和类的职责
+
+left to right direction
+
+skinparam handwritten true
+skinparam package {
+    borderColor Green
+    backgroundColor LightGreen
+    arrowColor Green
+}
+skinparam class {
+    borderColor Blue
+    backgroundColor LightBlue
+    arrowColor Blue
+}
+skinparam note {
+    borderColor Black
+    backgroundColor White
+}
+
+package "core_service" {
+    class "RealTimeMonitor" as monitor{
+        + add_monitor_project()
+    }
+    note top of monitor: RES:检测actionUnit的发生，发出事件
+    
+    class "EventBus" as bus {
+        + publish()
+        + subscribe()
+    }
+    note top of bus: RES:掌管插件和核心功能之间的信息传递
+}
+
+package "InterventionFeature" as intervention{
+    package "Domain: 宪法" {
+        class models {
+            + 规定所有的配方数据模型类
+            + 规定事件Enum类
+            + 规定所有登记在册的干涉卡片ID类
+        }
+        note top of models: RES: 规定所有的数据结构类
+
+        class narratives {
+            + get_text_by_id(intervention_id, sementic_id)
+        }
+
+        note right of narratives: RES: 存放所有的文本
+
+        class "INV_Card_Repository" as repository {
+            + get_all_recipes() 返回所有配方(没有文本化处理)
+            + get_recipe_by_id(intervention_id) 返回某个ID下所有状态的文本配方
+        }
+        note right of repository: RES:存放和组装配方
+        ' TODO: 删除rep内格式化的部分
+
+        class "INV_ContractRepository" as contractRep {
+            + get_contract_by_id()
+            + get_all_contract()
+        }
+
+        class "INV_CNT_Recipe_Repository" as CON_recipe_Rep {
+            + get_recipe_by_id()
+            + get_all_recipe()
+        }
+        note top of CON_recipe_Rep: RES: 管理契约配方
+    }
+
+    package "Service" {
+        class "InterventionFormatter" as formatter {
+            + format()
+        }
+        note top of formatter: RES: 格式化配方，填充具体的文本
+        formatter .[#Blue].> narratives: 获取文本用来格式化
+
+        class "InterventionStateService" as stateService {
+            + get_next_state()
+        }
+        note top of stateService: RES: 这个类用来处理卡片事件，告诉下一个类应该转换为什么
+
+        class "InterventionContractService" as contractService {
+            + create_new_contract()
+            + log_contract()
+            + contract_duration_check()
+        }
+        note top of contractService: RES: 封装所有和Contract相关的服务
+
+        class "INV_Contract_Register" as contractRegister {
+            + registContract()
+        }
+        note top of contractRegister: RES: 这个类用来登记所有的contract到monitor
+
+        class "InterventionRepository" as inv_rep {
+            + get_all_recipes
+        }
+        note top of inv_rep: RES: 存储所有干涉实体的配方
+
+        contractRegister -[#Red]-> monitor: regist_new_project()
+        contractService .[#Blue].> CON_recipe_Rep: get_all_recipe()
+    }
+
+    package "cardPresenter & view"{
+        class "interventionCard" as card {
+            - _on_button_clicked()
+            + replace_buttonPlace()
+            + replace_titleText()
+            + apply_presentation()
+        }
+        note top of card: RES:这个类用来显示和修改UI
+
+        class "INV_Card_cardPresenter" as cardPresenter {
+            - _on_process_user_action()
+        }
+        note top of cardPresenter: RES:持有，负责管理干涉卡片
+
+        cardPresenter *-[#green,bold]- card: 管理对应的卡片实例
+        cardPresenter -[#Red]-> stateService: 获取下一步的状态
+        cardPresenter -[#Red]-> bus: publish() 发出事件声名状态转换
+
+        class "CardOrchestrator" as orchestrator {
+            + update_INV_card()
+        }
+        note top of orchestrator: RES:管理所有的干涉卡片presenter的生命周期
+
+        class "INV_CardFactory" as cardFactory {
+            + create_card()
+        }
+        note top of cardFactory: RES: 创建UI卡片
+
+        class "INV_ContractOrchestrator" as contractOrc {
+            + initialize()
+        }
+        note top of contractOrc: 管理一个Contract的生命周期
+
+        class "InsightReactCoordinator" as coordinator {
+            + __init__
+        }
+        note top of coordinator: RES: 这个类负责管理这个功能的生命周期，创建卡片和契约
+        coordinator *-[#Black,bold]- orchestrator: update_INV_card(): 更新洞察卡片
+        coordinator *-[#Black,bold]- contractOrc: 管理contract生命周期
+
+
+        ' 初始化阶段
+            contractOrc .[#Blue].> contractRep: get_all_contract()
+            ' 获取所有的contract对象
+            contractOrc -[#Red]-> contractService: log_contract()
+            ' 如果contract过了生命周期，归档
+            contractOrc -[#Red]-> contractRegister
+            ' 登记所有的Contract到激发的列表上
+        ' 初始化完成
+
+        ' 生命周期: 干涉被激活
+            contractOrc -[#Red]-> bus: subscribe() 关注hook被激活的事件
+            contractOrc -[#Red]-> cardFactory: 创建一个新的，专门用于模态窗口的UI.然后和Presenter关联
+            contractOrc -[#Red]-> bus: publish() 模态窗口事件
+        ' 干涉完成
+
+        orchestrator "1" *-[#Black,bold]- "many" cardPresenter
+
+        ' 创建卡片的过程，或许可以用一个类来封装
+        orchestrator .[#Blue].> repository: 获取配方
+        orchestrator -[#Red]-> formatter: format(): 格式化配方
+        orchestrator -[#Red]-> cardFactory: 创建UI
+
+        ' 接下来它检测洞察卡片需不需要添加，如果需要添加进去 
+    }
+}
+
+package "插件入口" {
+    ' 把它和插件本体分开是因为它稳定，本体不稳定
+    class "InterventionPlugin" as Plugin {
+        + name()
+        + initialize()
+        + shutdown()
+        - _on_card_created()
+    }
+    note top of Plugin: RES:这个类作为插件主类，初始化所有的类
+    Plugin *-[#Black,bold]- coordinator: 全权管理插件事物
+}
+@enduml
+
+

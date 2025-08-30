@@ -62,3 +62,19 @@ RECIPE = {
             }
         }
 }
+
+
+# "sequence": {
+#     "hook": [
+#         {
+#             "state_name": "meal",
+#             "matcher": matcher.action_is("吃饭")
+#         },
+#     ],
+#     "result":[
+#         {
+#             "state_name": "waste",
+#             "matcher": matcher.action_type_is("waste")
+#         }
+#     ]
+# },

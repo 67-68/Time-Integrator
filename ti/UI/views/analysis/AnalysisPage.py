@@ -5,7 +5,7 @@ from ti.UI.presenters.InsightCardPresenter import InsightCardPresenter
 from ti.UI.presenters.formatter import FormatService
 from ti.UI.rawUI.ui_rawAnalysisPage import Ui_analysisPage
 from ti.core.eventBus import EventBus
-from ti.UI.views.analysis.trendCard import TrendCard
+from ti.UI.views.analysis.trendCard import InsightCard
 from ti.UI.widgets.pages.BasicFrame import BasicFrame
 from ti.services.sessionCache import SessionCache
 
@@ -49,7 +49,7 @@ class AnalysisPage(BasicFrame):
         
         for idx, card_data in enumerate(cards): # card_data也就是formatter处理后的pre_data
             data = FS.format_card(card_data)
-            card = TrendCard(data, parent=self.CA) 
+            card = InsightCard(data, parent=self.CA) 
             
             bus.publish("insight_card_ui_created",(card,cache))
             

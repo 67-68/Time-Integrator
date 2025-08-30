@@ -1,14 +1,14 @@
 from dataclasses import dataclass
 from ti.UI.presenters.formatter import FormatService # 假设这个保留，但 formatter 不再需要
-from ti.features.intervention.model.repository import INV_Repository
-from ti.features.intervention.model.model import INVRecipe, INVState
+from ti.features.intervention.model.repository import INV_Card_Repository
+from ti.features.intervention.model.model import INV_View_Recipe, INVState
 from ti.features.intervention.view.card import InterventionCard
 
 
 class InterventionCard_Factory:
     def __init__(
         self,
-        repository: INV_Repository
+        repository: INV_Card_Repository
     ):
         """
         这个类用来制造UI卡片。
@@ -27,7 +27,7 @@ class InterventionCard_Factory:
         recipes = self.repository.get_all_recipes()
         
         for recipe in recipes:
-            recipe: INVRecipe
+            recipe: INV_View_Recipe
             id = recipe.intervention_id
             
             # 2. 直接从配方对象中获取初始状态的展示数据
@@ -65,5 +65,5 @@ class InterventionCard_Factory:
 @dataclass
 class InterventionFactory_Pack:
     ui: InterventionCard
-    recipe: INVRecipe
+    recipe: INV_View_Recipe
     

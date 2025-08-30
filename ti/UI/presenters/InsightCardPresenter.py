@@ -1,12 +1,12 @@
 from PyQt6.QtCore import QObject
 
-from ti.UI.views.analysis.trendCard import TrendCard
+from ti.UI.views.analysis.trendCard import InsightCard
 from ti.UI.widgets.other.BasicButton import BasicButton
 
 class InsightCardPresenter(QObject):
     def __init__(
         self,
-        card_ui: TrendCard,
+        card_ui: InsightCard,
         parent = None
     ):
         """_summary_

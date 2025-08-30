@@ -1,6 +1,6 @@
 from ti.UI.presenters.cardPresenter import CardPresenter
 from ti.core.extensionRegister import DynamicExtensionLoader, ExtensionRegister
-from ti.features.intervention.coodinator import InterventionCoodinator
+from ti.features.intervention.interventionPlugin import InterventionPlugin
 from ti.services.serviceContainer import ServiceContainer
 
 
@@ -49,7 +49,7 @@ class MainCoodinator():
         """_summary_
         这个函数创建插件的实例并激活他们
         """        
-        plugins = [InterventionCoodinator]
+        plugins = [InterventionPlugin]
         
         self.loader.discover_and_register_plugins(plugins)
         

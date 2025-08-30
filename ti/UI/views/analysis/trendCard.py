@@ -6,7 +6,7 @@ from ti.UI.rawUI.ui_rawDailyTrendCard import Ui_trendCard
 from ti.UI.widgets.pages.BasicWidget import BasicWidget
 from ti.utils import load_svg_icon
 
-class TrendCard(BasicWidget):
+class InsightCard(BasicWidget):
     def __init__(self,data,parent = None):
         super().__init__(parent)
         

@@ -1,10 +1,12 @@
 from ti.UI.presenters.cardPresenter import CardPresenter
+from ti.UI.views.BasicDialog import BasicDialog
+from ti.core.eventBus import EventBus
 from ti.core.extensionRegister import DynamicExtensionLoader, ExtensionRegister
 from ti.features.intervention.interventionPlugin import InterventionPlugin
 from ti.services.serviceContainer import ServiceContainer
 
 
-class MainCoodinator():
+class MainCoorinator():
     def __init__(
         self,
         service: ServiceContainer,  # <-- 应该传入一个实例
@@ -22,6 +24,9 @@ class MainCoodinator():
         # 初始化卡片
         self.card_controller.create_yesterday_report()
         
+        # 监测事件
+        self.bus.subscribe("dialog_needed",self.show_dialog)
+        
     def create_state(self):
         self.controller = {}
         
@@ -31,7 +36,7 @@ class MainCoodinator():
         
         self.loader:DynamicExtensionLoader = self.service.getService("loader")
         
-        self.eventBus = self.service.getService("bus")
+        self.bus: EventBus = self.service.getService("bus")
         
     def getController(self,controller):
         """_summary_
@@ -53,6 +58,8 @@ class MainCoodinator():
         
         self.loader.discover_and_register_plugins(plugins)
         
-        
+    def show_dialog(self,ui):
+        dialog = BasicDialog(ui,parent=self.ui["MW"])
+        result = dialog.exec()
         
         

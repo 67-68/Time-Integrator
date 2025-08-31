@@ -12,6 +12,8 @@ class INV_Entity_Recipe_Repository:
         data = {}
         for recipe_id in self.entity_recipies:
             data[recipe_id] = self.get_recipe_by_id(recipe_id)
+        
+        return data
     
     def get_recipe_by_id(self,recipe_id):
         recipe = self.entity_recipies[recipe_id]

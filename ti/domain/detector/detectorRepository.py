@@ -1,7 +1,7 @@
 from Data import userMatchers
 from ti.core.analysis.matchers import Matcher
 from ti.domain.detector.baseDetector import BaseDetector
-from ti.domain.detector.modal import Detector_Config, Detector_Recipe, Detector_Recipe_ID, Detector_State
+from ti.domain.detector.model import Detector_Config, Detector_Recipe, Detector_Recipe_ID, Detector_Sequence, Detector_State
 
 
 class DetectocRepository:
@@ -24,18 +24,31 @@ class DetectocRepository:
         """
         recipe = RECIPE[id]
         sequences = recipe["config"]["sequence"]
-        sequences_dataClass = [] #用来存储数据模型类
+    
+        # HOOK部分
+        hook_recipe = sequences["hook"]
+        hook_dataClass = []
+        result_recipe = sequences["result"]
+        result_dataClass = []
         
         # 创建状态数据模型
-        for state in sequences:
+        for state in hook_recipe:
             state_name = state["state_name"]
             matcher = state["matcher"]
-            sequences_dataClass.append(Detector_State(state_name,matcher))
+            hook_dataClass.append(Detector_State(state_name,matcher))
+            
+        for state in result_recipe:
+            state_name = state["state_name"]
+            matcher = state["matcher"]
+            result_dataClass.append(Detector_State(state_name,matcher))
         
-        # 按理来说中间应该还有一个Sequence数据模型,鉴于目前比较简单就省略了
+        sequence_dataClass = Detector_Sequence(
+            hook_dataClass,
+            result_dataClass
+        )
         
         # 创建Config数据模型
-        config_dataClass = Detector_Config(sequences_dataClass) 
+        config_dataClass = Detector_Config(sequence_dataClass) 
         
         # 创建Recipe数据模型
         detector_type = recipe["detector"]
@@ -47,34 +60,24 @@ matcher = Matcher()
 
 RECIPE = {
     Detector_Recipe_ID.POST_EAT_WASTE.value: {
-            "detector": BaseDetector,
-            "config":{
-                "sequence": [
+        "detector": BaseDetector,
+        "config":{
+            "sequence": {
+                "hook": [
                     {
                         "state_name": "meal",
                         "matcher": matcher.action_is("吃饭")
                     },
+                ],
+                "result":[
                     {
                         "state_name": "waste",
                         "matcher": matcher.action_type_is("waste")
                     }
-                ],
+                ]
             }
         }
+    }
 }
 
 
-# "sequence": {
-#     "hook": [
-#         {
-#             "state_name": "meal",
-#             "matcher": matcher.action_is("吃饭")
-#         },
-#     ],
-#     "result":[
-#         {
-#             "state_name": "waste",
-#             "matcher": matcher.action_type_is("waste")
-#         }
-#     ]
-# },

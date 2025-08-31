@@ -3,9 +3,9 @@ from datetime import datetime
 from enum import Enum
 from uuid import uuid4
 
-from ti.domain.detector.baseDetector import BaseDetector
+from ti.core.Interfaces.detector_Interface import DetectorInterface
 
-class INV_ID(Enum):
+class INV_View_ID(Enum):
     POST_EAT_WASTE = "post_eat_waste"    
 
 class INVEvent(Enum):
@@ -45,7 +45,7 @@ class INV_View_Recipe:
     intervention_id: str
     state: dict[str,INVState]
     initial_state: str
-    detector: type[BaseDetector]
+    detector: type[DetectorInterface]
 
 @dataclass
 class INV_Contract:
@@ -54,10 +54,10 @@ class INV_Contract:
     solve_time: datetime = None
     solved: bool = None
     success: bool = None
-    contract_id: str = uuid4()
+    contract_uuid: str = uuid4()
     contract_category_id: str = None
     current_state: str = None
-    recipe_id: str = None
+    view_recipe_id: str = None
     
     def to_dict(self) -> dict:
         """将实例序列化为字典。"""
@@ -85,6 +85,7 @@ class INV_Contract_State(Enum):
 class INV_Contract_Recipe:
     contract_recipe_id: str #也是contract category id
     duration: INV_Contract_Duration
+    view_recipe_id: str
     
 @dataclass
 class INV_Entity_Recipe:

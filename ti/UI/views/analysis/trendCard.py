@@ -13,6 +13,8 @@ class InsightCard(BasicWidget):
         self.TC = Ui_trendCard()
         self.TC.setupUi(self)
         
+        self.insight_category_id = None
+        
         pre = data["presentation"]
         
         # 卡片ID

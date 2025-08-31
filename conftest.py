@@ -6,7 +6,7 @@ from unittest.mock import MagicMock
 from Data import userMatchers
 from ti.UI.presenters.translator import Translator
 from ti.UI.views.MainWindow import MainWindow
-from ti.controller.mainCoodinator import MainCoodinator
+from ti.controller.mainCoordinator import MainCoorinator
 from ti.core.analysis import presenters
 from ti.core.analysis.detectors.detector import BaseDetector 
 from ti.services.serviceContainer import ServiceContainer
@@ -54,7 +54,7 @@ def mainCoodinator(serviceContainer,UI):
     Returns:
         MainCoodinator: 主管
     """
-    return MainCoodinator(serviceContainer,UI)
+    return MainCoorinator(serviceContainer,UI)
 
 @pytest.fixture
 def post_eat_waste_recipe():

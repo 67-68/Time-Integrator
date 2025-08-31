@@ -93,7 +93,7 @@ class InterventionCard(QWidget):
         3. 根据配方创建并显示新的按钮。
         """
         # 1. 使用辅助函数更新标题文本
-        self.replace_titleText(presentation.title)
+        self.replace_titleText(presentation["title"])
         
         # 2. 准备创建新的按钮
         new_button_widgets = []
@@ -103,10 +103,12 @@ class InterventionCard(QWidget):
         self.buttons = {} 
 
         # 3. 遍历配方中的按钮数据，创建新的按钮实例
-        for button_id, button_data in presentation.button.items():
+        button_recipe = presentation["buttons"]
+        for button_id in button_recipe:
+            button_text = button_recipe[button_id]
             # 创建一个新的 BasicButton 实例
             new_button = BasicButton(self.ui.choiceWidget)
-            new_button.setText(button_data.text)
+            new_button.setText(button_text)
             
             # 使用 lambda 将按钮的唯一ID连接到点击事件的槽函数
             # 这是识别哪个按钮被点击的最佳实践

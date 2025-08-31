@@ -1,6 +1,7 @@
 from PyQt6.QtCore import pyqtSignal,QObject
 
 from ti.dataAccess.insightCacheService import InsightCacheService
+from ti.domain.detector.model import BaseDetectorState, Detector_Config
 
 class BaseDetector(QObject):
     """
@@ -13,9 +14,14 @@ class BaseDetector(QObject):
     
     然后直接类似普通函数一样调用
     """
+    hook_pattern_detected = pyqtSignal(dict)
     pattern_detected = pyqtSignal(dict)
     
-    def __init__(self,config: dict,insight_cache_service: InsightCacheService):
+    def __init__(
+        self,
+        config: Detector_Config,
+        insight_cache_service: InsightCacheService
+    ):
         """
         输入一个config来创建 
 
@@ -26,16 +32,18 @@ class BaseDetector(QObject):
         super().__init__()
         
         # 获取matchers
-        self.sequence = config.sequence #这里已经是一个list了
+        self.sequence = config.sequence
+        self.hooks = self.sequence.hook
+        self.results = self.sequence.result
             
         # 获取权重计算函数 如果没有那么使用默认的
-
         self.weight_calc = self._on_weight_calculation
         
         # ------ 创建状态 ------
             
         # 目前状态
         self.currentIndex = 0
+        self.currentState = BaseDetectorState.HOOK.value
         
         # 通过的au
         self.passed_au = {} #使用字典 也可以表示不同阶段
@@ -53,7 +61,12 @@ class BaseDetector(QObject):
         Args:
             au (dict): 一个行动单元
         """
-        currentMatcher = self.sequence[self.currentIndex].matcher
+        if self.currentState == BaseDetectorState.HOOK.value:
+            current_state_matcher = self.hooks
+        else:
+            current_state_matcher = self.results
+        
+        currentMatcher = current_state_matcher[self.currentIndex].matcher
         
         if currentMatcher(au) == True:    
             """
@@ -61,12 +74,20 @@ class BaseDetector(QObject):
             修改currentIndex
             判断是否满足了所有条件 如果满足了 自动调用完成函数
             """
-            state_name = self.sequence[self.currentIndex].state_name
+            state_name = current_state_matcher[self.currentIndex].state_name
             self.passed_au[state_name] = au
             
-            self.currentIndex += 1 
-            if self.currentIndex >= len(self.sequence):
-                self._on_state_complete()
+            self.currentIndex += 1
+            
+            if self.currentState == BaseDetectorState.HOOK.value:
+                if self.currentIndex >= len(self.hooks):
+                    self.currentState = BaseDetectorState.RESULT.value
+                    self.currentIndex = 0
+                    self.hook_pattern_detected.emit(self.packer())
+                    
+            elif self.currentState == BaseDetectorState.RESULT.value:
+                if self.currentIndex >= len(self.results):
+                    self._on_state_complete()
         else:
             if self.currentIndex > 0:
                 self.reset()
@@ -82,12 +103,12 @@ class BaseDetector(QObject):
             - 调用权重计算器计算权重
         - 发出信号
         """
-        self.currentIndex = 0
-        #breakpoint()
+        self.reset()
         self.pattern_detected.emit(self.packer())
         
     def reset(self):
         self.currentIndex = 0
+        self.currentState = BaseDetectorState.HOOK.value
 
     def packer(self) -> dict:
         """

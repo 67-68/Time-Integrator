@@ -8,16 +8,21 @@ class INV_ContractService:
         """
         pass
     
-    def create_new_contract(self,contractRecipe: INV_Contract_Recipe):
+    def create_new_contract(
+        self,
+        contractRecipe: INV_Contract_Recipe
+    ) -> INV_Contract:
         # 首先获取需要的信息
         contract_category_id = contractRecipe.contract_recipe_id
         duration = contractRecipe.duration
+        view_recipe_id = contractRecipe.view_recipe_id
         
         # 然后创建
         contract = INV_Contract(
             contract_category_id=contract_category_id,
             duration= duration,
-            current_state= INV_Contract_State.BEFORE_START.value
+            current_state= INV_Contract_State.BEFORE_START.value,
+            view_recipe_id = view_recipe_id
         )
         
         return contract
@@ -40,4 +45,5 @@ class INV_ContractService:
         """
         # 大概就是找出duration和创建时间匹配一下
         pass
+        
         

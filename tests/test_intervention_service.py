@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import Mock, MagicMock
 
 from ti.services.interventionService import InterventionService
-from ti.services.realTimeMonitorService import RealTimeMonitor
+from ti.services.realTimeMonitor import RealTimeMonitor
 from ti.features.intervention.presenter.cardPresenter import InterventionPresenter
 
 class TestInterventionService(unittest.TestCase):

@@ -7,17 +7,25 @@
 from ti.UI.views.analysis.trendCard import InsightCard
 from ti.core.Interfaces.Extension_Interface import ExtensionInterface
 from ti.core.eventBus import EventBus
+from ti.domain.detector.detectorRepository import DetectocRepository
+from ti.features.intervention.cardOrchestrator import INV_Card_Orchestrator
 from ti.features.intervention.coordinator import InterventionCoordinator
+from ti.features.intervention.intervention_contract_orchestrator import INV_Contract_Orchestrator
+from ti.features.intervention.model.contractRecipeRepository import INV_CON_Recipe_Repository
+from ti.features.intervention.model.contractRepository import INV_ContractRepository
 from ti.features.intervention.model.entity_Recipe_Repository import INV_Entity_Recipe_Repository
-from ti.features.intervention.service.cardFactory import InterventionCard_Factory, InterventionFactory_Pack
+from ti.features.intervention.service.cardFactory import INV_Card_Factory, InterventionFactory_Pack
+from ti.features.intervention.service.contractService import INV_ContractService
 from ti.features.intervention.service.formatter import INV_Formatter
 from ti.features.intervention.service.logger import InterventionLogger
 from ti.features.intervention.model.narratives import InterventionNarrator
-from ti.features.intervention.model.repository import INV_Card_Repository
+from ti.features.intervention.model.view_repository import INV_Card_Repository
 from ti.features.intervention.presenter.cardPresenter import InterventionPresenter
 from ti.features.intervention.service.mapping import InterventionMapping
+from ti.features.intervention.service.register import INV_ContractRegister
+from ti.features.intervention.service.stateMachine import INV_StateService
 from ti.features.intervention.serviceContainer import INV_ServiceContainer
-from ti.services.realTimeMonitorService import RealTimeMonitor
+from ti.services.realTimeMonitor import RealTimeMonitor
 from ti.services.sessionCache import SessionCache
 
 
@@ -25,7 +33,8 @@ class InterventionPlugin(ExtensionInterface):
     def __init__(
         self,
         monitor: RealTimeMonitor,
-        bus: EventBus
+        bus: EventBus,
+        detector_rep: DetectocRepository
     ):
         """_summary_
         这是Intervention插件的主类
@@ -39,6 +48,8 @@ class InterventionPlugin(ExtensionInterface):
         
         # 创建服务
         self.container = INV_ServiceContainer()
+        self.container.add_service("bus",bus)
+        self.container.add_service("monitor",monitor)
         
         narrator = InterventionNarrator()
         self.container.add_service("narrator",narrator)
@@ -49,7 +60,7 @@ class InterventionPlugin(ExtensionInterface):
         view_repository = INV_Card_Repository(formatter)
         self.container.add_service("view_repository",view_repository)
         
-        view_factory = InterventionCard_Factory(view_repository)
+        view_factory = INV_Card_Factory(formatter)
         self.container.add_service("view_factory",view_factory)
         
         logger = InterventionLogger()
@@ -61,7 +72,42 @@ class InterventionPlugin(ExtensionInterface):
         mapping = InterventionMapping(entity_rep)
         self.container.add_service("mapping",mapping)
         
-        self.coordinator = InterventionCoordinator(self.container)
+        contract_recipe_repos = INV_CON_Recipe_Repository()
+        self.container.add_service("CON_recipe_repos",contract_recipe_repos)
+        
+        contract_service = INV_ContractService()
+        self.container.add_service("contract_service",contract_service)
+        
+        contract_repository = INV_ContractRepository()
+        self.container.add_service("contract_repository",contract_repository)
+        
+        register = INV_ContractRegister(monitor,detector_rep)
+        self.container.add_service("register",register)
+        
+        stateService = INV_StateService()
+        self.container.add_service("stateService",stateService)
+        
+        card_orchestrator = INV_Card_Orchestrator(
+            view_factory,
+            formatter,
+            view_repository,
+            self.container
+        )
+        
+        contract_orchestrator = INV_Contract_Orchestrator(
+            contract_recipe_repos,
+            contract_service,
+            contract_repository,
+            register,
+            bus
+        )
+    
+        self.coordinator = InterventionCoordinator(
+            self.container,
+            card_orchestrator,
+            contract_orchestrator,
+            bus
+        )
         
         
     
@@ -87,6 +133,6 @@ class InterventionPlugin(ExtensionInterface):
     
     # ------ 业务逻辑 ——----
     def _on_card_created(self,data: tuple):
-        self.coordinator.process_insight_card()
+        self.coordinator.process_insight_card(data)
                 
         

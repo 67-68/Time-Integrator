@@ -1,15 +1,19 @@
 from dataclasses import dataclass
 from PyQt6.QtCore import QObject
 from ti.core.eventBus import EventBus
-from ti.features.intervention.model.model import INV_View_Recipe, INVState
-from ti.features.intervention.view.card import InterventionCard
+from ti.features.intervention.model.model import INV_View_Recipe, INVEvent
+from ti.features.intervention.service.formatter import INV_Formatter
+from ti.features.intervention.service.stateMachine import INV_StateService
+from ti.features.intervention.view.interventionCard import InterventionCard
 
 class InterventionPresenter(QObject):
     def __init__(
         self,
         ui: InterventionCard,
         recipe: INV_View_Recipe,
-        bus: EventBus
+        bus: EventBus,
+        stateService: INV_StateService,
+        formatter: INV_Formatter
     ):
         """
         管理Intervention的类
@@ -18,9 +22,12 @@ class InterventionPresenter(QObject):
         """
         super().__init__() # 调用父类的构造函数
         self.ui = ui
-        self.id = ui.id
+        self.view_id = ui.id
         self.recipe = recipe
         self.bus = bus
+        self.stateService = stateService
+        self.format = formatter
+        self.dialog_ui = None
         
         # 1. 增加一个属性来追踪当前状态，从配方的初始状态开始
         self.current_state_key = self.recipe.initial_state
@@ -31,7 +38,7 @@ class InterventionPresenter(QObject):
 
     def _on_process_user_action(
         self,
-        event_id: str
+        event: INVEvent
     ):
         """
         从用户点击事件的ID中找到对应的状态转换规则，并更新UI。
@@ -41,23 +48,62 @@ class InterventionPresenter(QObject):
         Args:
             event_id (str): 被点击按钮的唯一ID, e.g., "choice_accept"。
         """
-        print(f"Presenter for '{self.id}' received event: '{event_id}' from state '{self.current_state_key}'")
-
-        publish_pack = INV_State_Publish(
-            self.recipe,
+        event_id = event.value
+        print(f"Presenter for '{self.view_id}' received event: '{event_id}' from state '{self.current_state_key}'")
+        
+        next_state = self.stateService.process_event(
+            event_id,
             self.current_state_key,
-            self.ui
+            self.recipe
         )
         
-        # 广播事件
-        self.bus.publish(f"{next_state_key}_created",publish_pack)
+        if not next_state:
+            print(f"没有定义{self.current_state_key}在{event_id}下的转换规则")
+            return
         
-        # 6. 命令UI卡片应用新的 "presentation" 配方
-        #    这会更新标题和按钮
-        self.ui.apply_presentation(presentation_to_apply)
+        next_state_key = next_state.name
+        
+        if next_state_key:
+            publish_pack = INV_State_Publish(
+                self.recipe,
+                self.current_state_key,
+                self.ui
+            )
+            
+            # 广播事件
+            self.bus.publish(f"{next_state_key}_created",publish_pack)
+            
+            # 获取配方对应的presentation
+            presentation = self.format.format(
+                self.view_id,
+                next_state_key
+            )
+            
+            self.ui.apply_presentation(presentation)
+            
+            # 判断是否extraUi也要切换; 我觉得这是一个不好的设计，但大概可以用;
+            # 或许需要把state获取和这一大堆的警示文本解耦出来成为一个Function
+            if self.dialog_ui:
+                self.dialog_ui.apply_presentation(presentation)
+            
+            # 切换当前状态
+            print(f"presenter of {self.view_id} change from {self.current_state_key} to {next_state_key}")
+            self.current_state_key = next_state_key
 
+    def control_dialog_ui(
+        self,
+        card: InterventionCard
+    ):
+        self.dialog_ui = card
+        self.dialog_ui.button_clicked.connect(self._on_process_user_action)
+    
+    def end_control_dialog(self):
+        self.dialog_ui = None
+        # 或许要把信号连接也斩断？
+        # 特殊事件来自毁？
+    
 @dataclass
 class INV_State_Publish:
     recipe: INV_View_Recipe
     current_state_key: str
-    ui: InterventionCard
+    view: InterventionCard

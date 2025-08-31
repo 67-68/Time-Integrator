@@ -25,7 +25,7 @@ class JsonRepositoryInterface(ABC):
         pass
     
     @abstractmethod
-    def save(self,data):
+    def save(self):
         """_summary_
         基本的存储
         Args:

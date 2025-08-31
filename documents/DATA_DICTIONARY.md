@@ -98,7 +98,7 @@
     - contract_id: The ID of the contract itself, should it 耦合, which means same to intervention_id or card_id or detector_id? *Actually these ids are mess, I can't distinguish them*
     - current_state: the general state of the contract. *Should it differ from the intervention Card state? The state of it may look like "before_start", "active", "complete".*
     - contract_category_id: 这个干涉类的ID, 代表着可以具体怎么干涉的方案
-    - recipe_id: the recipe id
+    - recipe_id: the recipe id? WHAT RECIPE ID??? WHICH?
 
 - **详细说明**: 
 

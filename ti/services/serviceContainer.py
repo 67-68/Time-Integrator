@@ -8,7 +8,7 @@ from ti.domain.detector.detectorFactory import DetectorFactory
 from ti.domain.detector.detectorRepository import DetectocRepository
 from ti.engine.insightEngine import InsightEngine
 from ti.features.intervention.service.logger import InterventionLogger
-from ti.services.realTimeMonitorService import RealTimeMonitor
+from ti.services.realTimeMonitor import RealTimeMonitor
 from dataclasses import dataclass
 
 
@@ -45,14 +45,14 @@ class ServiceContainer:
         self.services["DS"] = dataService
         self._services[DataService] = dataService
         
-        monitor = RealTimeMonitor(dataService,detector_fac)
-        self.services["RTM"] = monitor
-        self._services[RealTimeMonitor] = monitor
-        
         bus = EventBus()
         self.services["bus"] = bus
         self._services[EventBus] = bus
         
+        monitor = RealTimeMonitor(dataService,detector_fac,bus)
+        self.services["RTM"] = monitor
+        self._services[RealTimeMonitor] = monitor
+    
         register = ExtensionRegister(bus)
         self.services["ER"] = register
         self._services[ExtensionRegister] = register

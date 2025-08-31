@@ -1,5 +1,8 @@
+from dataclasses import dataclass
 from enum import Enum
 import datetime
+
+from ti.core.analysis.matchers import Matcher
 
 # 时间日期
 TODAY = datetime.date.today().strftime("%Y-%m-%d")
@@ -63,3 +66,8 @@ def getEnumValueDict_API(enumClass):
     for item in enumClass:
         temp[item.value] = {"timeSpan":0}
     return temp
+
+@dataclass
+class Monitor_Pack:
+    id: str
+    hook: list[Matcher]

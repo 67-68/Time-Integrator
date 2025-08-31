@@ -55,6 +55,7 @@ class MainWindow(QMainWindow):
         self.AP = self.MW.analysisPageBase
         self.SP = self.MW.settingPage
         
+        
         self.ui = {
             "CP": self.CP,
             "AP": self.AP,

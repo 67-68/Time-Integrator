@@ -3,7 +3,7 @@ from unittest.mock import Mock, MagicMock
 
 from ti.UI.presenters.InsightCardPresenter import InsightCardPresenter
 from ti.services.interventionService import InterventionService
-from ti.features.intervention.view.card import InterventionCard
+from ti.features.intervention.view.interventionCard import InterventionCard
 from ti.UI.views.analysis.trendCard import InsightCard
 
 class TestInsightCardPresenter(unittest.TestCase):

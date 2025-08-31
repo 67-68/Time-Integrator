@@ -1,6 +1,6 @@
 from unittest.mock import MagicMock
 from ti.UI.presenters.translator import Translator
-from ti.controller.mainCoodinator import MainCoodinator
+from ti.controller.mainCoordinator import MainCoorinator
 from ti.dataAccess.insightManager import InsightManager
 from ti.engine.insightEngine import InsightEngine
 
@@ -12,7 +12,7 @@ class Test_Accept_Conditional_Card:
     
     def test_conditional_card_function(
         self,
-        mainCoodinator: MainCoodinator,
+        mainCoodinator: MainCoorinator,
         mock_analysis_page: MagicMock
         ):
         """

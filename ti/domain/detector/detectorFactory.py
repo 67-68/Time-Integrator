@@ -1,6 +1,7 @@
+from ti.core.Interfaces.detector_Interface import DetectorInterface
 from ti.dataAccess.insightCacheService import InsightCacheService
 from ti.domain.detector.detectorRepository import DetectocRepository
-from ti.domain.detector.modal import Detector_Recipe, Detector_Recipe_ID
+from ti.domain.detector.model import Detector_Recipe, Detector_Recipe_ID
 
 
 class DetectorFactory:
@@ -18,7 +19,7 @@ class DetectorFactory:
         self.repository = repository
         self.ICS = ICS
         
-    def create_detector(self,id,card_type_id):
+    def create_detector(self,id,card_type_id) -> type[DetectorInterface]:
         """_summary_
         输入一个Detector_Recipe_ID Enum类作为ID
         返回一个Detecotr实例
@@ -26,14 +27,14 @@ class DetectorFactory:
             id (Detector_Recipe_ID): _description_
         """
         recipe: Detector_Recipe = self.repository.get_recipe_by_id(id)
-        
+
         # 赋予这个Detector配方类卡片ID
         recipe.config.card_type_id = card_type_id
         
-        detector_class = recipe.detector
+        detector_category = recipe.detector
         config = recipe.config
         
-        detector = detector_class(config,self.ICS)
+        detector = detector_category(config,self.ICS)
         
         return detector
         

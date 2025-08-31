@@ -54,7 +54,7 @@ class InsightEngine(QObject):
                 "presenter":recipe["presenter"]
             }
             
-            cache.store(id,self.cards[id])
+            cache.store(id,(self.cards[id],recipe))
             
     def process_action_unit(self,au: dict) -> None:
         """_summary_

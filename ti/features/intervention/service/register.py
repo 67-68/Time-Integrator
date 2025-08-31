@@ -1,36 +1,41 @@
-from dataclasses import dataclass
-from ti.core.analysis.matchers import Matcher
-from ti.features.intervention.model.model import INV_Contract
-from ti.features.intervention.model.repository import INV_Card_Repository
-from ti.services.realTimeMonitorService import RealTimeMonitor
+from ti.core.definitions import Monitor_Pack
+
+from ti.domain.detector.detectorRepository import DetectocRepository
+from ti.domain.detector.model import Detector_Recipe
+from ti.features.intervention.model.model import INV_Contract, INV_Contract_Recipe
+from ti.services.realTimeMonitor import RealTimeMonitor
 
 
-class ContractRegister:
+class INV_ContractRegister:
     def __init__(
         self,
         monitor: RealTimeMonitor,
-        repository: INV_Card_Repository
+        rep: DetectocRepository
         ):
         """
         这个类用来登记contract到monitor
         """
         self.monitor = monitor
-        self.rep = repository
+        self.rep = rep
         self.registedContract = {}
-    
-    def add_monitor_project(self,contract: INV_Contract):
-        # 这里需要获取Detector的Hook, 从配方中
-        recipe = self.rep.get_recipe_by_id(contract.recipe_id)
-        hook = recipe.detector.config.sequence.hook
-        
-        monitor_pack = INV_Monitor_Pack(contract.contract_id,hook)
-        self.monitor.add_monitor_project()
-        
-        self.registedContract[contract.contract_id] = None
-        print(f"{contract.contract_id}被登记进入监视器")
         
     
-@dataclass
-class INV_Monitor_Pack:
-    contract_uuid: str
-    hook: list[Matcher]
+    def add_monitor_project(
+        self,
+        contract: INV_Contract,
+        detector_recipe_key: str
+    ):
+        
+        detector_recipe = self.rep.get_recipe_by_id(detector_recipe_key)
+        
+        hook_matchers = detector_recipe.config.sequence.hook
+        
+        monitor_pack = Monitor_Pack(
+            contract.contract_category_id, #理论上来说是contract id
+            hook_matchers
+        )
+        
+        self.monitor.add_monitor_project(monitor_pack)
+        
+        self.registedContract[contract.contract_category_id] = None
+        print(f"{contract.contract_category_id}被登记进入监视器")

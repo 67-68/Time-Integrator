@@ -3,7 +3,7 @@ from unittest.mock import Mock, MagicMock
 
 from PyQt6.QtCore import QObject, pyqtSignal
 
-from ti.services.realTimeMonitorService import RealTimeMonitor
+from ti.services.realTimeMonitor import RealTimeMonitor
 from ti.core.analysis.detectors.detector import BaseDetector
 
 # Mock DataService for testing

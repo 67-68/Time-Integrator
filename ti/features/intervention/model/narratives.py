@@ -1,4 +1,4 @@
-from ti.features.intervention.model.model import INV_ID, INVEvent, INV_View_Recipe
+from ti.features.intervention.model.model import INV_View_ID, INVEvent, INV_View_Recipe
 
 
 class InterventionNarrator:
@@ -29,7 +29,7 @@ class InterventionNarrator:
         return data
     
 NARRATIONS = {
-    INV_ID.POST_EAT_WASTE.value:{
+    INV_View_ID.POST_EAT_WASTE.value:{
         "init":{
             "presentation":{
                 "title":["在吃饭后不要浪费时间的请求"],

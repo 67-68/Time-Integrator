@@ -5,11 +5,11 @@ from ti.UI.presenters.menuPresenter import MenuPresenter
 from ti.UI.views.BasicDialog import BasicDialog
 from ti.UI.views.MainWindow import MainWindow
 from ti.UI.views.SettingPage import SettingPage
-from ti.controller.mainCoodinator import MainCoodinator
+from ti.controller.mainCoordinator import MainCoorinator
 from ti.core.analysis.otherAnalysis import updateActionList
 from ti.core.definitions import TODAY
 from ti.dataAccess.dataService import DataService
-from ti.services.realTimeMonitorService import RealTimeMonitor
+from ti.services.realTimeMonitor import RealTimeMonitor
 from ti.services.serviceContainer import ServiceContainer
 from ti.utils import load_qss, log_message
 
@@ -29,11 +29,12 @@ class TimeIntegrator:
         styleSheet = load_qss()
         self.app.setStyleSheet(styleSheet)
         self.ui = self.mainWindow.getUIs()
+        self.ui["MW"] = self.mainWindow
         
         #  ------ 创建所有的服务实例 ------
         self.services = ServiceContainer()
         self.dataService: DataService = self.services.getService("DS")
-        self.coodinator = MainCoodinator(self.services,self.ui)
+        self.coordinator = MainCoorinator(self.services,self.ui)
         
         #  ------ 持有的状态 ------
         self.createState()
@@ -55,11 +56,6 @@ class TimeIntegrator:
         self.mainWindow.date_selected.connect(self._on_date_selected)
         self.mainWindow.list_item_selected.connect(self._on_list_item_selected)
         self.mainWindow.new_button_selected.connect(self.createNewRecord)
-        self.monitor.intervention_needed.connect(lambda ui: self.show_dialog(ui))
-        
-        self.SP.dialog_test.connect(lambda: self.show_dialog(self.AP))
-        
-        
     
     def createState(self):
         self.isDebugMode = False
@@ -86,11 +82,6 @@ class TimeIntegrator:
         #新数据暂时不放进总的数据中，等到修改之后再检测
         
         self._on_list_item_selected(nR)
-    
-    # def show_dialog(self,presenter: InterventionPresenter):
-    #     ui = presenter.create_new_card()
-    #     dialog = BasicDialog(ui,parent=self.mainWindow)
-    #     result = dialog.exec()
         
     def _on_list_item_selected(self,data):
         """

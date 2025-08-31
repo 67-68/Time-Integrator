@@ -1,4 +1,5 @@
 from ti.UI.views.analysis.trendCard import InsightCard
+from ti.core.eventBus import EventBus
 from ti.features.intervention.cardOrchestrator import INV_Card_Orchestrator
 from ti.features.intervention.intervention_contract_orchestrator import INV_Contract_Orchestrator
 from ti.features.intervention.model.model import INV_Entity_Recipe
@@ -12,12 +13,18 @@ class InterventionCoordinator:
         self,
         container: INV_ServiceContainer,
         card_orchestrator: INV_Card_Orchestrator,
-        contract_orchestrator: INV_Contract_Orchestrator
+        contract_orchestrator: INV_Contract_Orchestrator,
+        bus: EventBus
     ):
         self.container = container
         self.active_entity: dict[INV_Entity_Recipe] = {}
         self.card_orc = card_orchestrator
         self.contract_orc = contract_orchestrator
+        self.bus = bus
+        
+        self.contract_orc.contract_activated.connect(lambda d: self._on_contract_activated(d))
+        
+        
     
     def process_insight_card(self,data: tuple):
         """_summary_
@@ -33,8 +40,12 @@ class InterventionCoordinator:
         cache: SessionCache
         insight_card_ui: InsightCard
         insight_card_id = insight_card_ui.id
-        insight_recipe = cache.read(insight_card_id)
-        detector = insight_recipe["detector"]
+        pack = cache.read(insight_card_id) #存入的地方在InsightEngine
+        if isinstance(pack,tuple): #只有conditional card才有一个tuple
+            insight_recipe, recipe = pack
+        else: 
+            recipe = pack
+        detector_recipe_key = recipe.get("detector",None) #不是COnditioanl card没有detector
         
         mapping:InterventionMapping = self.container.getService("mapping")
         needIntervention = mapping.find_mapping(insight_card_id)
@@ -45,16 +56,28 @@ class InterventionCoordinator:
                 entity_recipe: INV_Entity_Recipe
                 entity_id = entity_recipe.entity_recipe_id
                 self.active_entity[entity_id] = entity_recipe
+                contract_id = entity_recipe.contract_recipe
+                view_id = entity_recipe.view_recipe_id
                 
                 # 命令view
                 self.card_orc.update_insightCard( # 把id和ui传入，其他的他自己处理
                     insight_card_ui,
-                    insight_card_id
+                    insight_card_id,
+                    view_id
                 )
                 
                 # 命令contract
-                self.contract_orc.
+                self.contract_orc.create_contract(
+                    contract_id,
+                    detector_recipe_key
+                )
                 
-                # TODO: 我写到这里！！
-                
-                # 知道了id之后可以去查找找到ui和配方
+    def _on_contract_activated(self,view_id):
+        # 获取ui
+        card = self.card_orc.create_dialog_view(view_id)
+        
+        # 上报app类
+        self.bus.publish("dialog_needed",card)
+        
+        # 删除card 按理来说上报之后应该会有一个dialog阻塞住事件?
+        self.card_orc.end_dialog(view_id)

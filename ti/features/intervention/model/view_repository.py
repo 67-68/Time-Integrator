@@ -1,6 +1,6 @@
 import copy
 from ti.features.intervention.service.formatter import INV_Formatter
-from ti.features.intervention.model.model import INV_ID, INV_State_Btn, INV_State_Presentation, INVEvent, INV_View_Recipe, INVState
+from ti.features.intervention.model.model import INV_View_ID, INV_State_Btn, INV_State_Presentation, INVEvent, INV_View_Recipe, INVState
 
 
 class INV_Card_Repository:
@@ -19,9 +19,9 @@ class INV_Card_Repository:
         for recipe_id in recipes:
             recipe_dataClass.append(self.get_recipe_by_id(recipe_id))
         
-        return recipe_dataClass
     
-    def get_recipe_by_id(self, intervention_id: str):
+        return recipe_dataClass
+    def get_recipe_by_id(self, view_recipe_id: str) -> INV_View_Recipe:
         """_summary_
 
         Args:
@@ -33,7 +33,7 @@ class INV_Card_Repository:
         
         # 第一层 
         recipe_dataClass: INV_View_Recipe
-        recipe = recipes[intervention_id]
+        recipe = recipes[view_recipe_id]
         id = recipe["id"]
         recipe_states = recipe["state"]
         detector = recipe["detector"]
@@ -91,7 +91,7 @@ class INV_Card_Repository:
 # --- 以下为您提供的上下文代码，保持不变 ---
 
 recipes = {
-    INV_ID.POST_EAT_WASTE.value: {
+    INV_View_ID.POST_EAT_WASTE.value: {
         "id":"post_eat_waste",
         "state":{
             "init": {

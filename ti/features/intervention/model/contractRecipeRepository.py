@@ -1,5 +1,8 @@
 
 
+from ti.features.intervention.model.model import INV_Contract_Duration, INV_Contract_Recipe, INV_View_ID
+
+
 class INV_CON_Recipe_Repository:
     def __init__(self):
         """
@@ -21,11 +24,23 @@ class INV_CON_Recipe_Repository:
             contract_category_id (_type_): _description_
 
         Returns:
-            _type_: _description_
+            _type_: _description_  
         """
+        contract_recipe = INTERVENTION_CONTRACT_RECIPE[contract_category_id]
+        duration = contract_recipe["duration"]
+        view_recipe_id = contract_recipe["view_recipe_id"]
         
-        return self.recipe[contract_category_id]
+        contract_recipe = INV_Contract_Recipe(
+            contract_category_id,
+            duration,
+            view_recipe_id
+        )
+    
+        return contract_recipe
 
 INTERVENTION_CONTRACT_RECIPE = {
-    
+    "post_eat_waste": {
+        "duration": INV_Contract_Duration.TODAY.value,
+        "view_recipe_id": INV_View_ID.POST_EAT_WASTE.value
+    }
 }

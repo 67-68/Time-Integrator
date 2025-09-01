@@ -35,6 +35,18 @@ class InterventionPresenter(QObject):
         # 2. 连接到修正后的 card信号
         self.ui.button_clicked.connect(lambda event: self._on_process_user_action(event))
         print("干涉卡片信号连接成功")
+        
+        
+        # 发布第一个event
+        current_state = self.recipe.state[self.current_state_key]
+        special_event = current_state.special_event
+        publish_pack = INV_State_Publish(
+            self.recipe,
+            self.current_state_key,
+            self.ui,
+            special_event
+        )
+        self.bus.publish(f"{self.current_state_key}_created",publish_pack)
 
     def _on_process_user_action(
         self,
@@ -62,16 +74,18 @@ class InterventionPresenter(QObject):
             return
         
         next_state_key = next_state.name
+        special_event = next_state.special_event
         
         if next_state_key:
             publish_pack = INV_State_Publish(
                 self.recipe,
                 self.current_state_key,
-                self.ui
+                self.ui,
+                special_event
             )
             
             # 广播事件
-            self.bus.publish(f"{next_state_key}_created",publish_pack)
+            self.bus.publish(f"intervention_state_created",publish_pack)
             
             # 获取配方对应的presentation
             presentation = self.format.format(
@@ -107,3 +121,4 @@ class INV_State_Publish:
     recipe: INV_View_Recipe
     current_state_key: str
     view: InterventionCard
+    special_state: list[str] = None

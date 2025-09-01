@@ -99,7 +99,8 @@ class InterventionPlugin(ExtensionInterface):
             contract_service,
             contract_repository,
             register,
-            bus
+            bus,
+            view_repository
         )
     
         self.coordinator = InterventionCoordinator(

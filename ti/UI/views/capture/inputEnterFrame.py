@@ -41,7 +41,8 @@ class InputEnterFrame(BasicWidget):
     #这个函数用来处理FE往上面传过来的事件,把rawUserAction转化为UserAction.这意味着每个判断的框内至少都应该有一条语句重新赋值eventType
     def _on_FE_action_Happened(self,FE_To_IEF):
         #  ------ 首先初始化 ------
-        rawEventType = FE_To_IEF["rawEventType"]
+        rawEventType =FE_To_IEF
+        ["rawEventType"]
         userAction = FE_To_IEF
         
         #  ------ 开始判断 ------

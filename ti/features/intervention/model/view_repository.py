@@ -1,6 +1,6 @@
 import copy
 from ti.features.intervention.service.formatter import INV_Formatter
-from ti.features.intervention.model.model import INV_View_ID, INV_State_Btn, INV_State_Presentation, INVEvent, INV_View_Recipe, INVState
+from ti.features.intervention.model.model import INV_Special_States, INV_View_ID, INV_State_Btn, INV_State_Presentation, INVEvent, INV_View_Recipe, INVState
 
 
 class INV_Card_Repository:
@@ -47,6 +47,7 @@ class INV_Card_Repository:
             state = recipe_states[state_key]
             transitions = state["transition"]
             presentation = state["presentation"]
+            special_event = state.get("special_event",None)
             
             # 第三层: Presentation
             button_dataClasses = {}
@@ -73,7 +74,8 @@ class INV_Card_Repository:
             states_dataClass[state_key] = INVState(
                 state_key,
                 transitions,
-                pre_dataClass
+                pre_dataClass,
+                special_event
             )
             # 第二层结束
         
@@ -111,7 +113,7 @@ recipes = {
                         }
                     },
                     "title": "ask_challenge" # 这个key现在也只是一个逻辑标识
-                }
+                },
             },
             "create_intervention":{
                 "transition":{
@@ -120,7 +122,8 @@ recipes = {
                 "presentation":{
                     "title": "接收挑战！",
                     "button":{}
-                }
+                },
+                "special_event": [INV_Special_States.ACCEPTED_CONTRACT.value]
             }
         },
         "initial_state":"init",

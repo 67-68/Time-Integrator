@@ -22,7 +22,7 @@ class INV_ContractService:
             contract_category_id=contract_category_id,
             duration= duration,
             current_state= INV_Contract_State.BEFORE_START.value,
-            view_recipe_id = view_recipe_id
+            view_recipe_id = view_recipe_id,
         )
         
         return contract
@@ -45,5 +45,17 @@ class INV_ContractService:
         """
         # 大概就是找出duration和创建时间匹配一下
         pass
+
+    def contract_active_check(self,contract: INV_Contract) -> bool:
+        """
+        这个方法用来检查是否contract需要被添加进monitor
+        它不负责检查是否contract过期了
+
+        Args:
+            contract (INV_Contract): _description_
+        """
+        # 检查是否agreed 但不是active
+        # TODO: 或许我需要把matchers 也给contract设计
+        return contract.current_state == INV_Contract_State.AGREED.value
         
         

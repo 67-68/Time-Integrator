@@ -37,7 +37,7 @@ class INV_CON_Recipe_Repository:
         )
     
         return contract_recipe
-
+    
 INTERVENTION_CONTRACT_RECIPE = {
     "post_eat_waste": {
         "duration": INV_Contract_Duration.TODAY.value,

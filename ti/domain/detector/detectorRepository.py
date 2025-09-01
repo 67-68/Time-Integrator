@@ -11,7 +11,7 @@ class DetectocRepository:
         """
         pass
     
-    def get_recipe_by_id(self,id:Detector_Recipe_ID) -> Detector_Recipe:
+    def get_recipe_by_id(self,detector_id:Detector_Recipe_ID) -> Detector_Recipe:
         """_summary_
         这个类接受一个Detector id
         根据id寻找配方组合为配方数据模型
@@ -22,7 +22,7 @@ class DetectocRepository:
         Returns:
             Detector_Recipe: _description_
         """
-        recipe = RECIPE[id]
+        recipe = RECIPE[detector_id]
         sequences = recipe["config"]["sequence"]
     
         # HOOK部分

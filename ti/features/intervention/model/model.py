@@ -36,13 +36,14 @@ class INVState:
     name: str
     transition: dict[INVEvent,str]
     presentation: INV_State_Presentation
+    special_event: list[str] = None #按理来说会存储INV_Special_Events类的value
     
 @dataclass
 class INV_View_Recipe:
     """
     卡片和presenter的配方
     """
-    intervention_id: str
+    view_id: str
     state: dict[str,INVState]
     initial_state: str
     detector: type[DetectorInterface]
@@ -54,22 +55,28 @@ class INV_Contract:
     solve_time: datetime = None
     solved: bool = None
     success: bool = None
-    contract_uuid: str = uuid4()
+    contract_uuid: str = field(default_factory=lambda: str(uuid4()))
     contract_category_id: str = None
     current_state: str = None
     view_recipe_id: str = None
+    detector_recipe_id: str = None #这是一个非常不好的设计...我知道
     
     def to_dict(self) -> dict:
         """将实例序列化为字典。"""
         data = asdict(self)
         data["create_time"] = self.create_time.isoformat()
-        data["solve_time"] = self.solve_time.isoformat()
+        if self.solve_time:
+            data["solve_time"] = self.solve_time.isoformat()
+        return data
         
+    @classmethod
     def from_dict(cls, data: dict) -> 'INV_Contract':
         """从字典反序列化为实例。"""
         # 将ISO格式的字符串，转换回datetime对象
-        data['create_time'] = datetime.fromisoformat(data['create_time'])
-        data['solve_time'] = datetime.fromisoformat(data['solve_time'])
+        if data.get('create_time'):
+            data['create_time'] = datetime.fromisoformat(data['create_time'])
+        if data.get('solve_time'):
+            data['solve_time'] = datetime.fromisoformat(data['solve_time'])
         return cls(**data)
 
 
@@ -78,6 +85,7 @@ class INV_Contract_Duration(Enum):
 
 class INV_Contract_State(Enum):
     BEFORE_START = "before_start"
+    AGREED = "agreed" #user同意了但还没有录入monitor
     ACTIVE = "active"
     COMPLETE = "complete"
 
@@ -93,4 +101,9 @@ class INV_Entity_Recipe:
     entity_recipe_id: str
     contract_recipe: str
     view_recipe_id: str #这种东西永远使用id而不是原本的配方
+    
+
+class INV_Special_States(Enum):
+    ACCEPTED_CONTRACT = "accepted_contract"
+    END_INTERVENTION = "end_intervention"
     

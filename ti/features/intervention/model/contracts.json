@@ -1,1 +1,14 @@
-{}
+{
+    "1b263658-59d2-49e7-b0ea-8403c59f1b5c": {
+        "create_time": "2025-09-01T21:22:21.097653",
+        "duration": "today",
+        "solve_time": null,
+        "solved": null,
+        "success": null,
+        "contract_uuid": "1b263658-59d2-49e7-b0ea-8403c59f1b5c",
+        "contract_category_id": "post_eat_waste",
+        "current_state": "agreed",
+        "view_recipe_id": "post_eat_waste",
+        "detector_recipe_id": "post_eat_waste"
+    }
+}

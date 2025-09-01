@@ -26,7 +26,7 @@ class INV_Card_Factory:
         根据传入的配方生成卡片ui
         一次生成一张
         """
-        intervention_id = recipe.intervention_id
+        intervention_id = recipe.view_id
         
         # 2. 直接从配方对象中获取初始状态的展示数据
         # recipe 对象中的文本已经是被 Formatter 处理过的最终版本

@@ -72,17 +72,21 @@ class InterventionPlugin(ExtensionInterface):
         mapping = InterventionMapping(entity_rep)
         self.container.add_service("mapping",mapping)
         
+        register = INV_ContractRegister(monitor,detector_rep)
+        self.container.add_service("register",register)
+        
         contract_recipe_repos = INV_CON_Recipe_Repository()
         self.container.add_service("CON_recipe_repos",contract_recipe_repos)
-        
-        contract_service = INV_ContractService()
-        self.container.add_service("contract_service",contract_service)
         
         contract_repository = INV_ContractRepository()
         self.container.add_service("contract_repository",contract_repository)
         
-        register = INV_ContractRegister(monitor,detector_rep)
-        self.container.add_service("register",register)
+        contract_service = INV_ContractService(contract_repository,contract_recipe_repos,register)
+        self.container.add_service("contract_service",contract_service)
+        
+
+        
+
         
         stateService = INV_StateService()
         self.container.add_service("stateService",stateService)
@@ -98,9 +102,7 @@ class InterventionPlugin(ExtensionInterface):
             contract_recipe_repos,
             contract_service,
             contract_repository,
-            register,
             bus,
-            view_repository
         )
     
         self.coordinator = InterventionCoordinator(

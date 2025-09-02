@@ -77,4 +77,11 @@ class INV_ContractRepository(JsonRepositoryInterface):
             if self.contracts[contract_uuid].view_recipe_id == view_id:
                 return self.contracts[contract_uuid]
     
-    
+    def delete(self,contract_uuid):
+        """
+        负责从库中删除一个contract
+
+        Args:
+            contract_uuid (_type_): _description_
+        """
+        print(f"试图删除{contract_uuid},但是这个方法还没写")

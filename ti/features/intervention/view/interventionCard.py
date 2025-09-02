@@ -3,7 +3,7 @@ from PyQt6.QtCore import pyqtSignal
 
 from ti.UI.rawUI.ui_InterventionCard import Ui_interventionWidget
 from ti.UI.widgets.other.BasicButton import BasicButton
-from ti.features.intervention.model.model import INV_State_Presentation, INVEvent
+from ti.features.intervention.model.model import INVEvent
 
 class InterventionCard(QWidget):
     button_clicked = pyqtSignal(INVEvent) 
@@ -38,7 +38,7 @@ class InterventionCard(QWidget):
             
             self.buttons[id] = BasicButton(self.ui.choiceWidget)
             self.buttons[id].setText(text)
-            self.buttons[id].clicked.connect(lambda checked, c_id = id: self._on_button_clicked(c_id)) # TODO: 这里有问题
+            self.buttons[id].clicked.connect(lambda checked, c_id = id: self._on_button_clicked(c_id))
             
             self.ui.choiceLayout.addWidget(self.buttons[id]) 
         
@@ -70,22 +70,20 @@ class InterventionCard(QWidget):
         """
         清除布局中所有旧的按钮，并添加一组新的按钮。
         """
-        # 1. 遍历当前存储的按钮字典，从布局中移除每一个旧的按钮控件
-        for button_id in self.buttons:
-            button_to_remove = self.buttons[button_id]
-            self.ui.choiceLayout.removeWidget(button_to_remove)
-            # 推荐：在移除后也将其父级设为None或删除，确保被垃圾回收
-            button_to_remove.setParent(None) 
-        
-        # self.buttons 字典将在 apply_presentation 中被重置，这里只负责UI操作
+        # 1. 遍历并移除布局中的所有旧控件，这样更可靠
+        while self.ui.choiceLayout.count():
+            child = self.ui.choiceLayout.takeAt(0)
+            if child.widget():
+                # 从布局中移除并安排删除
+                child.widget().deleteLater()
 
         # 2. 将传入的新按钮控件列表添加到布局中
         for widget in widgets:
             self.ui.choiceLayout.addWidget(widget)
         
-    def apply_presentation(self, presentation: INV_State_Presentation):
+    def apply_presentation(self, presentation: dict):
         """
-        接收一个 Presentation "配方"对象，并将其应用到卡片UI上。
+        接收一个 Presentation "配方"字典，并将其应用到卡片UI上。
         
         这个方法会：
         1. 更新标题。
@@ -122,14 +120,3 @@ class InterventionCard(QWidget):
             
         # 4. 使用辅助函数，用新创建的按钮列表替换掉旧的按钮
         self.replace_buttonPlace(new_button_widgets)
-        
-        
-
-            
-        
-        
-            
-            
-        
-
-        

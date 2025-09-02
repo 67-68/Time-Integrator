@@ -27,7 +27,10 @@ def transFastToProp_API(text, actionData):
         # 输入不完整，但仍可显示
         if text.isdigit():
             advice["data"]["start"] = text
-        return advice # 保持在 AWAIT_START 状态
+        else:
+            advice["data"]["action"] = text
+            advice["nextState"] = InputState.AWAIT_ACTION
+        return advice
 
     if not text[:4].isdigit():
         return advice 

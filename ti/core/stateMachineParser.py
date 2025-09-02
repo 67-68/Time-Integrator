@@ -45,7 +45,7 @@ def stateMachineParser(currentState,text,eventType,userAction): #这里的userAc
     #  ------ 结束判定 ------
     if eventType == UserActionType.FINAL_SUBMIT:
         suggestions["expectedType"] == InputState.COMPLETE
-        suggestions["data"]["actionDetail"] = textAdvice
+        suggestions["data"]["actionDetail"] = textAdvice["data"]["actionDetail"]
         
         
     return suggestions

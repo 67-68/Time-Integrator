@@ -1,4 +1,4 @@
-from PyQt6.QtCore import QSignalBlocker
+from PyQt6.QtCore import QSignalBlocker, pyqtSignal
 
 
 from ti.UI.presenters.StateMachinePresenter import StateMachinePresenter
@@ -12,6 +12,7 @@ from ti.dataAccess.dataAccess import getData
 actionDataLoc = "Data/actionList.json"
 
 class InputEnterFrame(BasicWidget):
+    finalDataSubmitted = pyqtSignal(dict)
     def __init__(self, parent = None):
         #  ------ 初始化 ------
         super().__init__(parent)
@@ -44,14 +45,20 @@ class InputEnterFrame(BasicWidget):
         rawEventType =FE_To_IEF
         ["rawEventType"]
         userAction = FE_To_IEF
+        # TODO:为什么这里没有提取出来？
+        rawEventType = rawEventType["rawEventType"]
         
         #  ------ 开始判断 ------
         if rawEventType == RawUserAction.TEXT_CHANGED: #首先大分类，看出基本的行动类别
             userAction["eventType"] = UserActionType.TEXT_INPUT
             
         elif rawEventType == RawUserAction.RETURN_PRESSED:
-            if self.stateMachine.currentState == InputState.AWAIT_ACTION_DETAIL:
+            if self.stateMachine.currentState == InputState.AWAIT_ACTION:
+                userAction["eventType"] = UserActionType.CONFIRM_SELECT
+            elif self.stateMachine.currentState == InputState.AWAIT_ACTION_DETAIL:
                 userAction["eventType"] = UserActionType.FINAL_SUBMIT
+            else:
+                userAction["eventType"] = UserActionType.FINAL_SUBMIT # 默认为最终提交
                 
         else:
             return

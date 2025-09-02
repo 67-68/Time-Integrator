@@ -56,7 +56,7 @@ class FastEnterFrame(BasicFrame):
         #  ------ 打包 ------
         self.from_FE_To_IEF = {
             "text": self.FE.fastEntry.text(),
-            "eventType": eventType,
+            "rawEventType": eventType,
         }
         
         self.userActionHappen.emit(self.from_FE_To_IEF)

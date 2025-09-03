@@ -1,6 +1,6 @@
 from uuid import UUID
-from ti.core.Interfaces.jsonRepositoryInterface import JsonRepositoryInterface
-from ti.dataAccess.dataAccess import getData, saveData
+from ti.core.Interfaces.json_repository_interface import JsonRepositoryInterface
+from ti.services.dataAccess.dataAccess import getData, saveData
 from ti.features.intervention.model.model import INV_Contract
 
 
@@ -18,7 +18,7 @@ class INV_ContractRepository(JsonRepositoryInterface):
 
     @property
     def filePath(self):
-        return "ti/features/intervention/model/contracts.json"
+        return "features/intervention/model/contracts.json"
     
     # in INV_ContractRepository.save
 

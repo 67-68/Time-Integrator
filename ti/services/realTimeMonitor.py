@@ -2,11 +2,14 @@
 from ti.core.Interfaces.detector_Interface import DetectorInterface
 from ti.core.definitions import Monitor_Pack
 from ti.core.eventBus import EventBus
-from ti.dataAccess.dataService import DataService
 from PyQt6.QtCore import pyqtSignal,QObject
 
-from ti.domain.detector.baseDetector import BaseDetector
-from ti.domain.detector.detectorFactory import DetectorFactory
+from ti.features.detector.baseDetector import BaseDetector
+from ti.features.detector.detectorFactory import DetectorFactory
+from ti.services.dataAccess.dataService import DataService
+
+
+
 
 
 

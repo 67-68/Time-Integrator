@@ -1,13 +1,15 @@
-from ti.UI.presenters.formatter import FormatService
+
 from ti.core.eventBus import EventBus
 from ti.core.extensionRegister import DynamicExtensionLoader, ExtensionRegister
-from ti.dataAccess.dataService import DataService
-from ti.dataAccess.insightCacheService import InsightCacheService
-from ti.dataAccess.insightManager import InsightManager
-from ti.domain.detector.detectorFactory import DetectorFactory
-from ti.domain.detector.detectorRepository import DetectocRepository
-from ti.engine.insightEngine import InsightEngine
+
+from ti.features.detector.detectorFactory import DetectorFactory
+from ti.features.detector.detectorRepository import DetectocRepository
 from ti.features.intervention.service.logger import InterventionLogger
+from ti.services.dataAccess.dataService import DataService
+from ti.services.dataAccess.insightCacheService import InsightCacheService
+from ti.services.dataAccess.insightManager import InsightManager
+from ti.services.engine.insightEngine import InsightEngine
+from ti.services.formatter import FormatService
 from ti.services.realTimeMonitor import RealTimeMonitor
 from dataclasses import dataclass
 

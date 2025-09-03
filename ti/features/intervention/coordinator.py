@@ -1,4 +1,4 @@
-from ti.UI.views.analysis.trendCard import InsightCard
+from ti.view .views.analysis.trendCard import InsightCard
 from ti.core.eventBus import EventBus
 from ti.features.intervention.cardOrchestrator import INV_Card_Orchestrator
 from ti.features.intervention.intervention_contract_orchestrator import INV_Contract_Orchestrator

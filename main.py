@@ -1,6 +1,8 @@
 import sys
 
-from ti.UI.App import TimeIntegrator
+from ti.core.App import TimeIntegrator
+
+
 
 if __name__ == "__main__":
     integrator = TimeIntegrator()

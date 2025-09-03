@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from ti.UI.presenters.formatter import FormatService # 假设这个保留，但 formatter 不再需要
+from ti.services.formatter import FormatService # 假设这个保留，但 formatter 不再需要
 from ti.features.intervention.model.view_repository import INV_Card_Repository
 from ti.features.intervention.model.model import INV_View_Recipe, INVState
 from ti.features.intervention.service.formatter import INV_Formatter

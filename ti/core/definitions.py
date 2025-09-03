@@ -2,14 +2,16 @@ from dataclasses import dataclass
 from enum import Enum
 import datetime
 
-from ti.core.analysis.matchers import Matcher
+from ti.services.analysis.matchers import Matcher
+
+
 
 # 时间日期
 TODAY = datetime.date.today().strftime("%Y-%m-%d")
 YESTERDAY = (datetime.date.today() - datetime.timedelta(days=1)).strftime("%Y-%m-%d")
 
 # 文件地址
-INSIGHT_CACHE = "Data/insightCache.json"
+INSIGHT_CACHE = "model/data/insightCache.json"
 
 class InputState(Enum):
     AWAIT_START = "awaitStart"

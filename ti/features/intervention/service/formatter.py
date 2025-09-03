@@ -1,6 +1,6 @@
 from ti.features.intervention.model.model import INVState
 from ti.features.intervention.model.narratives import InterventionNarrator
-from ti.utils import randomChoser
+from ti.services.utils import randomChoser
 
 
 class INV_Formatter:

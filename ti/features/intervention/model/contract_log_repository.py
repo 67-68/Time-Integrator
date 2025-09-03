@@ -1,6 +1,6 @@
 from datetime import datetime
-from ti.core.Interfaces.jsonRepositoryInterface import JsonRepositoryInterface
-from ti.dataAccess.dataAccess import getData, saveData
+from ti.core.Interfaces.json_repository_interface import JsonRepositoryInterface
+from ti.services.dataAccess.dataAccess import getData, saveData
 from ti.features.intervention.model.model import INV_ContractLog
 
 
@@ -16,7 +16,7 @@ class INV_ContractLogRepository(JsonRepositoryInterface):
 
     @property
     def filePath(self):
-        return "ti/features/intervention/model/logs.json"
+        return "features/intervention/model/logs.json"
     
     def save(self, data: dict[str, INV_ContractLog] = None):
         """

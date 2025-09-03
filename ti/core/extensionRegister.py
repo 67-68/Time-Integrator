@@ -1,4 +1,4 @@
-from ti.core.Interfaces.Extension_Interface import ExtensionInterface
+from ti.core.Interfaces.extension_Interface import ExtensionInterface
 from ti.core.eventBus import EventBus
 import inspect
 

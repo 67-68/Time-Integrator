@@ -1,4 +1,4 @@
-from ti.UI.views.analysis.trendCard import InsightCard
+from ti.view.views.analysis.trendCard import InsightCard
 from ti.core.eventBus import EventBus
 from ti.features.intervention.model.view_repository import INV_Card_Repository
 from ti.features.intervention.presenter.cardPresenter import InterventionPresenter

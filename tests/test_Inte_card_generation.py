@@ -1,5 +1,5 @@
  # 这个类用来写和卡片构建相关的集成测试
-from ti.controller.mainCoordinator import MainCoorinator
+from ti.core.mainCoordinator import MainCoorinator
 
 
 # class Test_Integration_Card_Generation:

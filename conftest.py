@@ -4,12 +4,12 @@ import pytest
 from unittest.mock import MagicMock
 from datetime import datetime, timedelta
 
-from Data import userMatchers
+from ti.model import userMatchers
 from ti.UI.presenters.translator import Translator
 from ti.UI.views.MainWindow import MainWindow
-from ti.controller.mainCoordinator import MainCoorinator
+from ti.core.mainCoordinator import MainCoorinator
 from ti.core.analysis import presenters
-from ti.domain.detector.baseDetector import BaseDetector
+from ti.features.detector.baseDetector import BaseDetector
 from ti.services.serviceContainer import ServiceContainer
 from ti.features.intervention.model.model import INV_Contract, INV_Contract_Duration, INV_Contract_State
 from ti.features.intervention.service.contractService import INV_ContractService

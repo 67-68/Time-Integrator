@@ -1,7 +1,7 @@
 from ti.core.definitions import Monitor_Pack
 
-from ti.domain.detector.detectorRepository import DetectocRepository
-from ti.domain.detector.model import Detector_Recipe
+from ti.features.detector.detectorRepository import DetectocRepository
+from ti.features.detector.model import Detector_Recipe
 from ti.features.intervention.model.model import INV_Contract, INV_Contract_Recipe
 from ti.services.realTimeMonitor import RealTimeMonitor
 

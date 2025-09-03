@@ -4,10 +4,10 @@
 因此选择Coodinator(MVP/MVC以上的层级)来协调而非Controller(MVC)
 """
 
-from ti.UI.views.analysis.trendCard import InsightCard
-from ti.core.Interfaces.Extension_Interface import ExtensionInterface
+from ti.view.views.analysis.trendCard import InsightCard
+from ti.core.Interfaces.extension_Interface import ExtensionInterface
 from ti.core.eventBus import EventBus
-from ti.domain.detector.detectorRepository import DetectocRepository
+from ti.features.detector.detectorRepository import DetectocRepository
 from ti.features.intervention.cardOrchestrator import INV_Card_Orchestrator
 from ti.features.intervention.coordinator import InterventionCoordinator
 from ti.features.intervention.intervention_contract_orchestrator import INV_Contract_Orchestrator

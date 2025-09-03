@@ -1,8 +1,8 @@
 from PyQt6.QtWidgets import QWidget
 from PyQt6.QtCore import pyqtSignal
 
-from ti.UI.rawUI.ui_InterventionCard import Ui_interventionWidget
-from ti.UI.widgets.other.BasicButton import BasicButton
+from ti.view .rawUI.ui_InterventionCard import Ui_interventionWidget
+from ti.view.widgets.other.BasicButton import BasicButton
 from ti.features.intervention.model.model import INVEvent
 
 class InterventionCard(QWidget):

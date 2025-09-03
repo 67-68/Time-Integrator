@@ -81,7 +81,7 @@ class InterventionPlugin(ExtensionInterface):
         contract_repository = INV_ContractRepository()
         self.container.add_service("contract_repository",contract_repository)
         
-        contract_service = INV_ContractService(contract_repository,contract_recipe_repos,register)
+        contract_service = INV_ContractService(contract_repository,contract_recipe_repos,register,logger)
         self.container.add_service("contract_service",contract_service)
         
 

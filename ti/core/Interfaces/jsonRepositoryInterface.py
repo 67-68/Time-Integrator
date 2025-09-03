@@ -39,3 +39,25 @@ class JsonRepositoryInterface(ABC):
         基本的加载
         """
         pass
+
+    def get_by_id(self,id: str):
+        """
+        通过id
+        uuid 或者类别ID 获取一个存档
+        """
+        pass
+    
+    def get_all(self):
+        """
+        获取所有存档
+        """
+        pass
+        
+    def delete(self,id:str):
+        """
+        删除一个存档
+
+        Args:
+            id (str): _description_
+        """
+        pass

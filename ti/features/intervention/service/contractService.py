@@ -1,6 +1,8 @@
+from datetime import datetime, timedelta
 from ti.features.intervention.model.contractRecipeRepository import INV_CON_Recipe_Repository
 from ti.features.intervention.model.contractRepository import INV_ContractRepository
-from ti.features.intervention.model.model import INV_Contract, INV_Contract_Recipe, INV_Contract_State
+from ti.features.intervention.model.model import INV_Contract, INV_Contract_Recipe, INV_Contract_State, INV_Contract_Duration
+from ti.features.intervention.service.logger import InterventionLogger
 from ti.features.intervention.service.register import INV_ContractRegister
 
 
@@ -10,10 +12,12 @@ class INV_ContractService:
         contract_repository: INV_ContractRepository,
         con_recipe_repos: INV_CON_Recipe_Repository,
         register: INV_ContractRegister,
+        logger: InterventionLogger
     ):
         """
         这个类封装所有和Contract相关的服务
         """
+        self.logger = logger
         self.contract_rep = contract_repository
         self.recipe_repos = con_recipe_repos
         self.register = register
@@ -37,24 +41,52 @@ class INV_ContractService:
         
         return contract
     
-    def log_contract(self,contract:INV_Contract):
+    def _log_contract(self,contract:INV_Contract):
         """_summary_
         这个类用来归档contract.
         它会调用(还没写)logger
         Args:
             contract (INV_Contract): _description_
         """
-        pass
+        self.logger.log_contract(contract)
     
-    def contract_duration_check(self,contract: INV_Contract):
+    def contract_duration_check(self, contract: INV_Contract) -> bool:
         """
         这个类用来检查是否contract应该被归档
+        返回True表示已过期，需要归档
 
         Args:
-            contract (INV_Contract): _description_
+            contract (INV_Contract): 要检查的合同
+            
+        Returns:
+            bool: True表示已过期需要归档
         """
-        # 大概就是找出duration和创建时间匹配一下
-        pass
+        now = datetime.now()
+        created_time = contract.create_time
+        duration_type = contract.duration
+        
+        if duration_type == INV_Contract_Duration.TODAY.value:
+            # 如果是今天，检查是否已过午夜
+            next_day = created_time.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
+            return now >= next_day
+            
+        elif duration_type == INV_Contract_Duration.TO_TOMORROW.value:
+            # 到明天，即创建后24小时
+            expire_time = created_time + timedelta(days=1)
+            return now >= expire_time
+            
+        elif duration_type == INV_Contract_Duration.THIS_WEEK.value:
+            # 到本周末（周日午夜）
+            days_until_sunday = (6 - created_time.weekday()) % 7
+            if days_until_sunday == 0:
+                days_until_sunday = 7
+            week_end = created_time.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=days_until_sunday)
+            return now >= week_end
+            
+        else:
+            # 未知的duration类型，默认为不过期
+            print(f"未知的duration类型: {duration_type}")
+            return False
 
     def contract_active_check(self,contract: INV_Contract) -> bool:
         """
@@ -105,9 +137,9 @@ class INV_ContractService:
         Returns:
             bool: _description_
         """
-        pastDue = self.contract_duration_check(contract.contract_uuid) 
+        pastDue = self.contract_duration_check(contract) 
         if pastDue:
-            self.log_contract(contract)
+            self._log_contract(contract)
             self.contract_rep.delete(contract)
             return 
         

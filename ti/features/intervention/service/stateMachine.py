@@ -35,7 +35,7 @@ class INV_StateService:
             return
             
         # 3. 获取下一个状态的完整对象
-        next_state: INVState = recipe.state.get(next_state_key)
+        next_state: INVState = recipe.state.get(next_state_key) 
         
         if not next_state:
             print(f"错误：在配方中找不到目标状态 '{next_state_key}'")

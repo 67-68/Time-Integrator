@@ -76,6 +76,7 @@ class CapturePage(BasicWidget):
         if data.get("action_detail"):
             self.currentAU.action_detail = data["action_detail"]
         self.currentAU.action_type = data["action_type"]
+        self.currentAU.timeSpan = data["timeSpan"] #在这里根本没有保存成功
         
         #下面的因为信号问题无法长久保存
         self.saveData_button_clicked.emit(self.currentAU)
@@ -90,14 +91,14 @@ class CapturePage(BasicWidget):
         pos = self.DSF.find_current_actionUnit_pos()
         len = self.DSF.get_actionUnit_listLength()
         #然后设置下一项，顺便滚动
-        if index is 1:
+        if index == 1:
             if pos + 1 >= len:
                 idx = 0
             elif pos == -1:
                 idx = 0
             else:
                 idx = pos + 1
-        elif index is -1:
+        elif index == -1:
             if pos == 0:
                 idx = len - 1
             elif pos == -1:

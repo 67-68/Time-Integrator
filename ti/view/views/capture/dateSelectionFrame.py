@@ -1,6 +1,7 @@
 from PyQt6.QtWidgets import QListWidgetItem
 from PyQt6.QtCore import pyqtSignal,Qt
 
+from ti.model.action_unit import ActionUnit
 from ti.view.rawUI.ui_rawDateSelectionFrame import Ui_dateSelection
 from ti.view.widgets.pages.BasicWidget import BasicWidget
 
@@ -8,7 +9,7 @@ from ti.view.widgets.pages.BasicWidget import BasicWidget
 
 class DateSelectionFrame(BasicWidget):
     dateSelected = pyqtSignal(str)
-    list_item_selected = pyqtSignal(dict)
+    list_item_selected = pyqtSignal(ActionUnit)
     
     def __init__(self, parent = None):
         super().__init__(parent)
@@ -104,7 +105,7 @@ class DateSelectionFrame(BasicWidget):
     
     def switchItem(self,au):
         #新建的ui要怎么做呢?
-        if "action" in au:
+        if au.get("action"):
             item = self.find_item_by_au(au)
             self.list.setCurrentRow(item)
             

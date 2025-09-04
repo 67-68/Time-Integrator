@@ -61,7 +61,7 @@ class RealTimeMonitor(QObject):
             Monitor_Pack,detector = self.monitor_projects[id]
             detector: type[BaseDetector]
             detector.process_action_unit(au)
-            action = au["action"]
+            action = au.action  # 现在使用 ActionUnit 对象的属性而不是字典访问
             print(f"正在判断行动为{action}的行动单元")
             
     def _on_pattern_detected(self,current_id):

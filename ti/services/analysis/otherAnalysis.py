@@ -8,10 +8,13 @@ def getHighQualityRatio(actionUnits):
         totalTime = 0
         totalHighQuaTime = 0
         for actionUnit in actionUnits:
-                timeSpan = actionUnit["timeSpan"]
-                if actionUnit["urgency"] and actionUnit["importance"]:
+                timeSpan = actionUnit.get("timeSpan") if hasattr(actionUnit, 'get') else actionUnit["timeSpan"]
+                urgency = actionUnit.get("urgency") if hasattr(actionUnit, 'get') else actionUnit["urgency"]
+                importance = actionUnit.get("importance") if hasattr(actionUnit, 'get') else actionUnit["importance"]
+                
+                if urgency and importance:
                         totalHighQuaTime += timeSpan
-                if actionUnit["importance"]:
+                if importance:
                         totalHighQuaTime += timeSpan
                 totalTime += timeSpan
                 

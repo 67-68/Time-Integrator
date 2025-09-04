@@ -75,7 +75,7 @@ class TimeIntegrator:
         self.previousAU = self.currentActionUnit
         
         nR = self.dataService.createNewData()
-        nR["date"] = self.currentDate
+        nR.date = self.currentDate
         self.currentActionUnit = nR
         #新数据暂时不放进总的数据中，等到修改之后再检测
         
@@ -105,7 +105,7 @@ class TimeIntegrator:
         （同时，保存之前的数据状态)
         """
         date = self.currentDate
-        actionUnit["date"] = date
+        actionUnit.date = date
         # 这里的id没有必要，因为新建的时候就有了id
                 
         updateActionList(actionUnit)
@@ -128,10 +128,11 @@ class TimeIntegrator:
         self.currentDate = date
         
         data = sorted(data, key=lambda au: au.get("start", ""))
-        try:
+        if data: 
             self.currentActionUnit = data[0] 
-        except:
+        else:
             self.currentActionUnit = self.dataService.createNewData()
+            print("initializing...no data today")
                 
         self.mainWindow.fillCPData(data,self.currentActionUnit)
     

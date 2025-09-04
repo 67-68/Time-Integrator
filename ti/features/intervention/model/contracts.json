@@ -1,13 +1,13 @@
 {
-    "5ab0c298-7ba1-4671-b052-c84dc7aae342": {
-        "create_time": "2025-09-03T23:47:19.201743",
+    "6d2f79ae-d464-45e6-9b2d-4a71b889b4a8": {
+        "create_time": "2025-09-04T21:28:33.813892",
         "duration": "today",
         "solve_time": null,
         "solved": null,
         "success": null,
-        "contract_uuid": "5ab0c298-7ba1-4671-b052-c84dc7aae342",
+        "contract_uuid": "6d2f79ae-d464-45e6-9b2d-4a71b889b4a8",
         "contract_category_id": "post_eat_waste",
-        "current_state": "before_start",
+        "current_state": "agreed",
         "view_recipe_id": "post_eat_waste",
         "detector_recipe_id": "post_eat_waste"
     }

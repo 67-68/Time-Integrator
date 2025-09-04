@@ -1,6 +1,7 @@
 
 from PyQt6.QtCore import pyqtSignal
 
+from ti.model.action_unit import ActionUnit
 from ti.view.rawUI.ui_rawCapturePage import Ui_CapturePage
 from ti.view.widgets.pages.BasicWidget import BasicWidget
 
@@ -8,9 +9,9 @@ from ti.view.widgets.pages.BasicWidget import BasicWidget
 
 class CapturePage(BasicWidget):
     switchPage_button_clicked = pyqtSignal(str)
-    saveData_button_clicked = pyqtSignal(dict)
+    saveData_button_clicked = pyqtSignal(ActionUnit)
     date_selected = pyqtSignal(str)
-    list_item_selected = pyqtSignal(dict) #我好像不得不把它传上去...虽然并不设计数据的重新载入,因此首先本地修改，然后传数据上去？
+    list_item_selected = pyqtSignal(ActionUnit) #我好像不得不把它传上去...虽然并不设计数据的重新载入,因此首先本地修改，然后传数据上去？
     new_button_selected = pyqtSignal()
     
     def __init__(self, parent = None):
@@ -68,8 +69,13 @@ class CapturePage(BasicWidget):
         
     #  ------ 保存 ------
     def _on_save_button_clicked(self,data):
-        for key in data:
-            self.currentAU[key] = data[key]
+        self.currentAU: ActionUnit
+        self.currentAU.start = data["start"]
+        self.currentAU.end = data["end"]
+        self.currentAU.action = data["action"]
+        if data.get("action_detail"):
+            self.currentAU.action_detail = data["action_detail"]
+        self.currentAU.action_type = data["action_type"]
         
         #下面的因为信号问题无法长久保存
         self.saveData_button_clicked.emit(self.currentAU)

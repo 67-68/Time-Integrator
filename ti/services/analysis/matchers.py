@@ -69,7 +69,7 @@ class Matcher:
 
     def date_is(self,intended_date):
         def matcher(au):
-            date = au["date"]
+            date = au.get("date")
             if date == intended_date:
                 return True
             return False
@@ -81,9 +81,7 @@ class Matcher:
         简单来说，我拿它作为一个“所有都需要”的占位符
         """
         def matcher(au):
-            if intend_property in au:
-                return True
-            return False
+            return True
         return matcher
 
 

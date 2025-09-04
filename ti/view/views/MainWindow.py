@@ -3,6 +3,7 @@ from PyQt6.QtWidgets import QMainWindow
 from PyQt6.QtCore import pyqtSignal
 import pyqtgraph as pg
 
+from ti.model.action_unit import ActionUnit
 from ti.view.rawUI.ui_rawMainWindow import Ui_MainWindow
 
 
@@ -11,10 +12,10 @@ from ti.view.rawUI.ui_rawMainWindow import Ui_MainWindow
 class MainWindow(QMainWindow):
     #  ---------- 定义元类变量 ----------
     
-    saveData_button_clicked = pyqtSignal(dict)
+    saveData_button_clicked = pyqtSignal(ActionUnit)
     timeSpan_choosed = pyqtSignal()
     date_selected = pyqtSignal(str)
-    list_item_selected = pyqtSignal(dict)
+    list_item_selected = pyqtSignal(ActionUnit)
     new_button_selected = pyqtSignal()
     
     #  ---------- 开始初始化 ----------

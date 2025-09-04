@@ -17,7 +17,7 @@ class ActionUnitRepository(JsonRepositoryInterface):
 
     @property
     def filePath(self):
-        return "ti/model/model/data/dateData.json"
+        return "model/data/dateData.json"
     
     def save(self, data: Dict[str, List[ActionUnit]] = None):
         """

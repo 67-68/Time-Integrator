@@ -1,0 +1,37 @@
+Input system architecture - simpler
+
+@startuml
+title: Input功能 - 宏观架构
+left to right direction
+
+' 定义组件
+package "UI Layer" {
+    ' 把所有UI组件，都抽象成一个黑盒
+    class "CapturePage (View Controller)" as View
+    note top of View: 管理所有输入模式的UI和交互
+}
+
+package "Application Service Layer" {
+    ' 把所有业务逻辑，也抽象成一个黑盒
+    class "InputOrchestrator" as AppService
+    note top of AppService: 编排解析、验证和翻译流程
+}
+
+package "Domain / Core Engine" {
+    ' 核心的、纯粹的解析逻辑
+    class "FastEnterParser" as Parser
+    note top of Parser: 负责将速记语法转换为结构化数据
+}
+
+package "Data Layer" {
+    class "DataService"
+}
+
+' 绘制它们之间的【依赖】关系，而不是【信号】
+' 依赖箭头应该指向更稳定的组件
+
+View ..> AppService : "依赖应用服务来处理逻辑"
+AppService ..> Parser : "依赖解析器来解析文本"
+AppService ..> DataService : "依赖数据服务来保存数据"
+
+@enduml

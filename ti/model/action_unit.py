@@ -37,17 +37,17 @@ class ActionUnit:
         if not isinstance(key, str):
             key = str(key)
             
-        # 处理字段名的映射
-        field_mapping = {
-            "actionDetail": "action_detail",  # 兼容旧的命名
-        }
+        # # 处理字段名的映射
+        # field_mapping = {
+        #     "actionDetail": "action_detail",  # 兼容旧的命名
+        # }
         
-        # 使用映射后的字段名
-        actual_key = field_mapping.get(key, key)
+        # # 使用映射后的字段名
+        # actual_key = field_mapping.get(key, key)
         
         # 检查属性是否存在
-        if hasattr(self, actual_key):
-            return getattr(self, actual_key)
+        if hasattr(self, key):
+            return getattr(self, key)
         else:
             raise KeyError(f"'{key}' not found in ActionUnit")
     
@@ -65,7 +65,7 @@ class ActionUnit:
         """返回所有字段名，支持 ** 解包操作，包括映射字段"""
         base_keys = set(self.__dict__.keys())
         # 添加映射字段名
-        base_keys.add("actionDetail")  # 映射到 action_detail
+        base_keys.add("action_detail")  # 映射到 action_detail
         return base_keys
     
     def values(self):
@@ -77,24 +77,17 @@ class ActionUnit:
         items = dict(self.__dict__)
         # 添加映射字段
         if hasattr(self, 'action_detail'):
-            items["actionDetail"] = self.action_detail
+            items["action_detail"] = self.action_detail
         return items.items()
     
     def to_dict(self) -> dict:
         """转换为字典格式，用于JSON序列化"""
         data = asdict(self)
-        # 保持与旧格式的兼容性
-        if "action_detail" in data:
-            data["actionDetail"] = data["action_detail"]
         return data
     
     @classmethod
     def from_dict(cls, data: dict) -> 'ActionUnit':
         """从字典创建ActionUnit对象"""
-        # 处理字段名映射
-        if "actionDetail" in data and "action_detail" not in data:
-            data["action_detail"] = data["actionDetail"]
-        
         # 过滤掉不存在的字段
         valid_fields = {f for f in cls.__dataclass_fields__}
         filtered_data = {k: v for k, v in data.items() if k in valid_fields}

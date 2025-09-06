@@ -1,0 +1,54 @@
+@startuml
+title: capture插件内部功能序列图
+
+participant "PluginLoader" as loader
+participant "CapturePlugin" as plugin
+participant "CapturePresenter" as presenter
+
+== 初始化 ==
+' 在初始化的时候创建非UI逻辑:Service/Model
+' 在用户点击的时候创建UI和Presenter相关的内容
+
+activate loader
+loader -> plugin: page_contribution()
+activate plugin
+note over plugin
+    获取静态的数据和路径
+    知道有什么界面，界面放在哪里
+end note
+plugin --> loader: return page_contributions
+loader -> plugin: initialize()
+plugin -> plugin: create_services
+note over plugin: 创建没有UI的部分
+plugin --> loader: return
+
+loader -> plugin: create_page(contributions)
+plugin -> presenter: __init__(): 创建
+activate presenter
+
+presenter --> plugin: return presenter
+ref over presenter
+    初始化
+    参考Documents/capture/capture_presenter_initlialize.puml
+end ref
+
+deactivate presenter
+
+plugin --> loader: ViewPages
+deactivate plugin
+
+deactivate loader
+note over loader
+    和contribution一起保存起来
+    之后传送给coordinator
+end note
+
+== 实际使用 ==
+ref over presenter
+    参考Documents/capture/capture_presenter_initlialize.puml
+end ref
+
+
+
+
+@enduml

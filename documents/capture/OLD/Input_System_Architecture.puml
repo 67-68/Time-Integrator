@@ -1,0 +1,217 @@
+@startuml class
+title: Input功能架构图
+' 这张图展示输入功能的类图，包括数据流和职责分工
+
+left to right direction
+
+skinparam handwritten true
+skinparam package {
+    borderColor Green
+    backgroundColor LightGreen
+    arrowColor Green
+}
+skinparam class {
+    borderColor Blue
+    backgroundColor LightBlue
+    arrowColor Blue
+}
+skinparam note {
+    borderColor Black
+    backgroundColor White
+}
+
+package "Page Level UI" {
+    class "CapturePage" as CP {
+        + saveData_button_clicked: pyqtSignal(ActionUnit)
+        + date_selected: pyqtSignal(str)
+        + list_item_selected: pyqtSignal(ActionUnit)
+        + switchPage_button_clicked: pyqtSignal(str)
+        - _on_save_button_clicked()
+        - _on_switch_mode()
+    }
+    note top of CP: RES: 数据捕获页面主控制器，管理输入模式切换
+
+    class "DateSelectionFrame" as DSF {
+        + dateSelected: pyqtSignal(str)
+        + list_item_selected: pyqtSignal(ActionUnit)
+        + fillData()
+        - _on_calendar_selected()
+        - _on_list_item_clicked()
+    }
+    note top of DSF: RES: 日期选择和历史数据列表
+}
+
+package "Input Mode UI" {
+    class "EditorFrame" as EF {
+        + saveData_button_clicked: pyqtSignal(dict)
+        + actionUnitSelected: pyqtSignal(int)
+        + new_button_selected: pyqtSignal()
+        + delete_button_clciked: pyqtSignal(dict)
+        - _on_confirmButton_clicked()
+    }
+    note top of EF: RES: 编辑器模式，单条记录编辑
+
+    class "BulkEnterFrame" as BEF {
+        + saveData_button_clicked: pyqtSignal(dict)
+        + trans: Translator
+        + vali: InputValidation
+        - _on_button_clicked()
+        + parseText()
+    }
+    note top of BEF: RES: 批量输入模式，多行文本解析
+
+    class "InputEnterFrame" as IEF {
+        + finalDataSubmitted: pyqtSignal(dict)
+        + translator: Translator
+        + stateMachine: StateMachinePresenter
+        - _on_FE_action_Happened()
+        - _on_PE_text_change()
+        + fillData()
+        + getData()
+    }
+    note top of IEF: RES: 智能输入模式，状态机驱动的快速输入
+}
+
+package "Sub-Component UI" {
+    class "PropertyEnterFrame" as PEF {
+        + propertyChanged: pyqtSignal(dict)
+        + fillData()
+        + getData()
+        + showError()
+    }
+    note top of PEF: RES: 属性输入框，结构化数据输入
+
+    class "FastEnterFrame" as FEF {
+        + userActionHappen: pyqtSignal(dict)
+        + fillData()
+        + set_dropdown_prefix()
+    }
+    note top of FEF: RES: 快速输入框，支持自然语言输入
+}
+
+package "Business Logic" {
+    class "StateMachinePresenter" as SMP {
+        - currentState: InputState
+        + processEvent_API()
+        + parsingCurrentState()
+    }
+    note top of SMP: RES: 状态管理器，维护输入状态和协调解析
+
+    class "Translator" as TRANS {
+        + fastToProper()
+        + properToFast()
+    }
+    note top of TRANS: RES: 双向翻译器，在快速语法和属性格式间转换
+
+    class "InputValidation" as VALID {
+        + validate_actionUnit()
+        + isValidTimePeriod_API()
+        + dateValidation_API()
+    }
+    note top of VALID: RES: 输入验证器，验证数据完整性和业务规则
+}
+
+package "Data Layer" {
+    class "DataService" as DS {
+        + actionUnit_added: pyqtSignal(ActionUnit)
+        + repository: ActionUnitRepository
+        + add_actionUnit()
+        + get_date_data()
+        + createNewData()
+    }
+    note top of DS: RES: 数据服务，管理ActionUnit的CRUD操作
+
+    class "ActionUnitRepository" as AUR {
+        + get_by_date()
+        + add_action_unit()
+        + get_by_id()
+        + save()
+        + load()
+    }
+    note top of AUR: RES: 数据仓库，负责ActionUnit的持久化存储
+}
+
+package "Core Engine" {
+    class "stateMachineParser" as SMP_FUNC {
+        + stateMachineParser()
+    }
+    note top of SMP_FUNC: RES: 状态机控制器，决定状态转换
+
+    class "fastEnterTranslation" as FET {
+        + transFastToProp_API()
+    }
+    note top of FET: RES: 核心解析引擎，将快速语法解析为结构化数据
+}
+
+package "Data Model" {
+    class "ActionUnit" as AU {
+        + action: str
+        + start: str
+        + end: str
+        + action_type: str
+        + action_detail: str
+        + get()
+        + to_dict()
+    }
+    note top of AU: RES: 数据模型，表示单个行动单元
+
+    class "InputState" as IS {
+        AWAIT_START
+        AWAIT_END
+        AWAIT_ACTION_TYPE
+        AWAIT_ACTION
+        AWAIT_ACTION_DETAIL
+        COMPLETE
+    }
+    note top of IS: RES: 输入状态枚举
+}
+
+' Page Level signal connections
+CP -[#Red]-> DSF: dateSelected信号
+CP -[#Red]-> EF: 切换编辑器模式
+CP -[#Red]-> BEF: 切换批量输入模式
+CP -[#Red]-> IEF: 切换智能输入模式
+
+' Input Mode signal connections  
+EF -[#Red]-> CP: saveData_button_clicked信号
+BEF -[#Red]-> CP: saveData_button_clicked信号
+IEF -[#Red]-> CP: finalDataSubmitted信号
+
+' Sub-component signal connections
+FEF -[#Red]-> IEF: userActionHappen信号
+PEF -[#Red]-> IEF: propertyChanged信号
+
+' Business Logic connections
+IEF -[#Red]-> SMP: processEvent_API()
+IEF -[#Red]-> TRANS: properToFast() / fastToProper()
+BEF -[#Red]-> TRANS: fastToProper()
+BEF -[#Red]-> VALID: validate_actionUnit()
+EF -[#Red]-> VALID: validate_actionUnit()
+
+' Core Engine connections  
+SMP -[#Red]-> SMP_FUNC: stateMachineParser()
+SMP_FUNC -[#Red]-> FET: transFastToProp_API()
+
+' Data Layer connections
+CP -[#Red]-> DS: add_actionUnit()
+DS -[#Red]-> AUR: 数据持久化操作
+
+' UI synchronization relationships
+IEF -[#Green]-> FEF: fillData() (同步显示)
+IEF -[#Green]-> PEF: fillData() (同步显示)
+CP -[#Green]-> EF: fillData() (数据填充)
+CP -[#Green]-> IEF: fillData() (数据填充)
+DSF -[#Green]-> CP: list_item_selected信号(ActionUnit)
+
+' Component composition relationships
+CP *-- DSF: 包含日期选择组件
+CP *-- EF: 包含编辑器组件  
+CP *-- BEF: 包含批量输入组件
+CP *-- IEF: 包含智能输入组件
+IEF *-- PEF: 包含属性输入组件
+IEF *-- FEF: 包含快速输入组件
+BEF *-- TRANS: 包含翻译器
+BEF *-- VALID: 包含验证器
+DS *-- AUR: 包含数据仓库
+
+@enduml

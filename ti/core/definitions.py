@@ -18,7 +18,7 @@ class InputState(Enum):
     AWAIT_END = "awaitEnd"
     AWAIT_ACTION_TYPE = "awaitActionType"
     AWAIT_ACTION = "awaitAction"
-    AWAIT_ACTION_DETAIL = "awaitActionDetail"
+    AWAIT_ACTION_DETAIL = "awaitaction_detail"
     COMPLETE = "complete"
 
 class UserActionType(Enum):

@@ -1,0 +1,84 @@
+@startuml sequence
+title: Input功能数据流时序图
+' 这张图展示用户输入"1400-1530w编程"的完整处理流程
+
+skinparam handwritten true
+
+actor User as U
+participant "FastEnterFrame" as FEF
+participant "InputEnterFrame" as IEF
+participant "StateMachinePresenter" as SMP
+participant "stateMachineParser" as FUNC
+participant "fastEnterTranslation" as FET
+participant "PropertyEnterFrame" as PEF
+participant "Translator" as TRANS
+
+== 用户输入阶段 ==
+U -> FEF: 键入 "1400-1530w编程"
+activate FEF
+FEF -> IEF: userActionHappen信号\n{rawEventType: "textChanged", text: "1400-1530w编程"}
+activate IEF
+
+== 事件类型转换 ==
+IEF -> IEF: _on_FE_action_Happened()
+note right: 将RawUserAction转换为UserActionType
+IEF -> IEF: 构建userAction\n{eventType: "textINPUT", text: "1400-1530w编程"}
+
+== 状态机处理 ==
+IEF -> SMP: processEvent_API(userAction)
+activate SMP
+SMP -> SMP: parsingCurrentState()
+note right: 获取当前状态 (AWAIT_START)
+SMP -> FUNC: stateMachineParser(currentState, text, eventType, userAction)
+activate FUNC
+
+== 核心解析 ==
+FUNC -> FET: transFastToProp_API("1400-1530w编程", actionList)
+activate FET
+FET -> FET: 解析时间: "1400" -> "14:00"
+FET -> FET: 解析时间: "1530" -> "15:30"  
+FET -> FET: 解析类型: "w" -> "work"
+FET -> FET: 解析行动: "编程" (匹配actionList)
+FET -> FUNC: 返回解析结果\n{data: {start:"14:00", end:"15:30", action_type:"work", action:"编程"}, nextState:"awaitaction_detail"}
+deactivate FET
+
+== 状态转换决策 ==
+FUNC -> FUNC: 根据eventType决定UI行为
+FUNC -> SMP: 返回suggestion\n{expectedType:"awaitaction_detail", data:{...}, suggestList:[]}
+deactivate FUNC
+
+== UI建议生成 ==
+SMP -> SMP: 生成presenterAdvice
+note right: 决定是否显示dropdown等
+SMP -> IEF: 返回presenterAdvice\n{fastEntryText:"", data:{...}, dropdownAction:""}
+deactivate SMP
+
+== UI同步更新 ==
+IEF -> PEF: fillPE(data) - 同步到属性输入框
+activate PEF
+note right: 使用QSignalBlocker防止循环信号
+PEF -> PEF: 更新各字段显示
+deactivate PEF
+
+== 可选：属性到快速同步 ==
+PEF -> IEF: propertyChanged信号 (如果用户直接修改属性)
+IEF -> TRANS: properToFast(data)
+activate TRANS
+TRANS -> IEF: 返回快速格式文本
+deactivate TRANS
+IEF -> FEF: fillData(fastText) - 同步到快速输入框
+
+== 最终提交 ==
+U -> FEF: 按回车键
+FEF -> IEF: userActionHappen\n{rawEventType: "returnPressed"}
+IEF -> IEF: 判断为FINAL_SUBMIT事件
+IEF -> SMP: processEvent_API({eventType: "finalSubmit"})
+SMP -> FUNC: 最终状态转换
+FUNC -> SMP: {expectedType: "complete"}
+SMP -> IEF: 完成信号
+IEF -> IEF: getData() - 获取最终数据
+IEF -> U: finalDataSubmitted信号 (ActionUnit对象)
+deactivate IEF
+deactivate FEF
+
+@enduml

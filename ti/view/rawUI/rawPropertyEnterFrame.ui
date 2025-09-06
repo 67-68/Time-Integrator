@@ -86,14 +86,14 @@
      </property>
      <layout class="QFormLayout" name="formLayout_2">
       <item row="0" column="0">
-       <widget class="QLabel" name="actionDetailLabel">
+       <widget class="QLabel" name="action_detailLabel">
         <property name="text">
-         <string>ActionDetail</string>
+         <string>action_detail</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="actionDetailEdit"/>
+       <widget class="QLineEdit" name="action_detailEdit"/>
       </item>
       <item row="1" column="1">
        <widget class="QCheckBox" name="urgenCheckBox">

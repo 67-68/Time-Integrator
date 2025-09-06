@@ -1,0 +1,18 @@
+@startuml
+title: UI层 - 内部组件结构
+
+package "Page Level UI" {
+    class "CapturePage" as CP
+}
+
+package "Input Mode UI" {
+    class "EditorFrame" as EF
+    class "BulkEnterFrame" as BEF
+    class "InputEnterFrame" as IEF
+}
+
+' CapturePage “拥有” 这几个输入模式的UI
+CP "1" *-- "1" EF
+CP "1" *-- "1" BEF
+CP "1" *-- "1" IEF
+@enduml

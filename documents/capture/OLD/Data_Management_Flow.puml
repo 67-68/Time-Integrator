@@ -1,0 +1,66 @@
+@startuml sequence
+title: 数据管理流程图 - 批量操作和验证流程
+
+participant "BulkEnterFrame" as BEF
+participant "Translator" as TRANS
+participant "InputValidation" as VALID
+participant "CapturePage" as CP
+participant "DataService" as DS
+
+== 批量文本输入处理 ==
+actor User as U
+
+activate BEF
+U -> BEF: 输入多行文本:\n"1400-1530w编程 - 完成功能A\n1530-1600r休息\n1600-1700w会议 - 项目讨论"
+
+BEF -> BEF: _on_button_clicked()
+BEF -> BEF: parseText() - 解析多行文本
+
+loop 对每一行文本
+    BEF -> TRANS: fastToProper(line)
+    activate TRANS
+    TRANS -> BEF: 返回 ActionUnit 数据
+    deactivate TRANS
+    
+    BEF -> VALID: validate_actionUnit(actionUnit)
+    activate VALID
+    alt 验证通过
+        VALID -> BEF: 返回 validated=True
+    else 验证失败
+        VALID -> BEF: 返回 validated=False, errors
+        BEF -> BEF: 收集错误信息
+    end
+    deactivate VALID
+end
+
+alt 所有数据验证通过
+    BEF -> CP: saveData_button_clicked信号(batchActionUnits)
+    
+    loop 对每个ActionUnit
+        CP -> DS: add_actionUnit(actionUnit)
+        DS -> DS: 保存到repository
+    end
+    
+    CP -> BEF: 显示成功消息
+else 存在验证错误
+    BEF -> BEF: 显示错误列表
+    BEF -> U: 提示用户修正错误
+end
+
+== 数据验证细节 ==
+group 时间验证
+    VALID -> VALID: isValidTimePeriod_API(start, end)
+    note right: 检查时间段是否合理\n(结束时间 > 开始时间)
+end
+
+group 字段完整性验证
+    VALID -> VALID: 检查必填字段
+    note right: action, start, end, action_type
+end
+
+group 业务规则验证
+    VALID -> VALID: 检查时间冲突
+    note right: 与同日期其他记录是否重叠
+end
+
+@enduml

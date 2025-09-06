@@ -14,5 +14,37 @@
         "willingness_notes": null,
         "execution_notes": null,
         "trigger_context": null
+    },
+    "ad13055c-0141-4d34-90e7-fffdbe9a7a21": {
+        "original_contract_id": "67cfe1f1-a4b0-4ee4-973f-00b2fa447c23",
+        "log_category_id": "post_eat_waste_log",
+        "original_contract_category_id": "post_eat_waste",
+        "user_id": "default_user",
+        "created_at": "2025-09-04T22:09:17.315928",
+        "resolved_at": "2025-09-05T08:48:05.647256",
+        "final_willingness_status": "unknown",
+        "log_id": "ad13055c-0141-4d34-90e7-fffdbe9a7a21",
+        "willingness_decision_at": null,
+        "execution_triggered_at": null,
+        "final_execution_status": "completed",
+        "willingness_notes": null,
+        "execution_notes": null,
+        "trigger_context": null
+    },
+    "a4332d69-7cf8-40be-b542-b10011e8e903": {
+        "original_contract_id": "fbccf1aa-0570-4cc2-a413-4569cc9a2892",
+        "log_category_id": "post_eat_waste_log",
+        "original_contract_category_id": "post_eat_waste",
+        "user_id": "default_user",
+        "created_at": "2025-09-05T21:07:33.950654",
+        "resolved_at": "2025-09-06T11:25:19.495071",
+        "final_willingness_status": "unknown",
+        "log_id": "a4332d69-7cf8-40be-b542-b10011e8e903",
+        "willingness_decision_at": null,
+        "execution_triggered_at": null,
+        "final_execution_status": "completed",
+        "willingness_notes": null,
+        "execution_notes": null,
+        "trigger_context": null
     }
 }

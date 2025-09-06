@@ -70,7 +70,7 @@ def getExtremeData(actionUnits):
             "end": "",
             "action": "",
             "action_type": "",
-            "actionDetail": "",
+            "action_detail": "",
             "timeSpan": 0,
             "date": "",
             "urgency": None,

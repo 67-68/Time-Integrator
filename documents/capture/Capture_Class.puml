@@ -1,0 +1,206 @@
+@startuml class
+title: 数据输入/捕获功能最新设计
+
+' ====== 颜色方案 ====== '
+
+' 使用 *-[#Gray]-来表示View之间的统属
+' 特指一个View管理另一个没有被Presenter管理的View, 表示前一个View是作为下层View的统合, 给Presenter使用
+' Presenter不直接接触下层View
+
+' 使用 *-[#Black,bold]- 来表示View和presenter之间的关系
+
+left to right direction
+
+skinparam handwritten true
+skinparam package {
+    borderColor Green
+    backgroundColor LightGreen
+    arrowColor Green
+}
+skinparam class {
+    borderColor Blue
+    backgroundColor LightBlue
+    arrowColor Blue
+}
+skinparam note {
+    borderColor Black
+    backgroundColor White
+}
+
+package "Interface" {
+    interface "ExtensionInterface" as interface {
+        {abstract} @property: name()
+        {abstract} initialize(eventbus)
+        {abstract} shutdown()
+    }
+    note top of interface: RES:作为插件统一的父类，定义了插件主类应该有的方法
+
+    interface "PageExtensionInterface" as page_interface {
+        {abstract} page_contributions(): 使用字典登记所有页面
+        {abstract} create_page(page_id): 插件自己通过id创建页面
+    }
+    note top of page_interface: RES:作为需要界面插件的父类
+}
+
+package "@dataclass" as dataclass {
+    class "PageContribution" as contribution {
+        page_id: str
+        navigation_name: str
+        parent_page: str
+        ' 使用官方给出的接口
+    }
+    note top of contribution: RES:规范插件创建页面的数据格式
+}
+
+package 基本框架内核{
+    package "Presenters" as presenters {
+        class "CapturePagePresenter" as page_presenter {
+            - on_regist_page
+            这个函数不直接被插件调用
+            而是自己检测到信号有东西之后调用
+        }
+        note top of page_presenter
+            RES: 管理capture page内被登记功能的展示
+            不直接管理功能！
+        end note
+    }
+
+    package "Views" as views {
+        class "CapturePage" as capture_ui
+        note top of capture_ui: RES: 承载所有输入相关功能的展示
+
+        class "NavigationPanel" as navigation
+        note top of navigation: RES: 负责展示和翻页contentArea的页面
+
+        class "ContentArea" as content
+        note top of content: RES: 负责承载不同子模块的页面,不直接管理
+
+    }
+
+    package "Core" as core {
+        class "DynamicExtensionLoader" as loader {
+            + regist_plugin()
+        }
+        note top of loader: RES:用来加载插件
+
+        class "MainCoordinator" as coordinator
+        note top of coordinator: RES:用来管理插件生命周期
+
+        class "EventBus" as bus {
+            + publish()
+            + subscribe()
+        }
+        note top of bus: RES 作为事件传递的中介
+    }
+
+    package "Services" as services {
+        class "DataService" as data_service
+    }
+}
+
+
+
+package "输入功能扩展" as extension {
+    class "CapturePlugin" as capture {
+        + @property: page_contributions()
+        + create_page(): 创建UI和Presenter
+        + @property: name()
+        + initialize(): 创建非UI内容
+        + shutdown()
+    }
+    note top of capture: RES:作为插件的主类
+
+    package Views {
+        class "CaptureWidget" as capture_widget
+        note right of capture_widget: RES: 作为基本的UI承载其他功能
+
+        class "Calendar" as calendar 
+        note right of calendar: RES: 作为日历，允许用户调整日期
+
+        class "RecordSelection" as records
+        note right of records: RES: 显示记录，允许用户调整记录
+
+        class "SmartInputFrame" as smartInputView
+        note right of smartInputView: RES: 允许用户输入快捷语法
+
+        class "PropertyEnterFrame" as propertyView
+        note right of propertyView: RES: 展示和允许用户修改记录
+
+        class "NavigationButton" as button
+        note right of button: RES: 盛放功能性按钮
+    }
+
+    package presenters {
+        class "CapturePresenter" as capture_presenter {
+            + create_classes: 创建所有的UI和类
+        }
+        note top of capture_presenter: RES: 管理捕获功能
+        
+        class "SmartInputPresenter" as smartInput {
+            _on_user_enter_smartInput()
+            ' 这个函数用来处理user在smartInput输入的情况
+        }
+        note top of smartInput: RES: 管理智能输入功能
+
+        class "CalendarPresenter" as calendar_presenter {
+            + initialize()
+            ' 这个函数会设置当前日期为今天，记录为第一个
+            ' 如果没有记录，会创建一个
+        }
+        note top of calendar_presenter: 管理日历和record显示
+
+    }
+
+    package Services {
+        class "Translator" as translator
+        note top of translator: RES: 翻译速记语法和正常字典
+    }
+}
+
+' ====== 继承关系 ====== '
+page_interface --|> interface: 作为插件接口的子类
+capture --|> page_interface: 作为插件，自己添加页面
+
+' ====== 数据模型使用 ====== '
+page_interface ..> contribution: 使用作为数据模型
+
+' ====== Presenter -> View ====== '
+' 使用*--来表示presenter全权管理view '
+' 但不负责创建它 '
+page_presenter *-[#Black,bold]- capture_ui: 管理对应View
+capture_presenter *-[#Black,bold]-capture_widget
+smartInput *-[#Black,bold]- propertyView
+calendar_presenter *-[#Black,bold]- calendar
+smartInput *-[#Black,bold]- smartInputView
+calendar_presenter *-[#Black,bold]- records
+smartInput *-[#Black,bold]- button
+
+
+' ====== View -> View ====== '
+capture_ui *-[#Gray]- navigation: 管理导航界面
+' 不单独开一个presenter管理navi, 内聚下降
+capture_ui *-[#Gray]- content: 管理实际显示界面
+
+
+
+' ====== 服务调用 ====== '
+coordinator -[#Red]-> loader: regist_plugin(capturePlugin)
+capture_presenter -[#Red]-> data_service: getData(date)
+smartInput -[#Red]-> translator: translate(data)
+
+' ====== 插件创建 ====== '
+coordinator *-[#Black,bold]- capture: 管理插件
+
+' ===== 事件发出和接受 ===== '
+loader .[#Orange].> bus: publish(PagePluginRegistered)
+page_presenter .[#Orange].> bus: subscribe(PagePluginRegistered)
+smartInput .[#Orange].>bus: publish(新的actionUnit被输入)
+capture_presenter .[#Orange].> bus: subscribe(新的actionUnit被输入)
+
+' ====== Presenter相互统属 ====== '
+coordinator *-[#Black,bold]- page_presenter: 管理presenter
+capture *-[#Black,bold]- capture_presenter
+capture_presenter *-[#Black,bold]- calendar_presenter
+capture_presenter *-[#Black,bold]- smartInput
+
+@enduml

@@ -1,0 +1,83 @@
+@startuml
+title: CapturePresenter初始化
+
+participant "CapturePresenter" as presenter
+participant "CalendarPresener" as calendar_presenter
+participant "DataService" as data_service
+participant "Calendar" as calendar
+participant "RecordList" as record
+participant "SmartInputPresenter" as SIP
+participant "SmartInputFrame" as SIF
+participant "PropertyFrame" as PF
+
+== 初始化calendar&recordList ==
+activate presenter
+presenter -> presenter: create_classes()
+
+presenter -> data_service: getData(date)
+activate data_service
+
+data_service --> presenter: data
+deactivate data_service
+
+presenter -> calendar_presenter: initialize()
+activate calendar_presenter
+
+calendar_presenter -> calendar: initialize()
+calendar_presenter -> record: initialize()
+
+calendar_presenter --> presenter: return
+deactivate calendar_presenter
+
+== 初始化输入框 ==
+
+presenter -> SIP: initialize()
+activate SIP
+
+opt (there is no record in today's data)
+    SIP -> data_service: new_action_unit()
+else (there is actionUnit in the record)
+    note over SIP: 填充第一个数据
+end
+SIP -> SIF: fillData()
+SIP -> PF: fillData()
+
+SIP --> presenter: return
+deactivate SIP
+
+== 用户开始使用 ==
+participant "Translator" as translator
+SIF --> SIP: user_data
+PF --> SIP: user_data
+
+activate SIP
+opt (user input in SmartInputFrame)
+    SIP -> translator: translate(速记语法)
+    activate translator
+
+    translator --> SIP: data
+    deactivate translator
+    SIP -> PF: fillData
+
+else (user input in propertyFrame)
+    SIP -> translator: translate(properties)
+    activate translator
+
+    translator --> SIP: 速记语法
+    deactivate translator
+    SIP -> SIF: fillData
+end
+
+deactivate SIP
+
+
+== 保存数据 ==
+participant "EventBus" as bus
+
+SIP --> SIP: 保存数据按钮被点击
+SIP -> bus: publish()
+
+bus --> presenter: 事件触发
+presenter -> data_service: save_data()
+
+@enduml

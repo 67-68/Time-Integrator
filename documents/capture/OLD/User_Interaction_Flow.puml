@@ -1,0 +1,96 @@
+@startuml sequence
+title: 用户交互流程图 - 完整数据操作流程
+' 展示用户从选择日期到保存数据的完整流程
+
+actor User as U
+participant "CapturePage" as CP
+participant "DateSelectionFrame" as DSF
+participant "InputEnterFrame" as IEF
+participant "EditorFrame" as EF
+participant "MainCoordinator" as COORD
+participant "DataService" as DS
+participant "TimeIntegrator" as APP
+
+== 1. 日期选择和数据加载 ==
+U -> DSF: 选择日期 "2025-09-05"
+activate DSF
+DSF -> DSF: _on_calendar_selected()
+DSF -> CP: dateSelected信号("2025-09-05")
+activate CP
+CP -> COORD: 请求该日期的数据
+activate COORD
+COORD -> DS: get_date_data("2025-09-05")
+activate DS
+DS -> DS: repository.get_by_date("2025-09-05")
+DS -> COORD: 返回 List[ActionUnit]
+deactivate DS
+COORD -> CP: 返回数据
+CP -> DSF: fillData(actionUnits)
+DSF -> DSF: 更新列表显示
+CP -> EF: fillData(actionUnits[0]) 
+note right: 显示第一条记录
+deactivate COORD
+deactivate CP
+
+== 2. 选择现有记录编辑 ==
+U -> DSF: 点击列表中的ActionUnit
+DSF -> DSF: _on_list_item_clicked()
+DSF -> CP: list_item_selected信号(ActionUnit)
+CP -> CP: 设置currentAU = selectedAU
+CP -> EF: fillData(selectedAU)
+CP -> IEF: fillData(selectedAU)
+note right: 同时更新编辑器和输入框
+deactivate DSF
+
+== 3. 数据修改 (通过智能输入) ==
+ref over U, IEF
+    详细输入流程参见:
+    Documents/capture/Input_System_Sequence.puml
+end ref
+
+IEF -> CP: finalDataSubmitted信号(modifiedActionUnit)
+activate CP
+CP -> CP: currentAU = modifiedActionUnit
+
+== 4. 保存数据到系统 ==
+U -> CP: 点击保存按钮 (或自动保存)
+CP -> CP: _on_save_button_clicked()
+CP -> APP: saveData_button_clicked信号(currentAU)
+activate APP
+APP -> COORD: _on_capture_save(currentAU)
+COORD -> DS: add_actionUnit(currentAU)
+activate DS
+DS -> DS: repository.add_action_unit(date, currentAU)
+DS -> DS: 自动保存到JSON文件
+DS -> COORD: actionUnit_added信号(currentAU)
+DS -> APP: 通知数据已保存
+deactivate DS
+APP -> APP: 更新应用状态
+deactivate APP
+
+== 5. UI状态更新 ==
+COORD -> CP: 通知保存成功
+CP -> DSF: 刷新显示数据
+CP -> EF: 显示成功状态
+deactivate CP
+
+== 6. 创建新记录流程 ==
+U -> EF: 点击"新建"按钮
+EF -> CP: new_button_selected信号
+CP -> CP: currentAU = createNewActionUnit()
+CP -> EF: fillData(newActionUnit)
+CP -> IEF: fillData(newActionUnit)
+note right: 清空表单，准备新输入
+
+== 7. 删除记录流程 ==
+U -> EF: 点击"删除"按钮
+EF -> CP: delete_button_clicked信号(currentAU)
+CP -> APP: 请求删除确认
+APP -> COORD: _on_capture_delete(currentAU)
+COORD -> DS: delete_actionUnit(currentAU.id)
+DS -> DS: repository.delete(currentAU.id)
+COORD -> CP: 通知删除完成
+CP -> DSF: 刷新列表，移除已删除项
+CP -> EF: 清空编辑器或显示下一条记录
+
+@enduml

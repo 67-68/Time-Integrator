@@ -1,0 +1,49 @@
+@startuml sequence
+title: Capture功能系统流程导航图 (Master Flow)
+
+participant "App: TimeIntegrator" as app
+participant "MainCoordinator" as coordinator
+participant "CapturePage" as cp
+participant "DataService" as ds
+
+activate app
+
+' 创建Coordinator
+app -> coordinator: __init__(services, ui)
+activate coordinator
+
+group 系统初始化阶段
+    ref over coordinator, cp
+        详细流程参见:
+        Documents/capture/Capture_System_Init.puml
+    end ref
+    coordinator <-- cp: (完成UI初始化)
+end group
+
+group 数据输入阶段
+    ref over cp, ds
+        详细流程参见:
+        Documents/capture/Input_System_Architecture.puml
+        Documents/capture/Input_System_Sequence.puml
+    end ref
+    cp <-- ds: (完成数据输入)
+end group
+
+group 数据管理阶段
+    ref over cp, coordinator
+        详细流程参见:
+        Documents/capture/Data_Management_Flow.puml
+    end ref
+    cp <-- coordinator: (完成数据操作)
+end group
+
+coordinator --> app: 完成Capture功能初始化
+
+group 用户数据操作阶段
+    ref over app, coordinator
+        详细流程参见:
+        Documents/capture/User_Interaction_Flow.puml
+    end ref
+end group
+
+@enduml

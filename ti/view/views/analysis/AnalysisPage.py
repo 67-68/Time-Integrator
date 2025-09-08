@@ -1,3 +1,4 @@
+import uuid
 from PyQt6.QtWidgets import QVBoxLayout
 from PyQt6.QtCore import pyqtSignal
 
@@ -53,8 +54,15 @@ class AnalysisPage(BasicFrame):
             
             bus.publish("insight_card_ui_created",(card,cache))
             
+            card_data["card_type_id"] = card_data["sementic_key"]
+            card_data["card_uuid"] = uuid.uuid4()
+            
             currentCards[idx] = card
-            cardPresenter = InsightCardPresenter(currentCards[idx])
+            cardPresenter = InsightCardPresenter(
+                currentCards[idx],
+                card_data
+            )
+            
             self.currentLogicCards[idx] = cardPresenter
             
             self.cards.append(currentCards[idx])     # 保存引用，防止被垃圾回收

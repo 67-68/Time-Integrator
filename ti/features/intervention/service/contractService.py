@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from ti.features.intervention.model.contractRecipeRepository import INV_CON_Recipe_Repository
 from ti.features.intervention.model.contractRepository import INV_ContractRepository
-from ti.features.intervention.model.model import INV_Contract, INV_Contract_Recipe, INV_Contract_State, INV_Contract_Duration
+from ti.features.intervention.model.model import INV_Contract, INV_Contract_Recipe, INV_Contract_State, Duration
 from ti.features.intervention.service.logger import InterventionLogger
 from ti.features.intervention.service.register import INV_ContractRegister
 
@@ -65,17 +65,17 @@ class INV_ContractService:
         created_time = contract.create_time
         duration_type = contract.duration
         
-        if duration_type == INV_Contract_Duration.TODAY.value:
+        if duration_type == Duration.TODAY.value:
             # 如果是今天，检查是否已过午夜
             next_day = created_time.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
             return now >= next_day
             
-        elif duration_type == INV_Contract_Duration.TO_TOMORROW.value:
+        elif duration_type == Duration.TO_TOMORROW.value:
             # 到明天，即创建后24小时
             expire_time = created_time + timedelta(days=1)
             return now >= expire_time
             
-        elif duration_type == INV_Contract_Duration.THIS_WEEK.value:
+        elif duration_type == Duration.THIS_WEEK.value:
             # 到本周末（周日午夜）
             days_until_sunday = (6 - created_time.weekday()) % 7
             if days_until_sunday == 0:
@@ -106,6 +106,7 @@ class INV_ContractService:
         在修改完之后调用
         进行各种必要的检查
         会返回符合条件的contract
+        以及不符合条件的, 被化成ghost的contract
         不负责保存！
         """
         # 首先加载出来
@@ -128,6 +129,7 @@ class INV_ContractService:
         会返回contract
         如果符合条件
         代处理不符合条件的contract
+        返回它们的ghost形态
         不负责保存！
         在修改完成之后需要手动更新
 
@@ -137,11 +139,26 @@ class INV_ContractService:
         Returns:
             bool: _description_
         """
+        # 幽灵检查
+        if self.is_pastDue_ghost(contract):
+            print("delete a over due ghost contract")
+            self.contract_rep.delete(contract)
+            return
+        
+        # 过期检查
         pastDue = self.contract_duration_check(contract) 
         if pastDue:
             self._log_contract(contract)
             self.contract_rep.delete(contract)
-            return 
+            return self.create_ghost_contract(contract)
+        
+        # 检查是否完成了
+        if contract.current_state == INV_Contract_State.COMPLETE.value:
+            contract.solved = True
+            contract.solve_time = datetime.now()
+            self._log_contract(contract)
+            ghost_contract = self.create_ghost_contract(contract)
+            self.contract_rep.add_contract(ghost_contract)
         
         # 检查是否有效 
         # active同时Timespan符合要求 
@@ -152,6 +169,14 @@ class INV_ContractService:
             
         # 最后保存回去
         self.contract_rep.add_contract(contract)
+    
+    def create_ghost_contract(
+        self,
+        contract: INV_Contract
+    ) -> INV_Contract:
+        contract.current_state = INV_Contract_State.GHOST.value
+        print(f"create a ghost contract: {contract.contract_category_id}")
+        return contract
     
     def create_contract(
         self,
@@ -177,4 +202,21 @@ class INV_ContractService:
     def add_contract_to_monitor(self,contract: INV_Contract):
         detector_recipe_key = contract.detector_recipe_id
         self.register.add_monitor_project(contract,detector_recipe_key)
-        
+    
+    def is_pastDue_ghost(
+        self,
+        contract: INV_Contract
+    ) -> bool:
+        """
+        检查一个幽灵形态的contract是否过期
+        如果过期那么删除
+
+        Args:
+            contract (_type_): _description_
+        """
+        if contract.current_state != INV_Contract_State.GHOST.value:
+            print(f"contract pass ghost check")
+            return False #通过检查
+
+        if self.contract_duration_check(contract):
+            return True

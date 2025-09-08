@@ -26,15 +26,19 @@ class Fixed_ReportGenerator():
             analyzer = card["analyzer"]
             presenter = card["presenter"]
             card_id = card["id"]
+            duration = card["duration"]
             
             card = analyzer(self.data,config)
-            card = presenter(card)
+            present_card = presenter(card)
             
-            sementic_key = card["sementic_key"]
+            present_card["duration"] = duration
+            present_card["card_type_id"] = card_id
+            
+            sementic_key = present_card["sementic_key"]
 
             # 先把sementic key存进去，不存卡片id. 以后要改
-            cache.store(sementic_key,card)
+            cache.store(sementic_key,present_card)
             
-            cardData.append(card)
+            cardData.append(present_card)
         
         return cardData

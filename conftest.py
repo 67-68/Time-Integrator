@@ -11,7 +11,7 @@ from ti.core.mainCoordinator import MainCoorinator
 from ti.core.analysis import presenters
 from ti.features.detector.baseDetector import BaseDetector
 from ti.services.serviceContainer import ServiceContainer
-from ti.features.intervention.model.model import INV_Contract, INV_Contract_Duration, INV_Contract_State
+from ti.features.intervention.model.model import INV_Contract, Duration, INV_Contract_State
 from ti.features.intervention.service.contractService import INV_ContractService
 from ti.features.intervention.service.logger import InterventionLogger
 
@@ -94,7 +94,7 @@ def sample_contract():
     """提供一个用于测试的 Contract 实例"""
     return INV_Contract(
         contract_category_id="post_eat_waste",
-        duration=INV_Contract_Duration.TODAY.value,
+        duration=Duration.TODAY.value,
         current_state=INV_Contract_State.AGREED.value,
         view_recipe_id="post_eat_waste",
         detector_recipe_id="post_eat_waste",
@@ -107,7 +107,7 @@ def expired_contract():
     yesterday = datetime.now() - timedelta(days=1, hours=2)  # 昨天创建
     return INV_Contract(
         contract_category_id="post_eat_waste", 
-        duration=INV_Contract_Duration.TODAY.value,
+        duration=Duration.TODAY.value,
         current_state=INV_Contract_State.AGREED.value,
         view_recipe_id="post_eat_waste",
         detector_recipe_id="post_eat_waste",

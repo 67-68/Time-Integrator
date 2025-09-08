@@ -1,0 +1,2 @@
+class CAP_SelectionPresenter:
+    

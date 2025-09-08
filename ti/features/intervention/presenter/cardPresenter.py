@@ -13,7 +13,8 @@ class InterventionPresenter(QObject):
         recipe: INV_View_Recipe,
         bus: EventBus,
         stateService: INV_StateService,
-        formatter: INV_Formatter
+        formatter: INV_Formatter,
+        view_uuid: str
     ):
         """
         管理Intervention的类
@@ -23,6 +24,7 @@ class InterventionPresenter(QObject):
         super().__init__() # 调用父类的构造函数
         self.ui = ui
         self.view_id = ui.id
+        self.view_uuid = view_uuid
         self.recipe = recipe
         self.bus = bus
         self.stateService = stateService
@@ -93,6 +95,10 @@ class InterventionPresenter(QObject):
                 next_state_key
             )
             
+            if not presentation:
+                print(f"this state ({next_state_key}) have no presentation")
+                return
+            
             self.ui.apply_presentation(presentation)
             
             # 判断是否extraUi也要切换; 我觉得这是一个不好的设计，但大概可以用;
@@ -115,6 +121,59 @@ class InterventionPresenter(QObject):
         self.dialog_ui = None
         # 或许要把信号连接也斩断？
         # 特殊事件来自毁？
+    
+    def process_event(self,event):
+        """
+        手动输入一个event
+
+        Args:
+            event (_type_): _description_
+        """
+        self._on_process_user_action(event)
+        
+    def switch_to_state(self, target_state_key: str):
+        """
+        强制跳转状态机到一个指定状态
+        跳过正常的事件处理流程，直接切换到目标状态
+        
+        Args:
+            target_state_key (str): 要跳转到的目标状态key（配方中定义的普通状态）
+        """
+        # 1. 验证目标状态是否存在
+        target_state = self.recipe.state.get(target_state_key)
+        if not target_state:
+            print(f"错误：在配方中找不到目标状态 '{target_state_key}'")
+            return False
+        
+        print(f"强制状态跳转: 从 '{self.current_state_key}' 到 '{target_state_key}'")
+        
+        # 2. 获取目标状态的presentation
+        presentation = self.format.format(
+            self.view_id,
+            target_state_key
+        )
+        
+        if not presentation:
+            print(f"错误：状态 '{target_state_key}' 没有对应的presentation")
+            return False
+        
+        # 3. 更新UI显示
+        self.ui.apply_presentation(presentation)
+        
+        # 4. 如果存在对话框UI，也更新对话框
+        if self.dialog_ui:
+            self.dialog_ui.apply_presentation(presentation)
+        
+        # 5. 不要发布状态创建事件
+        # TODO: 经过查找，我发现广播状态诞生和特殊状态special state的逻辑耦合在了一起 
+        # 我之后需要把它们的逻辑(发布事件)分开
+        
+        # 6. 更新当前状态
+        previous_state = self.current_state_key
+        self.current_state_key = target_state_key
+        
+        print(f"状态跳转完成: {previous_state} -> {target_state_key}")
+        return True
     
 @dataclass
 class INV_State_Publish:

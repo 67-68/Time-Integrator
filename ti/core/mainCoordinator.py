@@ -26,6 +26,7 @@ class MainCoorinator():
         
         # 监测事件
         self.bus.subscribe("dialog_needed",self.show_dialog)
+        self.bus.subscribe("end_dialog",self.end_dialog)
         
     def create_state(self):
         self.controller = {}
@@ -59,7 +60,8 @@ class MainCoorinator():
         self.loader.discover_and_register_plugins(plugins)
         
     def show_dialog(self,ui):
-        dialog = BasicDialog(ui,parent=self.ui["MW"])
-        result = dialog.exec()
+        self.dialog = BasicDialog(ui,parent=self.ui["MW"])
+        self.dialog.show()
         
-        
+    def end_dialog(self,view_id):
+        self.dialog.close()

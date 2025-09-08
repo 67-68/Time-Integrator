@@ -24,7 +24,7 @@ class InterventionNarrator:
         Returns:
             _type_: _description_
         """
-        data = NARRATIONS[intervention_id][sementic_id]
+        data = NARRATIONS[intervention_id].get(sementic_id,None)
         
         return data
     
@@ -44,6 +44,15 @@ NARRATIONS = {
                 "title":[""],
                 "button":{
                     INVEvent.USER_ACCEPTED.value:"接受挑战",
+                }
+            }
+        },
+        "intervene_user":{
+            "presentation":{
+                "title":["在吃饭后不要浪费时间的请求"],
+                "button":{
+                    INVEvent.USER_ACCEPTED.value:"接受挑战",
+                    INVEvent.USER_REJECTED.value:"放弃"
                 }
             }
         }

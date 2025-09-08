@@ -38,6 +38,9 @@ class INV_Formatter:
         # 1. 首先通过Narrator获取对应ID和状态的所有文本数据
         narration_data = self.IN.get_text_by_id(intervention_id, state_key)
         
+        if not narration_data:
+            return None
+        
         # 2. 从数据中获取 "presentation" 部分
         presentation_data = narration_data["presentation"]
 

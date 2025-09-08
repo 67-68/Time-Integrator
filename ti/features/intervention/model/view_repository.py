@@ -1,4 +1,5 @@
 import copy
+from dataclasses import dataclass
 from ti.features.intervention.service.formatter import INV_Formatter
 from ti.features.intervention.model.model import INV_Special_States, INV_View_ID, INV_State_Btn, INV_State_Presentation, INVEvent, INV_View_Recipe, INVState
 
@@ -45,31 +46,34 @@ class INV_Card_Repository:
         
         for state_key in recipe_states:
             state = recipe_states[state_key]
-            transitions = state["transition"]
-            presentation = state["presentation"]
+            transitions = state.get("transition",None)
+            presentation = state.get("presentation",None)
             special_event = state.get("special_event",None)
             
             # 第三层: Presentation
-            button_dataClasses = {}
-            
-            button_recipes = presentation["button"]
-            title = presentation["title"]
-            
-            # 第四层: Button
-            for button_id in button_recipes:
-                text_key = button_recipes[button_id] #全部使用text_key
-                returnEvent = button_id
-                button_dataClasses[button_id] = INV_State_Btn(
-                    returnEvent, 
-                    text_key
+            if presentation:
+                button_dataClasses = {}
+                
+                button_recipes = presentation.get("button",None)
+                title = presentation.get("title")
+                
+                # 第四层: Button
+                for button_id in button_recipes:
+                    text_key = button_recipes[button_id] #全部使用text_key
+                    returnEvent = button_id
+                    button_dataClasses[button_id] = INV_State_Btn(
+                        returnEvent, 
+                        text_key
+                    )
+                # 第四层结束
+                
+                pre_dataClass = INV_State_Presentation(
+                    button_dataClasses,
+                    title
                 )
-            # 第四层结束
-            
-            pre_dataClass = INV_State_Presentation(
-                button_dataClasses,
-                title
-            )
-            # 第三层结束
+                # 第三层结束
+            else:
+                pre_dataClass = None
             
             states_dataClass[state_key] = INVState(
                 state_key,
@@ -91,6 +95,15 @@ class INV_Card_Repository:
         return recipe_dataClass
 
 # --- 以下为您提供的上下文代码，保持不变 ---
+@dataclass
+class INV_Universal_State:
+    name: str
+    value: dict
+    
+end_intervention = INV_Universal_State(
+    "end_intervention",
+    {"special_event": [INV_Special_States.END_INTERVENTION.value]} # 那么，应该首先检测这个。因此transition和presentation就不用写了
+)
 
 recipes = {
     INV_View_ID.POST_EAT_WASTE.value: {
@@ -120,11 +133,29 @@ recipes = {
                     INVEvent.INTERVENTION_CREATED.value: "intervene_user" #到时候，这个事件会由presenter自己激发                        
                 },
                 "presentation":{
-                    "title": "接收挑战！",
+                    "title": "ask_challenge",
                     "button":{}
                 },
                 "special_event": [INV_Special_States.ACCEPTED_CONTRACT.value]
-            }
+            },
+            "intervene_user":{
+                "transition":{
+                    INVEvent.USER_ACCEPTED.value: "end_intervention",
+                    INVEvent.USER_REJECTED.value: "end_intervention" # 定义特殊状态? 或者复用Universal状态？
+                },
+                "presentation":{
+                    "title":"你是不是要干坏事了?",
+                    "button":{
+                        INVEvent.USER_ACCEPTED.value: {
+                            "text_key": "accept_challenge"
+                        },
+                        INVEvent.USER_REJECTED.value: {
+                             "text_key": "reject_challenge"
+                        }
+                    }
+                }
+            },
+            end_intervention.name: end_intervention.value
         },
         "initial_state":"init",
         "detector":None #应该是在后面获取了卡片的Detector

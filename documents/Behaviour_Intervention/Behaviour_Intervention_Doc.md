@@ -146,7 +146,17 @@
 参考Documents/Behaviour_Intervention/Intervention_Overall 8.28.puml
 
 
+## 9.8 重构
 
+你觉得能否进一步，不仅仅允许contract作为一个辅政大臣的角色建言献策，而是给他一个更大的权力，允许它直接决策哪张卡片应该被生成？但是，这个决策卡片生成的方式，不是直接让它控制卡片生成，而是给卡片生成写一个接口，允许插件自己使用类替换？在这种方式的基础上还可以写一个类来选择使用哪个类，在每次生成卡片的时候，来决策和筛选。但是这样的方式会导致插件之间无法兼容，因此一个弥补的办法是两者共存，给一个可以替换的决策类，在决策类内部还可以建言献策，决定什么卡片配方被生成。无论如何，这些东西都太远了，目前用不到。话说一开始让contract接管卡片生成的动机是什么？我都忘了
+
+
+如果说我现在想选择一种工作量最少的路径，以便我可以快速完成以便我可以尽快交付这个模块，你会选择哪条路？不管控制流，处理卡片和contract两个实体的交互，还是从结构上出发，给现有的卡片生成系统加一个选择性生成的阶段（但是问题在于说实话只是有选择性生成这么一条思路，想要达到我的目的，让卡片不再重置状态（也就是说，view和contract的状态不同，contract状态正确，被良好存储，但view每次都重新生成，导致contract状态被重置），还是要费点力气的。或者我有第三个想法，或许是第一个想法的延伸，intervention_view的生命周期部分的由intervention_contract决定，它的归档由contract激活，同时contract自己变成幽灵状态，在它归档后仍然有着幽灵状态的设定，在幽灵状态的contract也被清除之后它就被清除，按理来说会随着contract一起生成。相当于即使不是contract来生成它，它的生命周期也大部分的依赖于contract。同时在卡片展示界面，insight_card有自己的保存方法和幽灵状态，在insight_card保存的时候顺便激活intervention_card的保存方法，同时，intervention_card保持insight_card的uuid, 在初始化加载之后直接去寻找insight_card把自己加上去，insight_card仅仅管自己的加载（它的数据保存在insight card presenter) 不管intervention card。
+
+也就是说，我需要做的东西仅仅有
+
+insight_card, intervention_card数据存储（可以使用ai）
+初始化它们
 
 
 

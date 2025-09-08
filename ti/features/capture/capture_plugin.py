@@ -1,4 +1,7 @@
 from ti.core.Interfaces.page_extension_interface import PageExtensionInterface
+from ti.features.capture.presenter.selection_presenter import CAP_SelectionPresenter
+from ti.features.capture.presenter.smart_input_presenter import CAP_InputPresenter
+from ti.features.capture.view.capture import CaptureView
 from ti.model.page_contributions import PageContribution
 from ti.services.dataAccess.dataService import DataService
 from ti.features.capture.presenter.capture_presenter import CapturePresenter
@@ -57,14 +60,17 @@ class CapturePlugin(PageExtensionInterface):
     def create_page(self, page_id):
         """创建指定页面"""
         if page_id == "capture_plugin_page":
-            if not self.presenter:
-                # 创建presenter，它会自动创建widget
-                self.presenter = CapturePresenter(
-                    data_service=self.data_service,
-                    event_bus=self.event_bus
-                )
-            
-            # 返回widget供页面管理器使用
-            return self.presenter.getWidget()
+            return self.create_capture_view()
         
         return None
+    
+    def create_capture_view(self) -> CaptureView:
+        # 创建presenter，它会自动创建widget
+        selection = CAP_SelectionPresenter()
+        input = CAP_InputPresenter()
+        presenter = CapturePresenter(
+            self.data_service,
+            self.event_bus,
+            selection,
+            input
+        )

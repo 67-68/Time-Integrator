@@ -1,3 +1,4 @@
+import uuid
 from ti.view.views.analysis.trendCard import InsightCard
 from ti.core.eventBus import EventBus
 from ti.features.intervention.model.view_repository import INV_Card_Repository
@@ -19,7 +20,7 @@ class INV_Card_Orchestrator:
         """
         它负责管理所有干涉卡片的生命周期
         """
-        self.presenters = {}
+        self.presenters: dict[InterventionPresenter] = {}
         self.factory = factory
         self.formatter = formatter
         self.repos = repos
@@ -43,6 +44,9 @@ class INV_Card_Orchestrator:
         # 2. 创建卡片
         intervetion_card = self.factory.create_card(recipe)
         
+        # 创建uuid
+        view_uuid = uuid.uuid4()
+        
         # 3. 创建presenter
         stateService = self.container.getService("stateService")
         bus = self.container.getService("bus")
@@ -52,7 +56,8 @@ class INV_Card_Orchestrator:
             recipe,
             bus,
             stateService,
-            formatter
+            formatter,
+            view_uuid
         )
         
         # 4. 添加卡片
@@ -70,6 +75,19 @@ class INV_Card_Orchestrator:
         presenter: InterventionPresenter = self.presenters[view_id]
         presenter.end_control_dialog()
     
+    def activate_presenter_state(
+        self,
+        view_id,
+        event
+    ):
+        """
+        手动给presenter传送一个事件
+
+        Args:
+            event (_type_): _description_
+        """
+        view:InterventionPresenter = self.presenters[view_id]
+        view.process_event(event)
         
         
         

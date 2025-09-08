@@ -36,8 +36,7 @@ class INV_Contract_Orchestrator(QObject):
         
     def connect_signal(self):
         """
-        这个函数用来监视monitor
-        和presenter状态转换
+        这个函数用来监视presenter状态转换
 
         Args:
             contract_id (_type_): _description_
@@ -71,11 +70,23 @@ class INV_Contract_Orchestrator(QObject):
         contract = self.contract_rep.get_by_view_id(view_id)
         
         # 处理special states
+        if not special_states:
+            return
         for state in special_states:
             # 之后用对应表，现在直接if
             if state == INV_Special_States.ACCEPTED_CONTRACT.value:
-                self._on_contracted_activated(contract)
+                # 表明用户有意愿参与，修改contract状态
+                self._on_contracted_activated(contract) # 也就是说，我在这里使用了一个lifeCycle来自动添加，但是并没有函数来连接信号
+                contract_id = contract.contract_category_id
+                self.bus.subscribe(f"{contract_id}_pattern_detected",self._on_pattern_detected)
+                print(f"subscribe {contract_id}_pattern_detected ")
+            if state == INV_Special_States.END_INTERVENTION.value:
+                self.bus.publish("end_dialog",view_id)
+                # 归档
+                contract.current_state = INV_Contract_State.COMPLETE.value
+                self.service.runLifeCycle(contract)
     
+    # 也就是说，过去的历史数据被添加了?但是当前的没有被添加——添加函数压根没被调用
     
     def _on_contracted_activated(self,contract: INV_Contract):
         contract.current_state = INV_Contract_State.AGREED.value
@@ -87,6 +98,8 @@ class INV_Contract_Orchestrator(QObject):
         
         # 它来负责监视这个monitor的产出，eventbus 对应的id
         self.bus.subscribe(f"{contract_id}_pattern_detected",self._on_pattern_detected)
+        print(f"subscribe {contract_id}_pattern_detected ")
+        
 
     def create_contract(
         self,

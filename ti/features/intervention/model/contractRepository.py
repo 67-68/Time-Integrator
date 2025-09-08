@@ -61,10 +61,13 @@ class INV_ContractRepository(JsonRepositoryInterface):
         Args:
             contract (INV_Contract): _description_
         """
+        if contract.contract_uuid in self.contracts:
+            print(f"覆盖contract{contract.contract_category_id}")
+    
         self.contracts[contract.contract_uuid] = contract
         print(f"添加完成contract{contract.contract_uuid}")
         self.save(self.contracts)
-        
+            
     def get_by_id(self, contract_id: str) -> INV_Contract | None:
         # 深拷贝一份返回，防止外部代码意外修改了缓存中的“真理”
         import copy

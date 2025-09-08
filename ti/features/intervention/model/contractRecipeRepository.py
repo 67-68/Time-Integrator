@@ -1,6 +1,6 @@
 
 
-from ti.features.intervention.model.model import INV_Contract_Duration, INV_Contract_Recipe, INV_View_ID
+from ti.features.intervention.model.model import Duration, INV_Contract_Recipe, INV_View_ID
 
 
 class INV_CON_Recipe_Repository:
@@ -40,7 +40,7 @@ class INV_CON_Recipe_Repository:
     
 INTERVENTION_CONTRACT_RECIPE = {
     "post_eat_waste": {
-        "duration": INV_Contract_Duration.TODAY.value,
+        "duration": Duration.TODAY.value,
         "view_recipe_id": INV_View_ID.POST_EAT_WASTE.value
     }
 }

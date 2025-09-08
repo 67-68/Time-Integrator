@@ -1,6 +1,7 @@
 
 from ti.features.detector.baseDetector import BaseDetector
 from ti.model import userMatchers
+from ti.model.duration import Duration
 from ti.services.analysis import analyzer, presenters
 
 
@@ -50,7 +51,8 @@ class Card_recipe:
                 "analyzer_config": {
                     "matcher": userMatchers.YESTERDAY_WORK_MATCHER     #matcher我放在了userMatchers文件而不是这里
                 },
-                "presenter": presenters.present_peak_timeSpan
+                "presenter": presenters.present_peak_timeSpan,
+                "duration": Duration.TODAY.value
             },
             {
                 "id":"daily_ratio_distribution",
@@ -58,7 +60,8 @@ class Card_recipe:
                 "analyzer_config": {
                     "matcher": userMatchers.ANY_MATCHER
                 },
-                "presenter": presenters.present_ratio_distribution
+                "presenter": presenters.present_ratio_distribution,
+                "duration": Duration.TODAY.value
             }
         ]
 
@@ -78,6 +81,7 @@ class Card_recipe:
             {
                 "detector": "post_eat_waste", #detector id
                 "presenter":presenters.present_sequence_data,
+                "duration": Duration.TODAY.value
             }
         ]
     

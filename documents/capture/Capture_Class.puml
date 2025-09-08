@@ -9,6 +9,19 @@ title: 数据输入/捕获功能最新设计
 
 ' 使用 *-[#Black,bold]- 来表示View和presenter之间的关系
 
+' ====== 命名准则 ====== '
+
+' 以后的View文件名字为这个view的功能，不需要加view后缀
+' View类名为这个类具体的组件名称
+' 例如: 用来选择的list被称为 **list
+' 但如果是Qwidget/QFrame就直接称为 **View
+' 同时，类名前面使用CAP_ 表示这是Capture功能的类
+
+' ====== 设计理念 ====== '
+
+' 初始化方法的传递和数据填充方法的传递分开
+' 初始化可以使用数据填充，但是传递的时候，语义一定分开
+
 left to right direction
 
 skinparam handwritten true
@@ -111,49 +124,128 @@ package "输入功能扩展" as extension {
     note top of capture: RES:作为插件的主类
 
     package Views {
-        class "CaptureWidget" as capture_widget
-        note right of capture_widget: RES: 作为基本的UI承载其他功能
+        class "CaptureView" as capture_view
+        note top of capture_view: RES: 作为基本的UI承载其他功能
 
-        class "Calendar" as calendar 
+        class "Calendar" as calendar {
+            + initialize()
+            ' 初始化当前的日期为今天
+            - _on_date_selected()
+            ' 负责把用户的点击内容，一个日期以信号的形式传到presenter
+        }
         note right of calendar: RES: 作为日历，允许用户调整日期
 
-        class "RecordSelection" as records
+        class "RecordList" as records {
+            + fillData()
+            ' 使用actionUnit填充这个list，自动使用初始化方法
+            + initialize()
+            ' 填充list的同时执行初始化操作：把list的被选中项设定为第一个
+            ' 使用fillData方法
+        }
         note right of records: RES: 显示记录，允许用户调整记录
 
-        class "SmartInputFrame" as smartInputView
-        note right of smartInputView: RES: 允许用户输入快捷语法
+        class "SmartInputView" as SmartInputView {
+            + fillData(actionUnit)
+            ' 填充速记语法的数据
+        }
+        note right of SmartInputView: RES: 允许用户输入快捷语法
 
-        class "PropertyEnterFrame" as propertyView
+        class "PropertyView" as propertyView {
+            + fillData(actionUnit)
+            ' 填充数据
+        }
         note right of propertyView: RES: 展示和允许用户修改记录
 
         class "NavigationButton" as button
         note right of button: RES: 盛放功能性按钮
+
+        class "SelectionView" as selection_view {
+            + fillData()
+            ' 负责传递上层传来的数据给list, 调用list的fillData方法
+            + initialize()
+            ' 负责传递数据的同时调用初始化方法，调用list的initialize方法
+        }
+        note top of selection_view: RES: 承接calendar和list
+
+        class "InputView" as input_view {
+            + fillData(actionUnit)
+            ' 会调用propertyView和smartInputView的fillData方法
+            ' 分别传递actionUnit和速记语法数据
+            + _on_user_action()
+            ' 用来处理用户输入的事件
+            ' 使用一个Enum类(RawUserAction)来描述当前的情况
+            ' 例如text_pressed和enter_pressed
+            ' 把当前的actionUnit和用户行为事件打包使用信号发上去
+        }
+        note top of input_view: RES: 承接按钮,property和input
     }
 
     package presenters {
         class "CapturePresenter" as capture_presenter {
-            + create_classes: 创建所有的UI和类
+            + create_classes(): 创建所有的UI和类
+            + initialize()
+            ' 用来初始化calendarPresenter和inputPresenter
+            ' 这个函数会首先从dataService请求今天的数据
+            ' 调用calendar的initialize函数填充数据
+            ' 如果检测到没有数据就在此调用dataService创建新的actionUnit、
+            ' 使用initialize方法传递
+            ' 调用inputPresenter的initialize函数填充数据
+            + fillData(actionUnit,date)
+            ' 这个方法的职责仅仅限制于输入框(inputPresenter)
+            ' 它会根据传入的actionUnit来调用inputPresenter的fillData方法更新
+            + fillListData(actionUnits)
+            ' 这个方法用来更新列表展示的actionUnits
+            ' 它会调用selectionPresenter的fillData方法
+            + _on_date_selected(date)
+            ' 这个方法会根据传入的日期从dataService获取那一天的数据
+            ' 然后调用fillListData和inputPresenter的fillData方法
+            + _on_actionUnit_selected(actionUnit)
+            ' 这个方法用来处理list中actionUnit被点击的情况
+            ' 会调用inputPresenter的fillData方法
+            ' 传入actionUnit
+            + _on_save_request(actionUnit)
+            ' 这个方法用来处理用户按下保存按钮的情况
+            ' 它会调用dataService的保存方法,
+            ' 等待它的返回值
+            ' 如果为True, 调用_on_date_selected方法重新获取数据初始化
         }
         note top of capture_presenter: RES: 管理捕获功能
         
-        class "SmartInputPresenter" as smartInput {
-            _on_user_enter_smartInput()
-            ' 这个函数用来处理user在smartInput输入的情况
-        }
-        note top of smartInput: RES: 管理智能输入功能
+        class "InputPresenter" as input {
+            + _on_user_action((actionUnit, RawUserAction))
+            ' 这个函数用来处理user的行动
+            ' 调用UserActionService处理得出下一步
+            ' 这个服务会把用户的行为翻译为高层的明确语义信号
+            ' 返回一个封装了“下一步要做什么”和“如何做”的、可被直接执行的“命令对象 
+            
 
-        class "CalendarPresenter" as calendar_presenter {
+            + fillData(actionUnit)
+            ' 这个函数用来处理填充数据的请求
+            ' 它会把这个指令传递给inputView
+            ' 它首先调用翻译服务把actionUnit翻译为速记语法
+            ' 调用inputView的fillData方法, 把actionUnit和速记语法数据作为元组传递下去
+
+        }
+        note top of input: RES: 管理智能输入功能
+
+        class "SelectionPresenter" as selection {
             + initialize()
             ' 这个函数会设置当前日期为今天，记录为第一个
-            ' 如果没有记录，会创建一个
+            + _on_date_selected()
+            ' 使用信号把用户选择日期的行动汇报给CapturePresenter
+            + fillData(actionUnits)
+            ' 这个函数会调用SelectionView的fillData方法
         }
-        note top of calendar_presenter: 管理日历和record显示
+        note top of selection: 管理日历和record显示
 
     }
 
     package Services {
         class "Translator" as translator
         note top of translator: RES: 翻译速记语法和正常字典
+
+        class "UserActionService" as action_service
+        note top of action_service: RES: 给出下一步的建议
     }
 }
 
@@ -168,25 +260,29 @@ page_interface ..> contribution: 使用作为数据模型
 ' 使用*--来表示presenter全权管理view '
 ' 但不负责创建它 '
 page_presenter *-[#Black,bold]- capture_ui: 管理对应View
-capture_presenter *-[#Black,bold]-capture_widget
-smartInput *-[#Black,bold]- propertyView
-calendar_presenter *-[#Black,bold]- calendar
-smartInput *-[#Black,bold]- smartInputView
-calendar_presenter *-[#Black,bold]- records
-smartInput *-[#Black,bold]- button
+capture_presenter *-[#Black,bold]-capture_view
+selection *-[#Black,bold]- selection_view
+input *-[#Black,bold]- input_view
+
+
 
 
 ' ====== View -> View ====== '
 capture_ui *-[#Gray]- navigation: 管理导航界面
 ' 不单独开一个presenter管理navi, 内聚下降
 capture_ui *-[#Gray]- content: 管理实际显示界面
+selection_view *-[#Gray]- calendar
+selection_view *-[#Gray]- records
 
-
+input_view *-[#Gray]- propertyView
+input_view *-[#Gray]- SmartInputView
+input_view *-[#Gray]- button
 
 ' ====== 服务调用 ====== '
 coordinator -[#Red]-> loader: regist_plugin(capturePlugin)
 capture_presenter -[#Red]-> data_service: getData(date)
-smartInput -[#Red]-> translator: translate(data)
+input -[#Red]-> translator: translate(data)
+input -[#Red]-> action_service: processEvent(au,event)
 
 ' ====== 插件创建 ====== '
 coordinator *-[#Black,bold]- capture: 管理插件
@@ -194,13 +290,13 @@ coordinator *-[#Black,bold]- capture: 管理插件
 ' ===== 事件发出和接受 ===== '
 loader .[#Orange].> bus: publish(PagePluginRegistered)
 page_presenter .[#Orange].> bus: subscribe(PagePluginRegistered)
-smartInput .[#Orange].>bus: publish(新的actionUnit被输入)
+input .[#Orange].>bus: publish(新的actionUnit被输入)
 capture_presenter .[#Orange].> bus: subscribe(新的actionUnit被输入)
 
 ' ====== Presenter相互统属 ====== '
 coordinator *-[#Black,bold]- page_presenter: 管理presenter
 capture *-[#Black,bold]- capture_presenter
-capture_presenter *-[#Black,bold]- calendar_presenter
-capture_presenter *-[#Black,bold]- smartInput
+capture_presenter *-[#Black,bold]- selection
+capture_presenter *-[#Black,bold]- input
 
 @enduml

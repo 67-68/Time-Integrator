@@ -2,7 +2,7 @@ from ti.view .views.analysis.trendCard import InsightCard
 from ti.core.eventBus import EventBus
 from ti.features.intervention.cardOrchestrator import INV_Card_Orchestrator
 from ti.features.intervention.intervention_contract_orchestrator import INV_Contract_Orchestrator
-from ti.features.intervention.model.model import INV_Entity_Recipe
+from ti.features.intervention.model.model import INV_Entity_Recipe, INVEvent
 from ti.features.intervention.service.mapping import InterventionMapping
 from ti.features.intervention.serviceContainer import INV_ServiceContainer
 from ti.services.sessionCache import SessionCache
@@ -73,11 +73,20 @@ class InterventionCoordinator:
                 )
                 
     def _on_contract_activated(self,view_id):
+        # 应该使用一个eventbus的事件，从contract orc -> card orc推进 
+        # 但是先不管他
+        # 推进状态
+        event = INVEvent.INTERVENTION_CREATED # 这里不需要.value因为它本来就是处理一个类
+        self.card_orc.activate_presenter_state(view_id,event)
+        
         # 获取ui
         card = self.card_orc.create_dialog_view(view_id)
         
         # 上报app类
-        self.bus.publish("dialog_needed",card)
+        self.bus.publish("dialog_needed",card) 
+        # 按理来说这里是需要一个Enum事件，可以在事件的同时发布id，一个开始id接一个结束id 
+        # 或者其实在app端这么搞也行不用事件，不直接写出来而是app自己接收事件查找关闭
+        
         
         # 删除card 按理来说上报之后应该会有一个dialog阻塞住事件?
         self.card_orc.end_dialog(view_id)

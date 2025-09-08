@@ -5,6 +5,7 @@ from uuid import uuid4
 import uuid
 
 from ti.core.Interfaces.detector_Interface import DetectorInterface
+from ti.model.duration import Duration
 
 class INV_View_ID(Enum):
     POST_EAT_WASTE = "post_eat_waste"    
@@ -17,6 +18,7 @@ class INVEvent(Enum):
     USER_ACCEPTED = "choice_accept"
     USER_REJECTED = "choice_giveUp" #使用narrative中的文本
     INTERVENTION_CREATED = "intervention_created"
+    
 
 @dataclass
 class INV_State_Btn:
@@ -85,21 +87,17 @@ class INV_Contract:
     # 或许可以看作干涉契约转化为展示之后的再一次干涉/数据收集 
     # 这个可以和干涉本身解耦吗？
 
-
-
-class INV_Contract_Duration(Enum):    
-    TODAY = "today"
-
 class INV_Contract_State(Enum):
     BEFORE_START = "before_start"
     AGREED = "agreed" #user同意了但还没有录入monitor
     ACTIVE = "active"
     COMPLETE = "complete"
+    GHOST = "ghost" # 用来当作占位符，直到timeSpan结束之后消散允许新的contraction出现
 
 @dataclass
 class INV_Contract_Recipe:
     contract_recipe_id: str #也是contract category id
-    duration: INV_Contract_Duration
+    duration: Duration
     view_recipe_id: str
     
 @dataclass
@@ -172,7 +170,41 @@ class INV_ContractLog:
             data['execution_triggered_at'] = datetime.fromisoformat(data['execution_triggered_at'])
         return cls(**data)
 
-class INV_Contract_Duration(Enum):
-    TODAY = "today"
-    TO_TOMORROW = "to_tomorrow"
-    THIS_WEEK = "this_week"
+
+    
+
+from typing import Dict, Any
+
+@dataclass
+class INV_View_Model:
+    """
+    这个类用来存储Model的数据
+    同样使用于json数据库
+    """
+    # === 身份标识 ===
+    view_id: str #配方可以通过它查找
+    view_uuid: str
+    
+    # === 数据存储 ===
+    current_state: str
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """
+        将模型转换为字典，用于JSON序列化
+        """
+        return {
+            "view_id": self.view_id,
+            "view_uuid": self.view_uuid,
+            "current_state": self.current_state
+        }
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'INV_View_Model':
+        """
+        从字典创建模型实例，用于JSON反序列化
+        """
+        return cls(
+            view_id=data.get("view_id", ""),
+            view_uuid=data.get("view_uuid", ""),
+            current_state=data.get("current_state", "")
+        )

@@ -4,111 +4,60 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Time Integrator (TI) is a "Personal Science Instrument" built with PyQt6 that helps users track and analyze their time usage patterns through a unique "Behavioral Chemistry" approach. It's designed as a personal learning environment architect rather than just another productivity tool.
+Time Integrator (TI) is a PyQt6-based personal science instrument and cognitive co-pilot application focused on behavioral chemistry analysis rather than traditional productivity tracking.
+
+## Key Architecture
+
+- **MVP Pattern**: Model-View-Presenter architecture with strict separation of concerns
+- **Service Container**: Dependency injection container manages all core services
+- **Core Services**: DataService, CardGenerationService, InsightEngine, InsightManager, InsightCacheService
+- **Data Model**: ActionUnit JSON objects with start/end times, categories, and metadata
 
 ## Development Commands
 
-### Running the Application
-```bash
-python main.py
-```
-
 ### Testing
-```bash
-# Run all tests
-pytest
+- Run all tests: `python3 -m pytest`
+- Run specific test file: `python3 -m pytest tests/test_file.py`
+- Run with verbose output: `python3 -m pytest -v`
 
-# Run specific test file
-pytest tests/test_translator.py
+### Application Execution
+- Start main application: `python3 main.py`
 
-# Run with verbose output
-pytest -v
-```
+### Code Quality
+- Check imports and basic syntax: `python3 -m py_compile main.py`
 
-### Dependencies
-Install dependencies from requirements.txt:
-```bash
-pip install -r requirements.txt
-```
+## Directory Structure
 
-## Architecture Overview
+- `ti/core/` - Core application logic and coordination
+- `ti/features/` - Feature-specific implementations (capture, intervention)
+- `ti/model/` - Data models and repositories
+- `ti/presenters/` - MVP presenters for different features
+- `ti/services/` - Business logic and data services
+- `ti/view/` - PyQt6 UI components
+- `tests/` - Test suite
 
-The codebase follows a strict **Model-View-Presenter (MVP)** pattern with dependency injection:
+## Key Files
 
-### Core Architecture Layers
-
-1. **View Layer (`ti/UI/views/`)**: PyQt6 widgets responsible only for display and capturing user input
-2. **Presenter/Controller Layer (`ti/UI/presenters/`, `ti/controller/`)**: Pure Python objects handling business logic and coordinating between views and services
-3. **Model/Services Layer (`ti/services/`, `ti/dataAccess/`, `ti/engine/`)**: Core business logic, data persistence, and analysis
-
-### Dependency Injection Container
-- **ServiceContainer** (`ti/services/serviceContainer.py`): Creates and manages all core service instances
-- Key services include:
-  - `DataService` (DS): ActionUnit CRUD operations
-  - `InsightEngine` (IE): Analysis execution
-  - `InsightManager` (IM): Insight management and curation
-  - `InsightCacheService` (ICS): Persistent insight storage
-  - `RealTimeMonitor` (RTM): Real-time behavior monitoring
-
-### Key Data Models
-- **ActionUnit**: Core data model representing time blocks with start/end times, action names, categories (waste/work/rest), and metadata
-- Stored in JSON format in `Data/` directory
-
-## Code Organization
-
-### Main Application Entry
-- `main.py`: Application entry point
-- `ti/UI/App.py`: Main application class (`TimeIntegrator`)
-
-### UI Structure
-- `ti/UI/rawUI/`: Qt Designer .ui files and generated Python UI classes
-- `ti/UI/views/`: High-level view components
-- `ti/UI/widgets/`: Reusable widget components
-- `ti/UI/presenters/`: Business logic controllers
-
-### Core Features
-- **CapturePage**: Time data input using custom shorthand syntax
-- **AnalysisPage**: Pattern analysis through insight cards
-  - `conditional_card`: Cards that appear based on pattern matching
-  - `fixed_card`: Always-present analysis cards
-
-### Extension System
-- `ti/features/intervention/`: Pluggable intervention system
-- `ti/core/extensionRegister.py`: Dynamic extension loading
-- Pattern-based detection system in `ti/domain/detector/`
-
-## Development Patterns
-
-### Testing Approach
-- Uses pytest with custom fixtures defined in `conftest.py`
-- Tests follow Given-When-Then pattern
-- Integration tests for core workflows
-- Test files use descriptive Chinese comments for business context
-
-### Data Flow
-- Unidirectional data flow enforced through service orchestration
-- Event bus system for decoupled communication
-- Clear separation between UI events and business logic
-
-### Fast Entry Syntax
-The application uses a custom shorthand syntax for time entry, e.g.:
-`1600-1730 <@ProjectA> @ActiveCreation #Coding - Implemented the core logic`
-
-### File Naming Conventions
-- UI files: `raw*.ui` for Qt Designer files, `ui_*.py` for generated classes
-- Test files: `test_*.py`
-- Presenter/Controller files: `*Presenter.py`, `*Service.py`
-
-## Important Development Notes
-
-- The codebase is primarily documented in Chinese with English technical terms
-- Uses dependency injection pattern extensively - avoid direct service instantiation
-- UI components should never contain business logic
-- All analysis logic is configurable through "recipe" files rather than hard-coded
-- The project follows a philosophy of "Behavioral Chemistry" over simple time tracking metrics
+- `main.py` - Application entry point
+- `ti/core/App.py` - Main TimeIntegrator class
+- `ti/core/mainCoordinator.py` - Application coordinator
+- `ti/services/serviceContainer.py` - Dependency injection container
+- `ti/features/capture/` - Time capture functionality
+- `ti/features/intervention/` - Analysis and intervention features
 
 ## Data Storage
-- JSON-based storage in `Data/` directory
-- `actionList.json`: Available action types
-- `dateData.json`: Time tracking data by date
-- `insightCache.json`: Generated insights cache
+- JSON-based storage in `ti/model/data/`
+- Action units stored with UUIDs and timestamps
+- Categories: waste, work, rest with importance/urgency metadata
+
+## Testing Philosophy
+- Blueprint-driven testing with UML as reference
+- Integration tests for service interactions
+- Unit tests for individual components
+- Test paths configured in `pytest.ini`
+
+## Development Notes
+- Uses PyQt6 for UI
+- JSON-based data persistence
+- Service-oriented architecture
+- Focus on behavioral pattern analysis rather than time tracking

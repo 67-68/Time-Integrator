@@ -46,5 +46,21 @@
         "willingness_notes": null,
         "execution_notes": null,
         "trigger_context": null
+    },
+    "4ce94828-74d1-4762-bb9a-f0425afec778": {
+        "original_contract_id": "952f22f2-e3b2-4870-b276-881c4f65c889",
+        "log_category_id": "post_eat_waste_log",
+        "original_contract_category_id": "post_eat_waste",
+        "user_id": "default_user",
+        "created_at": "2025-09-08T10:37:37.752899",
+        "resolved_at": "2025-09-08T10:38:53.381240",
+        "final_willingness_status": "unknown",
+        "log_id": "4ce94828-74d1-4762-bb9a-f0425afec778",
+        "willingness_decision_at": null,
+        "execution_triggered_at": null,
+        "final_execution_status": "completed",
+        "willingness_notes": null,
+        "execution_notes": null,
+        "trigger_context": null
     }
 }

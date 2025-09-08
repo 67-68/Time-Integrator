@@ -1,11 +1,11 @@
 {
-    "b21f9618-b029-46d0-8ae6-9f5c25e6ef19": {
-        "create_time": "2025-09-06T11:25:19.498724",
+    "0bec7466-1ca6-4645-86cc-1416382325a6": {
+        "create_time": "2025-09-08T17:33:55.703811",
         "duration": "today",
         "solve_time": null,
         "solved": null,
         "success": null,
-        "contract_uuid": "b21f9618-b029-46d0-8ae6-9f5c25e6ef19",
+        "contract_uuid": "0bec7466-1ca6-4645-86cc-1416382325a6",
         "contract_category_id": "post_eat_waste",
         "current_state": "before_start",
         "view_recipe_id": "post_eat_waste",

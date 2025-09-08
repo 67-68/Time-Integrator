@@ -42,6 +42,7 @@ class Conditional_ReportGenerator():
         conditional_card = self.IM.get_current_cards()
         
         for card in conditional_card:
+            card_type_id = card
             cardData.append(card)
             
         return cardData

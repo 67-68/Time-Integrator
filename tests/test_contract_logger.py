@@ -2,7 +2,7 @@ import pytest
 from datetime import datetime, timedelta
 from unittest.mock import MagicMock
 
-from ti.features.intervention.model.model import INV_Contract, INV_Contract_Duration, INV_Contract_State, INV_ContractLog
+from ti.features.intervention.model.model import INV_Contract, Duration, INV_Contract_State, INV_ContractLog
 from ti.features.intervention.service.contractService import INV_ContractService
 from ti.features.intervention.service.logger import InterventionLogger
 
@@ -26,7 +26,7 @@ class TestContractDurationCheck:
         yesterday = datetime.now() - timedelta(days=1, hours=2)
         contract = INV_Contract(
             contract_category_id="test",
-            duration=INV_Contract_Duration.TODAY.value,
+            duration=Duration.TODAY.value,
             current_state=INV_Contract_State.AGREED.value,
             create_time=yesterday
         )
@@ -43,7 +43,7 @@ class TestContractDurationCheck:
         over_24h_ago = datetime.now() - timedelta(hours=25)
         contract = INV_Contract(
             contract_category_id="test",
-            duration=INV_Contract_Duration.TO_TOMORROW.value,
+            duration=Duration.TO_TOMORROW.value,
             current_state=INV_Contract_State.AGREED.value,
             create_time=over_24h_ago
         )
@@ -59,7 +59,7 @@ class TestContractDurationCheck:
         # Given: 一个本周创建的contract
         contract = INV_Contract(
             contract_category_id="test",
-            duration=INV_Contract_Duration.THIS_WEEK.value,
+            duration=Duration.THIS_WEEK.value,
             current_state=INV_Contract_State.AGREED.value,
             create_time=datetime.now() - timedelta(days=2)  # 2天前创建
         )
@@ -79,7 +79,7 @@ class TestInterventionLogger:
         # Given: 一个contract和mock repository
         contract = INV_Contract(
             contract_category_id="post_eat_waste",
-            duration=INV_Contract_Duration.TODAY.value,
+            duration=Duration.TODAY.value,
             current_state=INV_Contract_State.AGREED.value
         )
         mock_repository = MagicMock()
@@ -97,7 +97,7 @@ class TestInterventionLogger:
         # Given: 一个contract
         contract = INV_Contract(
             contract_category_id="post_eat_waste",
-            duration=INV_Contract_Duration.TODAY.value,
+            duration=Duration.TODAY.value,
             current_state=INV_Contract_State.AGREED.value
         )
         logger = InterventionLogger()

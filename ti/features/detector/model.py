@@ -17,6 +17,8 @@ class BaseDetectorState(Enum):
 
 class Detector_Recipe_ID(Enum):
     POST_EAT_WASTE = "post_eat_waste"
+    UNSETTLING_HEART = "unsettling_heart"
+    POST_BASH_WASTE = "post_bash_waste"
 
 @dataclass
 class Detector_State:

@@ -3,7 +3,8 @@ from PyQt6.QtCore import QSize
 from PyQt6.QtGui import QColor
 
 
-from ti.view.rawUI.ui_rawDailyTrendCard import Ui_trendCard
+
+from ti.view.rawUI.ui_rawInsightCard import Ui_trendCard
 from ti.view.widgets.pages.BasicWidget import BasicWidget
 from ti.services.utils import load_svg_icon
 

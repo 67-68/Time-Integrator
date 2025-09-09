@@ -1,13 +1,14 @@
 from ti.presenters.conditional_cardPresenter import Conditional_ReportGenerator
 from ti.presenters.fixed_cardPresenter import Fixed_ReportGenerator
 from ti.view.views.analysis.AnalysisPage import AnalysisPage
-from ti.model.card_recipe import Card_recipe
+from ti.model.insight_card_recipe_repository import Card_recipe
 from ti.core.eventBus import EventBus
 from ti.services.dataAccess.dataService import DataService
 from ti.services.serviceContainer import ServiceContainer
 from PyQt6.QtCore import pyqtSignal
 
 from ti.services.sessionCache import SessionCache
+from ti.model.insight_card_generation_models import PresentedCardData
 
 
 class CardPresenter():
@@ -60,7 +61,7 @@ class CardPresenter():
         )
         
         # 持有卡片状态
-        self.cards = {}
+        self.cards: list[PresentedCardData] = []
 
         # 绑定UI
         self.ui = ui

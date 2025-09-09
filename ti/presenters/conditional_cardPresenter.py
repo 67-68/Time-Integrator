@@ -1,6 +1,7 @@
 from ti.services.dataAccess.insightManager import InsightManager
 from ti.services.engine.insightEngine import InsightEngine
 from ti.services.sessionCache import SessionCache
+from ti.model.insight_card_generation_models import RawCardData, PresentedCardData
 
 class Conditional_ReportGenerator():
     """_summary_
@@ -49,7 +50,7 @@ class Conditional_ReportGenerator():
         
 
     
-    def _on_pattern_detected(self,cardData:tuple):
+    def _on_pattern_detected(self,cardData: tuple[RawCardData, PresentedCardData]):
         """_summary_
         这个函数连接了engine检测到模式之后的信号
         会把engine的信号和数据转接到Manager那里

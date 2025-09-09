@@ -66,6 +66,14 @@ class Matcher:
                 return True
             return False
         return matcher
+    
+    def duration_is_smaller_than(self,duration:int):
+        def matcher(au):
+            timeSpan = au["timeSpan"]
+            if duration < timeSpan:
+                return True
+            return False
+        return matcher
 
     def date_is(self,intended_date):
         def matcher(au):
@@ -84,6 +92,7 @@ class Matcher:
             return True
         return matcher
 
+    
 
     """
     这些函数进行条件间的组合
@@ -97,3 +106,4 @@ class Matcher:
         def combindedMatcher(actionUnit):
             return any(m(actionUnit) for m in matchers)
         return combindedMatcher
+    

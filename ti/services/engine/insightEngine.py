@@ -4,6 +4,7 @@ from ti.features.detector.baseDetector import BaseDetector
 from ti.features.detector.detectorFactory import DetectorFactory
 from ti.services.dataAccess.insightCacheService import InsightCacheService
 from ti.services.sessionCache import SessionCache
+from ti.model.insight_card_generation_models import RawCardData, CardInfo
 
 
 class InsightEngine(QObject):
@@ -33,7 +34,7 @@ class InsightEngine(QObject):
         # 创建状态
         self.ICS = ICS
         self.factory = factory
-        self.cards = {}
+        self.cards: Dict[str, CardInfo] = {}
     
     def initialize(self,recipes:list,cache: SessionCache):
         """_summary_
@@ -49,11 +50,11 @@ class InsightEngine(QObject):
             #这里，这一行，如果detector通过了，卡片模式被识别出来，会首先执行这一条
             detector.pattern_detected.connect(lambda f : self.pattern_detected(f))
 
-            self.cards[id] = {
-                "detector": detector,
-                "id":id,
-                "presenter":recipe["presenter"]
-            }
+            self.cards[id] = CardInfo(
+                detector=detector,
+                id=id,
+                presenter=recipe["presenter"]
+            )
             
             cache.store(id,(self.cards[id],recipe))
             
@@ -70,7 +71,7 @@ class InsightEngine(QObject):
             au (dict):一个行动单元
         """
         for id in self.cards:
-            detector: BaseDetector = self.cards[id]["detector"]
+            detector: BaseDetector = self.cards[id].detector
             detector.process_action_unit(au)
         
     def pattern_detected(self,rawData: dict) -> None:
@@ -80,14 +81,21 @@ class InsightEngine(QObject):
         Args:
             data (dict): 卡片模式的数据
         """
+        # 将字典转换为RawCardData对象
+        raw_card_data = RawCardData(
+            id=rawData["id"],
+            data=rawData["data"],
+            weight=rawData.get("weight")
+        )
+        
         # 获取卡片id
-        id = rawData["id"]
-        presenter = self.cards[id]["presenter"]
+        id = raw_card_data.id
+        presenter = self.cards[id].presenter
         
         # 使用presenter处理
-        pre_data = presenter(rawData)
+        pre_data = presenter(raw_card_data)
         
         # 发送信号
         #breakpoint()
-        self._on_pattern_detected.emit((rawData,pre_data)) #这里曾经出过问题，把元组作为参数发送
+        self._on_pattern_detected.emit((raw_card_data,pre_data)) #这里曾经出过问题，把元组作为参数发送
     

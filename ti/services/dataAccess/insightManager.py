@@ -1,6 +1,7 @@
 from PyQt6.QtCore import QObject
 
 from ti.services.dataAccess.insightCacheService import InsightCacheService
+from ti.model.insight_card_generation_models import RawCardData, PresentedCardData
 
 
 
@@ -13,10 +14,10 @@ class InsightManager:
     同时,它会帮助把当前卡片归档
     """
     def __init__(self,ICS: InsightCacheService):
-        self.cards = {}
+        self.cards: Dict[str, PresentedCardData] = {}
         self.ICS = ICS
         
-    def add_card(self,raw_card_data:dict,pre_card_data:dict) -> None:
+    def add_card(self,raw_card_data: RawCardData, pre_card_data: PresentedCardData) -> None:
         """_summary_
         这个函数负责把卡片加入insight Manager中
         它会把原始卡片数据添加进历史数据
@@ -27,11 +28,11 @@ class InsightManager:
             pre_card_data (dict): 经过presenter加工的卡片信息, 必须包含 "weight" 键
             
         """
-        recipe_id = raw_card_data["id"]
-        new_card_weight = pre_card_data["weight"]
+        recipe_id = raw_card_data.id
+        new_card_weight = pre_card_data.weight
 
         # 如果这个配方的卡片还不存在，或者新卡片的权重更高
-        if recipe_id not in self.cards or new_card_weight > self.cards[recipe_id]["weight"]:
+        if recipe_id not in self.cards or new_card_weight > self.cards[recipe_id].weight:
             self.cards[recipe_id] = pre_card_data
         
         # 无论如何，都记录原始数据历史
@@ -46,8 +47,8 @@ class InsightManager:
         # 1. 收集所有已经筛选过的最佳卡片
         all_best_cards = list(self.cards.values())
         
-        # 2. 对收集到的“最佳卡片”列表进行最终排序
-        final_sorted_cards = sorted(all_best_cards, key=lambda card: card["weight"], reverse=True)
+        # 2. 对收集到的"最佳卡片"列表进行最终排序
+        final_sorted_cards = sorted(all_best_cards, key=lambda card: card.weight, reverse=True)
         
         # 3. 返回前10张卡片，如果不足10张则全部返回
         return final_sorted_cards[:10]

@@ -1,6 +1,10 @@
 from dataclasses import dataclass
 from typing import Dict, Any
 
+from ti.features.detector.baseDetector import BaseDetector
+from ti.model.duration import Duration
+from ti.services.analysis.matchers import Matcher
+
 
 @dataclass
 class InsightCardModel:
@@ -56,4 +60,23 @@ class InsightCardModel:
             card_uuid=data.get("card_uuid", "")
         ) 
     
+@dataclass
+class AnalyzerConfig:
+    matcher: Matcher
+
+@dataclass
+class AnalyzerRecipe:
+    analyzer_type: None # 目前的analyzer使用的都是函数，需要类化
+    analyzer_config: AnalyzerConfig
+
+@dataclass
+class InsightFixCardRecipeModel:
+    card_type_id: str
+    analyzer_recipe: AnalyzerRecipe
     
+class InsightCondCardRecipeModel:
+    detector_type_id: str
+    presenter: None # 需要类化
+    duration: Duration    
+
+

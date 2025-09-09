@@ -58,6 +58,16 @@ class DetectocRepository:
 
 matcher = Matcher()
 
+
+more_than_10_minute_waste = matcher.matchAll(
+    matcher.action_type_is("waste"),
+    matcher.duration_is_greater_than(10)
+)
+
+
+
+
+
 RECIPE = {
     Detector_Recipe_ID.POST_EAT_WASTE.value: {
         "detector": BaseDetector,
@@ -77,7 +87,53 @@ RECIPE = {
                 ]
             }
         }
-    }
+    },
+    Detector_Recipe_ID.UNSETTLING_HEART.value: {
+        "detector": BaseDetector,
+        "config":{
+            "sequence": {
+                "hook": [
+                    {
+                        "state_name": "trivious_thing_1",
+                        "matcher": matcher.duration_is_smaller_than(11)
+                    },
+                    {
+                        "state_name": "trivious_thing_2",
+                        "matcher": matcher.duration_is_smaller_than(11)
+                    },
+                    {
+                        "state_name": "trivious_thing_3",
+                        "matcher": matcher.duration_is_smaller_than(11)
+                    },
+                ],
+                "result":[
+                    {
+                        "state_name": "waste",
+                        "matcher": more_than_10_minute_waste
+                    }
+                ]
+            }
+        }
+    },
+    Detector_Recipe_ID.POST_BASH_WASTE.value: {
+        "detector": BaseDetector,
+        "config":{
+            "sequence": {
+                "hook": [
+                    {
+                        "state_name": "bash",
+                        "matcher": matcher.action_is("洗澡")
+                    }
+                ],
+                "result":[
+                    {
+                        "state_name": "waste",
+                        "matcher": matcher.action_type_is("waste")
+                    }
+                ]
+            }
+        }
+    },
 }
 
 

@@ -8,7 +8,9 @@ from ti.core.Interfaces.detector_Interface import DetectorInterface
 from ti.model.duration import Duration
 
 class INV_View_ID(Enum):
-    POST_EAT_WASTE = "post_eat_waste"    
+    POST_EAT_WASTE = "post_eat_waste"  
+    UNSETTLING_HEART = "unsettling_heart"
+    POST_BASH_WASTE = "post_bash_waste"  
 
 class INVEvent(Enum):
     """_summary_

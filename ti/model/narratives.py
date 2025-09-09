@@ -93,5 +93,33 @@ SPECIFIC_NARRATION = {
         "judgement_key":{
             "warning":["你浪费了很多时间哦～这些时间本可以用来睡觉，如今隔断了你的时间，让你更不容易睡着，污染了你的正反馈，即使是工作也不能专心。\n下次注意吧，喵。"]
         }
+    },
+    "unsettling_heart":{
+        "presentation":{
+            "card_warning": {
+                "title":["躁动的心"]
+            }
+        },
+        "sementic_key":{
+            "text": ["昨天，你在“{data.meal.action}”({data.meal.start} - {data.meal.end})之后，\n 立刻就开始“{data.waste.action}(到{data.waste.end})”，持续了{data.waste.timeSpan}分钟。"],
+            "history_text": ["数据显示这已经不是第一次发生这种情况了。"]
+        },
+        "judgement_key":{
+            "warning":["尝试听会歌，运动一下吧。\n下次注意吧，喵。"]
+        }
+    },
+    "post_bash_waste":{
+        "presentation":{
+            "card_warning": {
+                "title":["洗澡中解放的灵魂"]
+            }
+        },
+        "sementic_key":{
+            "text": ["昨天，你在洗澡之后浪费时间"],
+            "history_text": ["数据显示这已经不是第一次发生这种情况了。"]
+        },
+        "judgement_key":{
+            "warning":["尝试休息几分钟吧。\n下次注意吧，喵。"]
+        }
     }
 }

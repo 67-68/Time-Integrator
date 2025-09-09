@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/ti/UI/rawUI/rawDailyTrendCard.ui'
+# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/ti/view/rawUI/rawInsightCard.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -12,8 +12,13 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_trendCard(object):
     def setupUi(self, trendCard):
         trendCard.setObjectName("trendCard")
-        trendCard.resize(442, 253)
-        trendCard.setMinimumSize(QtCore.QSize(0, 180))
+        trendCard.resize(442, 300)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(trendCard.sizePolicy().hasHeightForWidth())
+        trendCard.setSizePolicy(sizePolicy)
+        trendCard.setMinimumSize(QtCore.QSize(0, 300))
         trendCard.setMaximumSize(QtCore.QSize(16777215, 1677))
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(trendCard)
         self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)

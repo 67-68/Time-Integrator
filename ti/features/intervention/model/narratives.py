@@ -56,6 +56,62 @@ NARRATIONS = {
                 }
             }
         }
+    },
+    INV_View_ID.UNSETTLING_HEART.value:{
+        "init":{
+            "presentation":{
+                "title":["你昨天有点躁动啊。检查一下自己的数据，昨天发生了什么？ \n 不要再做零碎的事情了"],
+                "button":{
+                    INVEvent.USER_ACCEPTED.value:"接受挑战...我需要COOL Down一下",
+                    INVEvent.USER_REJECTED.value:"放弃...让我的心继续躁动下去吧！"
+                }
+            }
+        },
+        "create_intervention":{
+            "presentation":{
+                "title":[""],
+                "button":{
+                    INVEvent.USER_ACCEPTED.value:"接受挑战",
+                }
+            }
+        },
+        "intervene_user":{
+            "presentation":{
+                "title":["你在刚刚太躁动了！一连着几个行动都没有做很久"],
+                "button":{
+                    INVEvent.USER_ACCEPTED.value:"接受挑战",
+                    INVEvent.USER_REJECTED.value:"放弃"
+                }
+            }
+        }
+    },
+    INV_View_ID.POST_BASH_WASTE.value:{
+        "init":{
+            "presentation":{
+                "title":["洗澡之后不要浪费时间 \n 不要再做零碎的事情了"],
+                "button":{
+                    INVEvent.USER_ACCEPTED.value:"接受挑战..咳咳",
+                    INVEvent.USER_REJECTED.value:"不！晚上就是拿来休息的"
+                }
+            }
+        },
+        "create_intervention":{
+            "presentation":{
+                "title":[""],
+                "button":{
+                    INVEvent.USER_ACCEPTED.value:"接受挑战",
+                }
+            }
+        },
+        "intervene_user":{
+            "presentation":{
+                "title":["请不要浪费时间了，你可以休息五分钟"],
+                "button":{
+                    INVEvent.USER_ACCEPTED.value:"接受挑战",
+                    INVEvent.USER_REJECTED.value:"放弃"
+                }
+            }
+        }
     }
 }
 # 目前对于Intervention, 是写多少选项生成多少。同时，卡片选项会添加到list中，id(choice_giveUp)作为key, 文本直接展示

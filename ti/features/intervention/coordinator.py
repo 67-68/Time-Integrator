@@ -1,3 +1,4 @@
+from ti.model.insight_card_generation_models import FixedCardResult
 from ti.view .views.analysis.trendCard import InsightCard
 from ti.core.eventBus import EventBus
 from ti.features.intervention.cardOrchestrator import INV_Card_Orchestrator
@@ -45,7 +46,8 @@ class InterventionCoordinator:
             insight_recipe, recipe = pack
         else: 
             recipe = pack
-        detector_recipe_key = recipe.get("detector",None) #不是COnditioanl card没有detector
+        if not isinstance(recipe,FixedCardResult):
+            detector_recipe_key = recipe.get("detector",None) #不是COnditioanl card没有detector
         
         mapping:InterventionMapping = self.container.getService("mapping")
         needIntervention = mapping.find_mapping(insight_card_id)

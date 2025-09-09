@@ -9,6 +9,7 @@ from ti.view.widgets.pages.BasicFrame import BasicFrame
 from ti.view.rawUI.ui_rawAnalysisPage import Ui_analysisPage
 from ti.core.eventBus import EventBus
 from ti.services.sessionCache import SessionCache
+from ti.model.insight_card_generation_models import PresentedCardData, FixedCardResult
 
 class AnalysisPage(BasicFrame):
     switchPage_button_clicked = pyqtSignal(str)
@@ -49,18 +50,40 @@ class AnalysisPage(BasicFrame):
         
         
         for idx, card_data in enumerate(cards): # card_data也就是formatter处理后的pre_data
-            data = FS.format_card(card_data)
+            # 处理不同类型的卡片数据
+            if isinstance(card_data, (PresentedCardData, FixedCardResult)):
+                # 如果是dataclass对象，转换为字典
+                card_dict = {
+                    "card_type": card_data.card_type,
+                    "judgement_key": card_data.judgement_key,
+                    "sementic_key": card_data.sementic_key,
+                    "data": card_data.data,
+                    "weight": card_data.weight,
+                    "id": card_data.id
+                }
+                # 对于FixedCardResult，添加额外的字段
+                if isinstance(card_data, FixedCardResult):
+                    card_dict["duration"] = card_data.duration
+                    card_dict["card_type_id"] = card_data.card_type_id
+                
+                data = FS.format_card(card_dict)
+                card_data_for_presenter = card_dict
+            else:
+                # 如果是字典，直接使用
+                data = FS.format_card(card_data)
+                card_data_for_presenter = card_data
+            
             card = InsightCard(data, parent=self.CA) 
             
             bus.publish("insight_card_ui_created",(card,cache))
             
-            card_data["card_type_id"] = card_data["sementic_key"]
-            card_data["card_uuid"] = uuid.uuid4()
+            card_data_for_presenter["card_type_id"] = card_data_for_presenter["sementic_key"]
+            card_data_for_presenter["card_uuid"] = uuid.uuid4()
             
             currentCards[idx] = card
             cardPresenter = InsightCardPresenter(
                 currentCards[idx],
-                card_data
+                card_data_for_presenter
             )
             
             self.currentLogicCards[idx] = cardPresenter

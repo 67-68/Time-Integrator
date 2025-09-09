@@ -3,6 +3,7 @@ from ti.features.detector.baseDetector import BaseDetector
 from ti.model import userMatchers
 from ti.model.duration import Duration
 from ti.services.analysis import analyzer, presenters
+from ti.model.insight_card_generation_models import FixedRecipe, ConditionalRecipe
 
 
 
@@ -42,14 +43,16 @@ daily card recipe
 These card will all be used in the daily trend function
 otherwise, they will not be used at all
 """
+
+
 class Card_recipe:
     def __init__(self):
         self.daily_card_recipe = [
             {
                 "id":"peak_work_analysis",
-                "analyzer": analyzer.find_longest_timeSpan,
+                "analyzer": analyzer.find_longest_timeSpan, #它的dataclass写好了，可以直接使用；ti/model/insight_card_model.py
                 "analyzer_config": {
-                    "matcher": userMatchers.YESTERDAY_WORK_MATCHER     #matcher我放在了userMatchers文件而不是这里
+                    "matcher": userMatchers.YESTERDAY_WORK_MATCHER
                 },
                 "presenter": presenters.present_peak_timeSpan,
                 "duration": Duration.TODAY.value
@@ -80,9 +83,19 @@ class Card_recipe:
         self.conditional_card_recipe = [
             {
                 "detector": "post_eat_waste", #detector id
+                "presenter":presenters.present_sequence_data, # 它的dataclass写好了，可以直接使用；ti/model/insight_card_model.py
+                "duration": Duration.TODAY.value
+            },
+            {
+                "detector": "unsettling_heart", #detector id
                 "presenter":presenters.present_sequence_data,
                 "duration": Duration.TODAY.value
-            }
+            },
+            {
+                "detector": "post_bash_waste", #detector id
+                "presenter":presenters.present_sequence_data,
+                "duration": Duration.TODAY.value
+            },
         ]
     
     def get_fixed_recipe(self):

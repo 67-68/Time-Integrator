@@ -37,7 +37,7 @@ class INV_Card_Repository:
         recipe = recipes[view_recipe_id]
         id = recipe["id"]
         recipe_states = recipe["state"]
-        detector = recipe["detector"]
+        detector = recipe["detector"] # TODO: 找不到detector
         initial_state = recipe["initial_state"]
         
         
@@ -105,6 +105,20 @@ end_intervention = INV_Universal_State(
     {"special_event": [INV_Special_States.END_INTERVENTION.value]} # 那么，应该首先检测这个。因此transition和presentation就不用写了
 )
 
+create_intervention = INV_Universal_State(
+    "create_intervention",
+    {
+        "transition":{
+            INVEvent.INTERVENTION_CREATED.value: "intervene_user" #到时候，这个事件会由presenter自己激发                        
+        },
+        "presentation":{
+            "title": "ask_challenge",
+            "button":{}
+        },
+        "special_event": [INV_Special_States.ACCEPTED_CONTRACT.value]
+    },
+)
+
 recipes = {
     INV_View_ID.POST_EAT_WASTE.value: {
         "id":"post_eat_waste",
@@ -128,16 +142,7 @@ recipes = {
                     "title": "ask_challenge" # 这个key现在也只是一个逻辑标识
                 },
             },
-            "create_intervention":{
-                "transition":{
-                    INVEvent.INTERVENTION_CREATED.value: "intervene_user" #到时候，这个事件会由presenter自己激发                        
-                },
-                "presentation":{
-                    "title": "ask_challenge",
-                    "button":{}
-                },
-                "special_event": [INV_Special_States.ACCEPTED_CONTRACT.value]
-            },
+            create_intervention.name: create_intervention.value,
             "intervene_user":{
                 "transition":{
                     INVEvent.USER_ACCEPTED.value: "end_intervention",
@@ -151,6 +156,96 @@ recipes = {
                         },
                         INVEvent.USER_REJECTED.value: {
                              "text_key": "reject_challenge"
+                        }
+                    }
+                }
+            },
+            end_intervention.name: end_intervention.value
+        },
+        "initial_state":"init",
+        "detector":None #应该是在后面获取了卡片的Detector
+    },
+    INV_View_ID.UNSETTLING_HEART.value: {
+        "id":INV_View_ID.UNSETTLING_HEART.value,
+        "state":{
+            "init": {
+                "transition":{
+                    INVEvent.USER_ACCEPTED.value:"create_intervention", 
+                    INVEvent.USER_REJECTED.value:"ask_attribution"
+                },
+                "presentation": {
+                    "button": {
+                        # 这个结构现在只定义了逻辑上的按钮存在性，
+                        # 文本完全由 Formatter 和 Narrations 决定
+                        INVEvent.USER_ACCEPTED.value: {
+                            "text_key": "accept_challenge" 
+                        },
+                        INVEvent.USER_REJECTED.value: {
+                             "text_key": "reject_challenge"
+                        }
+                    },
+                    "title": "ask_challenge" # 这个key现在也只是一个逻辑标识
+                },
+            },
+            create_intervention.name: create_intervention.value,
+            "intervene_user":{
+                "transition":{
+                    INVEvent.USER_ACCEPTED.value: "end_intervention",
+                    INVEvent.USER_REJECTED.value: "end_intervention" # 定义特殊状态? 或者复用Universal状态？
+                },
+                "presentation":{
+                    "title":"你是不是要干坏事了?",
+                    "button":{
+                        INVEvent.USER_ACCEPTED.value: {
+                            "text_key": "accept_challenge"
+                        },
+                        INVEvent.USER_REJECTED.value: {
+                             "text_key": "reject_challenge"
+                        }
+                    }
+                }
+            },
+            end_intervention.name: end_intervention.value
+        },
+        "initial_state":"init",
+        "detector":None #应该是在后面获取了卡片的Detector
+    },
+    INV_View_ID.POST_BASH_WASTE.value: {
+        "id":INV_View_ID.POST_BASH_WASTE.value,
+        "state":{
+            "init": {
+                "transition":{
+                    INVEvent.USER_ACCEPTED.value:"create_intervention", 
+                    INVEvent.USER_REJECTED.value:"ask_attribution"
+                },
+                "presentation": {
+                    "button": {
+                        # 这个结构现在只定义了逻辑上的按钮存在性，
+                        # 文本完全由 Formatter 和 Narrations 决定
+                        INVEvent.USER_ACCEPTED.value: {
+                            "text_key": "accept_challenge" 
+                        },
+                        INVEvent.USER_REJECTED.value: {
+                                "text_key": "reject_challenge"
+                        }
+                    },
+                    "title": "ask_challenge" # 这个key现在也只是一个逻辑标识
+                },
+            },
+            create_intervention.name: create_intervention.value,
+            "intervene_user":{
+                "transition":{
+                    INVEvent.USER_ACCEPTED.value: "end_intervention",
+                    INVEvent.USER_REJECTED.value: "end_intervention" # 定义特殊状态? 或者复用Universal状态？
+                },
+                "presentation":{
+                    "title":"你是不是要干坏事了?",
+                    "button":{
+                        INVEvent.USER_ACCEPTED.value: {
+                            "text_key": "accept_challenge"
+                        },
+                        INVEvent.USER_REJECTED.value: {
+                                "text_key": "reject_challenge"
                         }
                     }
                 }

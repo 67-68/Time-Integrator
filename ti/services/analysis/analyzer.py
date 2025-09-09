@@ -2,18 +2,20 @@
 首先需要说明,对于所有analyzer
 都是输入一个actionUnit, 输出一个dict包裹着的数据
 """                    
+from typing import List, Dict, Any
+from ti.model.insight_card_generation_models import RawCardData
                     
 """
 这些函数进行特殊数据的获取，类似极值和平均值
 他们接受matcher处理之后的数据
 """
-def getTotal_timeSpan(actionUnits):
+def getTotal_timeSpan(actionUnits: List[Dict[str, Any]]) -> int:
     total = 0
     for au in actionUnits:
         total += au.get("timeSpan")
     return total
 
-def find_longest_timeSpan(actionUnits,config):
+def find_longest_timeSpan(actionUnits: List[Dict[str, Any]], config: Dict[str, Any]) -> RawCardData:
     matcher = config["matcher"]
     peak = 0
     data = actionUnits[0]
@@ -22,9 +24,13 @@ def find_longest_timeSpan(actionUnits,config):
             peak = au.get("timeSpan")
             data = au
     
-    return data
+    return RawCardData(
+        id="peak_work_analysis",
+        data={"timeSpan": peak, "data": data},
+        weight=peak
+    )
 
-def find_ratio_distribution(actionUnits,config):
+def find_ratio_distribution(actionUnits: List[Dict[str, Any]], config: Dict[str, Any]) -> RawCardData:
     """
     这个数据分析函数会返回work, rest和waste在一段时间内的分布
     """
@@ -56,5 +62,9 @@ def find_ratio_distribution(actionUnits,config):
     for key in data:
         data[key]["ratio"] = round(data[key]["timeSpan"]/data["total"]["timeSpan"] * 100,2)
     
-    return data
+    return RawCardData(
+        id="daily_ratio_distribution",
+        data=data,
+        weight=data["total"]["timeSpan"]
+    )
     

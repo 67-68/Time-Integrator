@@ -42,5 +42,13 @@ INTERVENTION_CONTRACT_RECIPE = {
     "post_eat_waste": {
         "duration": Duration.TODAY.value,
         "view_recipe_id": INV_View_ID.POST_EAT_WASTE.value
+    },
+    "unsettling_heart":{
+        "duration": Duration.TODAY.value,
+        "view_recipe_id": INV_View_ID.UNSETTLING_HEART.value
+    },
+    "post_bash_waste":{
+        "duration": Duration.TODAY.value,
+        "view_recipe_id": INV_View_ID.POST_BASH_WASTE.value
     }
 }

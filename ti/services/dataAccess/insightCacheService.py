@@ -2,6 +2,7 @@
 import uuid
 from ti.core.definitions import INSIGHT_CACHE
 from ti.services.dataAccess.dataAccess import getData
+from ti.model.insight_card_generation_models import RawCardData, CacheCardData
 
 
 class InsightCacheService:
@@ -39,7 +40,7 @@ class InsightCacheService:
             "card_id":str(uuid.uuid4())
         }
     
-    def add_history_data(self,card:dict) -> None:
+    def add_history_data(self,card: RawCardData) -> None:
         """_summary_
         这个函数用来给历史数据中添加内容
         它只会存储
@@ -54,10 +55,18 @@ class InsightCacheService:
                 au date(鬼知道未来会不会涉及跨天检测)
         """
         # 获取id
-        id = card["id"]
+        id = card.id
         
         # 初始化
         data = {}
+        
+        # 创建CacheCardData对象
+        cache_card = CacheCardData(
+            card_id=str(uuid.uuid4()),
+            id=card.id,
+            weight=card.weight if card.weight is not None else 0.0,
+            data=card.data
+        )
         
         # 如果不存在
         if id not in self.allData:
@@ -69,12 +78,12 @@ class InsightCacheService:
                     "count":0
                 }
             }   
-            data["data"].append(card)
+            data["data"].append(cache_card.__dict__)
         else: # 如果存在
             # 首先检查是否卡片存在，需要修改
             for c in self.allData[id]["data"]:
-                if c["card_id"] == card["card_id"]:
-                    c = card
+                if c["card_id"] == cache_card.card_id:
+                    c = cache_card.__dict__
                     break
             
             # 赋值data
@@ -86,19 +95,19 @@ class InsightCacheService:
         
         # 补丁1: 列表检测
         #breakpoint() 
-        if isinstance(card["data"],list):
-            for au in card["data"]: 
+        if isinstance(card.data,list):
+            for au in card.data: 
                 data["total"]["timeSpan"] += au["timeSpan"]
                 data["total"]["count"] += 1
         # 补丁2: 字典检测
-        elif isinstance(card["data"],dict):
-            for key in card["data"]:
-                data["total"]["timeSpan"] += card["data"][key]["timeSpan"]
+        elif isinstance(card.data,dict):
+            for key in card.data:
+                data["total"]["timeSpan"] += card.data[key]["timeSpan"]
                 data["total"]["count"] += 1
         
         self.allData[id] = data    
         
-    def add_bulk_history_data(self,cards:list) -> None:
+    def add_bulk_history_data(self,cards: list[RawCardData]) -> None:
         """_summary_
         这个函数用来给历史数据添加大批量的内容
         会调用多次add history data来添加内容

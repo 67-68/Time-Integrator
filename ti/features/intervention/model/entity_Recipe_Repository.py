@@ -36,6 +36,16 @@ ENTITY_RECIPE = {
         "card_id": "post_eat_waste",
         "contract_id":"post_eat_waste",
         "insight_card_id":"post_eat_waste"
+    },
+    "unsettling_heart": {
+        "card_id": "unsettling_heart",
+        "contract_id":"unsettling_heart",
+        "insight_card_id":"unsettling_heart"
+    },
+    "post_bash_waste": {
+        "card_id": "post_bash_waste",
+        "contract_id":"post_bash_waste",
+        "insight_card_id":"post_bash_waste"
     }
 }
     

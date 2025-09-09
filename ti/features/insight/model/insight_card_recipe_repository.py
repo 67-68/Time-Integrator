@@ -1,9 +1,10 @@
 
 from ti.features.detector.baseDetector import BaseDetector
-from ti.model import userMatchers
+from ti.features.detector import userMatchers
+from ti.features.insight.service import analyzer
 from ti.model.duration import Duration
-from ti.services.analysis import analyzer, presenters
-from ti.model.insight_card_generation_models import FixedRecipe, ConditionalRecipe
+from ti.features.insight.service import presenters
+from ti.features.insight.model.insight_card_generation_models import FixedRecipe, ConditionalRecipe
 
 
 

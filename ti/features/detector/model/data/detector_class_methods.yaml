@@ -1,0 +1,11 @@
+# Detector Feature Class Method Registry
+# This file contains class method symbols for the detector feature
+
+class_methods:
+  - symbol_type: "class_method"
+    symbol_path: "ti.features.detector.detectorRepository.DetectocRepository.get_recipe_by_id"
+    symbol_domain: "detector"
+
+  - symbol_type: "class_method"
+    symbol_path: "ti.features.detector.detectorRepository.DetectocRepository.__init__"
+    symbol_domain: "detector"

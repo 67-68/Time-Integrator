@@ -1,7 +1,7 @@
 from PyQt6.QtCore import QObject
 
 from ti.services.dataAccess.insightCacheService import InsightCacheService
-from ti.model.insight_card_generation_models import RawCardData, PresentedCardData
+from ti.features.insight.model.insight_card_generation_models import RawCardData, PresentedCardData
 
 
 

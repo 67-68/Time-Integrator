@@ -3,7 +3,7 @@
 都是输入一个actionUnit, 输出一个dict包裹着的数据
 """                    
 from typing import List, Dict, Any
-from ti.model.insight_card_generation_models import RawCardData
+from ti.features.insight.model.insight_card_generation_models import RawCardData
                     
 """
 这些函数进行特殊数据的获取，类似极值和平均值

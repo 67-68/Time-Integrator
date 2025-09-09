@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from enum import Enum
 import datetime
 
-from ti.services.analysis.matchers import Matcher
+from ti.features.detector.matchers import Matcher
 
 
 

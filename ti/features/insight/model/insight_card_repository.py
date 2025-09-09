@@ -1,7 +1,7 @@
 from datetime import datetime
 from ti.core.Interfaces.json_repository_interface import JsonRepositoryInterface
 from ti.services.dataAccess.dataAccess import getData, saveData
-from ti.model.insight_card_model import InsightCardModel
+from ti.features.insight.model.insight_card_model import InsightCardModel
 
 
 class InsightCardRepository(JsonRepositoryInterface):

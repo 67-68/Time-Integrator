@@ -2,14 +2,14 @@ import uuid
 from PyQt6.QtWidgets import QVBoxLayout
 from PyQt6.QtCore import pyqtSignal
 
-from ti.view.views.analysis.trendCard import InsightCard
-from ti.presenters.InsightCardPresenter import InsightCardPresenter
+from ti.features.insight.view.trendCard import InsightCard
+from ti.features.insight.presenter.InsightCardPresenter import InsightCardPresenter
 from ti.services.formatter import FormatService
 from ti.view.widgets.pages.BasicFrame import BasicFrame
 from ti.view.rawUI.ui_rawAnalysisPage import Ui_analysisPage
 from ti.core.eventBus import EventBus
 from ti.services.sessionCache import SessionCache
-from ti.model.insight_card_generation_models import PresentedCardData, FixedCardResult
+from ti.features.insight.model.insight_card_generation_models import PresentedCardData, FixedCardResult
 
 class AnalysisPage(BasicFrame):
     switchPage_button_clicked = pyqtSignal(str)

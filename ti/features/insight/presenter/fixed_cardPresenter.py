@@ -1,5 +1,5 @@
 from ti.services.sessionCache import SessionCache
-from ti.model.insight_card_generation_models import FixedCardResult, AnalyzerConfig
+from ti.features.insight.model.insight_card_generation_models import FixedCardResult, AnalyzerConfig
 
 
 class Fixed_ReportGenerator():

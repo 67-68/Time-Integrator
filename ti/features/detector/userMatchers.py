@@ -2,7 +2,7 @@
 
 
 from ti.core.definitions import YESTERDAY, ActionType
-from ti.services.analysis.matchers import Matcher
+from ti.features.detector.matchers import Matcher
 
 
 """ Complex matchers

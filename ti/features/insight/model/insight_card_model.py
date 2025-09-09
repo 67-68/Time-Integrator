@@ -3,7 +3,7 @@ from typing import Dict, Any
 
 from ti.features.detector.baseDetector import BaseDetector
 from ti.model.duration import Duration
-from ti.services.analysis.matchers import Matcher
+from ti.features.detector.matchers import Matcher
 
 
 @dataclass

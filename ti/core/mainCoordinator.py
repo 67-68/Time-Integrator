@@ -1,4 +1,4 @@
-from ti.presenters.cardPresenter import CardPresenter
+from ti.features.insight.presenter.cardPresenter import CardPresenter
 from ti.view.views.BasicDialog import BasicDialog
 from ti.core.eventBus import EventBus
 from ti.core.extensionRegister import DynamicExtensionLoader, ExtensionRegister

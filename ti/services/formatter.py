@@ -1,5 +1,5 @@
 
-from ti.model import narratives
+from ti.features.insight.model import narratives
 from ti.model.action_unit import ActionUnit
 from ti.model.themes import themes
 from ti.services.utils import randomChoser, smart_formatter

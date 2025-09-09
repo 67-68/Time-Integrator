@@ -4,7 +4,7 @@ import pytest
 from unittest.mock import MagicMock
 from datetime import datetime, timedelta
 
-from ti.model import userMatchers
+from ti.features.detector import userMatchers
 from ti.UI.presenters.translator import Translator
 from ti.UI.views.MainWindow import MainWindow
 from ti.core.mainCoordinator import MainCoorinator

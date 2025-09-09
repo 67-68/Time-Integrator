@@ -2,7 +2,7 @@
 import uuid
 from ti.core.definitions import INSIGHT_CACHE
 from ti.services.dataAccess.dataAccess import getData
-from ti.model.insight_card_generation_models import RawCardData, CacheCardData
+from ti.features.insight.model.insight_card_generation_models import RawCardData, CacheCardData
 
 
 class InsightCacheService:

@@ -3,7 +3,7 @@ from PyQt6.QtCore import pyqtSignal
 
 from ti.presenters.inputValidationPresentor import InputValidation
 
-from ti.services.analysis.matchers import get_time_from_str
+from ti.features.detector.matchers import get_time_from_str
 from ti.services.translator import Translator
 from ti.view.rawUI.ui_rawBulkEnterFrame import Ui_bulkEnterFrame
 from ti.view.widgets.pages.BasicWidget import BasicWidget

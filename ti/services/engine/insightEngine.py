@@ -4,7 +4,7 @@ from ti.features.detector.baseDetector import BaseDetector
 from ti.features.detector.detectorFactory import DetectorFactory
 from ti.services.dataAccess.insightCacheService import InsightCacheService
 from ti.services.sessionCache import SessionCache
-from ti.model.insight_card_generation_models import RawCardData, CardInfo
+from ti.features.insight.model.insight_card_generation_models import RawCardData, CardInfo
 
 
 class InsightEngine(QObject):

@@ -1,5 +1,5 @@
-from ti.model import userMatchers
-from ti.services.analysis.matchers import Matcher
+from ti.features.detector import userMatchers
+from ti.features.detector.matchers import Matcher
 from ti.features.detector.baseDetector import BaseDetector
 from ti.features.detector.model import Detector_Config, Detector_Recipe, Detector_Recipe_ID, Detector_Sequence, Detector_State
 

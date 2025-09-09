@@ -1,0 +1,69 @@
+# Detector Feature Function Registry
+# This file contains function symbols for the detector feature
+
+# Functions from matchers.py
+functions:
+  - symbol_type: "function"
+    symbol_path: "ti.features.detector.matchers.get_time_from_str"
+    symbol_domain: "detector"
+
+  - symbol_type: "function"
+    symbol_path: "ti.features.detector.matchers.Matcher.action_is"
+    symbol_domain: "detector"
+
+  - symbol_type: "function"
+    symbol_path: "ti.features.detector.matchers.Matcher.start_later_than"
+    symbol_domain: "detector"
+
+  - symbol_type: "function"
+    symbol_path: "ti.features.detector.matchers.Matcher.end_later_than"
+    symbol_domain: "detector"
+
+  - symbol_type: "function"
+    symbol_path: "ti.features.detector.matchers.Matcher.action_type_is"
+    symbol_domain: "detector"
+
+  - symbol_type: "function"
+    symbol_path: "ti.features.detector.matchers.Matcher.duration_is_greater_than"
+    symbol_domain: "detector"
+
+  - symbol_type: "function"
+    symbol_path: "ti.features.detector.matchers.Matcher.duration_is_smaller_than"
+    symbol_domain: "detector"
+
+  - symbol_type: "function"
+    symbol_path: "ti.features.detector.matchers.Matcher.date_is"
+    symbol_domain: "detector"
+
+  - symbol_type: "function"
+    symbol_path: "ti.features.detector.matchers.Matcher.property_is"
+    symbol_domain: "detector"
+
+  - symbol_type: "function"
+    symbol_path: "ti.features.detector.matchers.Matcher.matchAll"
+    symbol_domain: "detector"
+
+  - symbol_type: "function"
+    symbol_path: "ti.features.detector.matchers.Matcher.matchAny"
+    symbol_domain: "detector"
+
+# Functions from baseDetector.py
+  - symbol_type: "function"
+    symbol_path: "ti.features.detector.baseDetector.BaseDetector.process_action_unit"
+    symbol_domain: "detector"
+
+  - symbol_type: "function"
+    symbol_path: "ti.features.detector.baseDetector.BaseDetector._on_state_complete"
+    symbol_domain: "detector"
+
+  - symbol_type: "function"
+    symbol_path: "ti.features.detector.baseDetector.BaseDetector.reset"
+    symbol_domain: "detector"
+
+  - symbol_type: "function"
+    symbol_path: "ti.features.detector.baseDetector.BaseDetector.packer"
+    symbol_domain: "detector"
+
+  - symbol_type: "function"
+    symbol_path: "ti.features.detector.baseDetector.BaseDetector._on_weight_calculation"
+    symbol_domain: "detector"

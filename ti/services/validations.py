@@ -3,7 +3,7 @@
 
 
 from ti.core.definitions import ActionType, Indicators, getEnumValueDict_API
-from ti.services.analysis.matchers import get_time_from_str
+from ti.features.detector.matchers import get_time_from_str
 
 
 lineIndicator = Indicators.LINE_INDICATOR.value

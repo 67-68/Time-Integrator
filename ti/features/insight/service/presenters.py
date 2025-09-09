@@ -1,8 +1,8 @@
 
 from ti.model import themes
-from ti.model import narratives
+from ti.features.insight.model import narratives
 from ti.services.utils import flatten_dict
-from ti.model.insight_card_generation_models import RawCardData, PresentedCardData
+from ti.features.insight.model.insight_card_generation_models import RawCardData, PresentedCardData
 
 """
 presenter take in analyzer处理完成的数据(list)

@@ -1,0 +1,11 @@
+# Detector Feature Enum Registry
+# This file contains enum symbols for the detector feature
+
+enum_classes:
+  - symbol_type: "enum_class"
+    symbol_path: "ti.features.detector.model.BaseDetectorState"
+    symbol_domain: "detector"
+
+  - symbol_type: "enum_class"
+    symbol_path: "ti.features.detector.model.Detector_Recipe_ID"
+    symbol_domain: "detector"

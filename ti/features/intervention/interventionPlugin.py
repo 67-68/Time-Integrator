@@ -4,7 +4,7 @@
 因此选择Coodinator(MVP/MVC以上的层级)来协调而非Controller(MVC)
 """
 
-from ti.view.views.analysis.trendCard import InsightCard
+from ti.features.insight.view.trendCard import InsightCard
 from ti.core.Interfaces.extension_Interface import ExtensionInterface
 from ti.core.eventBus import EventBus
 from ti.features.detector.detectorRepository import DetectocRepository

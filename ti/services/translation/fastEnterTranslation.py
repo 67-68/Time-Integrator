@@ -4,7 +4,7 @@
 
 
 from ti.core.definitions import ActionType, InputState, getEnumAbbriviation
-from ti.services.analysis.matchers import get_time_from_str
+from ti.features.detector.matchers import get_time_from_str
 
 
 def transFastToProp_API(text, actionData):

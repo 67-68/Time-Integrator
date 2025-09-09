@@ -6,7 +6,7 @@
 from dataclasses import dataclass
 
 from ti.core.Interfaces.detector_Interface import DetectorInterface
-from ti.services.analysis.matchers import Matcher
+from ti.features.detector.matchers import Matcher
 from enum import Enum
 
 from ti.features.intervention.model.model import INVEvent

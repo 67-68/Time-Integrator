@@ -1,0 +1,79 @@
+# Intervention Feature Class Method Registry
+# This file contains class method symbols for the intervention feature
+
+class_methods:
+  - symbol_type: "class_method"
+    symbol_path: "ti.features.intervention.model.view_repository.INV_Card_Repository.__init__"
+    symbol_domain: "intervention"
+
+  - symbol_type: "class_method"
+    symbol_path: "ti.features.intervention.model.view_repository.INV_Card_Repository.get_all_recipes"
+    symbol_domain: "intervention"
+
+  - symbol_type: "class_method"
+    symbol_path: "ti.features.intervention.model.view_repository.INV_Card_Repository.get_recipe_by_id"
+    symbol_domain: "intervention"
+
+  - symbol_type: "class_method"
+    symbol_path: "ti.features.intervention.model.contractRecipeRepository.INV_CON_Recipe_Repository.__init__"
+    symbol_domain: "intervention"
+
+  - symbol_type: "class_method"
+    symbol_path: "ti.features.intervention.model.contractRecipeRepository.INV_CON_Recipe_Repository.get_all_recipe"
+    symbol_domain: "intervention"
+
+  - symbol_type: "class_method"
+    symbol_path: "ti.features.intervention.model.contractRecipeRepository.INV_CON_Recipe_Repository.get_recipe_by_id"
+    symbol_domain: "intervention"
+
+  - symbol_type: "class_method"
+    symbol_path: "ti.features.intervention.service.formatter.INV_Formatter.__init__"
+    symbol_domain: "intervention"
+
+  - symbol_type: "class_method"
+    symbol_path: "ti.features.intervention.service.formatter.INV_Formatter.format"
+    symbol_domain: "intervention"
+
+  - symbol_type: "class_method"
+    symbol_path: "ti.features.intervention.model.narratives.InterventionNarrator.__init__"
+    symbol_domain: "intervention"
+
+  - symbol_type: "class_method"
+    symbol_path: "ti.features.intervention.model.narratives.InterventionNarrator.get_text_by_id"
+    symbol_domain: "intervention"
+
+  - symbol_type: "class_method"
+    symbol_path: "ti.features.intervention.model.entity_Recipe_Repository.INV_Entity_Recipe_Repository.__init__"
+    symbol_domain: "intervention"
+
+  - symbol_type: "class_method"
+    symbol_path: "ti.features.intervention.model.entity_Recipe_Repository.INV_Entity_Recipe_Repository.get_all_recipes"
+    symbol_domain: "intervention"
+
+  - symbol_type: "class_method"
+    symbol_path: "ti.features.intervention.model.entity_Recipe_Repository.INV_Entity_Recipe_Repository.get_recipe_by_id"
+    symbol_domain: "intervention"
+
+  - symbol_type: "class_method"
+    symbol_path: "ti.features.intervention.model.model.INV_Contract.to_dict"
+    symbol_domain: "intervention"
+
+  - symbol_type: "class_method"
+    symbol_path: "ti.features.intervention.model.model.INV_Contract.from_dict"
+    symbol_domain: "intervention"
+
+  - symbol_type: "class_method"
+    symbol_path: "ti.features.intervention.model.model.INV_ContractLog.to_dict"
+    symbol_domain: "intervention"
+
+  - symbol_type: "class_method"
+    symbol_path: "ti.features.intervention.model.model.INV_ContractLog.from_dict"
+    symbol_domain: "intervention"
+
+  - symbol_type: "class_method"
+    symbol_path: "ti.features.intervention.model.model.INV_View_Model.to_dict"
+    symbol_domain: "intervention"
+
+  - symbol_type: "class_method"
+    symbol_path: "ti.features.intervention.model.model.INV_View_Model.from_dict"
+    symbol_domain: "intervention"

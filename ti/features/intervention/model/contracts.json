@@ -1,38 +1,26 @@
 {
-    "e00f4fc9-ee52-4cd0-8d79-59b3bba061a7": {
-        "create_time": "2025-09-10T20:33:36.048546",
+    "c7e8f3f1-8301-469b-915c-646dabfb760f": {
+        "create_time": "2025-09-11T21:19:49.200520",
         "duration": "today",
         "solve_time": null,
         "solved": null,
         "success": null,
-        "contract_uuid": "e00f4fc9-ee52-4cd0-8d79-59b3bba061a7",
+        "contract_uuid": "c7e8f3f1-8301-469b-915c-646dabfb760f",
         "contract_category_id": "unsettling_heart",
         "current_state": "before_start",
         "view_recipe_id": "unsettling_heart",
         "detector_recipe_id": "unsettling_heart"
     },
-    "1e697098-898c-49a6-9a66-92b59b61726d": {
-        "create_time": "2025-09-10T20:33:36.049595",
+    "b48bff08-d3f0-4ac0-b64f-da61d3828b83": {
+        "create_time": "2025-09-11T21:19:49.201669",
         "duration": "today",
         "solve_time": null,
         "solved": null,
         "success": null,
-        "contract_uuid": "1e697098-898c-49a6-9a66-92b59b61726d",
+        "contract_uuid": "b48bff08-d3f0-4ac0-b64f-da61d3828b83",
         "contract_category_id": "post_eat_waste",
         "current_state": "before_start",
         "view_recipe_id": "post_eat_waste",
         "detector_recipe_id": "post_eat_waste"
-    },
-    "ebe39789-5255-4ad5-955f-c236f0c1548a": {
-        "create_time": "2025-09-10T20:33:36.050542",
-        "duration": "today",
-        "solve_time": null,
-        "solved": null,
-        "success": null,
-        "contract_uuid": "ebe39789-5255-4ad5-955f-c236f0c1548a",
-        "contract_category_id": "post_bash_waste",
-        "current_state": "before_start",
-        "view_recipe_id": "post_bash_waste",
-        "detector_recipe_id": "post_bash_waste"
     }
 }

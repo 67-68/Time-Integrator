@@ -17,6 +17,6 @@ class PluginPage:
     page_contribution: PageContribution
     ui = None #这里或许需要定义一个插件页面统一的接口
     
-class PluginEvents(Events):
+class PluginEvents(Enum):
     PLUGIN_CREATED = "plugin_created" # 用来表示一个插件的加载
-    PLUGIN_PAGE_CREATED = "plugin_page_created" # 用来表示一个插件内，界面的加载
+    PAGE_PLUGIN_CREATED = "page_plugin_created" # 表示一个有着page的plugin被创建了

@@ -1,6 +1,9 @@
+from ti.features.capture.capture_plugin import CapturePlugin
+from ti.features.core_capture.CapturePage import New_CapturePage
 from ti.features.detector.detector_path_register import DetectorPathRegister
 from ti.features.insight.insight_path_register import InsightPathRegister
 from ti.features.insight.presenter.cardPresenter import CardPresenter
+from ti.presenters.capture_page_presenter import CapturePagePresenter
 from ti.services.symbol_service import SymbolService
 from ti.view.views.BasicDialog import BasicDialog
 from ti.core.eventBus import EventBus
@@ -60,7 +63,7 @@ class MainCoorinator():
         """_summary_
         这个函数创建插件的实例并激活他们
         """        
-        plugins = [InterventionPlugin]
+        plugins = [CapturePlugin,InterventionPlugin]
         
         self.loader.discover_and_register_plugins(plugins)
         
@@ -87,3 +90,4 @@ class MainCoorinator():
         if registers:
             for register in registers:
                 self.symbol.regist_register(register)
+                

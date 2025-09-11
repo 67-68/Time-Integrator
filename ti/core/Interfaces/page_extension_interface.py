@@ -3,7 +3,7 @@ from ti.core.Interfaces.extension_Interface import ExtensionInterface
 from ti.model.page_contributions import PageContribution
 
 
-class PageExtensionInterface(ExtensionInterface): #这里还需要继承ABC吗？
+class IPageExtension(ExtensionInterface): #这里还需要继承ABC吗？
     @property
     @abstractmethod
     def page_contributions(self) -> list[PageContribution]:

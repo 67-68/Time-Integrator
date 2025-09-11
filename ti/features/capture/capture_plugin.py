@@ -1,14 +1,15 @@
-from ti.core.Interfaces.page_extension_interface import PageExtensionInterface
+from ti.core.Interfaces.page_extension_interface import IPageExtension
 from ti.features.capture.presenter.selection_presenter import CAP_SelectionPresenter
-from ti.features.capture.presenter.smart_input_presenter import CAP_InputPresenter
+from ti.features.capture.presenter.input_presenter import CAP_InputPresenter
 from ti.features.capture.view.capture import CaptureView
+from ti.model.core_pages import CoreView
 from ti.model.page_contributions import PageContribution
 from ti.services.dataAccess.dataService import DataService
 from ti.features.capture.presenter.capture_presenter import CapturePresenter
 from ti.core.eventBus import EventBus
 
 
-class CapturePlugin(PageExtensionInterface):
+class CapturePlugin(IPageExtension):
     def __init__(
         self,
         data_service: DataService
@@ -17,19 +18,15 @@ class CapturePlugin(PageExtensionInterface):
         self.data_service = data_service
         self.event_bus = None
         self.presenter = None
+        
+        
     
     def initialize(self, eventBus: EventBus):
         """初始化插件"""
         self.event_bus = eventBus
         
         # 发布插件注册事件
-        plugin_data = {
-            'plugin_name': self.name,
-            'page_contributions': self.page_contributions,
-            'create_page_callback': self.create_page
-        }
-        
-        self.event_bus.publish("PagePluginRegistered", plugin_data)
+        self.event_bus.publish("PagePluginRegistered", self.page_contributions)
 
     @property
     def name(self):
@@ -43,14 +40,15 @@ class CapturePlugin(PageExtensionInterface):
     
     @property
     def page_contributions(self):
-        parent_page = "CapturePage"
+        parent_page = CoreView.CAPTURE_PAGE.value
         page_id = "capture_plugin_page"
         navigation_name = "输入行动"
         
         capture_plugin_page = PageContribution(
             page_id,
             navigation_name,
-            parent_page
+            parent_page,
+            create_page_callback=self.create_page
         )
         
         page_contributions = [capture_plugin_page]
@@ -74,3 +72,8 @@ class CapturePlugin(PageExtensionInterface):
             selection,
             input
         )
+        # 存储presenter引用以便后续管理
+        self.presenter = presenter
+        
+        # 返回presenter创建的widget
+        return presenter.widget

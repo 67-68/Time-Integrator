@@ -1,5 +1,7 @@
 from PyQt6.QtWidgets import QApplication
 import sys
+from ti.features.core_capture.CapturePage import New_CapturePage
+from ti.presenters.capture_page_presenter import CapturePagePresenter
 from ti.view.views import SettingPage
 from ti.services.analysis.otherAnalysis import updateActionList
 from ti.services.dataAccess.dataService import DataService
@@ -29,9 +31,16 @@ class TimeIntegrator:
         self.ui = self.mainWindow.getUIs()
         self.ui["MW"] = self.mainWindow
         
+        
+        
         #  ------ 创建所有的服务实例 ------
         self.services = ServiceContainer()
         self.dataService: DataService = self.services.getService("DS")
+        
+        self.bus = self.services.getService("bus")
+        self.capture_page = New_CapturePage(self.mainWindow)
+        self.presenter = CapturePagePresenter(self.capture_page, self.bus)
+        
         self.coordinator = MainCoorinator(self.services,self.ui)
         
         #  ------ 持有的状态 ------
@@ -45,6 +54,7 @@ class TimeIntegrator:
         
         #  ------ 初始化今天 -----
         self._on_date_selected(TODAY)
+    
         
 
     """ ------------------------------ Basic functions ------------------------------"""    
@@ -54,6 +64,9 @@ class TimeIntegrator:
         self.mainWindow.date_selected.connect(self._on_date_selected)
         self.mainWindow.list_item_selected.connect(self._on_list_item_selected)
         self.mainWindow.new_button_selected.connect(self.createNewRecord)
+        
+        # 连接测试新capture page的信号
+        self.mainWindow.SP.test_new_capture_page.connect(self.test_create_capture_page)
     
     def createState(self):
         self.isDebugMode = False
@@ -143,3 +156,14 @@ class TimeIntegrator:
         #  --- 传递依赖 ---
         # se-lf.mainWindow.initialization(self.dataService.get_data())
         pass
+
+    
+    def test_create_capture_page(self):        
+        # 添加到mainWindow的stacked widget中
+        self.mainWindow.MW.stackedWidget.addWidget(self.capture_page)
+        
+        # 存储引用
+        self.ui["NewCP"] = self.capture_page
+        
+        # 切换到新的capture page
+        self.mainWindow.MW.stackedWidget.setCurrentWidget(self.capture_page)

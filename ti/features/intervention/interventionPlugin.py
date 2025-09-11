@@ -143,6 +143,7 @@ class InterventionPlugin(
     # ------ 业务逻辑 ——----
     def _on_card_created(self,data: tuple):
         self.coordinator.process_insight_card(data)
+    
                 
     @property
     def register_class(self):

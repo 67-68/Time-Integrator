@@ -174,5 +174,53 @@
         "willingness_notes": null,
         "execution_notes": null,
         "trigger_context": null
+    },
+    "d9c7ca75-4218-45c6-91af-11c0bdd83baf": {
+        "original_contract_id": "e00f4fc9-ee52-4cd0-8d79-59b3bba061a7",
+        "log_category_id": "unsettling_heart_log",
+        "original_contract_category_id": "unsettling_heart",
+        "user_id": "default_user",
+        "created_at": "2025-09-10T20:33:36.048546",
+        "resolved_at": "2025-09-11T09:17:56.189516",
+        "final_willingness_status": "unknown",
+        "log_id": "d9c7ca75-4218-45c6-91af-11c0bdd83baf",
+        "willingness_decision_at": null,
+        "execution_triggered_at": null,
+        "final_execution_status": "completed",
+        "willingness_notes": null,
+        "execution_notes": null,
+        "trigger_context": null
+    },
+    "877f93d8-5961-4084-a373-405b4b1b43cf": {
+        "original_contract_id": "1e697098-898c-49a6-9a66-92b59b61726d",
+        "log_category_id": "post_eat_waste_log",
+        "original_contract_category_id": "post_eat_waste",
+        "user_id": "default_user",
+        "created_at": "2025-09-10T20:33:36.049595",
+        "resolved_at": "2025-09-11T09:17:56.191918",
+        "final_willingness_status": "unknown",
+        "log_id": "877f93d8-5961-4084-a373-405b4b1b43cf",
+        "willingness_decision_at": null,
+        "execution_triggered_at": null,
+        "final_execution_status": "completed",
+        "willingness_notes": null,
+        "execution_notes": null,
+        "trigger_context": null
+    },
+    "0ee12d72-2878-41e3-9feb-266cd3bf4de7": {
+        "original_contract_id": "ebe39789-5255-4ad5-955f-c236f0c1548a",
+        "log_category_id": "post_bash_waste_log",
+        "original_contract_category_id": "post_bash_waste",
+        "user_id": "default_user",
+        "created_at": "2025-09-10T20:33:36.050542",
+        "resolved_at": "2025-09-11T09:17:56.193158",
+        "final_willingness_status": "unknown",
+        "log_id": "0ee12d72-2878-41e3-9feb-266cd3bf4de7",
+        "willingness_decision_at": null,
+        "execution_triggered_at": null,
+        "final_execution_status": "completed",
+        "willingness_notes": null,
+        "execution_notes": null,
+        "trigger_context": null
     }
 }

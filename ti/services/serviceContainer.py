@@ -61,7 +61,7 @@ class ServiceContainer:
         self.services["ER"] = register
         self._services[ExtensionRegister] = register
         
-        loader = DynamicExtensionLoader(register,self)
+        loader = DynamicExtensionLoader(register,self,bus)
         self.services["loader"] = loader
         self._services[DynamicExtensionLoader] = loader
         

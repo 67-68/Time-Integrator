@@ -32,7 +32,7 @@ class MainWindow(QMainWindow):
         self.connectSignal()
         
         self.MW.stackedWidget.setCurrentWidget(self.MP)
-
+        
     def getUIs(self):
         """
         这个函数返回所有的UI实例

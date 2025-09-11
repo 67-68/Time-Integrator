@@ -1,8 +1,11 @@
 from ti.core.Interfaces.extension_Interface import ExtensionInterface
+from ti.core.Interfaces.page_extension_interface import IPageExtension
 from ti.core.Interfaces.path_register_provider_interface import IPathRegisterProvider
 from ti.core.Interfaces.symbol_path_register_interface import ISymbolPathRegister
 from ti.core.eventBus import EventBus
 import inspect
+
+from ti.model.events import PluginEvents
 
 class ExtensionRegister:
     def __init__(self,eventBus:EventBus):
@@ -22,7 +25,13 @@ class ExtensionRegister:
             plugin (_type_): 插件主类实例
         """
         name = plugin.name
+        print("=" * 10)
+        print(f"initilizing plugin {plugin.name}")
         plugin.initialize(self.eventBus)
+        print("sucessfully intitialize")
+        print("=" * 10)
+        
+        
         self.plugins[name] = plugin
         
 
@@ -30,10 +39,12 @@ class DynamicExtensionLoader:
     def __init__(
         self,
         plugin_manager: ExtensionRegister, 
-        services# ServiceContainer,由于不能循环import只能注释掉了
+        services, # ServiceContainer,由于不能循环import只能注释掉了
+        bus: EventBus
     ):
         self.plugin_manager = plugin_manager
         self.services = services
+        self.bus = bus
         self.registers = []
 
     def discover_and_register_plugins(self, extension_package):
@@ -49,6 +60,12 @@ class DynamicExtensionLoader:
                     instance: type[IPathRegisterProvider]
                     print(f"successfully regist symbol path register for plugin {plugin_class.name} ")
                     self.registers.append(instance.register_class)
+                
+                # pages
+                if isinstance(instance,IPageExtension):
+                    pages = instance.page_contributions
+                    print(f"found page contribution: {pages}")
+                    self.bus.publish(PluginEvents.PAGE_PLUGIN_CREATED.value, pages)
                 
             except Exception as e:
                 print(f"Failed to create plugin {plugin_class.__name__}: {e}")

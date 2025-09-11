@@ -1,4 +1,7 @@
+from ti.features.detector.detector_path_register import DetectorPathRegister
+from ti.features.insight.insight_path_register import InsightPathRegister
 from ti.features.insight.presenter.cardPresenter import CardPresenter
+from ti.services.symbol_service import SymbolService
 from ti.view.views.BasicDialog import BasicDialog
 from ti.core.eventBus import EventBus
 from ti.core.extensionRegister import DynamicExtensionLoader, ExtensionRegister
@@ -39,6 +42,8 @@ class MainCoorinator():
         
         self.bus: EventBus = self.service.getService("bus")
         
+        self.symbol: SymbolService = self.service.getService("symbol")
+        
     def getController(self,controller):
         """_summary_
         return a single controller
@@ -65,3 +70,20 @@ class MainCoorinator():
         
     def end_dialog(self,view_id):
         self.dialog.close()
+        
+    def activate_symbol_service(self):
+        """
+        这个函数用来激活symbol service
+        """
+        
+        
+        registers = self.loader.get_registers()
+        
+        # 创建核心的register
+        registers.append(DetectorPathRegister())
+        registers.append(InsightPathRegister())
+
+        
+        if registers:
+            for register in registers:
+                self.symbol.regist_register(register)

@@ -4,6 +4,7 @@
 因此选择Coodinator(MVP/MVC以上的层级)来协调而非Controller(MVC)
 """
 
+from ti.core.Interfaces.path_register_provider_interface import IPathRegisterProvider
 from ti.features.insight.view.trendCard import InsightCard
 from ti.core.Interfaces.extension_Interface import ExtensionInterface
 from ti.core.eventBus import EventBus
@@ -11,6 +12,7 @@ from ti.features.detector.detectorRepository import DetectocRepository
 from ti.features.intervention.cardOrchestrator import INV_Card_Orchestrator
 from ti.features.intervention.coordinator import InterventionCoordinator
 from ti.features.intervention.intervention_contract_orchestrator import INV_Contract_Orchestrator
+from ti.features.intervention.intervention_path_register import InterventionPathRegister
 from ti.features.intervention.model.contractRecipeRepository import INV_CON_Recipe_Repository
 from ti.features.intervention.model.contractRepository import INV_ContractRepository
 from ti.features.intervention.model.entity_Recipe_Repository import INV_Entity_Recipe_Repository
@@ -29,7 +31,10 @@ from ti.services.realTimeMonitor import RealTimeMonitor
 from ti.services.sessionCache import SessionCache
 
 
-class InterventionPlugin(ExtensionInterface):
+class InterventionPlugin(
+    ExtensionInterface,
+    IPathRegisterProvider
+):
     def __init__(
         self,
         monitor: RealTimeMonitor,
@@ -84,7 +89,8 @@ class InterventionPlugin(ExtensionInterface):
         contract_service = INV_ContractService(contract_repository,contract_recipe_repos,register,logger)
         self.container.add_service("contract_service",contract_service)
         
-
+        path_register = InterventionPathRegister()
+        self.path_register = path_register
         
 
         
@@ -138,4 +144,6 @@ class InterventionPlugin(ExtensionInterface):
     def _on_card_created(self,data: tuple):
         self.coordinator.process_insight_card(data)
                 
-        
+    @property
+    def register_class(self):
+        return self.path_register

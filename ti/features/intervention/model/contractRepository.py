@@ -1,10 +1,10 @@
 from uuid import UUID
-from ti.core.Interfaces.json_repository_interface import JsonRepositoryInterface
+from ti.core.Interfaces.json_repository_interface import IJsonRepository
 from ti.services.dataAccess.dataAccess import getData, saveData
 from ti.features.intervention.model.model import INV_Contract
 
 
-class INV_ContractRepository(JsonRepositoryInterface):
+class INV_ContractRepository(IJsonRepository):
     def __init__(self):
         """_summary_
         存储contract本身，而不是recipe

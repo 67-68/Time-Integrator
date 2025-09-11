@@ -13,6 +13,8 @@ from ti.services.formatter import FormatService
 from ti.services.realTimeMonitor import RealTimeMonitor
 from dataclasses import dataclass
 
+from ti.services.symbol_service import SymbolService
+
 
 class ServiceContainer:
     def __init__(self):
@@ -62,6 +64,10 @@ class ServiceContainer:
         loader = DynamicExtensionLoader(register,self)
         self.services["loader"] = loader
         self._services[DynamicExtensionLoader] = loader
+        
+        symbol = SymbolService()
+        self.services["symbol"] = symbol
+        self._services[SymbolService] = symbol
         
     def getServices(self):
         """_summary_

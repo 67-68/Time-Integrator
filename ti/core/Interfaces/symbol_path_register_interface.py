@@ -1,7 +1,7 @@
 from enum import Enum
 from abc import ABC,abstractmethod
 
-class PathRegisterInterface(ABC):
+class ISymbolPathRegister(ABC):
     @property
     @abstractmethod
     def domain(self):

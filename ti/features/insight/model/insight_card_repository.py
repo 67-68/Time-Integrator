@@ -1,10 +1,10 @@
 from datetime import datetime
-from ti.core.Interfaces.json_repository_interface import JsonRepositoryInterface
+from ti.core.Interfaces.json_repository_interface import IJsonRepository
 from ti.services.dataAccess.dataAccess import getData, saveData
 from ti.features.insight.model.insight_card_model import InsightCardModel
 
 
-class InsightCardRepository(JsonRepositoryInterface):
+class InsightCardRepository(IJsonRepository):
     def __init__(self):
         """
         存储已生成的insight卡片

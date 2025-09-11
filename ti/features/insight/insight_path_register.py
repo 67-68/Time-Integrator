@@ -1,10 +1,10 @@
-from ti.core.Interfaces.path_register_interface import PathRegisterInterface
+from ti.core.Interfaces.symbol_path_register_interface import ISymbolPathRegister
 from ti.model.symbol_models import SymbolModel, SymbolType
 import yaml
 from typing import Dict, List, Optional
 
 
-class InsightPathRegister(PathRegisterInterface):
+class InsightPathRegister(ISymbolPathRegister):
     """
     Path register for insight feature functions and classes
     """

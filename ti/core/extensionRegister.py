@@ -1,4 +1,6 @@
 from ti.core.Interfaces.extension_Interface import ExtensionInterface
+from ti.core.Interfaces.path_register_provider_interface import IPathRegisterProvider
+from ti.core.Interfaces.symbol_path_register_interface import ISymbolPathRegister
 from ti.core.eventBus import EventBus
 import inspect
 
@@ -10,6 +12,7 @@ class ExtensionRegister:
         """
         self.plugins = {}
         self.eventBus = eventBus
+        
         
     def regist_plugin(self,plugin:ExtensionInterface):
         """_summary_
@@ -31,6 +34,7 @@ class DynamicExtensionLoader:
     ):
         self.plugin_manager = plugin_manager
         self.services = services
+        self.registers = []
 
     def discover_and_register_plugins(self, extension_package):
         # ... 动态发现插件类的逻辑 ...
@@ -39,6 +43,13 @@ class DynamicExtensionLoader:
                 # === 魔法发生在这里！===
                 instance = self._create_plugin_instance_with_di(plugin_class)
                 self.plugin_manager.regist_plugin(instance)
+                
+                # symbol_register
+                if isinstance(instance,IPathRegisterProvider):
+                    instance: type[IPathRegisterProvider]
+                    print(f"successfully regist symbol path register for plugin {plugin_class.name} ")
+                    self.registers.append(instance.register_class)
+                
             except Exception as e:
                 print(f"Failed to create plugin {plugin_class.__name__}: {e}")
 
@@ -68,9 +79,10 @@ class DynamicExtensionLoader:
 
         # 4. 将解析出的依赖，作为关键字参数，传入构造函数来创建实例！
         print(f"Creating instance of {plugin_class.__name__} with dependencies: {list(dependencies_to_inject.keys())}")
-        return plugin_class(**dependencies_to_inject)
-
-
+        return plugin_class(**dependencies_to_inject)   
+    
+    def get_registers(self) -> list[type[ISymbolPathRegister]]:
+        return self.registers
         
 
 

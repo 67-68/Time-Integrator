@@ -1,10 +1,10 @@
 from datetime import datetime
-from ti.core.Interfaces.json_repository_interface import JsonRepositoryInterface
+from ti.core.Interfaces.json_repository_interface import IJsonRepository
 from ti.services.dataAccess.dataAccess import getData, saveData
 from ti.features.intervention.model.model import INV_ContractLog
 
 
-class INV_ContractLogRepository(JsonRepositoryInterface):
+class INV_ContractLogRepository(IJsonRepository):
     def __init__(self):
         """
         存储已归档的contract日志

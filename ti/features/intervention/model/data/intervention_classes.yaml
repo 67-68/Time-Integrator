@@ -1,67 +1,83 @@
 # Intervention Feature Class Registry
-# This file contains class symbols for the intervention feature
+# This file contains class symbols for the intervention feature using SymbolModels structure
 
 classes:
-  - symbol_type: "class"
+  INV_CARD_REPOSITORY:
+    symbol_type: "class"
     symbol_path: "ti.features.intervention.model.view_repository.INV_Card_Repository"
     symbol_domain: "intervention"
 
-  - symbol_type: "class"
+  INV_UNIVERSAL_STATE:
+    symbol_type: "class"
     symbol_path: "ti.features.intervention.model.view_repository.INV_Universal_State"
     symbol_domain: "intervention"
 
-  - symbol_type: "class"
+  INV_CON_RECIPE_REPOSITORY:
+    symbol_type: "class"
     symbol_path: "ti.features.intervention.model.contractRecipeRepository.INV_CON_Recipe_Repository"
     symbol_domain: "intervention"
 
-  - symbol_type: "class"
+  INV_STATE_BTN:
+    symbol_type: "class"
     symbol_path: "ti.features.intervention.model.model.INV_State_Btn"
     symbol_domain: "intervention"
 
-  - symbol_type: "class"
+  INV_STATE_PRESENTATION:
+    symbol_type: "class"
     symbol_path: "ti.features.intervention.model.model.INV_State_Presentation"
     symbol_domain: "intervention"
 
-  - symbol_type: "class"
+  INV_STATE:
+    symbol_type: "class"
     symbol_path: "ti.features.intervention.model.model.INVState"
     symbol_domain: "intervention"
 
-  - symbol_type: "class"
+  INV_VIEW_RECIPE:
+    symbol_type: "class"
     symbol_path: "ti.features.intervention.model.model.INV_View_Recipe"
     symbol_domain: "intervention"
 
-  - symbol_type: "class"
+  INV_CONTRACT_RECIPE:
+    symbol_type: "class"
     symbol_path: "ti.features.intervention.model.model.INV_Contract_Recipe"
     symbol_domain: "intervention"
 
-  - symbol_type: "class"
+  INV_CONTRACT:
+    symbol_type: "class"
     symbol_path: "ti.features.intervention.model.model.INV_Contract"
     symbol_domain: "intervention"
 
-  - symbol_type: "class"
+  INV_ENTITY_RECIPE:
+    symbol_type: "class"
     symbol_path: "ti.features.intervention.model.model.INV_Entity_Recipe"
     symbol_domain: "intervention"
 
-  - symbol_type: "class"
+  INV_CONTRACT_CONTEXT:
+    symbol_type: "class"
     symbol_path: "ti.features.intervention.model.model.INV_Contract_Context"
     symbol_domain: "intervention"
 
-  - symbol_type: "class"
+  INV_CONTRACT_LOG:
+    symbol_type: "class"
     symbol_path: "ti.features.intervention.model.model.INV_ContractLog"
     symbol_domain: "intervention"
 
-  - symbol_type: "class"
+  INV_VIEW_MODEL:
+    symbol_type: "class"
     symbol_path: "ti.features.intervention.model.model.INV_View_Model"
     symbol_domain: "intervention"
 
-  - symbol_type: "class"
+  INTERVENTION_NARRATOR:
+    symbol_type: "class"
     symbol_path: "ti.features.intervention.model.narratives.InterventionNarrator"
     symbol_domain: "intervention"
 
-  - symbol_type: "class"
+  INV_ENTITY_RECIPE_REPOSITORY:
+    symbol_type: "class"
     symbol_path: "ti.features.intervention.model.entity_Recipe_Repository.INV_Entity_Recipe_Repository"
     symbol_domain: "intervention"
 
-  - symbol_type: "class"
+  INV_FORMATTER:
+    symbol_type: "class"
     symbol_path: "ti.features.intervention.service.formatter.INV_Formatter"
     symbol_domain: "intervention"

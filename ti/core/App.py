@@ -37,9 +37,9 @@ class TimeIntegrator:
         self.services = ServiceContainer()
         self.dataService: DataService = self.services.getService("DS")
         
-        self.bus = self.services.getService("bus")
-        self.capture_page = New_CapturePage(self.mainWindow)
-        self.presenter = CapturePagePresenter(self.capture_page, self.bus)
+        # self.bus = self.services.getService("bus")
+        # self.capture_page = New_CapturePage(self.mainWindow)
+        # self.presenter = CapturePagePresenter(self.capture_page, self.bus)
         
         self.coordinator = MainCoorinator(self.services,self.ui)
         

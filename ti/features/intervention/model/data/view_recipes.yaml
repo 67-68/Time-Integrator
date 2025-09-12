@@ -1,0 +1,76 @@
+# View Recipe Registry for Intervention Feature
+# This file contains view recipe definitions using SymbolModels structure
+
+view_recipes:
+  # POST_EAT_WASTE recipe
+  POST_EAT_WASTE:
+    id: "post_eat_waste"
+    state:
+      init:
+        transition:
+          intervention.USER_ACCEPTED: "create_intervention"
+          intervention.USER_REJECTED: "ask_attribution"
+        presentation:
+          button:
+            intervention.USER_ACCEPTED:
+              text_key: "accept_challenge"
+            intervention.USER_REJECTED:
+              text_key: "reject_challenge"
+          title: "ask_challenge"
+    initial_state: "init"
+    detector: null
+
+  # UNSETTLING_HEART recipe
+  UNSETTLING_HEART:
+    id: "unsettling_heart"
+    state:
+      init:
+        transition:
+          intervention.USER_ACCEPTED: "create_intervention"
+          intervention.USER_REJECTED: "ask_attribution"
+        presentation:
+          button:
+            intervention.USER_ACCEPTED:
+              text_key: "accept_challenge"
+            intervention.USER_REJECTED:
+              text_key: "reject_challenge"
+          title: "ask_challenge"
+    initial_state: "init"
+    detector: null
+
+  # POST_BASH_WASTE recipe
+  POST_BASH_WASTE:
+    id: "post_bash_waste"
+    state:
+      init:
+        transition:
+          intervention.USER_ACCEPTED: "create_intervention"
+          intervention.USER_REJECTED: "ask_attribution"
+        presentation:
+          button:
+            intervention.USER_ACCEPTED:
+              text_key: "accept_challenge"
+            intervention.USER_REJECTED:
+              text_key: "reject_challenge"
+          title: "ask_challenge"
+    initial_state: "init"
+    detector: null
+
+  # Universal states (used across multiple recipes)
+  universal_states:
+    end_intervention:
+      name: "end_intervention"
+      value:
+        special_event:
+          - intervention.END_INTERVENTION
+    
+    create_intervention:
+      name: "create_intervention"
+      value:
+        transition:
+          intervention.INTERVENTION_CREATED: "intervene_user"
+        presentation:
+          title: "ask_challenge"
+          button: {}
+        special_event:
+          - intervention.ACCEPTED_CONTRACT

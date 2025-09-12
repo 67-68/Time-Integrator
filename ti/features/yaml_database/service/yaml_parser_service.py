@@ -1,5 +1,6 @@
 import yaml
 from ti.core.Interfaces.yaml_parser_interface import IYamlParser
+from ti.features.yaml_database.model.rules import LineRuleItem, RuleFile, TextRuleItem
 
 
 class YamlParser(IYamlParser):
@@ -11,8 +12,99 @@ class YamlParser(IYamlParser):
         """
         pass
     # 干脆直接硬编码python
-        
     
+    def load_rules(self, rules_file_path: str) -> RuleFile:
+        """
+        用来解析yaml文件自带的rules文件
+
+        Args:
+            rules_file_path (str): _description_
+        """
+        rule_file = self.get_data(rules_file_path)
+        try:
+            # --- 核心步骤 ---
+            # 使用 RuleFile.model_validate() 将字典转换为类型安全的 Pydantic 对象
+            # 如果 rule_dict 的结构或类型不符合 RuleFile 的定义，这里会抛出详细的 ValidationError
+            validated_rules = RuleFile.model_validate(rule_file)
+            print("规则文件解析和验证成功！")
+            return validated_rules
+        except Exception as e:
+            # Pydantic 的 ValidationError 提供了非常清晰的错误信息
+            print(f"错误: 规则文件 '{rules_file_path}' 格式不正确。")
+            print(f"详细信息: {e}")
+            return None
+    def create_key_parser(self,rules: TextRuleItem):
+        def key_parser(key):
+            return key
+        return key_parser
+        
+    def create_value_parser(self,rules: TextRuleItem):
+        def value_parser(value):
+            return value
+        return value_parser
+        
+    def create_line_parser(
+        self,
+        rules: list[LineRuleItem],
+        value_parser,
+        key_parser
+    ):
+        prefix_value = {}
+        
+        for rule in rules:
+            if rule.add_prefix:
+                    prefix = rule.add_prefix.prefix
+                    value = rule.add_prefix.key
+                    prefix_value[value] = prefix
+                    
+            def line_parser(line:dict):
+                prefixs = prefix_value
+                
+                for key in line:
+                    value = line[key]
+                    key = key_parser(key)
+                    value = value_parser(value)
+                    
+                    if key in prefixs:
+                        newline = {
+                            key: prefix + line[key]
+                        }
+                        return newline
+                            
+            return line_parser
+            
+
+    
+    def create_file_parser(self,rules:RuleFile):
+        # Create key parser
+        key_parser = self.create_key_parser(rules.domain.key_rules[0] if rules.domain.key_rules else None)
+        
+        # Create value parser
+        value_parser = self.create_value_parser(rules.domain.value_rules[0] if rules.domain.value_rules else None)
+        
+        # Create line parser
+        line_parser = self.create_line_parser(
+            rules.domain.line_rules,
+            value_parser,
+            key_parser
+        )
+        
+        def file_parser(data):
+            result = {}
+            if isinstance(data, dict):
+                for key, value in data.items():
+                    parsed_line = line_parser({key: value})
+                    result.update(parsed_line)
+            elif isinstance(data, list):
+                for item in data:
+                    if isinstance(item, dict):
+                        parsed_line = line_parser(item)
+                        result.update(parsed_line)
+            return result
+        
+        return file_parser
+    
+
     def parse_data(
         self,
         data_file_path,
@@ -22,14 +114,27 @@ class YamlParser(IYamlParser):
         解析数据
         
         Returns:
-            _type_: _description_
+            dict: 解析后的数据字典
         """
         super().parse_data()
         
-        data_file = self.get_data(data_file_path)
-        rule_data = self.get_data(rules_file_path)
+        # 加载数据文件和规则文件
+        data = self.get_data(data_file_path)
+        rules = self.load_rules(rules_file_path)
         
+        if data is None:
+            print(f"错误: 无法加载数据文件 '{data_file_path}'")
+            return {}
+            
+        if rules is None:
+            print(f"错误: 无法加载或验证规则文件 '{rules_file_path}'")
+            return {}
         
+        # 创建文件解析器并解析数据
+        file_parser = self.create_file_parser(rules)
+        parsed_data = file_parser(data)
+        
+        return parsed_data
     
     def get_data(self,file_path):
         try:
@@ -42,13 +147,6 @@ class YamlParser(IYamlParser):
             print(f"错误: 配置文件 '{file_path}' 未找到。")
         except yaml.YAMLError as e:
             print(f"错误: 解析 YAML 文件时出错: {e}")
-
-    def parse_rule(self,rule_file):
-        """
-        这个函数负责创建所有的规则解析文件
-        """
-        
-    def create_parse_value(self,)
         
         
     

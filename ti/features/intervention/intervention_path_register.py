@@ -97,3 +97,27 @@ class InterventionPathRegister(ISymbolPathRegister):
             print(f"Warning: {file_path} not found")
         except Exception as e:
             print(f"Error loading symbol data from {file_path}: {e}")
+
+    def resolve_enum_symbol(self, symbol_ref: str) -> str:
+        """
+        硬编码解析枚举符号引用
+        格式: intervention.ENUM_NAME
+        """
+        if not symbol_ref.startswith("intervention."):
+            return symbol_ref
+        
+        enum_name = symbol_ref.split(".", 1)[1]
+        
+        # 硬编码枚举值映射
+        enum_mapping = {
+            "USER_ACCEPTED": "INVEvent.USER_ACCEPTED.value",
+            "USER_REJECTED": "INVEvent.USER_REJECTED.value", 
+            "INTERVENTION_CREATED": "INVEvent.INTERVENTION_CREATED.value",
+            "END_INTERVENTION": "INV_Special_States.END_INTERVENTION.value",
+            "ACCEPTED_CONTRACT": "INV_Special_States.ACCEPTED_CONTRACT.value"
+        }
+        
+        if enum_name in enum_mapping:
+            return f"ti.features.intervention.model.model.{enum_mapping[enum_name]}"
+        
+        return symbol_ref

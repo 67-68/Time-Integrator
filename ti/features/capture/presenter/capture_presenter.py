@@ -44,6 +44,27 @@ class CapturePresenter(QObject):
         self.widget.add_selection_view(selection_view)
         self.widget.add_input_view(input_view)
         
+        # 连接信号
+        self._connect_signals()
+    
+    def _connect_signals(self):
+        """连接所有信号"""
+        # 连接selection presenter的日期选择信号
+        self.selection.date_selected.connect(self._on_date_selected)
+        
+    def _on_date_selected(self, date_str):
+        """处理日期选择事件"""
+        print(f"Capture presenter received date: {date_str}")
+        # 从dataService获取当天数据
+        action_units = self.data_service.get_date_data(date_str)
+        # 填充记录列表
+        self.fill_records(action_units)
+        
+    def fill_records(self, action_units):
+        """填充记录列表"""
+        # 调用selection presenter的同名函数
+        self.selection.fill_records(action_units)
+        
     def _on_save_btn_pressed(self):
         """
         根据组件传递上来的信号

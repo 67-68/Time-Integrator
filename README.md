@@ -1,174 +1,76 @@
-### **《Time Integrator项目白皮书 v1.0》**
-#### **—— 一份关于“个人科学仪器”的创造者宣言**
+# Time Integrator (TI) - Your Personal Science Instrument
+
+> TI is not another productivity app. It's a toolkit for becoming the architect of your own behavioral change. It's a serious attempt to build a **personal science instrument** for the mind.
+
+This project is for you if you believe:
+*   Understanding **why** you act is more important than tracking **what** you do.
+*   Your life isn't a to-do list to be cleared, but a **system** to be understood and harmonized.
+*   The ultimate goal isn't just "more productivity," but a sustainable, self-aware, and meaningful life **flow**.
 
 ---
 
-### **摘要 (Abstract)**
+## Core Philosophy: The "Why"
 
-`Time Integrator (TI)` 不是另一款时间追踪或生产力应用。它是一个基于第一性原理设计的“**个人科学仪器 (Personal Science Instrument)**”与“**认知副驾驶 (Cognitive Co-Pilot)**”。其核心使命，是帮助用户在“自我管理”这个终极的“**险恶领域 (Wicked Domain)**”中，成为自己“**个人学习环境的建筑师 (Architect of their own Learning Environment)**”。
+TI is built on a single, powerful premise: **traditional time trackers are great at physics, but terrible at chemistry.**
 
-本项目从根本上拒绝了传统的、以“效率”和“产出”为核心的量化指标体系。取而代之的，是建立在一套独特的“**核心哲学**”之上的、全新的分析范式。该范式以“**基态流动 (Basal Flow)**”理论为世界观，以“**行为化学 (Behavioral Chemistry)**”为核心分析方法论，旨在揭示用户行为背后深层的**结构性模式**与**因果关系**，而非仅仅呈现肤浅的**定量数据**。
+*   **Behavioral Physics (The Old Way):** They tell you the *quantity* of your actions ("You worked for 3.2 hours"). This is like describing a painting by listing the percentages of its colors. It's accurate, but shallow.
+*   **Behavioral Chemistry (The TI Way):** We believe true understanding comes from identifying the *relationships* and *reactions* between your actions. TI is designed to be a **behavioral chemist's lab kit**, helping you discover the "molecular structures" of your habits and the "chemical reactions" that lead to burnout or flow.
 
-在技术实现上，TI采用了一套**服务化、可测试、且高度解耦的软件架构**，以**模型-视图-呈现器 (Model-View-Presenter)** 模式为骨架，通过**依赖注入容器 (Dependency Injection Container)** 机制进行系统集成，确保了项目的长期健壮性与可扩展性。
+Our mission is to help you move from being a passive observer of your time to an active **architect of your personal learning environment**.
 
-本文档将从**核心哲学、现有功能、系统架构、未来展望**四个维度，对`Time Integrator`项目进行全面的、系统性的阐述。
+## Key Features: The "What"
 
----
----
+TI is an evolving ecosystem. Here's what the foundational version can do right now:
 
-### **第一章：核心哲学 —— TI为何存在？(The "Why")**
+### 1. High-Fidelity Capture Engine
+The quality of insight depends on the quality of data. Our capture system is designed for speed and depth.
 
-TI项目的诞生，源于对现有生产力工具普遍存在的一个**根本性哲学缺陷**的深刻洞察：它们大多是优秀的“**任务管理器 (Task Managers)**”，却不是合格的“**能量与系统管理器 (Energy & System Managers)**”。它们帮助我们管理“要做什么”，却很少帮助我们理解“我们是谁”以及“我们是如何运作的”。
+*   **Fast-Entry Syntax:** A simple, powerful shorthand notation (`10001100w Code: Refactored the parser`) allows you to log your time fragments with minimal friction, keeping you in the flow.
+*   **The Data Trinity:** Every action (`ActionUnit`) is enriched with three core dimensions to enable deep analysis:
+    *   **Action Type:** A simple classification (`work`, `rest`, `waste`).
+    *   **(Coming Soon)** **Context:** The "stage" on which you act (`@office`, `@home`).
+    *   **(Coming Soon)** **Task Stream:** The cognitive "role" you are playing (`Active Creation`, `Skill Acquisition`).
 
-TI的存在，是为了填补这一鸿沟。它的理论基础，建立在以下三大支柱之上：
+### 2. The Insight Engine (Analysis Page)
+This is where raw data is forged into wisdom. The Analysis Page presents a daily report of automatically generated "Insight Cards."
 
-#### **1.1 世界观：从“基态静止”到“基态流动 (Basal Flow)”**
+*   **Fixed Cards:** Get a clear, quantitative overview of your day, such as the time distribution across `work`, `rest`, and `waste`.
+*   **Conditional Cards:** This is TI's secret weapon. Using a powerful, user-configurable **Recipe System**, TI automatically detects specific behavioral patterns in your data. A card is only generated if a meaningful pattern is found.
+    *   **Example:** A card that only appears if it detects you engaged in a `waste` activity immediately after a `meal`, revealing a "post-meal procrastination" pattern.
 
-*   **被拒绝的旧范式：** 传统生产力工具隐含的假设是“基态静止”——认为人的自然状态是休息，工作是一种消耗，终极目标是清空待办事项列表以回归“静止”。这导致了对“休息”的污名化和对“倦怠”的普遍误解。
-*   **TI的核心世界观：** 我们认为，一个健康、充满活力的生命系统，其自然状态不是静止，而是**永不停歇的“流动”**。工作、学习、休息、娱乐，都是维持这条“生命之河”健康流动的、不可或-缺的组成部分。“倦怠”与“无聊”，不是失败的标志，而是“流动失衡”的、宝贵的系统信号。
-*   **TI的终极目标：** 因此，TI的最高使命，不是帮助用户“完成更多任务”，而是帮助他们成为技艺高超的“**生命河流的领航员**”，理解并维护自己独特的、可持续的“基态流动”。
+### 3. The Intervention Engine (In Development)
+Insight is useless without action. This is TI's most ambitious module, designed to bridge the "knowing-doing gap."
 
-#### **1.2 分析方法论：从“行为物理学”到“行为化学 (Behavioral Chemistry)”**
-
-*   **被拒绝的旧范式：“行为物理学”**。传统量化工具痴迷于**宏观的、连续的、可计算的实数指标**（如“你今天工作了3.2小时”，“你的专注时间占比27.8%”）。这种分析方式，通过粗暴的“求平均”，抹去了所有宝贵的、决定性的结构性信息，得出的是**正确的、但却肤浅的**结论。
-*   **TI的核心方法论：“行为化学”**。我们坚信，理解复杂的人类行为，关键不在于测量“状态”，而在于识别“**身份 (Identity)**”和“**关系 (Relationship)**”。
-    *   **我们的任务：** 不是为用户的行为找到一个“平均值”，而是帮助他们识别生活中的各种“**行为元素**”（`主动创造`、`系统维护`等），并揭示这些元素之间，是如何通过“**行为化学键**”组合成稳定的“**分子结构**”（健康的模式）或发生有害的“**化学反应**”（不健康的模式）的。
-    *   **我们的分析对象：** 是**结构**，而非**指标**。是一条活动的序列，而非一个孤立的时长。
-
-#### **1.3 最终使命：成为“个人学习环境的建筑师”**
-
-*   **问题的根源：** “自我管理”是一个终极的“险恶领域”，在这个领域里，反馈是延迟的、因果是模糊的、规则是不断变化的。专家之所以成为专家，不是因为他们掌握了“第一性原理”，而是因为他们的大脑中，积累了一个庞大的、可供“类比推理”的个人案例库。
-*   **TI的最终使命：** TI的终极价值，是成为一个“**个人学习环境的建筑工具包 (A Toolkit for Personal Learning Environment Architecture)**”。它通过以下机制，帮助用户将他们那片“险恶”的生活领域，改造为一个“**友善的**”、能够培养出有效直觉的“个人科学实验室”：
-    *   **加速反馈回路：** 通过“智慧引擎”，将模糊的后果，转化为清晰、即时的洞察。
-    *   **构建个人案例库：** 将每一次成功与失败，都结构化地记录下来，成为未来决策的宝贵“判例”。
-    *   **辅助类比推理：** 通过“时间自我模型”，让用户可以与“过去的自己”进行对话，从而进行有效的类比推理。
+*   **Behavioral Contracts:** Respond to an Insight Card by signing a "contract" with your future self to attempt a change.
+*   **Just-in-Time Interventions:** When the system detects the *preconditions* of a negative pattern (e.g., you've just finished a meal), it can trigger a real-time, modal prompt to help you honor your contract.
+*   **Learning Loop:** Log the success or failure of each intervention, creating a rich dataset to understand which change strategies actually work for you.
 
 ---
----
 
-### **第二章：核心功能 —— TI能做什么？(The "What")**
+## System Architecture: The "How"
 
-TI的所有功能，都服务于其核心哲学。它通过一个**分层的、从数据捕获到智慧干预**的系统，来实现其最终使命。
-(注：以下大部分功能未实现，真正实现的只有
-- 时间信息捕获输入:CapturePage
-    - 使用自创的速记语法输入
-    - 把一个行动称为行动单元，使用json存储，包含
-        - 开始时间
-        - 结束时间
-        - 行动名称
-        - 行动细节
-        - 行动类别(waste, work, rest)
-        - 重要程度和紧急程度(只是有这个字段，相关的功能没做)
-- 卡片分析(昨天的)时间模式功能:(Analysis Page)
-    - conditional_card: 
-        - 每张卡片有自己的配方，使用声明式的matcher匹配行动单元actionUnit的某个属性
-        - 分析昨天的时间的某个特征或者模式，呈现在卡片上
-        - 如果模式匹配才出现，不匹配不出现
-    - fixed_card:
-        - 对于昨天时间的分析，例如waste/work的时间占比
-        - 必然出现
-    - 暂时没有除了展示以外的功能，下面说的都是展望
-)
-#### **2.1 高保真度的数据捕获层 (High-Fidelity Data Capture)** 
+TI is built with professional software engineering principles to ensure long-term maintainability and extensibility.
 
-为了进行深刻的“行为化学”分析，我们必须首先拥有**高质量的、结构丰富的“原材料”**。TI的数据捕获系统，为此进行了专门的设计。
+*   **Core Pattern:** A clean, decoupled **Model-View-Presenter (MVP)** architecture.
+*   **Modularity:** A **Plugin-based architecture** where core functionalities (like `Capture` and `Intervention`) are treated as independent, self-contained modules.
+*   **Communication:** An **Event Bus** facilitates asynchronous, low-coupling communication between different parts of the system.
+*   **Configuration:** The entire system is **Recipe-Driven**. All complex logic—from insight detection to intervention workflows—is defined in human-readable `YAML` files, not hard-coded. This makes TI infinitely customizable.
+*   **Dependencies:** We use a centralized **Dependency Injection Container (`ServiceContainer`)** to manage the lifecycle and dependencies of all core services, ensuring the system is highly testable and easy to reason about.
 
-*   **“三位一体”数据模型 (The Data Trinity Model):** TI认为，任何一个时间碎片，都应该由三个互相独立的维度来共同描述：
-    *   **`上下文 (Context)`：** 定义“**你在哪里/在何种外部环境下**”。它回答了“舞台”的问题。
-    *   **`任务流 (Workflow)`：** 定义“**你正在扮演何种内在角色**”。它回答了“剧本”的问题，并为所有“化学分析”提供了基本的“元素分类”。
-    *   **`标签 (Tag)`：** 提供**灵活的、跨维度的元数据**。它回答了“道具”或“形容词”的问题（如 `#紧急`, `#困难`）。
-*   **极简的输入语法 (`Fast Entry`):** 为了在不牺牲数据丰富度的前提下，最大程度地降低记录的“认知摩擦力”，TI采用了一套统一的、基于文本的输入语法，例如：
-    `1600-1730 <@ProjectA> @ActiveCreation #Coding - Implemented the core logic`
-*   **拥抱不确定性的“时间迷雾 (Time Haze)”:** TI承认，现实是模糊的。它允许用户使用 `?` 语法，来记录那些无法精确量化的“迷雾区块”（如“下午大概在休息”）。这些数据在UI上会有独特的呈现，并被排除在所有精确的定量计算之外，从而保证了精确数据的纯净性，并为“行为化学家”提供了全新的分析维度。
+## The Road Ahead: The "Where To"
 
-#### **2.2 “智慧引擎”分析层 (The Insight Engine)**
+The current version is just the foundation. Our vision is to build a complete "Behavioral Science Lab":
 
-这是TI的心脏。它负责将原始的时间数据，锻造成真正的智慧。
-
-*   **两阶段分析模型 (Two-Phase Analysis Model):**
-    *   **第一阶段（行为物理学 - 信号探测）：** 使用高效的**定量分析**（如“单次专注时长 > 60分钟”，“被动消耗总时长 > 2小时”），来从海量数据中，快速地识别出“**值得关注的异常信号**”。
-    *   **第二阶段（行为化学 - 结构洞察）：** 一旦信号被触发，系统会立刻启动**结构性分析**，深入探究这个“异常信号”**周围的上下文和序列关系**，从而提供深刻的“**化学式**”洞察。
-*   **可定制的“配方系统 (Recipe System)”:** 所有的分析逻辑，都不是硬编码在程序中的。用户（或未来的社区）可以通过简单的、声明式的“配方”文件，来定义全新的“信号探测器”和“结构洞察”规则，使得TI的智慧可以无限扩展。
-
-#### **2.3 交互式干预层 (Interactive Intervention Layer)**
-
-TI最核心的差异化在于，它不止于“告知”，它致力于**填平“知行鸿沟 (The Knowing-Doing Gap)”**。
-
-*   **“苏格拉底式教练”卡片 (Socratic Coach Cards):** 智慧引擎产出的“洞察卡片”，不是静态的报告。它们被设计为**交互式的、以提问为核心的“对话”**。
-    *   **例如：** 它不会说“你昨天工作后刷了视频”。它会说：“系统注意到...这可能是一种‘意志力补偿’模式。**今天，如果再次遇到类似情景，你愿意尝试一种不同的行为吗？**”
-*   **“行为承诺”与“实时干预”:** 卡片下方会提供交互按钮（如 `[承诺尝试]` / `[暂时忽略]`）。用户的“承诺”会被系统记录下来。当用户在当天，再次进入那个“高风险”的行为模式时，系统可以进行**实时的、非侵入式的提醒**，扮演“**工作流副驾驶**”的角色，帮助用户将“清晨的意愿”，转化为“白天的行动”。
+*   **The Observation Deck:** Enhance the analysis with historical comparisons, pattern evolution tracking, and goal alignment metrics.
+*   **The Experiment Panel:** Introduce a visual designer for creating new, complex intervention strategies and habit-formation workflows.
+*   **The Open Platform:** Expose a clean API to allow integration with other tools and enable community-developed plugins.
 
 ---
----
 
-### **第三章：系统架构 —— TI如何建造？(The "How")**
+## Getting Involved
 
-TI的软件架构，同样深刻地反映了其核心哲学。它追求**清晰的职责分离、高度的可测试性、以及对未来变化的适应性**。其核心，是业界公认的、但经过我们独特诠释的**模型-视图-呈现器 (Model-View-Presenter, MVP)** 架构模式。
+This is an ambitious solo project driven by a deep passion for understanding the self. If this philosophy resonates with you, I welcome contributions of all kinds—from code and testing to ideas and philosophical debate.
 
-#### **3.1 宏观架构：“三权分立”的共和国**
+**(Link to your GitHub / Contribution Guide would go here)**
 
-我们拒绝将业务逻辑、UI逻辑和数据处理逻辑混乱地耦合在一起。TI的宏观架构，是一个严格的“三权分立”共和国：
-
-*   **`View` (视图层):** 由PyQt控件构成。它的职责被严格限定为：**忠实地展示数据，并捕获原始的用户输入事件**。它是一个“**愚蠢的肉体**”，对业务逻辑一无所知。
-*   **`Presenter/Controller` (呈现/控制层):** 纯粹的Python对象。它是应用的“**大脑**”和“**灵魂**”。它负责接收来自`View`的事件，调用后台服务进行处理，并将结果格式化后，命令`View`进行更新。
-*   **`Model/Services` (模型/服务层):** 负责所有核心的业务逻辑、数据持久化和分析计算。它独立于任何UI框架，是整个系统的**可复用核心**。
-
-#### **3.2 微观核心：“依赖注入”的服务化引擎**
-
-为了实现终极的解耦和可测试性，TI的核心服务，是通过“**依赖注入容器 (Dependency Injection Container)**”模式来创建和管理的。
-
-*   **`ServiceContainer` (创世引擎):** 在应用启动时，这个容器会**一次性地、集中地，创建并连接好**所有核心的后台服务实例。
-*   **核心服务“内阁”:**
-    *   **`DataService`:** 负责所有`ActionUnit`的增删改查。
-    *   **`CardGenerationService`:** 负责封装“生成智慧卡片”这一**完整的、可复用的核心业务流程**。
-    *   **`InsightEngine`:** 扮演“**生产车间**”的角色，负责执行具体的、由“配方”定义的分析任务。
-    *   **`InsightManager`:** 扮演“**成品仓库与策展人**”的角色，负责管理和筛选最终生成的洞察卡片。
-    *   **`InsightCacheService`:** 扮演“**历史档案馆**”的角色，负责所有历史洞察的持久化存储与高性能查询。
-*   **单向数据流 (Unidirectional Data Flow):** 所有核心服务之间的协作，都由更高层级的服务（如`CardGenerationService`或`Presenter`）进行**明确的编排**，形成清晰的、可预测的单向数据流，杜绝了混乱的循环依赖。
-
-#### **3.3 开发流程：“蓝图驱动的测试 (Blueprint-Driven Testing)”**
-
-我们不追求“代码即设计”。我们相信，清晰的思考，必须先于鲁莽的行动。
-
-*   **UML作为“法律”:** 我们使用UML（特别是类图和序列图），来绘制我们理想中的、清晰的架构“**蓝图**”。这份蓝图，是我们代码必须服从的“法律”。
-*   **测试作为“施工工具”:** 我们通过编写**验收测试、集成测试和单元测试**，来驱动我们的开发。红色的“失败测试”，是我们最宝贵的“施工指南”，它精确地告诉我们，现实与理想之间的差距在哪里。我们的目标，就是通过编写最少的代码，让测试由红变绿，从而**将我们的代码，“逼”向那个完美的蓝图**。
-
----
----
-
-### **第四章：未来展望 —— TI将去向何方？(The "Where To")**
-
-TI目前的架构和功能，仅仅是为一座宏伟的思想大教堂，奠定了坚实的地基。在地平线之上，我们已经清晰地看到了三片广阔的、充满了挑战与机遇的“未知大陆”。
-
-#### **4.1 从“个体”到“生态”：行为生态学 (Behavioral Ecology)**
-
-*   **未来的问题：** 不同的`任务流`之间，是如何相互作用、相互影响的？它们是否构成了一个复杂的、动态平衡的“**个人生态系统**”？
-*   **可能的功能：**
-    *   **“生态位分析器”：** 识别出哪些活动正在“侵占”其他活动的“生态位”。
-    *   **“关键物种识别”：** 识别出那些对整个系统健康，具有“四两拨千斤”作用的“关键习惯”。
-
-#### **4.2 从“理解”到“干预”：行为工程学 (Behavioral Engineering)**
-
-*   **未来的问题：** TI能否，以及应该如何，主动地、系统性地帮助用户**设计并执行**对有害模式的“**行为干预**”？
-*   **可能的功能：**
-    *   **“习惯设计器”：** 一个基于行为学理论的、可视化的习惯养成/戒除设计工具。
-    *   **“预承诺保险库”：** 允许用户设定“如果...那么...”式的、具有现实约束力的“预承诺”规则。
-
-#### **4.3 从“效率”到“意义”：存在主义导航 (Existential Navigation)**
-
-*   **未来的问题：** 我们如何帮助用户回答那个终极问题——“**我花费的所有这些时间，是否服务于一个对我而言，真正有‘意义’的人生？**”
-*   **可能的功能：**
-    *   **“个人价值对齐”模块：** 允许用户定义自己的核心价值观，并将他们的时间分配，与这些价值观进行关联和对齐分析。
-    *   **“生命篇章回顾”：** 在更长的时间尺度上（季度、年度），帮助用户回顾他们人生的不同“篇章”，并审视他们的行动，是否真实地反映了他们声称的“人生主题”。
-
----
----
-
-### **结论**
-
-`Time Integrator`是一个雄心勃勃的项目。它的雄心，不在于功能的堆砌，而在于其**哲学的深度**和**方法的独特**。它是一次严肃的尝试，试图将认知科学、系统论和现代软件工程的最佳实践，融合到一个统一的、优雅的工具之中，以解决我们这个时代最根本的挑战之一：**如何在信息的洪流与无尽的干扰中，保持清醒的自我认知，并过上一种有意识、有目的、可持续的“流动”人生。**
-
-我们手中的，不仅仅是一个软件项目的源代码。
-我们手中的，是一张通往“更深刻的自我理解”的**地图**，和一套用于建造“更理想的个人系统”的**工具**。
-
-远征，才刚刚开始。
+The expedition has just begun.

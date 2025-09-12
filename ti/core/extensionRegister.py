@@ -6,6 +6,7 @@ from ti.core.eventBus import EventBus
 import inspect
 
 from ti.model.events import PluginEvents
+from ti.services.symbol_service import SymbolService
 
 class ExtensionRegister:
     def __init__(self,eventBus:EventBus):
@@ -40,26 +41,41 @@ class DynamicExtensionLoader:
         self,
         plugin_manager: ExtensionRegister, 
         services, # ServiceContainer,由于不能循环import只能注释掉了
-        bus: EventBus
+        bus: EventBus,
+        symbol_service: SymbolService
     ):
         self.plugin_manager = plugin_manager
         self.services = services
         self.bus = bus
-        self.registers = []
+        self.symbol = symbol_service
 
     def discover_and_register_plugins(self, extension_package):
+        # 首先加载插件的symbol_register
+        print("=" * 20)
+        print("[LOADER]Searching for symbol register in plugins...")
+        for plugin_class in extension_package:    
+            if (hasattr(plugin_class, 'register_class') and 
+                issubclass(plugin_class, IPathRegisterProvider)):
+                    print(f"find {plugin_class.name}")
+                    # 调用静态方法获取register类
+                    register_class = plugin_class.register_class()
+                    # 创建register实例并注册
+                    register_instance = register_class()
+                    self.symbol.regist_register(register_instance)
+                    print(f"successfully regist symbol path register for plugin {plugin_class.name} ")
+            
+        print("=" * 20)
+                    
+                    
         # ... 动态发现插件类的逻辑 ...
         for plugin_class in extension_package:
             try:
+                
+                
+                    
                 # === 魔法发生在这里！===
                 instance = self._create_plugin_instance_with_di(plugin_class)
                 self.plugin_manager.regist_plugin(instance)
-                
-                # symbol_register
-                if isinstance(instance,IPathRegisterProvider):
-                    instance: type[IPathRegisterProvider]
-                    print(f"successfully regist symbol path register for plugin {plugin_class.name} ")
-                    self.registers.append(instance.register_class)
                 
                 # pages
                 if isinstance(instance,IPageExtension):

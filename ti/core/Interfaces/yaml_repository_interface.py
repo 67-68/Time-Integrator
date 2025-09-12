@@ -11,3 +11,11 @@ class IYamlRepository(IRepository):
         应该返回一个yaml parser类的实例
         """
         pass
+    
+    @property
+    @abstractmethod
+    def rule_file_path(self):
+        """
+        返回规则文件的位置
+        """
+        pass

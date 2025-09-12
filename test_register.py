@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from ti.features.detector.detector_path_register import DetectorPathRegister
-from ti.features.intervention.intervention_path_register import InterventionPathRegister
+from ti.features.intervention.intervention_path_register import INV_PathRegister
 from ti.model.symbol_models import SymbolType
 
 def test_detector_register():
@@ -26,7 +26,7 @@ def test_detector_register():
 def test_intervention_register():
     """Test intervention path register functionality"""
     print("Testing InterventionPathRegister...")
-    register = InterventionPathRegister()
+    register = INV_PathRegister()
     
     # Test getting all symbols
     symbols = register.get_symbol_model()

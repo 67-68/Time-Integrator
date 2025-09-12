@@ -48,7 +48,7 @@ class SymbolService:
         从symbol_path获取symbol对象
         
         Args:
-            symbol_path: 符号的完整路径，格式为 "module.path.to.symbol"
+            symbol_path: 符号的完整路径，格式为 "module.path.to.symbol" 或 "Class.enum_value.value"
             
         Returns:
             Any: 导入的符号对象
@@ -56,7 +56,24 @@ class SymbolService:
         if not symbol_path:
             raise ValueError("Symbol path cannot be empty")
             
-        # 分割模块路径和符号名称
+        # 检查是否是枚举值格式（如 "ti.features.intervention.model.model.INVEvent.USER_ACCEPTED.value"）
+        if symbol_path.endswith(".value") and symbol_path.count(".") >= 4:
+            # 处理枚举值格式
+            try:
+                # 移除 .value 后缀，获取完整的类路径
+                full_class_path = symbol_path[:-6]  # 移除 ".value"
+                # 分割模块路径和类路径
+                if "." in full_class_path:
+                    module_path, class_path, constant = full_class_path.rsplit(".", 2)
+                    # 导入模块
+                    module = importlib.import_module(module_path)
+                    # 使用eval获取枚举值
+                    result = eval(f"module.{class_path}.{constant}.value")
+                    return result
+            except Exception as e:
+                raise AttributeError(f"Could not resolve enum symbol '{symbol_path}': {e}")
+        
+        # 普通符号路径格式
         if "." not in symbol_path:
             raise ValueError(f"Invalid symbol path format: {symbol_path}")
             

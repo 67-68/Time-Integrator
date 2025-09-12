@@ -39,7 +39,7 @@ class INV_Card_Orchestrator:
             insightCard (InsightCard): _description_
         """
         # 1. 获取配方
-        recipe = self.repos.get_recipe_by_id(view_id)
+        recipe = self.repos.get_by_id(view_id)
         
         # 2. 创建卡片
         intervetion_card = self.factory.create_card(recipe)
@@ -65,7 +65,7 @@ class INV_Card_Orchestrator:
         self.presenters[view_id] = presenter
     
     def create_dialog_view(self,view_id) -> InterventionCard:
-        view_recipe = self.repos.get_recipe_by_id(view_id)
+        view_recipe = self.repos.get_by_id(view_id)
         view_card = self.factory.create_card(view_recipe)
         presenter: InterventionPresenter = self.presenters[view_id]
         presenter.control_dialog_ui(view_card)

@@ -1,10 +1,11 @@
+from enum import Enum
 from ti.core.Interfaces.symbol_path_register_interface import ISymbolPathRegister
 from ti.model.symbol_models import SymbolModel, SymbolType
 import yaml
 from typing import Dict, List, Optional
 
 
-class InterventionPathRegister(ISymbolPathRegister):
+class INV_PathRegister(ISymbolPathRegister):
     """
     Path register for intervention feature functions and classes
     """
@@ -44,6 +45,23 @@ class InterventionPathRegister(ISymbolPathRegister):
         """
         Get symbol by id
         """
+        # 首先检查硬编码的枚举映射
+        enum_mapping = {
+            "USER_ACCEPTED": "ti.features.intervention.model.model.INVEvent.USER_ACCEPTED.value",
+            "USER_REJECTED": "ti.features.intervention.model.model.INVEvent.USER_REJECTED.value", 
+            "INTERVENTION_CREATED": "ti.features.intervention.model.model.INVEvent.INTERVENTION_CREATED.value",
+            "END_INTERVENTION": "ti.features.intervention.model.model.INV_Special_States.END_INTERVENTION.value",
+            "ACCEPTED_CONTRACT": "ti.features.intervention.model.model.INV_Special_States.ACCEPTED_CONTRACT.value"
+        }
+        
+        if symbol_id in enum_mapping:
+            # 返回枚举符号的SymbolModel
+            return SymbolModel(
+                symbol_type=SymbolType.ENUM_CLASS,
+                symbol_path=enum_mapping[symbol_id],  # 直接返回表达式，如 "INVEvent.USER_ACCEPTED.value"
+                symbol_domain="intervention"
+            )
+        
         return self._symbols.get(symbol_id)
     
     def search_symbol_data(self, symbol_type: Optional[SymbolType] = None, 
@@ -86,13 +104,15 @@ class InterventionPathRegister(ISymbolPathRegister):
                 
             if data and key in data:
                 for item in data[key]:
-                    symbol = SymbolModel(
-                        symbol_type=SymbolType(item['symbol_type']),
-                        symbol_path=item['symbol_path'],
-                        symbol_domain=item['symbol_domain']
-                    )
-                    self.regist_symbol_path(symbol)
+                    if not isinstance(item,str):
                     
+                        symbol = SymbolModel(
+                            symbol_type=SymbolType(item['symbol_type']),
+                            symbol_path=item['symbol_path'],
+                            symbol_domain=item['symbol_domain']
+                        )
+                        self.regist_symbol_path(symbol)
+                        
         except FileNotFoundError:
             print(f"Warning: {file_path} not found")
         except Exception as e:

@@ -254,5 +254,37 @@
         "willingness_notes": null,
         "execution_notes": null,
         "trigger_context": null
+    },
+    "2ff8820b-660e-4fb8-9963-698638cdc9ef": {
+        "original_contract_id": "65a3bbd7-d75b-4fc0-a551-72c1aa9f14e0",
+        "log_category_id": "unsettling_heart_log",
+        "original_contract_category_id": "unsettling_heart",
+        "user_id": "default_user",
+        "created_at": "2025-09-12T23:16:14.914570",
+        "resolved_at": "2025-09-13T00:20:39.994603",
+        "final_willingness_status": "unknown",
+        "log_id": "2ff8820b-660e-4fb8-9963-698638cdc9ef",
+        "willingness_decision_at": null,
+        "execution_triggered_at": null,
+        "final_execution_status": "completed",
+        "willingness_notes": null,
+        "execution_notes": null,
+        "trigger_context": null
+    },
+    "adb0cd85-aaab-4e77-bc07-6e09989ec6d4": {
+        "original_contract_id": "1142da71-15ae-4992-9cb7-3a1c597326c4",
+        "log_category_id": "post_eat_waste_log",
+        "original_contract_category_id": "post_eat_waste",
+        "user_id": "default_user",
+        "created_at": "2025-09-12T23:16:14.915698",
+        "resolved_at": "2025-09-13T00:20:40.000195",
+        "final_willingness_status": "unknown",
+        "log_id": "adb0cd85-aaab-4e77-bc07-6e09989ec6d4",
+        "willingness_decision_at": null,
+        "execution_triggered_at": null,
+        "final_execution_status": "completed",
+        "willingness_notes": null,
+        "execution_notes": null,
+        "trigger_context": null
     }
 }

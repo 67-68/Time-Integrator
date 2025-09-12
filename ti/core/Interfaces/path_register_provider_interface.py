@@ -12,7 +12,7 @@ class IPathRegisterProvider(ABC):
         ABC (_type_): _description_
     """
     
-    @property
+    @staticmethod
     @abstractmethod
     def register_class(self):
         """

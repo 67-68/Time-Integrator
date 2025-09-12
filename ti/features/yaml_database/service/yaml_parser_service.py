@@ -1,6 +1,6 @@
 import yaml
 from ti.core.Interfaces.yaml_parser_interface import IYamlParser
-from ti.features.yaml_database.model.rules import LineRuleItem, RuleFile, TextRuleItem
+from ti.features.yaml_database.model.rules import LineRuleItem, RuleFile, TextRuleItem, RuleBlock
 
 
 class YamlParser(IYamlParser):
@@ -20,7 +20,17 @@ class YamlParser(IYamlParser):
         Args:
             rules_file_path (str): _description_
         """
+        if not rules_file_path:
+            print(f"[YAML_PARSER]: No data in rule file {rules_file_path}")
+        
         rule_file = self.get_data(rules_file_path)
+        
+        # 如果rule_file为空，创建空的RuleFile对象
+        if rule_file is None:
+            print(f"[YAML_PARSER]: Rule file {rules_file_path} is empty, creating empty RuleFile")
+            empty_domain = RuleBlock(key_rules=[], value_rules=[], line_rules=[])
+            return RuleFile(domain=empty_domain)
+        
         try:
             # --- 核心步骤 ---
             # 使用 RuleFile.model_validate() 将字典转换为类型安全的 Pydantic 对象
@@ -32,7 +42,9 @@ class YamlParser(IYamlParser):
             # Pydantic 的 ValidationError 提供了非常清晰的错误信息
             print(f"错误: 规则文件 '{rules_file_path}' 格式不正确。")
             print(f"详细信息: {e}")
-            return None
+            # 返回空的RuleFile对象而不是None
+            empty_domain = RuleBlock(key_rules=[], value_rules=[], line_rules=[])
+            return RuleFile(domain=empty_domain)
     def create_key_parser(self,rules: TextRuleItem):
         def key_parser(key):
             return key
@@ -126,9 +138,8 @@ class YamlParser(IYamlParser):
             print(f"错误: 无法加载数据文件 '{data_file_path}'")
             return {}
             
-        if rules is None:
-            print(f"错误: 无法加载或验证规则文件 '{rules_file_path}'")
-            return {}
+        # 现在load_rules总是返回RuleFile对象，不会返回None
+        # 即使规则文件无效或为空，也会返回空的RuleFile对象
         
         # 创建文件解析器并解析数据
         file_parser = self.create_file_parser(rules)

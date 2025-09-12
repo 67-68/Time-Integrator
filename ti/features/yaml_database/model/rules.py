@@ -9,7 +9,7 @@ class TextReplaceRule(BaseModel):
     """
     target: str
     result: str
-    description = ""
+    description: str = ""
     
 class TextRuleItem(BaseModel):
     """
@@ -24,7 +24,7 @@ class TextRuleItem(BaseModel):
 class add_prefix_to_val_by_key(BaseModel):
     prefix: str
     key: str
-    description = ""
+    description:str = ""
 
 class LineRuleItem(BaseModel):
     add_prefix: add_prefix_to_val_by_key = None

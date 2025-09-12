@@ -12,7 +12,7 @@ from ti.features.detector.detectorRepository import DetectocRepository
 from ti.features.intervention.cardOrchestrator import INV_Card_Orchestrator
 from ti.features.intervention.coordinator import InterventionCoordinator
 from ti.features.intervention.intervention_contract_orchestrator import INV_Contract_Orchestrator
-from ti.features.intervention.intervention_path_register import InterventionPathRegister
+from ti.features.intervention.intervention_path_register import INV_PathRegister
 from ti.features.intervention.model.contractRecipeRepository import INV_CON_Recipe_Repository
 from ti.features.intervention.model.contractRepository import INV_ContractRepository
 from ti.features.intervention.model.entity_Recipe_Repository import INV_Entity_Recipe_Repository
@@ -27,8 +27,10 @@ from ti.features.intervention.service.mapping import InterventionMapping
 from ti.features.intervention.service.register import INV_ContractRegister
 from ti.features.intervention.service.stateMachine import INV_StateService
 from ti.features.intervention.serviceContainer import INV_ServiceContainer
+from ti.features.yaml_database.service.yaml_parser_service import YamlParser
 from ti.services.realTimeMonitor import RealTimeMonitor
 from ti.services.sessionCache import SessionCache
+from ti.services.symbol_service import SymbolService
 
 
 class InterventionPlugin(
@@ -39,7 +41,9 @@ class InterventionPlugin(
         self,
         monitor: RealTimeMonitor,
         bus: EventBus,
-        detector_rep: DetectocRepository
+        detector_rep: DetectocRepository,
+        symbol_service: SymbolService,
+        yaml_parser: YamlParser,
     ):
         """_summary_
         这是Intervention插件的主类
@@ -50,6 +54,10 @@ class InterventionPlugin(
         # 获取服务
         self.monitor = monitor
         self.bus = bus
+        
+        # 首先加载基础设施
+        # path_register = INV_PathRegister()
+        # self.path_register = path_register 在extension中创建
         
         # 创建服务
         self.container = INV_ServiceContainer()
@@ -62,7 +70,12 @@ class InterventionPlugin(
         formatter = INV_Formatter(narrator)
         self.container.add_service("formatter",formatter)
         
-        view_repository = INV_Card_Repository(formatter)
+        view_repository = INV_Card_Repository(
+            formatter,
+            symbol_service,
+            yaml_parser
+        )
+        
         self.container.add_service("view_repository",view_repository)
         
         view_factory = INV_Card_Factory(formatter)
@@ -88,11 +101,6 @@ class InterventionPlugin(
         
         contract_service = INV_ContractService(contract_repository,contract_recipe_repos,register,logger)
         self.container.add_service("contract_service",contract_service)
-        
-        path_register = InterventionPathRegister()
-        self.path_register = path_register
-        
-
         
         stateService = INV_StateService()
         self.container.add_service("stateService",stateService)
@@ -145,6 +153,6 @@ class InterventionPlugin(
         self.coordinator.process_insight_card(data)
     
                 
-    @property
-    def register_class(self):
-        return self.path_register
+    @staticmethod
+    def register_class():
+        return INV_PathRegister

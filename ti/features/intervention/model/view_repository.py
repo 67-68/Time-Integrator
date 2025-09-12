@@ -1,28 +1,117 @@
 import copy
 from dataclasses import dataclass
+from ti.core.Interfaces.yaml_repository_interface import IYamlRepository
 from ti.features.intervention.service.formatter import INV_Formatter
 from ti.features.intervention.model.model import INV_Special_States, INV_View_ID, INV_State_Btn, INV_State_Presentation, INVEvent, INV_View_Recipe, INVState
+from ti.features.yaml_database.service.yaml_parser_service import YamlParser
+from ti.services.symbol_service import SymbolService
 
 
-class INV_Card_Repository:
+class INV_Card_Repository(IYamlRepository):
     def __init__(
         self,
-        formatter: INV_Formatter
+        formatter: INV_Formatter,
+        symbol_service: SymbolService,
+        yaml_parser_service: YamlParser
         ):
         self.formatter = formatter
+        self.symbol = symbol_service
+        self.yaml = yaml_parser_service
+        # 在初始化时加载配方数据
+        self._recipes_data = self._load_data()
     
-    def get_all_recipes(self):
+    @property
+    def yaml_parser(self):
+        return self.yaml
+    
+    @property
+    def filePath(self):
+        return "ti/features/intervention/model/data/view_recipes.yaml"
+    
+    @property
+    def rule_file_path(self):
+        return "ti/features/intervention/model/data/rules.yaml"
+    
+    def save(self):
+        return super().save()
+    def load(self):
+        return super().load()
+    
+    def delete(self, id):
+        return super().delete(id)
+    
+    def _load_data(self):
+        """
+        从YAML文件加载配方数据
+        连同规则文件一起加载
+        """
+        try:
+            # 检查规则文件是否为空
+            rules_data = self.yaml.get_data(self.rule_file_path)
+            
+            if rules_data is None or rules_data == {}:
+                # 规则文件为空，直接加载原始数据
+                recipes_data = self.yaml.get_data(self.filePath)
+                recipes_data = recipes_data.get('view_recipes', {}) if recipes_data else {}
+            else:
+                # 规则文件不为空，使用parse_data方法解析
+                recipes_data = self.yaml.parse_data(self.filePath, self.rule_file_path)
+                recipes_data = recipes_data.get('view_recipes', {})
+            
+            # 填充符号
+            filled_recipes = self._fill_symbols(recipes_data)
+            return filled_recipes
+            
+        except Exception as e:
+            print(f"Error loading recipes data: {e}")
+            return {}
+    
+    def _fill_symbols(self, recipes_data):
+        """
+        遍历配方数据，解析 A.B 格式的符号引用
+        """
+        if not recipes_data:
+            return recipes_data
+            
+        def resolve_value(value):
+            """递归解析值中的符号引用"""
+            if isinstance(value, str):
+                # 检查是否是 A.B 格式的符号引用
+                if "." in value and not value.startswith(("http://", "https://")):
+                    try:
+                        # 尝试解析符号
+                        domain, symbol_name = value.split(".", 1)
+                        resolved_symbol = self.symbol.resolve_symbol(domain, symbol_name)
+                        return resolved_symbol
+                    except (ValueError, ImportError, AttributeError) as e:
+                        print(f"Warning: Could not resolve symbol '{value}': {e}")
+                        return value
+            elif isinstance(value, dict):
+                return {k: resolve_value(v) for k, v in value.items()}
+            elif isinstance(value, list):
+                return [resolve_value(item) for item in value]
+            return value
+        
+        # 递归解析整个配方数据结构
+        return resolve_value(recipes_data)
+    
+    def get_data(self):
+        """
+        初始化的时候被调用
+        """
+        return self._recipes_data
+    
+    def get_all(self):
         """
         这个函数会返回所有配方。
         """
         recipe_dataClass = []
         
-        for recipe_id in recipes:
-            recipe_dataClass.append(self.get_recipe_by_id(recipe_id))
+        for recipe_id in self._recipes_data:
+            recipe_dataClass.append(self.get_by_id(recipe_id))
         
-    
         return recipe_dataClass
-    def get_recipe_by_id(self, view_recipe_id: str) -> INV_View_Recipe:
+    def get_by_id(self, view_recipe_id: str) -> INV_View_Recipe:
         """_summary_
 
         Args:
@@ -34,7 +123,8 @@ class INV_Card_Repository:
         
         # 第一层 
         recipe_dataClass: INV_View_Recipe
-        recipe = recipes[view_recipe_id]
+        view_recipe_id = view_recipe_id.upper()
+        recipe = self._recipes_data[view_recipe_id]
         id = recipe["id"]
         recipe_states = recipe["state"]
         detector = recipe["detector"] # TODO: 找不到detector

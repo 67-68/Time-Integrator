@@ -5,6 +5,7 @@ from ti.core.extensionRegister import DynamicExtensionLoader, ExtensionRegister
 from ti.features.detector.detectorFactory import DetectorFactory
 from ti.features.detector.detectorRepository import DetectocRepository
 from ti.features.intervention.service.logger import InterventionLogger
+from ti.features.yaml_database.service.yaml_parser_service import YamlParser
 from ti.services.dataAccess.dataService import DataService
 from ti.services.dataAccess.insightCacheService import InsightCacheService
 from ti.services.dataAccess.insightManager import InsightManager
@@ -61,13 +62,17 @@ class ServiceContainer:
         self.services["ER"] = register
         self._services[ExtensionRegister] = register
         
-        loader = DynamicExtensionLoader(register,self,bus)
-        self.services["loader"] = loader
-        self._services[DynamicExtensionLoader] = loader
-        
         symbol = SymbolService()
         self.services["symbol"] = symbol
         self._services[SymbolService] = symbol
+        
+        loader = DynamicExtensionLoader(register,self,bus,symbol)
+        self.services["loader"] = loader
+        self._services[DynamicExtensionLoader] = loader
+    
+        yaml_parser = YamlParser()
+        self.services["yaml_parser"] = yaml_parser
+        self._services[YamlParser] = yaml_parser
         
     def getServices(self):
         """_summary_

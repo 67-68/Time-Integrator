@@ -1,5 +1,5 @@
 from datetime import datetime
-from ti.core.Interfaces.json_repository_interface import IJsonRepository
+from ti.core.Interfaces.view.json_repository_interface import IJsonRepository
 from ti.services.dataAccess.dataAccess import getData, saveData
 from ti.features.insight.model.insight_card_model import InsightCardModel
 

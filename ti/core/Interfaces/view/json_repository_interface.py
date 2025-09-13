@@ -1,6 +1,6 @@
 from abc import ABC,abstractmethod
 
-from ti.core.Interfaces.repository_interface import IRepository
+from ti.core.Interfaces.model.repository_interface import IRepository
 
 
 

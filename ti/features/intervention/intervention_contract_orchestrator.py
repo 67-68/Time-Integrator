@@ -58,7 +58,7 @@ class INV_Contract_Orchestrator(QObject):
         """
         
         
-        contract_recipe = self.recipe_repos.get_recipe_by_id(contract_id)
+        contract_recipe = self.recipe_repos.get_by_id(contract_id)
         view_id = contract_recipe.view_recipe_id
         
         self.contract_activated.emit(view_id)

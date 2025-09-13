@@ -57,7 +57,7 @@ class SymbolService:
             raise ValueError("Symbol path cannot be empty")
             
         # 检查是否是枚举值格式（如 "ti.features.intervention.model.model.INVEvent.USER_ACCEPTED.value"）
-        if symbol_path.endswith(".value") and symbol_path.count(".") >= 4:
+        if symbol_path.endswith(".value") and symbol_path.count(".") >= 4: #Speial states可以加载，但我没看到其他enum类被加载
             # 处理枚举值格式
             try:
                 # 移除 .value 后缀，获取完整的类路径
@@ -109,3 +109,53 @@ class SymbolService:
         
         # 第二步：获取符号对象
         return self.get_symbol(symbol_path)
+    
+    def fill_symbols(self, data):
+        """
+        遍历数据，解析 A.B 格式的符号引用
+        
+        Args:
+            data: 要解析的数据（可以是字典、列表、字符串等）
+            
+        Returns:
+            Any: 解析后的数据
+        """
+        if not data:
+            return data
+            
+        def resolve_value(value):
+            """递归解析值中的符号引用"""
+            if isinstance(value, str):
+                # 检查是否是 A.B 格式的符号引用
+                if "." in value and not value.startswith(("http://", "https://")):
+                    try:
+                        # 尝试解析符号
+                        domain, symbol_name = value.split(".", 1)
+                        resolved_symbol = self.resolve_symbol(domain, symbol_name)
+                        return resolved_symbol
+                    except (ValueError, ImportError, AttributeError) as e:
+                        print(f"Warning: Could not resolve symbol '{value}': {e}")
+                        return value
+            elif isinstance(value, dict):
+                # 处理字典的键和值
+                resolved_dict = {}
+                for k, v in value.items():
+                    # 首先解析键（如果键是符号引用）
+                    resolved_key = k
+                    if isinstance(k, str) and "." in k and not k.startswith(("http://", "https://")):
+                        try:
+                            domain, symbol_name = k.split(".", 1)
+                            resolved_key = self.resolve_symbol(domain, symbol_name)
+                        except (ValueError, ImportError, AttributeError) as e:
+                            print(f"Warning: Could not resolve key symbol '{k}': {e}")
+                    
+                    # 然后递归解析值
+                    resolved_value = resolve_value(v)
+                    resolved_dict[resolved_key] = resolved_value
+                return resolved_dict
+            elif isinstance(value, list):
+                return [resolve_value(item) for item in value]
+            return value
+        
+        # 递归解析整个数据结构
+        return resolve_value(data)

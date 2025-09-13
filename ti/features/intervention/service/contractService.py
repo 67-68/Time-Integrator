@@ -194,7 +194,7 @@ class INV_ContractService:
         # 加载contract
         contract = self.contract_rep.get_by_id(contract_id)
         if not contract:
-            recipe = self.recipe_repos.get_recipe_by_id(contract_id)
+            recipe = self.recipe_repos.get_by_id(contract_id)
             contract = self.create_new_contract(recipe)
             contract.detector_recipe_id = detector_recipe_id
             self.contract_rep.add_contract(contract)

@@ -1,5 +1,5 @@
 from ti.features.insight.model.insight_card_generation_models import FixedCardResult
-from ti.features.insight.view.trendCard import InsightCard
+from ti.features.insight.view.insight_card import InsightCard
 from ti.core.eventBus import EventBus
 from ti.features.intervention.cardOrchestrator import INV_Card_Orchestrator
 from ti.features.intervention.intervention_contract_orchestrator import INV_Contract_Orchestrator

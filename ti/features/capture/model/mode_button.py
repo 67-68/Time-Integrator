@@ -4,6 +4,6 @@ from dataclasses import dataclass
 
 
 @dataclass
-class CaptureModeBtn:
+class ModeBtn:
     page_id: str # 关联的界面id
     text: str # 按钮显示什么

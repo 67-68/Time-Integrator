@@ -1,5 +1,5 @@
 import uuid
-from ti.features.insight.view.trendCard import InsightCard
+from ti.features.insight.view.insight_card import InsightCard
 from ti.core.eventBus import EventBus
 from ti.features.intervention.model.view_repository import INV_Card_Repository
 from ti.features.intervention.presenter.cardPresenter import InterventionPresenter
@@ -39,7 +39,7 @@ class INV_Card_Orchestrator:
             insightCard (InsightCard): _description_
         """
         # 1. 获取配方
-        recipe = self.repos.get_by_id(view_id)
+        recipe = self.repos.get_by_id(view_id) # TODO: 这里的问题，返回了仅仅一部分的配方
         
         # 2. 创建卡片
         intervetion_card = self.factory.create_card(recipe)

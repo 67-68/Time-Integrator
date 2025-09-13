@@ -164,3 +164,18 @@ def randomChoser(list):
         return list[0]
     
     return random.choice(list)
+
+import abc
+from PyQt6.QtCore import pyqtSignal,QObject
+
+from ti.view.rawUI.ui_rawIPageView import Ui_main_page
+from ti.view.widgets.other.BasicButton import BasicButton
+
+
+
+# 获取 PyQt/PySide 的元类
+QtMeta = type(QObject)
+
+# 创建一个新的元类，它同时继承自 ABCMeta 和 Qt 的元类
+class QtABCMeta(QtMeta, abc.ABCMeta):
+    pass

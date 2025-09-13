@@ -21,8 +21,3 @@ enum_classes:
     symbol_type: "enum_class"
     symbol_path: "ti.features.intervention.model.model.INV_Special_States"
     symbol_domain: "intervention"
-
-  DURATION:
-    symbol_type: "enum_class"
-    symbol_path: "ti.model.duration.Duration"
-    symbol_domain: "intervention"

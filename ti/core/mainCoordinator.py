@@ -3,6 +3,7 @@ from ti.features.core_capture.CapturePage import New_CapturePage
 from ti.features.detector.detector_path_register import DetectorPathRegister
 from ti.features.insight.insight_path_register import InsightPathRegister
 from ti.features.insight.presenter.cardPresenter import CardPresenter
+from ti.model.model_path_register import CorePathRegister
 from ti.presenters.capture_page_presenter import CapturePagePresenter
 from ti.services.symbol_service import SymbolService
 from ti.view.views.BasicDialog import BasicDialog
@@ -24,6 +25,8 @@ class MainCoorinator():
     
         self.create_state()
         
+        self.activate_symbol_service()
+        
         # 插件加载先于业务逻辑
         self.activatePlugins()
         
@@ -38,7 +41,8 @@ class MainCoorinator():
         self.controller = {}
         
         self.AP = self.ui["AP"]
-        self.card_controller = CardPresenter(self.service,self.AP)
+        insight_card_recipe_rep = self.service.getService
+        self.card_controller = CardPresenter(self.service,self.AP,insight_card_recipe_rep)
         self.controller["CCT"] = self.card_controller
         
         self.loader:DynamicExtensionLoader = self.service.getService("loader")
@@ -83,11 +87,14 @@ class MainCoorinator():
         registers = self.loader.get_registers()
         
         # 创建核心的register
-        registers.append(DetectorPathRegister())
         registers.append(InsightPathRegister())
+        registers.append(CorePathRegister())
+        registers.append(DetectorPathRegister())
+        
 
         
         if registers:
             for register in registers:
                 self.symbol.regist_register(register)
+                print(f"[SYM]Registered {register}")
                 

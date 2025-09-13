@@ -1,14 +1,14 @@
 {
-    "6d1dc6b8-1cfe-4659-8169-7ede7e849c40": {
-        "create_time": "2025-09-13T00:41:18.144644",
-        "duration": "today",
+    "0878b45f-e528-4ac7-98ff-9b69e21bcea8": {
+        "create_time": "2025-09-13T12:25:03.566081",
+        "duration": "intervention.Duration.TODAY.value",
         "solve_time": null,
         "solved": null,
         "success": null,
-        "contract_uuid": "6d1dc6b8-1cfe-4659-8169-7ede7e849c40",
+        "contract_uuid": "0878b45f-e528-4ac7-98ff-9b69e21bcea8",
         "contract_category_id": "post_eat_waste",
         "current_state": "before_start",
-        "view_recipe_id": "post_eat_waste",
+        "view_recipe_id": "intervention.INV_View_ID.POST_EAT_WASTE.value",
         "detector_recipe_id": "post_eat_waste"
     }
 }

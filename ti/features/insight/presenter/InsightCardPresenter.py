@@ -2,7 +2,7 @@ from PyQt6.QtCore import QObject
 from typing import Optional
 
 from ti.features.insight.model.insight_card_model import InsightCardModel
-from ti.features.insight.view.trendCard import InsightCard
+from ti.features.insight.view.insight_card import InsightCard
 
 
 class InsightCardPresenter(QObject):

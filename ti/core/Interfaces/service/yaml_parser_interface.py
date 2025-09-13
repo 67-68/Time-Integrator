@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from ti.core.Interfaces.parser_interface import IParser
+from ti.core.Interfaces.service.parser_interface import IParser
 
 
 class IYamlParser(IParser):

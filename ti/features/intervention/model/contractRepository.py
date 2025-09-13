@@ -1,5 +1,5 @@
 from uuid import UUID
-from ti.core.Interfaces.json_repository_interface import IJsonRepository
+from ti.core.Interfaces.view.json_repository_interface import IJsonRepository
 from ti.services.dataAccess.dataAccess import getData, saveData
 from ti.features.intervention.model.model import INV_Contract
 

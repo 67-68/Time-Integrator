@@ -5,7 +5,7 @@
 """
 
 from ti.core.Interfaces.path_register_provider_interface import IPathRegisterProvider
-from ti.features.insight.view.trendCard import InsightCard
+from ti.features.insight.view.insight_card import InsightCard
 from ti.core.Interfaces.extension_Interface import ExtensionInterface
 from ti.core.eventBus import EventBus
 from ti.features.detector.detectorRepository import DetectocRepository
@@ -54,6 +54,7 @@ class InterventionPlugin(
         # 获取服务
         self.monitor = monitor
         self.bus = bus
+        self.yaml_parser = yaml_parser
         
         # 首先加载基础设施
         # path_register = INV_PathRegister()
@@ -64,7 +65,7 @@ class InterventionPlugin(
         self.container.add_service("bus",bus)
         self.container.add_service("monitor",monitor)
         
-        narrator = InterventionNarrator()
+        narrator = InterventionNarrator(yaml_parser, symbol_service)
         self.container.add_service("narrator",narrator)
         
         formatter = INV_Formatter(narrator)
@@ -84,7 +85,7 @@ class InterventionPlugin(
         logger = InterventionLogger()
         self.container.add_service("logger",logger)
         
-        entity_rep = INV_Entity_Recipe_Repository()
+        entity_rep = INV_Entity_Recipe_Repository(yaml_parser)
         self.container.add_service("entity_rep",entity_rep)
         
         mapping = InterventionMapping(entity_rep)
@@ -93,7 +94,7 @@ class InterventionPlugin(
         register = INV_ContractRegister(monitor,detector_rep)
         self.container.add_service("register",register)
         
-        contract_recipe_repos = INV_CON_Recipe_Repository()
+        contract_recipe_repos = INV_CON_Recipe_Repository(yaml_parser,symbol_service)
         self.container.add_service("CON_recipe_repos",contract_recipe_repos)
         
         contract_repository = INV_ContractRepository()

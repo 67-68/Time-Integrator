@@ -1,20 +1,12 @@
-
 from PyQt6.QtCore import pyqtSignal
 
-from ti.core.eventBus import EventBus
 from ti.core.Interfaces.view.page_view_interface import IPageView
-from ti.model.action_unit import ActionUnit
-
-from ti.model.events import PluginEvents
-from ti.model.page_contributions import PageContribution
-from ti.view.rawUI.ui_rawNewCapturePage import Ui_NewCapturePage
+from ti.view.rawUI.ui_rawAnalysisPage import Ui_analysisPage
 from ti.view.widgets.other.BasicButton import BasicButton
 from ti.view.widgets.pages.BasicWidget import BasicWidget
 
 
-
-class New_CapturePage(IPageView):
-    
+class AnalysisPage(BasicWidget, IPageView):
     page_first_clicked = pyqtSignal(str)
     
     def __init__(
@@ -32,7 +24,7 @@ class New_CapturePage(IPageView):
         """
         返回页面名称
         """
-        return "capture"
+        return "analysis"
             
     def create_navigation_btn(self, btn_data):
         return super().create_navigation_btn(btn_data)
@@ -42,6 +34,6 @@ class New_CapturePage(IPageView):
     
     def add_page_to_stack(self, page_id, page_widget):
         return super().add_page_to_stack(page_id, page_widget)
-    
+
     def switch_to_page(self, page_id):
         return super().switch_to_page(page_id)

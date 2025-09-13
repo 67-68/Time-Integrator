@@ -1,0 +1,8 @@
+# Model Feature Enum Registry
+# This file contains enum symbols for the model feature using SymbolModels structure
+
+enum_classes:
+  DURATION:
+    symbol_type: "enum_class"
+    symbol_path: "ti.model.duration.Duration"
+    symbol_domain: "model"

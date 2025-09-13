@@ -2,7 +2,7 @@ import uuid
 from PyQt6.QtWidgets import QVBoxLayout
 from PyQt6.QtCore import pyqtSignal
 
-from ti.features.insight.view.trendCard import InsightCard
+from ti.features.insight.view.insight_card import InsightCard
 from ti.features.insight.presenter.InsightCardPresenter import InsightCardPresenter
 from ti.services.formatter import FormatService
 from ti.view.widgets.pages.BasicFrame import BasicFrame

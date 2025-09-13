@@ -1,0 +1,21 @@
+# Entity Recipe Registry for Intervention Feature
+# This file contains entity recipe definitions
+
+entity_recipes:
+  # POST_EAT_WASTE entity recipe
+  post_eat_waste:
+    card_id: "post_eat_waste"
+    contract_id: "post_eat_waste"
+    insight_card_id: "post_eat_waste"
+  
+  # UNSETTLING_HEART entity recipe
+  unsettling_heart:
+    card_id: "unsettling_heart"
+    contract_id: "unsettling_heart"
+    insight_card_id: "unsettling_heart"
+  
+  # POST_BASH_WASTE entity recipe
+  post_bash_waste:
+    card_id: "post_bash_waste"
+    contract_id: "post_bash_waste"
+    insight_card_id: "post_bash_waste"

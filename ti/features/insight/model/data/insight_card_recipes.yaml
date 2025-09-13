@@ -1,0 +1,33 @@
+# Insight Card Recipe Registry
+# This file contains insight card recipe definitions
+
+insight_card_recipes:
+  # Fixed recipes (daily cards)
+  fixed_recipes:
+    - id: "peak_work_analysis"
+      analyzer: "insight.analyzer.find_longest_timeSpan"
+      analyzer_config:
+        matcher: "detector.userMatchers.YESTERDAY_WORK_MATCHER"
+      presenter: "insight.presenters.present_peak_timeSpan"
+      duration: "core.Duration.TODAY.value"
+    
+    - id: "daily_ratio_distribution"
+      analyzer: "insight.analyzer.find_ratio_distribution"
+      analyzer_config:
+        matcher: "detector.userMatchers.ANY_MATCHER"
+      presenter: "insight.presenters.present_ratio_distribution"
+      duration: "core.Duration.TODAY.value"
+
+  # Conditional recipes (detector-based cards)
+  conditional_recipes:
+    - detector: "post_eat_waste"
+      presenter: "insight.presenters.present_sequence_data"
+      duration: "core.Duration.TODAY.value"
+    
+    - detector: "unsettling_heart"
+      presenter: "insight.presenters.present_sequence_data"
+      duration: "core.Duration.TODAY.value"
+    
+    - detector: "post_bash_waste"
+      presenter: "insight.presenters.present_sequence_data"
+      duration: "core.Duration.TODAY.value"

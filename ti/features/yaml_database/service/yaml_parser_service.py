@@ -1,5 +1,5 @@
 import yaml
-from ti.core.Interfaces.yaml_parser_interface import IYamlParser
+from ti.core.Interfaces.service.yaml_parser_interface import IYamlParser
 from ti.features.yaml_database.model.rules import LineRuleItem, RuleFile, TextRuleItem, RuleBlock
 
 

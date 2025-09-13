@@ -1,6 +1,6 @@
 import copy
 from dataclasses import dataclass
-from ti.core.Interfaces.yaml_repository_interface import IYamlRepository
+from ti.core.Interfaces.model.yaml_repository_interface import IYamlRepository
 from ti.features.intervention.service.formatter import INV_Formatter
 from ti.features.intervention.model.model import INV_Special_States, INV_View_ID, INV_State_Btn, INV_State_Presentation, INVEvent, INV_View_Recipe, INVState
 from ti.features.yaml_database.service.yaml_parser_service import YamlParser
@@ -12,17 +12,17 @@ class INV_Card_Repository(IYamlRepository):
         self,
         formatter: INV_Formatter,
         symbol_service: SymbolService,
-        yaml_parser_service: YamlParser
+        yaml_parser: YamlParser
         ):
         self.formatter = formatter
         self.symbol = symbol_service
-        self.yaml = yaml_parser_service
+        self.yaml_parser = yaml_parser
         # 在初始化时加载配方数据
         self._recipes_data = self._load_data()
     
     @property
-    def yaml_parser(self):
-        return self.yaml
+    def yaml(self):
+        return self.yaml_parser
     
     @property
     def filePath(self):
@@ -40,7 +40,7 @@ class INV_Card_Repository(IYamlRepository):
     def delete(self, id):
         return super().delete(id)
     
-    def _load_data(self):
+    def _load_data(self): #问题在这里，获取配方的时候获取的配方不完整
         """
         从YAML文件加载配方数据
         连同规则文件一起加载
@@ -59,41 +59,12 @@ class INV_Card_Repository(IYamlRepository):
                 recipes_data = recipes_data.get('view_recipes', {})
             
             # 填充符号
-            filled_recipes = self._fill_symbols(recipes_data)
+            filled_recipes = self.symbol.fill_symbols(recipes_data)
             return filled_recipes
             
         except Exception as e:
             print(f"Error loading recipes data: {e}")
             return {}
-    
-    def _fill_symbols(self, recipes_data):
-        """
-        遍历配方数据，解析 A.B 格式的符号引用
-        """
-        if not recipes_data:
-            return recipes_data
-            
-        def resolve_value(value):
-            """递归解析值中的符号引用"""
-            if isinstance(value, str):
-                # 检查是否是 A.B 格式的符号引用
-                if "." in value and not value.startswith(("http://", "https://")):
-                    try:
-                        # 尝试解析符号
-                        domain, symbol_name = value.split(".", 1)
-                        resolved_symbol = self.symbol.resolve_symbol(domain, symbol_name)
-                        return resolved_symbol
-                    except (ValueError, ImportError, AttributeError) as e:
-                        print(f"Warning: Could not resolve symbol '{value}': {e}")
-                        return value
-            elif isinstance(value, dict):
-                return {k: resolve_value(v) for k, v in value.items()}
-            elif isinstance(value, list):
-                return [resolve_value(item) for item in value]
-            return value
-        
-        # 递归解析整个配方数据结构
-        return resolve_value(recipes_data)
     
     def get_data(self):
         """

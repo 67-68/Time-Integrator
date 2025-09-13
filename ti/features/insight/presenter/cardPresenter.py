@@ -1,7 +1,7 @@
 from ti.features.insight.presenter.conditional_cardPresenter import Conditional_ReportGenerator
 from ti.features.insight.presenter.fixed_cardPresenter import Fixed_ReportGenerator
 from ti.view.views.analysis.AnalysisPage import AnalysisPage
-from ti.features.insight.model.insight_card_recipe_repository import Card_recipe
+from ti.features.insight.model.insight_card_recipe_repository import Insight_Card_Recipe_Repository
 from ti.core.eventBus import EventBus
 from ti.services.dataAccess.dataService import DataService
 from ti.services.serviceContainer import ServiceContainer
@@ -18,7 +18,8 @@ class CardPresenter():
     def __init__(
         self,
         service: ServiceContainer,
-        ui: AnalysisPage
+        ui: AnalysisPage,
+        insight_card_recipe_rep: Insight_Card_Recipe_Repository
     ):
         """_summary_
         专门管理卡片的controller
@@ -34,9 +35,9 @@ class CardPresenter():
         self.cache = SessionCache()
         
         # 获取配方
-        recipe = Card_recipe()
-        cond_recipe = recipe.get_conditional_recipe()
-        fixed_recipe = recipe.get_fixed_recipe()
+        recipe_repo = insight_card_recipe_rep
+        cond_recipe = recipe_repo.get_conditional_recipes()
+        fixed_recipe = recipe_repo.get_fixed_recipes()
         
         # 获取数据
         self.yesterday_data = self.dataService.get_yesterday_AU()

@@ -17,6 +17,7 @@ class ExtensionRegister:
         self.plugins = {}
         self.eventBus = eventBus
         
+
         
     def regist_plugin(self,plugin:ExtensionInterface):
         """_summary_
@@ -48,6 +49,8 @@ class DynamicExtensionLoader:
         self.services = services
         self.bus = bus
         self.symbol = symbol_service
+        self.registers = {}
+        
 
     def discover_and_register_plugins(self, extension_package):
         # 首先加载插件的symbol_register

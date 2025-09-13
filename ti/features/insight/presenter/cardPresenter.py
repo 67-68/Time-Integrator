@@ -19,7 +19,6 @@ class CardPresenter():
         self,
         service: ServiceContainer,
         ui: AnalysisPage,
-        insight_card_recipe_rep: Insight_Card_Recipe_Repository
     ):
         """_summary_
         专门管理卡片的controller
@@ -35,7 +34,9 @@ class CardPresenter():
         self.cache = SessionCache()
         
         # 获取配方
-        recipe_repo = insight_card_recipe_rep
+        yaml_parser = self.service.getService("yaml_parser")
+        symbol_service = self.service.getService("symbol")
+        recipe_repo = Insight_Card_Recipe_Repository(yaml_parser, symbol_service)
         cond_recipe = recipe_repo.get_conditional_recipes()
         fixed_recipe = recipe_repo.get_fixed_recipes()
         

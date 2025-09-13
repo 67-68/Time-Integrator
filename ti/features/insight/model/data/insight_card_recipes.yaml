@@ -5,29 +5,29 @@ insight_card_recipes:
   # Fixed recipes (daily cards)
   fixed_recipes:
     - id: "peak_work_analysis"
-      analyzer: "insight.analyzer.find_longest_timeSpan"
+      analyzer: "insight.find_longest_timeSpan"
       analyzer_config:
-        matcher: "detector.userMatchers.YESTERDAY_WORK_MATCHER"
-      presenter: "insight.presenters.present_peak_timeSpan"
-      duration: "core.Duration.TODAY.value"
+        matcher: "detector.YESTERDAY_WORK_MATCHER"
+      presenter: "insight.present_peak_timeSpan"
+      duration: "core.TODAY"
     
     - id: "daily_ratio_distribution"
-      analyzer: "insight.analyzer.find_ratio_distribution"
+      analyzer: "insight.find_ratio_distribution"
       analyzer_config:
-        matcher: "detector.userMatchers.ANY_MATCHER"
-      presenter: "insight.presenters.present_ratio_distribution"
-      duration: "core.Duration.TODAY.value"
+        matcher: "detector.ANY_MATCHER"
+      presenter: "insight.present_ratio_distribution"
+      duration: "core.TODAY"
 
   # Conditional recipes (detector-based cards)
   conditional_recipes:
     - detector: "post_eat_waste"
-      presenter: "insight.presenters.present_sequence_data"
-      duration: "core.Duration.TODAY.value"
+      presenter: "insight.present_sequence_data"
+      duration: "core.TODAY"
     
     - detector: "unsettling_heart"
-      presenter: "insight.presenters.present_sequence_data"
-      duration: "core.Duration.TODAY.value"
+      presenter: "insight.present_sequence_data"
+      duration: "core.TODAY"
     
     - detector: "post_bash_waste"
-      presenter: "insight.presenters.present_sequence_data"
-      duration: "core.Duration.TODAY.value"
+      presenter: "insight.present_sequence_data"
+      duration: "core.TODAY"

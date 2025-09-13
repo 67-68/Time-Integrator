@@ -13,7 +13,17 @@ class INV_PathRegister(ISymbolPathRegister):
     def __init__(self):
         self._symbols: Dict[str, SymbolModel] = {}
         self.load_data()
+        self._enum_mapping = {
+            "USER_ACCEPTED": "ti.features.intervention.model.model.INVEvent.USER_ACCEPTED.value",
+            "USER_REJECTED": "ti.features.intervention.model.model.INVEvent.USER_REJECTED.value", 
+            "INTERVENTION_CREATED": "ti.features.intervention.model.model.INVEvent.INTERVENTION_CREATED.value",
+            "END_INTERVENTION": "ti.features.intervention.model.model.INV_Special_States.END_INTERVENTION.value",
+            "ACCEPTED_CONTRACT": "ti.features.intervention.model.model.INV_Special_States.ACCEPTED_CONTRACT.value"
+        }
     
+    @property
+    def enum_mapping(self):
+        return self._enum_mapping
     @property
     def domain(self) -> str:
         return "intervention"
@@ -34,55 +44,14 @@ class INV_PathRegister(ISymbolPathRegister):
     def enum_file_path(self) -> str:
         return "ti/features/intervention/model/data/intervention_enums.yaml"
     
-    def regist_symbol_path(self, symbol_model: SymbolModel) -> None:
-        """
-        Register a symbol path
-        """
-        symbol_id = f"{symbol_model.symbol_type.value}:{symbol_model.symbol_path}"
-        self._symbols[symbol_id] = symbol_model
+    def get_symbol_path(self, symbol_id):
+        return super().get_symbol_path(symbol_id)
     
-    def get_symbol_path(self, symbol_id: str) -> Optional[SymbolModel]:
-        """
-        Get symbol by id
-        """
-        # 首先检查硬编码的枚举映射
-        enum_mapping = {
-            "USER_ACCEPTED": "ti.features.intervention.model.model.INVEvent.USER_ACCEPTED.value",
-            "USER_REJECTED": "ti.features.intervention.model.model.INVEvent.USER_REJECTED.value", 
-            "INTERVENTION_CREATED": "ti.features.intervention.model.model.INVEvent.INTERVENTION_CREATED.value",
-            "END_INTERVENTION": "ti.features.intervention.model.model.INV_Special_States.END_INTERVENTION.value",
-            "ACCEPTED_CONTRACT": "ti.features.intervention.model.model.INV_Special_States.ACCEPTED_CONTRACT.value"
-        }
-        
-        if symbol_id in enum_mapping:
-            # 返回枚举符号的SymbolModel
-            return SymbolModel(
-                symbol_type=SymbolType.ENUM_CLASS,
-                symbol_path=enum_mapping[symbol_id],  # 直接返回表达式，如 "INVEvent.USER_ACCEPTED.value"
-                symbol_domain="intervention"
-            )
-        
-        return self._symbols.get(symbol_id)
+    def search_symbol_data(self, symbol_type = None, domain = None):
+        return super().search_symbol_data(symbol_type, domain)
     
-    def search_symbol_data(self, symbol_type: Optional[SymbolType] = None, 
-                          domain: Optional[str] = None) -> List[SymbolModel]:
-        """
-        Search symbols by type and/or domain
-        """
-        results = []
-        for symbol in self._symbols.values():
-            if symbol_type and symbol.symbol_type != symbol_type:
-                continue
-            if domain and symbol.symbol_domain != domain:
-                continue
-            results.append(symbol)
-        return results
-    
-    def get_symbol_model(self) -> Dict[str, SymbolModel]:
-        """
-        Get all symbol models
-        """
-        return self._symbols
+    def get_symbol_model(self):
+        return super().get_symbol_model()
     
     def load_data(self) -> None:
         """
@@ -94,29 +63,8 @@ class INV_PathRegister(ISymbolPathRegister):
         self._load_from_file(self.class_file_path, "classes")
         self._load_from_file(self.enum_file_path, "enum_classes")
     
-    def _load_from_file(self, file_path: str, key: str) -> None:
-        """
-        Load data from a specific YAML file
-        """
-        try:
-            with open(file_path, 'r') as f:
-                data = yaml.safe_load(f)
-                
-            if data and key in data:
-                for item in data[key]:
-                    if not isinstance(item,str):
-                    
-                        symbol = SymbolModel(
-                            symbol_type=SymbolType(item['symbol_type']),
-                            symbol_path=item['symbol_path'],
-                            symbol_domain=item['symbol_domain']
-                        )
-                        self.regist_symbol_path(symbol)
-                        
-        except FileNotFoundError:
-            print(f"Warning: {file_path} not found")
-        except Exception as e:
-            print(f"Error loading symbol data from {file_path}: {e}")
+    def _load_from_file(self, file_path, key):
+        return super()._load_from_file(file_path, key)
 
     def resolve_enum_symbol(self, symbol_ref: str) -> str:
         """
@@ -141,3 +89,6 @@ class INV_PathRegister(ISymbolPathRegister):
             return f"ti.features.intervention.model.model.{enum_mapping[enum_name]}"
         
         return symbol_ref
+    
+    def regist_symbol_path(self, symbol_model):
+        return super().regist_symbol_path(symbol_model)

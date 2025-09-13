@@ -26,7 +26,9 @@ insight_narratives:
           - "昨天，在所有行动中，你在“{action}”上专注了最多时间，达到了{timeSpan}分钟，时段为 {start} 至 {end}。"
         history_text: []
       judgement_key:
-        praise: "universal.praise"
+        praise: 
+          - "做的很棒！请保持！！！！！"
+          - "go work!"
         doubt_accuracy:
           - "是不是标错了？"
         suggest_rest:

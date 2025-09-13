@@ -1,15 +1,7 @@
 
 from PyQt6.QtCore import pyqtSignal
-
-from ti.core.eventBus import EventBus
 from ti.core.Interfaces.view.page_view_interface import IPageView
-from ti.model.action_unit import ActionUnit
 
-from ti.model.events import PluginEvents
-from ti.model.page_contributions import PageContribution
-from ti.view.rawUI.ui_rawNewCapturePage import Ui_NewCapturePage
-from ti.view.widgets.other.BasicButton import BasicButton
-from ti.view.widgets.pages.BasicWidget import BasicWidget
 
 
 

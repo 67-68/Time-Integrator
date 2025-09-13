@@ -13,10 +13,19 @@ class CorePathRegister(ISymbolPathRegister):
     def __init__(self):
         self._symbols: Dict[str, SymbolModel] = {}
         self.load_data()
+        self._enum_mapping = {
+            "TODAY": "ti.model.duration.Duration.TODAY.value",
+            "TO_TOMORROW": "ti.model.duration.Duration.TO_TOMORROW.value", 
+            "THIS_WEEK": "ti.model.duration.Duration.THIS_WEEK.value"
+        }
     
     @property
     def domain(self) -> str:
-        return "model"
+        return "core"
+    
+    @property
+    def enum_mapping(self) -> str:
+        return self._enum_mapping
     
     @property
     def class_file_path(self) -> str:
@@ -34,33 +43,11 @@ class CorePathRegister(ISymbolPathRegister):
     def enum_file_path(self) -> str:
         return "ti/model/data/model_enums.yaml"
     
-    def regist_symbol_path(self, symbol_model: SymbolModel) -> None:
-        """
-        Register a symbol path
-        """
-        symbol_id = f"{symbol_model.symbol_type.value}:{symbol_model.symbol_path}"
-        self._symbols[symbol_id] = symbol_model
+    def regist_symbol_path(self, symbol_model):
+        return super().regist_symbol_path(symbol_model)
     
-    def get_symbol_path(self, symbol_id: str) -> Optional[SymbolModel]:
-        """
-        Get symbol by id
-        """
-        # 首先检查硬编码的枚举映射
-        enum_mapping = {
-            "TODAY": "ti.model.duration.Duration.TODAY.value",
-            "TO_TOMORROW": "ti.model.duration.Duration.TO_TOMORROW.value", 
-            "THIS_WEEK": "ti.model.duration.Duration.THIS_WEEK.value"
-        }
-        
-        if symbol_id in enum_mapping:
-            # 返回枚举符号的SymbolModel
-            return SymbolModel(
-                symbol_type=SymbolType.ENUM_CLASS,
-                symbol_path=enum_mapping[symbol_id],
-                symbol_domain="model"
-            )
-        
-        return self._symbols.get(symbol_id)
+    def get_symbol_path(self, symbol_id):
+        return super().get_symbol_path(symbol_id)
     
     def search_symbol_data(self, symbol_type: Optional[SymbolType] = None, 
                           domain: Optional[str] = None) -> List[SymbolModel]:

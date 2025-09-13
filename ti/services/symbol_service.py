@@ -2,6 +2,10 @@ from ti.core.Interfaces.symbol_path_register_interface import ISymbolPathRegiste
 import importlib
 from typing import Any, Optional
 
+from ti.features.detector.detector_path_register import DetectorPathRegister
+from ti.features.insight.insight_path_register import InsightPathRegister
+from ti.model.core_path_register import CorePathRegister
+
 
 class SymbolService:
     def __init__(self):
@@ -11,6 +15,13 @@ class SymbolService:
         查找对应symbol
         """
         self.registers: dict[str, ISymbolPathRegister] = {}
+        
+        
+        
+        self.regist_register(CorePathRegister())
+        self.regist_register(InsightPathRegister())
+        self.regist_register(DetectorPathRegister())
+        
         
     def regist_register(
         self,
@@ -128,6 +139,13 @@ class SymbolService:
             if isinstance(value, str):
                 # 检查是否是 A.B 格式的符号引用
                 if "." in value and not value.startswith(("http://", "https://")):
+                    # 特殊情况处理：不要分割连续的点或点前后没有内容的情况
+                    # 1. 超过一个点连在一起（如 ".."）
+                    # 2. 点之前或之后没有东西（如 ".value" 或 "value."）
+                    # 3. 包含花括号（如格式化字符串模板）
+                    if ".." in value or value.startswith(".") or value.endswith(".") or ("{" in value and "}" in value):
+                        return value
+                    
                     try:
                         # 尝试解析符号
                         domain, symbol_name = value.split(".", 1)
@@ -143,11 +161,18 @@ class SymbolService:
                     # 首先解析键（如果键是符号引用）
                     resolved_key = k
                     if isinstance(k, str) and "." in k and not k.startswith(("http://", "https://")):
-                        try:
-                            domain, symbol_name = k.split(".", 1)
-                            resolved_key = self.resolve_symbol(domain, symbol_name)
-                        except (ValueError, ImportError, AttributeError) as e:
-                            print(f"Warning: Could not resolve key symbol '{k}': {e}")
+                        # 特殊情况处理：不要分割连续的点或点前后没有内容的情况
+                        # 1. 超过一个点连在一起（如 ".."）
+                        # 2. 点之前或之后没有东西（如 ".value" 或 "value."）
+                        # 3. 包含花括号（如格式化字符串模板）
+                        if ".." in k or k.startswith(".") or k.endswith(".") or ("{" in k and "}" in k):
+                            pass  # 不处理这种情况
+                        else:
+                            try:
+                                domain, symbol_name = k.split(".", 1)
+                                resolved_key = self.resolve_symbol(domain, symbol_name)
+                            except (ValueError, ImportError, AttributeError) as e:
+                                print(f"Warning: Could not resolve key symbol '{k}': {e}")
                     
                     # 然后递归解析值
                     resolved_value = resolve_value(v)

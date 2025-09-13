@@ -4,6 +4,7 @@ from ti.core.extensionRegister import DynamicExtensionLoader, ExtensionRegister
 
 from ti.features.detector.detectorFactory import DetectorFactory
 from ti.features.detector.detectorRepository import DetectocRepository
+from ti.features.insight.model.narratives import InsightNarrator
 from ti.features.intervention.service.logger import InterventionLogger
 from ti.features.yaml_database.service.yaml_parser_service import YamlParser
 from ti.services.dataAccess.dataService import DataService
@@ -26,6 +27,14 @@ class ServiceContainer:
         self.services["ICS"] = cache
         self._services[InsightCacheService] = cache
         
+        yaml_parser = YamlParser()
+        self.services["yaml_parser"] = yaml_parser
+        self._services[YamlParser] = yaml_parser
+        
+        symbol = SymbolService()
+        self.services["symbol"] = symbol
+        self._services[SymbolService] = symbol
+        
         detector_rep = DetectocRepository()
         self.services["DR"] = detector_rep
         self._services[DetectocRepository] = detector_rep
@@ -34,7 +43,9 @@ class ServiceContainer:
         self.services["DF"] = detector_fac
         self._services[DetectorFactory] = detector_fac
         
-        formatter = FormatService()
+        narrator = InsightNarrator(yaml_parser,symbol)
+        
+        formatter = FormatService(narrator)
         self.services["FS"] = formatter
         self._services[FormatService] = formatter
         
@@ -62,17 +73,13 @@ class ServiceContainer:
         self.services["ER"] = register
         self._services[ExtensionRegister] = register
         
-        symbol = SymbolService()
-        self.services["symbol"] = symbol
-        self._services[SymbolService] = symbol
+
         
         loader = DynamicExtensionLoader(register,self,bus,symbol)
         self.services["loader"] = loader
         self._services[DynamicExtensionLoader] = loader
     
-        yaml_parser = YamlParser()
-        self.services["yaml_parser"] = yaml_parser
-        self._services[YamlParser] = yaml_parser
+        
         
         
         

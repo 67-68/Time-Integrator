@@ -1,31 +1,38 @@
 # Detector Feature Class Registry
-# This file contains class symbols for the detector feature
+# This file contains class symbols for the detector feature using SymbolModels structure
 
 classes:
-  - symbol_type: "class"
+  MATCHER:
+    symbol_type: "class"
     symbol_path: "ti.features.detector.matchers.Matcher"
     symbol_domain: "detector"
 
-  - symbol_type: "class"
+  BASE_DETECTOR:
+    symbol_type: "class"
     symbol_path: "ti.features.detector.baseDetector.BaseDetector"
     symbol_domain: "detector"
 
-  - symbol_type: "class"
+  DETECTOR_REPOSITORY:
+    symbol_type: "class"
     symbol_path: "ti.features.detector.detectorRepository.DetectocRepository"
     symbol_domain: "detector"
 
-  - symbol_type: "class"
+  DETECTOR_STATE:
+    symbol_type: "class"
     symbol_path: "ti.features.detector.model.Detector_State"
     symbol_domain: "detector"
 
-  - symbol_type: "class"
+  DETECTOR_SEQUENCE:
+    symbol_type: "class"
     symbol_path: "ti.features.detector.model.Detector_Sequence"
     symbol_domain: "detector"
 
-  - symbol_type: "class"
+  DETECTOR_CONFIG:
+    symbol_type: "class"
     symbol_path: "ti.features.detector.model.Detector_Config"
     symbol_domain: "detector"
 
-  - symbol_type: "class"
+  DETECTOR_RECIPE:
+    symbol_type: "class"
     symbol_path: "ti.features.detector.model.Detector_Recipe"
     symbol_domain: "detector"

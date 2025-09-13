@@ -4,15 +4,15 @@
 contract_recipes:
   # POST_EAT_WASTE contract recipe
   post_eat_waste:
-    duration: core.Duration.TODAY.value
+    duration: core.TODAY
     view_recipe_id: intervention.INV_View_ID.POST_EAT_WASTE.value
   
   # UNSETTLING_HEART contract recipe
   unsettling_heart:
-    duration: core.Duration.TODAY.value
+    duration: core.TODAY
     view_recipe_id: intervention.INV_View_ID.UNSETTLING_HEART.value
   
   # POST_BASH_WASTE contract recipe
   post_bash_waste:
-    duration: core.Duration.TODAY.value
+    duration: core.TODAY
     view_recipe_id: intervention.INV_View_ID.POST_BASH_WASTE.value

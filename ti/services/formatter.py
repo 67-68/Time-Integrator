@@ -1,5 +1,5 @@
 
-from ti.features.insight.model import narratives
+from ti.features.insight.model.narratives import InsightNarrator
 from ti.model.action_unit import ActionUnit
 from ti.model.themes import themes
 from ti.services.utils import randomChoser, smart_formatter
@@ -19,29 +19,34 @@ presentation:{
 }
 """
 class FormatService:
-    def __init__(self):
-        pass
+    def __init__(self, narrator: InsightNarrator):
+        self.narrator = narrator
+        
     def format_card(self,data):
         judgement_key = data["judgement_key"]
         sementic_key = data["sementic_key"]
         theme_key = data["card_type"]
         data_payLoad = data["data"]
         
-        dataBase = narratives.SPECIFIC_NARRATION[sementic_key]
+        # Use InsightNarrator to get specific narrative data
+        self.database = self.narrator.get_specific_narrative(sementic_key, "sementic_key")
         
         #  --- 获取sementic ---
-        sDataList = dataBase["sementic_key"]
+        sDataList = self.database
         sementic_data = randomChoser(sDataList["text"])
         sementic_data = smart_formatter(data_payLoad,sementic_data)
 
         #  --- 获取judgement ---
         judgement_data = []
         for judgement in judgement_key:
-            jDataList = dataBase["judgement_key"][judgement]
+            # Get judgement data using InsightNarrator
+            jDataList = self.narrator.get_specific_narrative(sementic_key, "judgement_key").get(judgement, [])
             judgement_data.append(randomChoser(jDataList).format(**data_payLoad))
         
         #  --- 获取title ---
-        tDataList = dataBase["presentation"][theme_key]["title"]
+        # Get presentation data using InsightNarrator
+        presentation_data = self.narrator.get_specific_narrative(sementic_key, "presentation")
+        tDataList = presentation_data.get(theme_key, {}).get("title", [])
         title = randomChoser(tDataList)
         
         #  --- 获取icon和颜色 ---

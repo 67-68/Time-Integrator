@@ -1,6 +1,7 @@
 from ti.core.Interfaces.model.yaml_repository_interface import IYamlRepository
 from ti.features.yaml_database.service.yaml_parser_service import YamlParser
 from ti.services.symbol_service import SymbolService
+from ti.services.dataAccess.dataAccess import get_yaml_data
 
 
 class InsightNarrator(IYamlRepository):
@@ -47,7 +48,7 @@ class InsightNarrator(IYamlRepository):
         """
         try:
             # 直接加载原始数据
-            narratives_data = self.yaml.get_data(self.filePath)
+            narratives_data = get_yaml_data(self.filePath)
             narratives_data = narratives_data.get('insight_narratives', {}) if narratives_data else {}
             
             # 填充符号
@@ -64,11 +65,11 @@ class InsightNarrator(IYamlRepository):
     
     @property
     def filePath(self):
-        return "ti/features/insight/model/data/insight_narratives.yaml"
+        return "features/insight/model/data/insight_narratives.yaml"
     
     @property
     def rule_file_path(self):
-        return "ti/features/insight/model/data/rules.yaml"
+        return "features/insight/model/data/rules.yaml"
     
     def save(self):
         return super().save()

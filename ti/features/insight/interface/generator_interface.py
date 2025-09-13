@@ -1,1 +1,1 @@
-class Generator_Interface
+class ICardGenerator

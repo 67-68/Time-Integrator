@@ -31,6 +31,9 @@ class BaseDetector(QObject):
         """
         super().__init__()
         
+        # 存储config
+        self.config = config
+        
         # 获取matchers
         self.sequence = config.sequence
         self.hooks = self.sequence.hook

@@ -8,7 +8,7 @@ from ti.view.rawUI.ui_rawIPageView import Ui_main_page
 from ti.view.widgets.other.BasicButton import BasicButton
 
 
-class IPageView(QtABCMeta):
+class IPageView(ABC, metaclass=QtABCMeta):
     page_first_clicked: pyqtSignal
     
     """
@@ -30,15 +30,7 @@ class IPageView(QtABCMeta):
         """
         负责架设UI并删除pages
         """
-        self.page = Ui_main_page()
-        self.page.setupUi(self)
-        
-        # 删除默认的pages
-        while self.page.stackedWidget.count() > 0:
-            widget = self.page.stackedWidget.widget(0)
-            self.page.stackedWidget.removeWidget(widget)
-            
-        self.pages = {}
+        pass
     
     @abstractmethod
     def create_navigation_btn(self, btn_data):

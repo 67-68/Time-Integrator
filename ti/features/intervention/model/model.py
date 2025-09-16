@@ -72,6 +72,7 @@ class INV_Contract:
         data["create_time"] = self.create_time.isoformat()
         if self.solve_time:
             data["solve_time"] = self.solve_time.isoformat()
+        # data["view_recipe_id"] = data["view_recipe_id"].value
         return data
         
     @classmethod

@@ -21,6 +21,7 @@ class SymbolService:
         self.regist_register(CorePathRegister())
         self.regist_register(InsightPathRegister())
         self.regist_register(DetectorPathRegister())
+        # Intervention path register is registered separately in intervention plugin
         
         
     def regist_register(
@@ -149,6 +150,17 @@ class SymbolService:
                     try:
                         # 尝试解析符号
                         domain, symbol_name = value.split(".", 1)
+                        
+                        # 首先检查是否可以使用路径注册器的resolve_enum_symbol方法
+                        if domain in self.registers:
+                            register = self.registers[domain]
+                            if hasattr(register, 'resolve_enum_symbol'):
+                                resolved_value = register.resolve_enum_symbol(value)
+                                if resolved_value != value:
+                                    # 如果路径注册器处理了该值，直接使用get_symbol解析最终路径
+                                    return self.get_symbol(resolved_value)
+                        
+                        # 否则使用常规符号解析
                         resolved_symbol = self.resolve_symbol(domain, symbol_name)
                         return resolved_symbol
                     except (ValueError, ImportError, AttributeError) as e:

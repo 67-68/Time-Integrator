@@ -40,6 +40,9 @@ class TimeIntegrator:
         # self.bus = self.services.getService("bus")
         # self.capture_page = New_CapturePage(self.mainWindow)
         # self.presenter = CapturePagePresenter(self.capture_page, self.bus)
+        # print("=" *50)
+        # print("create new capture page presenter and page")
+        # print("=" *50)
         
         self.coordinator = MainCoorinator(self.services,self.ui)
         

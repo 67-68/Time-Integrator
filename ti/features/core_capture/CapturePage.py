@@ -1,11 +1,12 @@
 
 from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtWidgets import QWidget
 from ti.core.Interfaces.view.page_view_interface import IPageView
+from ti.model.core_pages import CoreView
+from ti.view.rawUI.ui_rawNewCapturePage import Ui_NewCapturePage
 
 
-
-
-class New_CapturePage(IPageView):
+class New_CapturePage(QWidget, IPageView):
     
     page_first_clicked = pyqtSignal(str)
     
@@ -17,14 +18,22 @@ class New_CapturePage(IPageView):
         self.initialize()
     
     def initialize(self):
-        return super().initialize()
+        self.page = Ui_NewCapturePage()
+        self.page.setupUi(self)
+        
+        # 删除默认的pages
+        while self.page.stackedWidget.count() > 0:
+            widget = self.page.stackedWidget.widget(0)
+            self.page.stackedWidget.removeWidget(widget)
+            
+        self.pages = {}
     
     @property
     def page_name(self) -> str:
         """
         返回页面名称
         """
-        return "capture"
+        return CoreView.CAPTURE_PAGE.value
             
     def create_navigation_btn(self, btn_data):
         return super().create_navigation_btn(btn_data)

@@ -2,10 +2,12 @@
 from ti.core.eventBus import EventBus
 from ti.core.extensionRegister import DynamicExtensionLoader, ExtensionRegister
 
+from ti.services.synthesizer_service import Synthesizer
 from ti.features.detector.detectorFactory import DetectorFactory
 from ti.features.detector.detectorRepository import DetectocRepository
 from ti.features.insight.model.narratives import InsightNarrator
 from ti.features.intervention.service.logger import InterventionLogger
+from ti.features.translation.service.translator_service import Translator
 from ti.features.yaml_database.service.yaml_parser_service import YamlParser
 from ti.services.dataAccess.dataService import DataService
 from ti.services.dataAccess.insightCacheService import InsightCacheService
@@ -23,9 +25,17 @@ class ServiceContainer:
         self.services = {} # 用来一般查找，存储简称
         self._services = {} #用来自动查找，存储全称
             
+        translator = Translator()
+        self.services["translator"] = translator
+        self._services[Translator] = translator
+            
         cache =  InsightCacheService()
         self.services["ICS"] = cache
         self._services[InsightCacheService] = cache
+        
+        syn = Synthesizer()
+        self.services["syn"] = syn
+        self._services[Synthesizer] = syn
         
         yaml_parser = YamlParser()
         self.services["yaml_parser"] = yaml_parser
@@ -78,6 +88,7 @@ class ServiceContainer:
         loader = DynamicExtensionLoader(register,self,bus,symbol)
         self.services["loader"] = loader
         self._services[DynamicExtensionLoader] = loader
+    
     
         
         

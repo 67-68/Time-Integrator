@@ -1,7 +1,20 @@
 from uuid import UUID
+from enum import Enum
 from ti.core.Interfaces.view.json_repository_interface import IJsonRepository
 from ti.services.dataAccess.dataAccess import getData, saveData
 from ti.features.intervention.model.model import INV_Contract
+
+
+def _convert_enums_to_values(data):
+    """递归地将所有枚举值转换为它们的value"""
+    if isinstance(data, Enum):
+        return data.value
+    elif isinstance(data, dict):
+        return {k: _convert_enums_to_values(v) for k, v in data.items()}
+    elif isinstance(data, list):
+        return [_convert_enums_to_values(item) for item in data]
+    else:
+        return data
 
 
 class INV_ContractRepository(IJsonRepository):
@@ -31,10 +44,10 @@ class INV_ContractRepository(IJsonRepository):
         """
         self.contracts = data
         
-        # 明确地告诉Python，我们要遍历“键值对 (items)”
+        # 明确地告诉Python，我们要遍历"键值对 (items)"
         raw_data = {
             # 注意！这里需要把UUID对象转换为字符串，因为JSON不支持UUID作为key
-            str(contract_id): contract.to_dict() 
+            str(contract_id): _convert_enums_to_values(contract.to_dict()) 
             for contract_id, contract in self.contracts.items() # <--- 使用 .items()
         }
         

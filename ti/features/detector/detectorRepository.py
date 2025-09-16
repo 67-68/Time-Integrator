@@ -22,7 +22,7 @@ class DetectocRepository:
         Returns:
             Detector_Recipe: _description_
         """
-        recipe = RECIPE[detector_id]
+        recipe = RECIPE[detector_id.value]
         sequences = recipe["config"]["sequence"]
     
         # HOOK部分

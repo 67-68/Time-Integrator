@@ -10,7 +10,7 @@ class CapturePagePresenter(IPagePresenter):
     def __init__(
         self,
         capture_page: New_CapturePage,
-        bus: EventBus
+        bus: EventBus,
     ):
         """
         这个presenter用来管理capturePage
@@ -43,11 +43,18 @@ class CapturePagePresenter(IPagePresenter):
     
     def _on_page_needed(self, page_contributions: list[PageContribution]):
         for contribution in page_contributions:
-            print(f"examine page contribution {contribution.page_id}")
+            print(f"[CAP_PAGE]examine page contribution {contribution.page_id}")
             if contribution.parent_page == self.page.page_name:
+                print(f"[CAP_PAGE]page contribution {contribution.page_id} pass")
                 page_id = contribution.page_id
                 self.page_contributions[page_id] = contribution
 
                 # 应用page_contribution
                 self.create_page_contribution(contribution)
     
+    def _on_page_first_clicked(self, page_id):
+        return super()._on_page_first_clicked(page_id)
+    def create_button(self, contribution):
+        return super().create_button(contribution)
+    def create_page_contribution(self, contribution):
+        return super().create_page_contribution(contribution)

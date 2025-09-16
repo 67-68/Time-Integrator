@@ -2,6 +2,7 @@ from PyQt6.QtCore import QObject,pyqtSignal
 
 from ti.features.detector.baseDetector import BaseDetector
 from ti.features.detector.detectorFactory import DetectorFactory
+from ti.features.detector.model import Detector_Recipe_ID
 from ti.services.dataAccess.insightCacheService import InsightCacheService
 from ti.services.sessionCache import SessionCache
 from ti.features.insight.model.insight_card_generation_models import RawCardData, CardInfo
@@ -43,20 +44,27 @@ class InsightEngine(QObject):
             recipes (list): _description_
         """
         for recipe in recipes:
-            id = recipe["detector"] 
-            card_type_id = id
-            detector: BaseDetector = self.factory.create_detector(id,card_type_id)
+            detector_id_str = recipe["detector"] 
+            card_type_id = detector_id_str
+            
+            # Convert string detector ID to enum
+            try:
+                detector_id_enum = Detector_Recipe_ID(detector_id_str)
+                detector: BaseDetector = self.factory.create_detector(detector_id_enum, card_type_id)
+            except ValueError:
+                print(f"Warning: Unknown detector ID '{detector_id_str}', skipping")
+                continue
                         
             #这里，这一行，如果detector通过了，卡片模式被识别出来，会首先执行这一条
             detector.pattern_detected.connect(lambda f : self.pattern_detected(f))
 
-            self.cards[id] = CardInfo(
+            self.cards[card_type_id] = CardInfo(
                 detector=detector,
-                id=id,
+                id=card_type_id,
                 presenter=recipe["presenter"]
             )
             
-            cache.store(id,(self.cards[id],recipe))
+            cache.store(card_type_id,(self.cards[card_type_id],recipe))
             
     def process_action_unit(self,au: dict) -> None:
         """_summary_

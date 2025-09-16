@@ -69,14 +69,15 @@ class INV_PathRegister(ISymbolPathRegister):
     def resolve_enum_symbol(self, symbol_ref: str) -> str:
         """
         硬编码解析枚举符号引用
-        格式: intervention.ENUM_NAME
+        格式: intervention.ENUM_NAME 或 intervention.ENUM_CLASS.ENUM_VALUE.value
         """
         if not symbol_ref.startswith("intervention."):
             return symbol_ref
         
-        enum_name = symbol_ref.split(".", 1)[1]
+        # 移除 "intervention." 前缀
+        enum_path = symbol_ref.split(".", 1)[1]
         
-        # 硬编码枚举值映射
+        # 硬编码枚举值映射（简单枚举名）
         enum_mapping = {
             "USER_ACCEPTED": "INVEvent.USER_ACCEPTED.value",
             "USER_REJECTED": "INVEvent.USER_REJECTED.value", 
@@ -85,8 +86,15 @@ class INV_PathRegister(ISymbolPathRegister):
             "ACCEPTED_CONTRACT": "INV_Special_States.ACCEPTED_CONTRACT.value"
         }
         
-        if enum_name in enum_mapping:
-            return f"ti.features.intervention.model.model.{enum_mapping[enum_name]}"
+        # 检查是否是简单枚举名
+        if enum_path in enum_mapping:
+            return f"ti.features.intervention.model.model.{enum_mapping[enum_path]}"
+        
+        # 检查是否是复杂枚举路径格式：ENUM_CLASS.ENUM_VALUE.value
+        if enum_path.endswith(".value") and enum_path.count(".") >= 2:
+            # 格式：INV_View_ID.POST_EAT_WASTE.value
+            full_enum_path = f"ti.features.intervention.model.model.{enum_path}"
+            return full_enum_path
         
         return symbol_ref
     

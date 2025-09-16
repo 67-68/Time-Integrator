@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QVBoxLayout, QSizePolicy
+from PyQt6.QtWidgets import QVBoxLayout, QSizePolicy, QWidget
 from ti.view.widgets.pages.BasicWidget import BasicWidget
 
 
@@ -19,6 +19,13 @@ class CAP_InputView(BasicWidget):
         self.main_layout = QVBoxLayout(self)
         self.main_layout.setContentsMargins(0, 0, 0, 0)
         self.main_layout.setSpacing(0)
+        
+        # 创建底部控件容器
+        self.bottom_widget = QWidget()
+        self.bottom_layout = QVBoxLayout(self.bottom_widget)
+        self.bottom_layout.setContentsMargins(0, 0, 0, 0)
+        self.bottom_layout.setSpacing(0)
+        
         self.setLayout(self.main_layout)
     
     def add_smart_input(self, smart_input_view):
@@ -34,4 +41,16 @@ class CAP_InputView(BasicWidget):
         property_view.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         property_view.setMinimumSize(200, 200)
         self.main_layout.addWidget(property_view, 2)
+    
+    def add_to_bottom_widget(self, widget):
+        """
+        添加控件到底部widget中
+        :param widget: 要添加的控件
+        """
+        # 确保底部widget已经添加到主布局中
+        if self.main_layout.indexOf(self.bottom_widget) == -1:
+            self.main_layout.addWidget(self.bottom_widget)
+        
+        widget.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        self.bottom_layout.addWidget(widget)
     

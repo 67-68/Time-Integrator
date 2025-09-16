@@ -2,22 +2,26 @@ from ti.core.Interfaces.page_extension_interface import IPageExtension
 from ti.features.capture.presenter.selection_presenter import CAP_SelectionPresenter
 from ti.features.capture.presenter.input_presenter import CAP_InputPresenter
 from ti.features.capture.view.capture import CaptureView
+from ti.features.translation.service.translator_service import Translator
 from ti.model.core_pages import CoreView
 from ti.model.page_contributions import PageContribution
 from ti.services.dataAccess.dataService import DataService
 from ti.features.capture.presenter.capture_presenter import CapturePresenter
 from ti.core.eventBus import EventBus
+from ti.services.synthesizer_service import Synthesizer
 
 
 class CapturePlugin(IPageExtension):
     def __init__(
         self,
-        data_service: DataService
+        data_service: DataService,
+        translator: Translator
     ):
         super().__init__()
         self.data_service = data_service
         self.event_bus = None
         self.presenter = None
+        self.translator = translator
         
         
     
@@ -65,7 +69,7 @@ class CapturePlugin(IPageExtension):
     def create_capture_view(self) -> CaptureView:
         # 创建presenter，它会自动创建widget
         selection = CAP_SelectionPresenter()
-        input = CAP_InputPresenter()
+        input = CAP_InputPresenter(self.translator)
         presenter = CapturePresenter(
             self.data_service,
             self.event_bus,

@@ -92,3 +92,16 @@ class DataService(QObject):
         """
         self.repository.delete(action_unit_id)
     
+    def find_action_unit_by_date_and_start(self, date: str, start_time: str):
+        """
+        根据日期和开始时间查找ActionUnit
+        :param date: 日期字符串
+        :param start_time: 开始时间字符串
+        :return: 找到的ActionUnit或None
+        """
+        action_units = self.repository.get_by_date(date)
+        for au in action_units:
+            if au.start == start_time:
+                return au
+        return None
+    

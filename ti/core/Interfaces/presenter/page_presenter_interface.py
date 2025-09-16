@@ -9,7 +9,7 @@ from ti.model.page_contributions import PageContribution
 from ti.services.utils import QtABCMeta
 
 
-class IPagePresenter(QtABCMeta):
+class IPagePresenter(ABC, metaclass=QtABCMeta):
     """
     这个类用来表示Core内
     Presenter的Interface

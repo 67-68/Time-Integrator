@@ -1,4 +1,5 @@
 from PyQt6.QtWidgets import QHBoxLayout, QFormLayout, QFrame, QLabel, QLineEdit, QCheckBox
+from PyQt6.QtCore import pyqtSignal
 from ti.view.widgets.other.RealTimeSearchEdit import RealTimeSearchEdit
 from ti.view.widgets.pages.BasicWidget import BasicWidget
 
@@ -6,9 +7,13 @@ from ti.view.widgets.pages.BasicWidget import BasicWidget
 class PropertyView(BasicWidget):
     """属性视图 - 基于PropertyEnterFrame模板"""
     
+    # 信号定义
+    property_changed = pyqtSignal(dict)
+    
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setup_ui()
+        self._setup_signals()
     
     def setup_ui(self):
         """设置UI布局"""
@@ -82,8 +87,8 @@ class PropertyView(BasicWidget):
     def get_property_data(self):
         """获取所有属性数据"""
         return {
-            'start_time': self.start_edit.text(),
-            'end_time': self.end_edit.text(),
+            'start': self.start_edit.text(),
+            'end': self.end_edit.text(),
             'action_type': self.action_type_edit.text(),
             'action': self.action_edit.text(),
             'action_detail': self.action_detail_edit.text(),
@@ -93,20 +98,14 @@ class PropertyView(BasicWidget):
     
     def set_property_data(self, data):
         """设置属性数据"""
-        if 'start_time' in data:
-            self.start_edit.setText(data['start_time'])
-        if 'end_time' in data:
-            self.end_edit.setText(data['end_time'])
+        if 'start' in data:
+            self.start_edit.setText(data['start'])
+        if 'end' in data:
+            self.end_edit.setText(data['end'])
         if 'action_type' in data:
             self.action_type_edit.setText(data['action_type'])
         if 'action' in data:
             self.action_edit.setText(data['action'])
-        if 'action_detail' in data:
-            self.action_detail_edit.setText(data['action_detail'])
-        if 'is_urgent' in data:
-            self.urgency_checkbox.setChecked(data['is_urgent'])
-        if 'is_important' in data:
-            self.importance_checkbox.setChecked(data['is_important'])
     
     def clear_properties(self):
         """清空所有属性"""
@@ -117,3 +116,33 @@ class PropertyView(BasicWidget):
         self.action_detail_edit.clear()
         self.urgency_checkbox.setChecked(False)
         self.importance_checkbox.setChecked(False)
+    
+    def _setup_signals(self):
+        """设置所有输入控件的信号连接"""
+        # 连接所有文本输入框
+        self.start_edit.textChanged.connect(self._on_property_changed)
+        self.end_edit.textChanged.connect(self._on_property_changed)
+        self.action_type_edit.textChanged.connect(self._on_property_changed)
+        self.action_edit.textChanged.connect(self._on_property_changed)
+        self.action_detail_edit.textChanged.connect(self._on_property_changed)
+        
+        # 连接复选框
+        self.urgency_checkbox.stateChanged.connect(self._on_property_changed)
+        self.importance_checkbox.stateChanged.connect(self._on_property_changed)
+    
+    def _on_property_changed(self):
+        """处理属性变化，发射信号"""
+        property_data = self.get_property_data()
+        self.property_changed.emit(property_data)
+    
+    def connect_property_changed(self, slot, blocker=None):
+        """
+        连接属性变化信号到指定槽函数
+        :param slot: 槽函数
+        :param blocker: 可选的信号阻塞器，用于避免循环更新
+        """
+        if blocker:
+            with blocker:
+                self.property_changed.connect(slot)
+        else:
+            self.property_changed.connect(slot)

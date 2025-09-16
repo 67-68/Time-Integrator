@@ -13,7 +13,7 @@ from ti.view.views.pageSwitchFrame import PageSwitchFrame
 
 class Ui_main_page(object):
     def setupUi(self, main_page):
-        main_page.setObjectName("main_page")
+        main_page.setname("main_page")
         main_page.resize(876, 647)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)

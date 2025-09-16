@@ -1,9 +1,10 @@
 
-from PyQt6.QtWidgets import QVBoxLayout
+from PyQt6.QtWidgets import QHBoxLayout,QLabel
 from PyQt6.QtCore import pyqtSignal
 import pyqtgraph as pg
 
 from ti.view.rawUI.ui_rawMenuPage import Ui_MenuPage
+from ti.view.widgets.other.BasicLabel import BasicLabel
 from ti.view.widgets.pages.BasicWidget import BasicWidget
 
 
@@ -20,22 +21,28 @@ class MenuPage(BasicWidget):
         self.MP.setupUi(self)
         
         #  ------ 菜单栏图表 ------
-        self.fourRealmChart = pg.PlotWidget(self.MP.fourRealmFrame)
-        chart = self.fourRealmChart
+        # self.fourRealmChart = pg.PlotWidget(self.MP.fourRealmFrame)
+        # chart = self.fourRealmChart
         
         self.MP.pageSwitchFrameBase.switchPage_button_clicked.connect(lambda f:self.switchPage_button_clicked.emit(f))
         #  --- 它的排版 ---
-        self.MP.fourRealmFrame.layout = QVBoxLayout()
-        self.MP.fourRealmFrame.layout.addWidget(self.fourRealmChart)
+        self.MP.fourRealmFrame.layout = QHBoxLayout()
+        # self.MP.fourRealmFrame.layout.addWidget(self.fourRealmChart)
+        
+        axium_label = BasicLabel(self.MP.fourRealmFrame,"1. 永远戴耳机工作\n2.对于非创造性工作，永远使用番茄钟\n3.不要把很长一段时间用来专门做一件事情")
+        
+        self.MP.fourRealmFrame.layout.addWidget(axium_label)
+        
+        
         
         #  --- 初始化设置 ---
-        chart.setBackground("#f8f9fa")
-        chart.setFixedHeight(250)
-        chart.setFixedWidth(300)
+        # chart.setBackground("#f8f9fa")
+        # chart.setFixedHeight(250)
+        # chart.setFixedWidth(300)
         
-        # 隐藏坐标轴，让它看起来更像一个纯粹的图示
-        self.fourRealmChart.getPlotItem().hideAxis('left')
-        self.fourRealmChart.getPlotItem().hideAxis('bottom')
+        # # 隐藏坐标轴，让它看起来更像一个纯粹的图示
+        # self.fourRealmChart.getPlotItem().hideAxis('left')
+        # self.fourRealmChart.getPlotItem().hideAxis('bottom')
         
         #  ------ 复选框 ------
         #  --- 注册复选框选项 ---
@@ -53,15 +60,15 @@ class MenuPage(BasicWidget):
         self.updateMenuChart(fourRealmRatio)
     
     
-    #SPECIFIC; INPUT data; UPDATE menu chart
-    def updateMenuChart(self,data):
-        colors = ['#FF6347', '#4CAF50', '#FFC107', '#9E9E9E']
-        value = []
-        for item in data:
-            value.append(data[item])
-        x = list(range(len(value))) 
-        bars = pg.BarGraphItem(x = x,height = value,width = 0.6,colors = colors)
-        self.fourRealmChart.addItem(bars)
+    # #SPECIFIC; INPUT data; UPDATE menu chart
+    # def updateMenuChart(self,data):
+    #     colors = ['#FF6347', '#4CAF50', '#FFC107', '#9E9E9E']
+    #     value = []
+    #     for item in data:
+    #         value.append(data[item])
+    #     x = list(range(len(value))) 
+    #     bars = pg.BarGraphItem(x = x,height = value,width = 0.6,colors = colors)
+    #     self.fourRealmChart.addItem(bars)
         
         
         

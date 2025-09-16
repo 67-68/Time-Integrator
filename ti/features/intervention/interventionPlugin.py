@@ -94,6 +94,10 @@ class InterventionPlugin(
         register = INV_ContractRegister(monitor,detector_rep)
         self.container.add_service("register",register)
         
+        # Register intervention path register with symbol service
+        intervention_register = INV_PathRegister()
+        symbol_service.regist_register(intervention_register)
+        
         contract_recipe_repos = INV_CON_Recipe_Repository(yaml_parser,symbol_service)
         self.container.add_service("CON_recipe_repos",contract_recipe_repos)
         

@@ -3,7 +3,9 @@ from PyQt6.QtWidgets import QMainWindow
 from PyQt6.QtCore import pyqtSignal
 import pyqtgraph as pg
 
+from ti.features.core_capture.CapturePage import New_CapturePage
 from ti.model.action_unit import ActionUnit
+from ti.features.core_capture.capture_page_presenter import CapturePagePresenter
 from ti.view.rawUI.ui_rawMainWindow import Ui_MainWindow
 
 
@@ -67,12 +69,20 @@ class MainWindow(QMainWindow):
         }
         
     def connectSignal(self):
-        self.CP.switchPage_button_clicked.connect(lambda p: self._on_page_switch_button_clicked(p))
-        self.CP.saveData_button_clicked.connect(lambda d: self.saveData_button_clicked.emit(d))
-        self.CP.date_selected.connect(lambda d: self.date_selected.emit(d))
-        self.CP.list_item_selected.connect(lambda d: self.list_item_selected.emit(d))
-        self.CP.new_button_selected.connect(self.new_button_selected.emit)
+        # 连接capture page信号 - 根据capture page类型采用不同的连接方式
+        if hasattr(self.CP, 'switchPage_button_clicked'):
+            # 旧的capture page信号连接
+            self.CP.switchPage_button_clicked.connect(lambda p: self._on_page_switch_button_clicked(p))
+            self.CP.saveData_button_clicked.connect(lambda d: self.saveData_button_clicked.emit(d))
+            self.CP.date_selected.connect(lambda d: self.date_selected.emit(d))
+            self.CP.list_item_selected.connect(lambda d: self.list_item_selected.emit(d))
+            self.CP.new_button_selected.connect(self.new_button_selected.emit)
+        else:
+            # 新的capture page基于IPageView，只有page_first_clicked信号
+            # 具体的业务逻辑由capture page presenter处理
+            print("新的capture page使用IPageView接口，业务信号由presenter处理")
         
+        # 连接其他页面的信号
         self.MP.switchPage_button_clicked.connect(lambda p: self._on_page_switch_button_clicked(p))
         self.MP.timeSpan_choosed.connect(self.timeSpan_choosed.emit)
         
@@ -93,24 +103,6 @@ class MainWindow(QMainWindow):
     
     def updateMenu(self,timeUseRateStr,fourRealmRatioStr,extremeDataStr):
         self.MP.updateMenu(timeUseRateStr,fourRealmRatioStr,extremeDataStr)
-        
-    def fillCPData(self,data,au):
-        """_summary_
-        this function will clear and reconstruct the overall actionUnit list.
-        It will also reset the editor page
-        """
-        self.CP.fillData(data,au)
-        
-    def switchCPData(self,au):
-        """_summary_
-        this function will try to find the item that containing data matches au and select it, rather then clear and reset it
-        it will also reset editor page
-        """
-        self.CP.switchData(au)
     
-    def initialization(self,data):
-        """_summary_
-        传递依赖
-        """
-        pass
+
     

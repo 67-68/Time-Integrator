@@ -1,14 +1,14 @@
 from PyQt6.QtWidgets import QApplication
 import sys
 from ti.features.core_capture.CapturePage import New_CapturePage
-from ti.presenters.capture_page_presenter import CapturePagePresenter
+from ti.features.yaml_database.service.yaml_designer import TI_YamlDesigner
+from ti.features.core_capture.capture_page_presenter import CapturePagePresenter
 from ti.view.views import SettingPage
 from ti.services.analysis.otherAnalysis import updateActionList
 from ti.services.dataAccess.dataService import DataService
 from ti.view.views.MainWindow import MainWindow
 from ti.core.mainCoordinator import MainCoorinator
 from ti.core.definitions import TODAY
-# from ti.presenters.menuPresenter import MenuPresenter
 from ti.services.realTimeMonitor import RealTimeMonitor
 from ti.services.serviceContainer import ServiceContainer
 from ti.services.utils import load_qss, log_message
@@ -32,17 +32,13 @@ class TimeIntegrator:
         self.ui["MW"] = self.mainWindow
         
         
+        # yaml = TI_YamlDesigner()
+        # yaml.initialize()
+        
         
         #  ------ 创建所有的服务实例 ------
         self.services = ServiceContainer()
         self.dataService: DataService = self.services.getService("DS")
-        
-        # self.bus = self.services.getService("bus")
-        # self.capture_page = New_CapturePage(self.mainWindow)
-        # self.presenter = CapturePagePresenter(self.capture_page, self.bus)
-        # print("=" *50)
-        # print("create new capture page presenter and page")
-        # print("=" *50)
         
         self.coordinator = MainCoorinator(self.services,self.ui)
         
@@ -129,28 +125,16 @@ class TimeIntegrator:
         
         
         self.refreshWidget()         #初始化
-        self.mainWindow.fillCPData(self.dataService.get_data()[date],self.currentActionUnit)
-        self.mainWindow.switchCPData(self.currentActionUnit)
     
     #UNIVERSAL; INPUT Str timeChoosed; OUTPUT the data that should update
     def _on_Time_Choosed(self,newTimeChoosed):
-        actionUnits = getActionUnit(newTimeChoosed)
-        if not actionUnits:
-            return
-        self.mainWindow.updateMenu(self.menuPresenter.processData(actionUnits))
+        pass
 
     def _on_date_selected(self,date):
         data = self.dataService.get_date_data(date)
         self.currentDate = date
         
-        data = sorted(data, key=lambda au: au.get("start", ""))
-        if data: 
-            self.currentActionUnit = data[0] 
-        else:
-            self.currentActionUnit = self.dataService.createNewData()
-            print("initializing...no data today")
-                
-        self.mainWindow.fillCPData(data,self.currentActionUnit)
+        pass
     
     def refreshWidget(self): 
         """_summary_

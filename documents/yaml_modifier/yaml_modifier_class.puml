@@ -1,0 +1,116 @@
+@startuml
+title: YAML Modifier - Final Architecture Blueprint
+
+left to right direction
+skinparam handwritten true
+
+' ===============================================
+' 1. 定义核心的“合同” (Interfaces)
+' ===============================================
+package "Interfaces" {
+    interface IPageExtension <<Plugin>> {
+      + {abstract} create_page_widget(): QWidget
+    }
+    
+    interface ICaptureView <<View>> {
+      + fillData(data): void
+      + clear(): void
+      ' ... and other common view methods
+    }
+}
+
+
+' =-----------------------------------------------
+' 2. 定义核心的“插件入口”
+' ===============================================
+package "Plugin Core" {
+    class YamlModifierPlugin {
+      + create_page_widget(): QWidget
+    }
+    YamlModifierPlugin ..|> IPageExtension
+}
+
+
+' ===============================================
+' 3. 定义“YamlModifier”这个自包含的功能模块
+' ===============================================
+package "Feature: YamlModifier" {
+
+    ' --- 3.1 领域/服务层 (The Brains) ---
+    package "Domain & Services" {
+        class "YamlDataRepository" as edi_rep {}
+        note top of edi_rep: **RES:** 持有并管理内存中的\nYAML数据草稿 (单一真理来源)
+        
+        class "SchemaProviderService" as schema_pro {}
+        note top of schema_pro: **RES:** 加载并提供所有配方的\nSchema“装修指南”
+        
+        class "InputUnitFactory" as fac {}
+        note top of fac: **RES:** 根据Schema和Data，\n创建具体的UI输入单元
+    }
+
+    ' --- 3.2 表现层 (The Face & Hands) ---
+    package "Presentation (MVP)" {
+        ' --- Views ---
+        class "YamlModifierView (Page)" as modifier_view {}
+        class "YamlStructureView" as structure_view {}
+        class "YamlMainView" as main_view {}
+        
+        ' --- Presenters ---
+        class "YamlModifierPresenter (Page Presenter)" as modPresenter
+        note top of modPresenter: **RES:** 最高协调者，编排Structure和MainView的交互
+
+        class "YamlStructurePresenter" as structPresenter
+        note top of structPresenter: **RES:** 管理树状图的显示和用户选择
+
+        class "YamlMainViewPresenter" as mainPresenter
+        note top of mainPresenter: **RES:** 根据Schema和Data，动态构建编辑表单
+
+        ' --- 接口实现 ---
+        modifier_view ..|> ICaptureView
+        structure_view ..|> ICaptureView
+        main_view ..|> ICaptureView
+    }
+}
+
+
+' ===============================================
+' 4. 绘制“所有权”和“依赖”关系
+' ===============================================
+
+' --- 插件创建并拥有它的“总指挥官” ---
+' Plugin是ModifierPresenter的“创世神”
+YamlModifierPlugin "1" *-- "1" modPresenter : "creates & owns"
+
+
+' --- Presenter的层级所有权 ---
+' ModifierPresenter(省长) 拥有它的两个“下属主管”
+modPresenter "1" *-- "1" structPresenter : "manages"
+modPresenter "1" *-- "1" mainPresenter   : "manages"
+
+' --- Presenter对View的逻辑所有权 ---
+' 每一个Presenter，都拥有并全权管理一个View
+modPresenter *-- modifier_view
+structPresenter *-- structure_view
+mainPresenter *-- main_view
+
+
+' --- View的物理布局关系 (用注释表达，而非*--) ---
+note right of modifier_view
+  **Layout:**
+  - Contains YamlStructureView
+  - Contains YamlMainView
+end note
+
+
+' --- 【关键】依赖注入关系 (箭头永远指向更稳定的层) ---
+' Presentation层【依赖】Domain/Service层
+mainPresenter ..> fac : "uses to build UI"
+mainPresenter ..> schema_pro : "uses to get rules"
+mainPresenter ..> edi_rep : "uses to get/set data"
+
+structPresenter ..> edi_rep : "uses to get data tree"
+
+modPresenter ..> edi_rep : "uses to save all"
+
+
+@enduml

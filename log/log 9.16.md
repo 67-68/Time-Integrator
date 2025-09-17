@@ -1,0 +1,1 @@
+修复了new capture page由于date为空导致的保存错误

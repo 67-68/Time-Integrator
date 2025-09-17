@@ -1,4 +1,5 @@
 from ti.features.capture.model.ITranslator import ITranslator
+from ti.features.translation.model.parsers import Parsers
 from ti.model.action_unit import ActionUnit
 
 
@@ -59,7 +60,8 @@ class ConvTranslator(ITranslator):
     def trans_other(self,text) -> ActionUnit:
         """
         这个函数用来处理速记语法向actionUnit的转化
-        这里可以不使用状态机解析而使用一个parser组合函数？
+        这里可以不使用状态机解析而使用一个parser组合函数
         """
+        text = Parsers.
         
     

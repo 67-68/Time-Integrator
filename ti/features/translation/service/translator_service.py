@@ -47,10 +47,18 @@ class Translator:
                 end_time = start_time[:2] + end_time
                 end_time = self._format_time(end_time)  # 重新格式化
             
+            action_type = data.get("action_type")
+            if action_type == "w":
+                action_type = "work"
+            elif action_type == "s":
+                action_type = "waste"
+            elif action_type == "r":
+                action_type = "rest"
+            
             dict = {
                 'start': start_time,
                 'end': end_time,
-                'action_type': data.get('action_type', ''),
+                'action_type': action_type,
                 'action': data.get('action', ''),
             }
             return dict

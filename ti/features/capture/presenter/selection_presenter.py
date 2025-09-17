@@ -1,9 +1,11 @@
 from PyQt6.QtCore import QObject, pyqtSignal
 from ti.features.capture.view.selection_view import SelectionView
+from ti.model.action_unit import ActionUnit
 
 
 class CAP_SelectionPresenter(QObject):
     date_selected = pyqtSignal(str)  # 信号：日期被选择，传递日期字符串
+    record_selected = pyqtSignal(object)  # 信号：记录项被选择，传递ActionUnit对象
     
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -14,12 +16,20 @@ class CAP_SelectionPresenter(QObject):
         """连接信号"""
         # 连接日历的日期选择信号
         self.view.calendar.date_selected.connect(self._on_date_selected)
+        # 连接记录项的点击信号
+        self.view.record_clicked.connect(self._on_record_clicked)
     
     def _on_date_selected(self, date_str):
         """处理日期选择事件"""
         print(f"Date selected: {date_str}")
         # 发射信号到capture presenter
         self.date_selected.emit(date_str)
+    
+    def _on_record_clicked(self, action_unit):
+        """处理记录项点击事件"""
+        print(f"Record selected: {action_unit.action}")
+        # 发射信号到capture presenter
+        self.record_selected.emit(action_unit)
     
     def fill_records(self, action_units):
         """填充记录列表"""

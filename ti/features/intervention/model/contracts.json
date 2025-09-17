@@ -1,71 +1,35 @@
 {
-    "572195f6-8cb2-4f89-a50c-d02f9bb71479": {
-        "create_time": "2025-09-15T13:05:16.123611",
+    "8f6abdd7-fdb4-46be-8956-bbc87f6e1cca": {
+        "create_time": "2025-09-17T11:11:38.916730",
         "duration": "today",
         "solve_time": null,
         "solved": null,
         "success": null,
-        "contract_uuid": "572195f6-8cb2-4f89-a50c-d02f9bb71479",
-        "contract_category_id": "unsettling_heart",
-        "current_state": "ghost",
-        "view_recipe_id": "unsettling_heart",
-        "detector_recipe_id": "unsettling_heart"
-    },
-    "13b3cb6f-d281-447c-b430-147ded06b9a7": {
-        "create_time": "2025-09-15T13:05:16.124763",
-        "duration": "today",
-        "solve_time": null,
-        "solved": null,
-        "success": null,
-        "contract_uuid": "13b3cb6f-d281-447c-b430-147ded06b9a7",
-        "contract_category_id": "post_eat_waste",
-        "current_state": "ghost",
-        "view_recipe_id": "post_eat_waste",
-        "detector_recipe_id": "post_eat_waste"
-    },
-    "a7689fa8-8e58-4a0c-b612-2311e865ebca": {
-        "create_time": "2025-09-15T13:05:16.125866",
-        "duration": "today",
-        "solve_time": null,
-        "solved": null,
-        "success": null,
-        "contract_uuid": "a7689fa8-8e58-4a0c-b612-2311e865ebca",
-        "contract_category_id": "post_bash_waste",
-        "current_state": "ghost",
-        "view_recipe_id": "post_bash_waste",
-        "detector_recipe_id": "post_bash_waste"
-    },
-    "981f8243-c72b-428d-9fea-f941500e4ab1": {
-        "create_time": "2025-09-16T10:50:26.785553",
-        "duration": "today",
-        "solve_time": null,
-        "solved": null,
-        "success": null,
-        "contract_uuid": "981f8243-c72b-428d-9fea-f941500e4ab1",
+        "contract_uuid": "8f6abdd7-fdb4-46be-8956-bbc87f6e1cca",
         "contract_category_id": "unsettling_heart",
         "current_state": "before_start",
         "view_recipe_id": "unsettling_heart",
         "detector_recipe_id": "unsettling_heart"
     },
-    "72d57b1b-6d83-41b2-9df2-eb4194defb82": {
-        "create_time": "2025-09-16T10:50:26.786812",
+    "b2bf71e8-ac0a-4235-9d1f-602e83f5f96a": {
+        "create_time": "2025-09-17T11:11:38.917751",
         "duration": "today",
         "solve_time": null,
         "solved": null,
         "success": null,
-        "contract_uuid": "72d57b1b-6d83-41b2-9df2-eb4194defb82",
+        "contract_uuid": "b2bf71e8-ac0a-4235-9d1f-602e83f5f96a",
         "contract_category_id": "post_eat_waste",
         "current_state": "before_start",
         "view_recipe_id": "post_eat_waste",
         "detector_recipe_id": "post_eat_waste"
     },
-    "8c40bffd-b082-440e-a37e-8ce2ef72714b": {
-        "create_time": "2025-09-16T10:50:26.788032",
+    "a8c3f779-e5e7-4a97-b2fb-a0917547b2a9": {
+        "create_time": "2025-09-17T11:11:38.918699",
         "duration": "today",
         "solve_time": null,
         "solved": null,
         "success": null,
-        "contract_uuid": "8c40bffd-b082-440e-a37e-8ce2ef72714b",
+        "contract_uuid": "a8c3f779-e5e7-4a97-b2fb-a0917547b2a9",
         "contract_category_id": "post_bash_waste",
         "current_state": "before_start",
         "view_recipe_id": "post_bash_waste",

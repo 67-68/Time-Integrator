@@ -23,8 +23,10 @@ class ActionUnitRepository(IJsonRepository):
         """
         保存所有日期的ActionUnit数据
         """
-        if data is not None:
+        if data is not None: # 这里传入的数据有问题
+            print("[DATA]somebody save a blank data")
             self.data = data
+            
         
         # 转换为JSON格式
         raw_data = {}

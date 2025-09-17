@@ -53,6 +53,8 @@ class CapturePresenter(QObject):
         """连接所有信号"""
         # 连接selection presenter的日期选择信号
         self.selection.date_selected.connect(self._on_date_selected)
+        # 连接selection presenter的记录选择信号
+        self.selection.record_selected.connect(self._on_record_selected)
         
         # 连接input presenter的保存和新建信号
         self.input.save_requested.connect(self._on_save_requested)
@@ -64,6 +66,7 @@ class CapturePresenter(QObject):
         print(f"Capture presenter received date: {date_str}")
         # 从dataService获取当天数据
         action_units = self.data_service.get_date_data(date_str)
+        self.date = date_str
         # 填充记录列表
         self.fill_records(action_units)
         
@@ -100,6 +103,15 @@ class CapturePresenter(QObject):
         # 重置删除计数器
         self.input.button_group.reset_delete_count()
     
+    def _on_record_selected(self, action_unit):
+        """
+        处理记录项选择事件
+        :param action_unit: 选中的ActionUnit对象
+        """
+        print(f"Capture presenter received action unit: {action_unit.action}")
+        # 将ActionUnit转换为property_data字典并填充到input presenter
+        self._refresh_input_presenter(action_unit)
+    
     def _on_new_requested(self):
         """处理新建请求"""
         # 获取新的action unit
@@ -135,9 +147,7 @@ class CapturePresenter(QObject):
     
     def _get_current_date(self):
         """获取当前日期"""
-        # 这里需要实现获取当前选择日期的逻辑
-        # 暂时返回空字符串
-        return ""
+        return self.date
     
     def _calculate_time_span(self, start_time, end_time):
         """计算时间跨度"""

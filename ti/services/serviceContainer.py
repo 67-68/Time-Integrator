@@ -60,14 +60,6 @@ class ServiceContainer:
         self.services["FS"] = formatter
         self._services[FormatService] = formatter
         
-        manager = InsightManager(cache)
-        self.services["IM"] = manager
-        self._services[InsightManager] = manager
-        
-        engine = InsightEngine(cache,detector_fac)
-        self.services["IE"] = engine
-        self._services[InsightEngine] = engine
-        
         dataService = DataService()
         self.services["DS"] = dataService
         self._services[DataService] = dataService
@@ -87,9 +79,7 @@ class ServiceContainer:
         register = ExtensionRegister(bus)
         self.services["ER"] = register
         self._services[ExtensionRegister] = register
-        
 
-        
         loader = DynamicExtensionLoader(register,self,bus,symbol)
         self.services["loader"] = loader
         self._services[DynamicExtensionLoader] = loader
@@ -101,38 +91,14 @@ class ServiceContainer:
         
     def getServices(self):
         """_summary_
-        返回一个字典，以下是可用的key
-        
-        ICS: InsightCacheService
-        
-        IM: InsightManager
-        
-        IE: InsightEngine
-        
-        DS: DataService
-        
-        IS: InterventionService
-        
-        IL: InterventionLogger
-        
-        RTM: RealTimeMonitor
-        
-        FS: FormatService
-        
-        bus
-        
-        DR
-        
-        DF
-        
-        ER
+        返回一个字典
         """
         
         return self.services
     
     def getService(self,ID: str):
         """_summary_
-        返回一个服务，以下是可用的key
+        返回一个服务
         """
         return self.services[ID]
     

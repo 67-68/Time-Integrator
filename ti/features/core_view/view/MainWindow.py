@@ -22,7 +22,11 @@ class MainWindow(QMainWindow):
         self.ui[page.page_name] = page
         print(f"[MainWindow]add page {page.page_name}")
         self.main_window.stackedWidget.addWidget(page)
-        
+    
+    def set_page(self,page_name):
+        page = self.ui[page_name]
+        print(f"[MainWindow]switch to page {page.page_name}")
+        self.main_window.stackedWidget.setCurrentWidget(page)
         
     def getUIs(self):
         """

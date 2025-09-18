@@ -3,7 +3,6 @@ from abc import ABC,abstractmethod
 from ti.core.Interfaces.view.page_view_interface import IPageView
 from ti.core.eventBus import EventBus
 from ti.features.capture.model.mode_button import ModeBtn
-from ti.model.core_pages import CoreView
 from ti.model.events import PluginEvents
 from ti.model.page_contributions import PageContribution
 from ti.services.utils import QtABCMeta

@@ -1,8 +1,11 @@
 from ti.core.Interfaces.view.page_view_interface import IPageView
 from ti.core.eventBus import EventBus
 from PyQt6.QtWidgets import QWidget
+from PyQt6.QtCore import pyqtSignal
 
 class PageView(IPageView,QWidget):
+    page_first_clicked = pyqtSignal(str)
+    
     def __init__(
         self,
         bus: EventBus,

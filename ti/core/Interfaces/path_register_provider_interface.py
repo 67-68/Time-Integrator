@@ -14,7 +14,7 @@ class IPathRegisterProvider(ABC):
     
     @staticmethod
     @abstractmethod
-    def register_class(self):
+    def register_class():
         """
         返回一个register类
         """

@@ -13,12 +13,12 @@ class PagePresenter(IPagePresenter):
         self.bus = bus
         self.page = page
         self.page_contributions = {}
-        
-    def initialize(self):
-        return super().initialize()
     
     def _on_page_first_clicked(self, page_id):
         return super()._on_page_first_clicked(page_id)
+    
+    def initialize(self):
+        return super().initialize()
     
     def _on_page_needed(self, page_contributions):
         return super()._on_page_needed(page_contributions)

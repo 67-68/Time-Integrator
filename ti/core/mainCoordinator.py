@@ -1,6 +1,7 @@
 from ti.features.capture.capture_plugin import CapturePlugin
 from ti.features.core_view.presenter.page_presenter import PagePresenter
 from ti.features.core_view.service.page_factory import PageFactory
+from ti.features.insight.insight_plugin import InsightPlugin
 from ti.features.insight.presenter.cardPresenter import CardPresenter
 from ti.services.symbol_service import SymbolService
 from ti.view.views.BasicDialog import BasicDialog
@@ -29,6 +30,7 @@ class MainCoorinator():
         self.add_page("analysis")
         self.add_page("capture")
         self.add_page("menu")
+        self.main_window.set_page("capture")
     
         self.create_state()
         self.activate_symbol_service()
@@ -36,10 +38,7 @@ class MainCoorinator():
         
         # 插件加载先于业务逻辑
         self.activatePlugins()
-        
-        # 初始化卡片
-        self.card_controller.create_yesterday_report()
-        
+    
         # 监测事件
         self.bus.subscribe("dialog_needed",self.show_dialog)
         self.bus.subscribe("end_dialog",self.end_dialog)
@@ -50,15 +49,7 @@ class MainCoorinator():
     
     def create_state(self):
         self.controller = {}
-        
-        self.AP = self.ui["analysis"]
-        self.card_controller = CardPresenter(self.service,self.AP)
-        self.controller["CCT"] = self.card_controller
-        
         self.loader:DynamicExtensionLoader = self.service.getService("loader")
-        
-        
-        
         self.symbol: SymbolService = self.service.getService("symbol")
         
     def getController(self,controller):
@@ -77,7 +68,7 @@ class MainCoorinator():
         """_summary_
         这个函数创建插件的实例并激活他们
         """        
-        plugins = [CapturePlugin,InterventionPlugin]
+        plugins = [CapturePlugin,InsightPlugin,InterventionPlugin]
         
         self.loader.discover_and_register_plugins(plugins)
         
@@ -108,6 +99,7 @@ class MainCoorinator():
         
         name = page.page_name
         presenter = PagePresenter(self.bus,page)
+        presenter.initialize()
         self.presenter[name] = presenter
         
         

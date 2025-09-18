@@ -2,6 +2,7 @@
 from ti.core.eventBus import EventBus
 from ti.core.extensionRegister import DynamicExtensionLoader, ExtensionRegister
 
+from ti.features.core_view.service.page_factory import PageFactory
 from ti.services.synthesizer_service import Synthesizer
 from ti.features.detector.detectorFactory import DetectorFactory
 from ti.features.detector.detectorRepository import DetectocRepository
@@ -74,6 +75,10 @@ class ServiceContainer:
         bus = EventBus()
         self.services["bus"] = bus
         self._services[EventBus] = bus
+        
+        page_fac = PageFactory(bus)
+        self.services["page_factory"] = page_fac
+        self._services[PageFactory] = page_fac
         
         monitor = RealTimeMonitor(dataService,detector_fac,bus)
         self.services["RTM"] = monitor

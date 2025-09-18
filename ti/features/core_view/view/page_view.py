@@ -1,31 +1,25 @@
-from PyQt6.QtCore import pyqtSignal
-
 from ti.core.Interfaces.view.page_view_interface import IPageView
-from ti.view.rawUI.ui_rawAnalysisPage import Ui_analysisPage
-from ti.view.widgets.other.BasicButton import BasicButton
-from ti.view.widgets.pages.BasicWidget import BasicWidget
+from ti.core.eventBus import EventBus
+from PyQt6.QtWidgets import QWidget
 
-
-class AnalysisPage(BasicWidget, IPageView):
-    page_first_clicked = pyqtSignal(str)
-    
+class PageView(IPageView,QWidget):
     def __init__(
         self,
+        bus: EventBus,
+        page_name: str,
         parent = None
     ):
-        super().__init__(parent)
+        super().__init__()
         self.initialize()
-    
+        self.bus = bus
+        self.page_name = page_name
+        
     def initialize(self):
         return super().initialize()
-    
-    @property
-    def page_name(self) -> str:
-        """
-        返回页面名称
-        """
-        return "analysis"
-            
+        
+    def _on_change_page(self, page_name):
+        return super()._on_change_page(page_name)
+        
     def create_navigation_btn(self, btn_data):
         return super().create_navigation_btn(btn_data)
     
@@ -34,6 +28,7 @@ class AnalysisPage(BasicWidget, IPageView):
     
     def add_page_to_stack(self, page_id, page_widget):
         return super().add_page_to_stack(page_id, page_widget)
-
+    
     def switch_to_page(self, page_id):
         return super().switch_to_page(page_id)
+    

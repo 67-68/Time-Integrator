@@ -19,6 +19,10 @@ class IPagePresenter(ABC, metaclass=QtABCMeta):
         ABC (_type_): _description_
     """
     
+    page: type[IPageView]
+    page_contributions:dict[PageContribution]
+    bus:EventBus
+    
     @abstractmethod
     def initialize(self):
         """
@@ -27,21 +31,6 @@ class IPagePresenter(ABC, metaclass=QtABCMeta):
         self.bus.subscribe(PluginEvents.PAGE_PLUGIN_CREATED.value,self._on_page_needed)
         self.page.page_first_clicked.connect(self._on_page_first_clicked)
 
-    @property
-    @abstractmethod
-    def page(self) -> type[IPageView]:
-        pass
-    
-    @property
-    @abstractmethod
-    def page_contributions(self) -> dict[PageContribution]:
-        pass
-    
-    @property
-    @abstractmethod
-    def bus(self) -> EventBus:
-        pass
-    
     @abstractmethod
     def _on_page_needed(self, page_contributions: list[PageContribution]):
         for contribution in page_contributions:

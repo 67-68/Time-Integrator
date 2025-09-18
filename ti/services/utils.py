@@ -168,7 +168,6 @@ def randomChoser(list):
 import abc
 from PyQt6.QtCore import pyqtSignal,QObject
 
-from ti.view.rawUI.ui_rawIPageView import Ui_main_page
 from ti.view.widgets.other.BasicButton import BasicButton
 
 

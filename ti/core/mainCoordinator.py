@@ -1,5 +1,6 @@
 from ti.features.capture.capture_plugin import CapturePlugin
-from ti.features.core_capture.CapturePage import New_CapturePage
+from ti.features.core_view.presenter.page_presenter import PagePresenter
+from ti.features.core_view.service.page_factory import PageFactory
 from ti.features.insight.presenter.cardPresenter import CardPresenter
 from ti.services.symbol_service import SymbolService
 from ti.view.views.BasicDialog import BasicDialog
@@ -7,22 +8,29 @@ from ti.core.eventBus import EventBus
 from ti.core.extensionRegister import DynamicExtensionLoader
 from ti.features.intervention.interventionPlugin import InterventionPlugin
 from ti.services.serviceContainer import ServiceContainer
-from ti.features.core_capture.capture_page_presenter import CapturePagePresenter
+from ti.features.core_view.view.MainWindow import MainWindow
 
 class MainCoorinator():
     def __init__(
         self,
         service: ServiceContainer,  # <-- 应该传入一个实例
+        main_window: MainWindow,
         ui: dict # <--- 所有UI的包
     ):
         
         self.service = service
         self.ui = ui
+        self.main_window = main_window
+        self.presenter = {}
+        
+        self.bus: EventBus = self.service.getService("bus")
+    
+        # 添加界面
+        self.add_page("analysis")
+        self.add_page("capture")
+        self.add_page("menu")
     
         self.create_state()
-        # 替换旧的capture page为新的capture page
-        self.replace_capture_page()
-        
         self.activate_symbol_service()
         
         
@@ -35,17 +43,21 @@ class MainCoorinator():
         # 监测事件
         self.bus.subscribe("dialog_needed",self.show_dialog)
         self.bus.subscribe("end_dialog",self.end_dialog)
-        
+        self.bus.subscribe("change_page",self._on_mainWindow_change_page)
+    
+    def _on_mainWindow_change_page(self,page_name):
+        self.main_window._on_page_switch_button_clicked(page_name)
+    
     def create_state(self):
         self.controller = {}
         
-        self.AP = self.ui["AP"]
+        self.AP = self.ui["analysis"]
         self.card_controller = CardPresenter(self.service,self.AP)
         self.controller["CCT"] = self.card_controller
         
         self.loader:DynamicExtensionLoader = self.service.getService("loader")
         
-        self.bus: EventBus = self.service.getService("bus")
+        
         
         self.symbol: SymbolService = self.service.getService("symbol")
         
@@ -87,87 +99,15 @@ class MainCoorinator():
             for register in registers:
                 self.symbol.regist_register(register)
                 print(f"[SYM]Registered {register}")
-    
-    def replace_capture_page(self):
-        """
-        替换旧的capture page为新的capture page
-        """
-        print("=" * 50)
-        print("开始替换capture page")
-        print("=" * 50)
+            
+            
+    def add_page(self,page_name):
+        fac:PageFactory = self.service.getService("page_factory")
+        page = fac.create_page(page_name,self.main_window)
+        self.main_window.add_page(page)
         
-        # 获取main window实例
-        main_window = self.ui["MW"]
+        name = page.page_name
+        presenter = PagePresenter(self.bus,page)
+        self.presenter[name] = presenter
         
-        # 删除旧的capture page
-        self._remove_old_capture_page(main_window)
         
-        # 添加新的capture page
-        self._add_new_capture_page(main_window)
-        
-        # 连接新capture page的信号
-        self._connect_new_capture_page_signals()
-        
-        print("=" * 50)
-        print("capture page替换完成")
-        print("=" * 50)
-    
-    def _remove_old_capture_page(self, main_window):
-        """删除旧的capture page"""
-        print("删除旧的capture page...")
-        
-        # 获取stacked widget
-        stacked_widget = main_window.MW.stackedWidget
-        
-        # 查找旧的capture page
-        old_capture_page = None
-        for i in range(stacked_widget.count()):
-            widget = stacked_widget.widget(i)
-            if hasattr(widget, 'objectName') and widget.objectName() == "capturePageBase":
-                old_capture_page = widget
-                break
-        
-        if old_capture_page:
-            # 从stacked widget中移除
-            stacked_widget.removeWidget(old_capture_page)
-            # 删除对象
-            old_capture_page.deleteLater()
-            print("旧的capture page已删除")
-        else:
-            print("未找到旧的capture page")
-    
-    def _add_new_capture_page(self, main_window):
-        """添加新的capture page"""
-        print("添加新的capture page...")
-        
-        # 创建新的capture page和presenter
-        self.new_capture_page = New_CapturePage(main_window)
-        self.new_capture_page.setObjectName("capturePageBase")
-        
-        # 获取event bus
-        bus = self.service.getService("bus")
-        
-        # 创建presenter
-        self.capture_page_presenter = CapturePagePresenter(self.new_capture_page, bus)
-        
-        # 添加到stacked widget
-        main_window.MW.stackedWidget.addWidget(self.new_capture_page)
-        
-        # 更新UI引用
-        main_window.CP = self.new_capture_page
-        main_window.ui["CP"] = self.new_capture_page
-        
-        print("新的capture page已添加")
-    
-    def _connect_new_capture_page_signals(self):
-        """连接新capture page的信号"""
-        print("连接新capture page的信号...")
-        
-        # 获取main window实例
-        main_window = self.ui["MW"]
-        
-        # 重新连接信号（因为capture page被替换了）
-        main_window.connectSignal()
-        
-        print("新capture page信号连接完成")
-                

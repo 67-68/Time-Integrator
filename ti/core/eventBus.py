@@ -16,7 +16,9 @@ class EventBus:
         """
         if signal_id not in self.signals:
             self.signals[signal_id] = []
+            
         self.signals[signal_id].append(func)
+        print(f"[BUS]subscribed {signal_id}")
     
     def publish(self,signal_id,data):
         """_summary_
@@ -31,6 +33,7 @@ class EventBus:
             print(f"this signal({signal_id}) is not registed by subscriber or publisher")
         
         signal_list = self.signals[signal_id]
+        print(f"[BUS]published {signal_id}")
         
         if len(signal_list) == 0:
             return

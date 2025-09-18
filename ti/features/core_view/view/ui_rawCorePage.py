@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/ti/view/rawUI/rawNewCapturePage.ui'
+# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/ti/features/core_view/view/rawCorePage.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -11,18 +11,18 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 from ti.view.views.pageSwitchFrame import PageSwitchFrame
 
 
-class Ui_NewCapturePage(object):
-    def setupUi(self, CapturePage):
-        CapturePage.setObjectName("CapturePage")
-        CapturePage.resize(876, 647)
+class Ui_main_page(object):
+    def setupUi(self, main_page):
+        main_page.setObjectName("main_page")
+        main_page.resize(876, 647)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(CapturePage.sizePolicy().hasHeightForWidth())
-        CapturePage.setSizePolicy(sizePolicy)
-        self.verticalLayout = QtWidgets.QVBoxLayout(CapturePage)
+        sizePolicy.setHeightForWidth(main_page.sizePolicy().hasHeightForWidth())
+        main_page.setSizePolicy(sizePolicy)
+        self.verticalLayout = QtWidgets.QVBoxLayout(main_page)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.mainFrame = QtWidgets.QWidget(parent=CapturePage)
+        self.mainFrame = QtWidgets.QWidget(parent=main_page)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -64,16 +64,16 @@ class Ui_NewCapturePage(object):
         self.horizontalLayout_3.addWidget(self.stackedWidget)
         self.horizontalLayout.addWidget(self.mainFrame_2)
         self.verticalLayout.addWidget(self.mainFrame)
-        self.pageSwitchFrameBase = PageSwitchFrame(parent=CapturePage)
+        self.pageSwitchFrameBase = PageSwitchFrame(parent=main_page)
         self.pageSwitchFrameBase.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.pageSwitchFrameBase.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.pageSwitchFrameBase.setObjectName("pageSwitchFrameBase")
         self.verticalLayout.addWidget(self.pageSwitchFrameBase)
 
-        self.retranslateUi(CapturePage)
-        QtCore.QMetaObject.connectSlotsByName(CapturePage)
+        self.retranslateUi(main_page)
+        QtCore.QMetaObject.connectSlotsByName(main_page)
 
-    def retranslateUi(self, CapturePage):
+    def retranslateUi(self, main_page):
         _translate = QtCore.QCoreApplication.translate
-        CapturePage.setWindowTitle(_translate("CapturePage", "Form"))
+        main_page.setWindowTitle(_translate("main_page", "Form"))
 

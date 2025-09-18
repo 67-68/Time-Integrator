@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/ti/UI/rawUI/rawMainWindow.ui'
+# Form implementation generated from reading ui file '/Users/lennon/Projects/Time_Integrater/ti/features/core_view/view/rawMainWindow.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -7,11 +7,6 @@
 
 
 from PyQt6 import QtCore, QtGui, QtWidgets
-
-from ti.view.views.SettingPage import SettingPage
-from ti.view.views.analysis.AnalysisPage import AnalysisPage
-from ti.view.views.capture.CapturePage import CapturePage
-from ti.view.views.menu.MenuPage import MenuPage
 
 
 class Ui_MainWindow(object):
@@ -24,23 +19,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.stackedWidget = QtWidgets.QStackedWidget(parent=self.centralwidget)
         self.stackedWidget.setObjectName("stackedWidget")
-        self.analysisPageBase = AnalysisPage()
-        self.analysisPageBase.setObjectName("analysisPageBase")
-        self.stackedWidget.addWidget(self.analysisPageBase)
-        self.settingPage = SettingPage()
-        self.settingPage.setObjectName("settingPage")
-        self.stackedWidget.addWidget(self.settingPage)
-        self.menuPageBase = MenuPage()
-        self.menuPageBase.setObjectName("menuPageBase")
-        self.stackedWidget.addWidget(self.menuPageBase)
-        self.capturePageBase = CapturePage()
-        self.capturePageBase.setObjectName("capturePageBase")
-        self.stackedWidget.addWidget(self.capturePageBase)
         self.horizontalLayout.addWidget(self.stackedWidget)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(-1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

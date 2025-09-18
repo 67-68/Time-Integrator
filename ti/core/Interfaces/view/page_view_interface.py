@@ -1,15 +1,15 @@
 from abc import ABC,abstractmethod
 
 from PyQt6.QtCore import pyqtSignal,QObject
-
-
+from ti.features.core_view.view.ui_rawCorePage import Ui_main_page
 from ti.services.utils import QtABCMeta
-from ti.view.rawUI.ui_rawIPageView import Ui_main_page
 from ti.view.widgets.other.BasicButton import BasicButton
 
 
 class IPageView(ABC, metaclass=QtABCMeta):
     page_first_clicked: pyqtSignal
+    change_page: pyqtSignal
+    page_name: str
     
     """
     这个类作为所有核心界面的接口
@@ -20,17 +20,23 @@ class IPageView(ABC, metaclass=QtABCMeta):
         ABC (_type_): _description_
     """
     
-    @property
-    @abstractmethod
-    def page_name(self) -> str:
-        pass
     
     @abstractmethod
     def initialize(self):
         """
         负责架设UI并删除pages
         """
-        pass
+        self.page = Ui_main_page()
+        self.page.setupUi(self)
+        
+        # 删除默认的pages
+        while self.page.stackedWidget.count() > 0:
+            widget = self.page.stackedWidget.widget(0)
+            self.page.stackedWidget.removeWidget(widget)
+            
+        self.pages = {}
+        
+        self.page.pageSwitchFrameBase.switchPage_button_clicked.connect(lambda f:self._on_change_page(f))
     
     @abstractmethod
     def create_navigation_btn(self, btn_data):
@@ -79,3 +85,7 @@ class IPageView(ABC, metaclass=QtABCMeta):
         if page_id in self.pages:
             page_widget = self.pages[page_id]
             self.page.stackedWidget.setCurrentWidget(page_widget)
+        
+    @abstractmethod
+    def _on_change_page(self,page_name):
+        self.bus.publish("change_page",page_name)

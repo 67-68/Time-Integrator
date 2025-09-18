@@ -65,7 +65,7 @@ class CAP_InputPresenter(QObject):
         # 使用信号阻塞器避免循环更新
         with QSignalBlocker(self.property_view):
             # 将智能输入文本翻译为属性数据并设置到属性视图
-            property_data = self.translator.translate_fast_entry_to_property(text)
+            property_data = self.translator.trans_other(text)
             if property_data:
                 self.property_view.set_property_data(property_data)
     
@@ -74,7 +74,7 @@ class CAP_InputPresenter(QObject):
         # 使用信号阻塞器避免循环更新
         with QSignalBlocker(self.smart_input_view):
             # 将属性数据翻译为智能输入文本并设置到智能输入视图
-            fast_entry_text = self.translator.translate_property_to_fast_entry(property_data)
+            fast_entry_text = self.translator.trans_au(property_data)
             if fast_entry_text:
                 self.smart_input_view.set_text(fast_entry_text)
     

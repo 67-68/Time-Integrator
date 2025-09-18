@@ -12,7 +12,7 @@ class Translator:
     def translate(self,text):
         return self.grammar.parse_line_action_unit(text)
     
-    def translate_property_to_fast_entry(self, property_data):
+    def trans_au(self, property_data):
         """
         将属性数据翻译为快速输入文本
         :param property_data: 属性字典
@@ -28,7 +28,7 @@ class Translator:
         }
         return transPropToFast_API(converted_properties)
     
-    def translate_fast_entry_to_property(self, fast_entry_text):
+    def trans_other(self, fast_entry_text):
         """
         将快速输入文本翻译为属性数据
         :param fast_entry_text: 快速输入文本

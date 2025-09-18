@@ -4,6 +4,7 @@ from PyQt6.QtCore import QObject
 from ti.features.capture.presenter.selection_presenter import CAP_SelectionPresenter
 from ti.features.capture.presenter.input_presenter import CAP_InputPresenter
 from ti.features.capture.view.capture import CaptureView
+from ti.features.detector.matchers import get_time_from_str
 from ti.services.dataAccess.dataService import DataService
 from ti.core.eventBus import EventBus
 from ti.model.action_unit import ActionUnit
@@ -89,7 +90,7 @@ class CapturePresenter(QObject):
             end=property_data.get('end', ''),
             action_type=property_data.get('action_type', ''),
             action_detail=property_data.get('action_detail', ''),
-            timeSpan=self._calculate_time_span(property_data.get('start', ''), property_data.get('end', '')),
+            timeSpan=self._calculate_time_span(property_data.get('start', ''), property_data.get('end', '')), #TOOD: 这里出问题了
             urgency=property_data.get('is_urgent', False),
             importance=property_data.get('is_important', False)
         )
@@ -152,8 +153,7 @@ class CapturePresenter(QObject):
     def _calculate_time_span(self, start_time, end_time):
         """计算时间跨度"""
         # 这里需要实现时间跨度计算逻辑
-        # 暂时返回0
-        return 0
+        return get_time_from_str(end_time) - get_time_from_str(start_time)
     
     def _refresh_all_widgets(self):
         """刷新所有widget"""

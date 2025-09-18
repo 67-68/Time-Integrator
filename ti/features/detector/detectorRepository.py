@@ -1,3 +1,4 @@
+from enum import Enum
 from ti.features.detector import userMatchers
 from ti.features.detector.matchers import Matcher
 from ti.features.detector.baseDetector import BaseDetector
@@ -22,7 +23,11 @@ class DetectocRepository:
         Returns:
             Detector_Recipe: _description_
         """
-        recipe = RECIPE[detector_id.value]
+        if isinstance(detector_id,Detector_Recipe_ID):
+            recipe = RECIPE[detector_id.value]
+        else:
+            recipe = RECIPE[detector_id]
+            
         sequences = recipe["config"]["sequence"]
     
         # HOOK部分

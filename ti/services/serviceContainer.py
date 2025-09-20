@@ -10,6 +10,7 @@ from ti.features.insight.model.narratives import InsightNarrator
 from ti.features.intervention.service.logger import InterventionLogger
 from ti.features.translation.service.translator_service import Translator
 from ti.features.yaml_database.service.yaml_parser_service import YamlParser
+from ti.core.loggerService import LoggerService
 from ti.services.dataAccess.dataService import DataService
 from ti.services.dataAccess.insightCacheService import InsightCacheService
 from ti.services.dataAccess.insightManager import InsightManager
@@ -112,5 +113,18 @@ class ServiceContainer:
         返回一个服务，以下是可用的key
         """
         return self._services[ID]
+    
+    def create_logger_service(self, feature_base_dir: str, feature_name: str):
+        """
+        创建LoggerService实例
+        
+        Args:
+            feature_base_dir: 功能模块的基础目录路径
+            feature_name: 功能模块名称
+            
+        Returns:
+            LoggerService实例
+        """
+        return LoggerService(feature_base_dir, feature_name)
     
     

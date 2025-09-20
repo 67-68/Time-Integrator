@@ -1,4 +1,4 @@
-from ti.features.insight.presenter.insight_card_presenter import InsightCardPresenter
+from ti.features.insight.presenter.insight_card_presenter import InsightPresenter
 from ti.features.insight.view.insight_card import InsightCard
 
 
@@ -10,5 +10,5 @@ class InsightCardGeneration:
         """
         
         
-    def create_today_cards(self) -> list[InsightCardPresenter]:
+    def create_today_cards(self) -> list[InsightPresenter]:
         

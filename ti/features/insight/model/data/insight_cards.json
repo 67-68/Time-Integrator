@@ -1,0 +1,38 @@
+{
+    "post_eat_waste": {
+        "sementic_text": "post_eat_waste",
+        "judgements_texts": [
+            "warning"
+        ],
+        "title_text": "card_warning",
+        "color": "#3498DB",
+        "icon_path": "",
+        "icon_color": "#3498DB",
+        "card_type_id": "post_eat_waste",
+        "card_uuid": "post_eat_waste"
+    },
+    "peak_work_analysis": {
+        "sementic_text": "peak_timeSpan",
+        "judgements_texts": [
+            "praise"
+        ],
+        "title_text": "card_success",
+        "color": "#3498DB",
+        "icon_path": "",
+        "icon_color": "#3498DB",
+        "card_type_id": "peak_work_analysis",
+        "card_uuid": "peak_work_analysis"
+    },
+    "daily_ratio_distribution": {
+        "sementic_text": "show_ratio",
+        "judgements_texts": [
+            "neutral_showinfo"
+        ],
+        "title_text": "card_info",
+        "color": "#3498DB",
+        "icon_path": "",
+        "icon_color": "#3498DB",
+        "card_type_id": "daily_ratio_distribution",
+        "card_uuid": "daily_ratio_distribution"
+    }
+}

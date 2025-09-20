@@ -98,6 +98,15 @@ class INV_ContractRepository(IJsonRepository):
         负责从库中删除一个contract
 
         Args:
-            contract_uuid (_type_): _description_
+            contract_uuid (_type_): 可以是UUID字符串或contract对象
         """
-        print(f"试图删除{contract_uuid},但是这个方法还没写")
+        # 处理传入contract对象的情况
+        if hasattr(contract_uuid, 'uuid'):
+            contract_uuid = contract_uuid.uuid
+            
+        if contract_uuid in self.contracts:
+            del self.contracts[contract_uuid]
+            self.save(self.contracts)
+            print(f"已删除contract: {contract_uuid}")
+        else:
+            print(f"contract {contract_uuid} 不存在")

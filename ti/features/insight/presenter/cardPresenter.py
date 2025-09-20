@@ -1,40 +1,34 @@
 import uuid
 
 
-from ti.features.insight.presenter.conditional_cardPresenter import Conditional_ReportGenerator
-from ti.features.insight.presenter.fixed_cardPresenter import Fixed_ReportGenerator
-from ti.features.insight.model.insight_card_recipe_repository import Insight_Card_Recipe_Repository
 from ti.core.eventBus import EventBus
-from ti.features.insight.presenter.insight_card_presenter import InsightCardPresenter
+from ti.features.insight.model.insight_card_repository import InsightCardRepository
+from ti.features.insight.presenter.insight_card_presenter import InsightPresenter
+from ti.features.insight.service.reportGenerationService import ReportGenerationService
+from ti.features.insight.service.uiCardFactory import InsightCardFactory
 from ti.features.insight.view.insight_card import InsightCard
 from ti.features.insight.view.insight_view import InsightView
-from ti.features.yaml_database.service.yaml_parser_service import YamlParser
 from ti.services.dataAccess.dataService import DataService
-from ti.services.dataAccess.insightManager import InsightManager
-from ti.services.engine.insightEngine import InsightEngine
 from ti.services.formatter import FormatService
-from ti.services.serviceContainer import ServiceContainer
 from PyQt6.QtCore import pyqtSignal
 
-from ti.services.sessionCache import SessionCache
 from ti.features.insight.model.insight_card_generation_models import FixedCardResult, PresentedCardData
-from ti.services.symbol_service import SymbolService
+from ti.core.loggerService import LoggerService
 
 
-class CardPresenter():
+class InsightPresenter():
     # 创建信号
     card_generated = pyqtSignal(dict)
     
     def __init__(
         self,
-        yaml_parser: YamlParser,
-        symbol_service: SymbolService,
         data_service: DataService,
-        engine: InsightEngine,
-        manager: InsightManager,
         bus: EventBus,
         view: InsightView,
-        format: FormatService
+        format: FormatService,
+        report_generation_service: ReportGenerationService,
+        ui_card_factory: InsightCardFactory,
+        card_repository: InsightCardRepository
     ):
         """_summary_
         专门管理卡片的controller
@@ -46,96 +40,70 @@ class CardPresenter():
         """    
         # 获取服务
         self.dataService = data_service
-        self.cache = SessionCache()
         self.view = view
-        self.format = format
-        
-        # 获取配方
-        recipe_repo = Insight_Card_Recipe_Repository(yaml_parser, symbol_service)
-        cond_recipe = recipe_repo.get_conditional_recipes()
-        fixed_recipe = recipe_repo.get_fixed_recipes()
-        
-        # 获取数据
-        self.yesterday_data = self.dataService.get_yesterday_AU()
-        
-        # 获取传入的服务
-        IE = engine
-        IM = manager
         self.bus: EventBus = bus
+        self.report_generation_service = report_generation_service
+        self.ui_card_factory = ui_card_factory
+        self.card_repository = card_repository
         
+        # 创建logger
+        self.logger = LoggerService("./ti/features/insight", "card_presenter")
+        
+        # 从报告生成服务获取缓存
+        self.cache = self.report_generation_service.cache
         
         self.currentCards = {}
         self.presenter = {}
         
-        # 开始初始化卡片相关
-        self.CR = Conditional_ReportGenerator(
-            self.yesterday_data,
-            cond_recipe,
-            IE,
-            IM,
-            self.cache
-        )
-        
-        self.FR = Fixed_ReportGenerator(
-            self.yesterday_data,
-            fixed_recipe
-        )
-        
         # 持有卡片状态
         self.cards: list[PresentedCardData] = []
         
+        self.logger.log("初始化", "卡片Presenter初始化完成")
+        
     def create_yesterday_report(self) -> list:
-        # 获取固定卡片
-        fixed_cards = self.FR.create_report(self.cache)
+        self.logger.log("报告生成", "开始生成昨日报告")
         
-        # 创建条件卡片
-        cond_cards = self.CR.create_report()
-        
-        # 卡片汇总
-        self.cards = cond_cards + fixed_cards
+        # 使用报告生成服务创建卡片
+        self.cards = self.report_generation_service.create_yesterday_report()
         
         # 填充入GUI
-        cards = self.get_ui_card(self.cards)
-        return cards
+        self.fill_ui_card(self.cards)
         
-    def get_ui_card(self,cards):
+        # 保存生成的卡片
+        self.save_generated_cards(self.cards)
+        
+        if self.currentCards:        
+            self.logger.log("UI渲染", f"成功渲染 {len(self.currentCards)} 张卡片到界面")
+        else:
+            self.logger.log("UI渲染", f"没有卡片被渲染")
+        return self.currentCards
+        
+    def fill_ui_card(self, cards):
         for idx, card_data in enumerate(cards): # card_data也就是formatter处理后的pre_data
-            # 处理不同类型的卡片数据
-            if isinstance(card_data, (PresentedCardData, FixedCardResult)):
-                # 如果是dataclass对象，转换为字典
-                card_dict = {
-                    "card_type": card_data.card_type,
-                    "judgement_key": card_data.judgement_key,
-                    "sementic_key": card_data.sementic_key,
-                    "data": card_data.data,
-                    "weight": card_data.weight,
-                    "id": card_data.id
-                }
-                # 对于FixedCardResult，添加额外的字段
-                if isinstance(card_data, FixedCardResult):
-                    card_dict["duration"] = card_data.duration
-                    card_dict["card_type_id"] = card_data.card_type_id
-                
-                data = self.format.format_card(card_dict)
-                card_data_for_presenter = card_dict
-            else:
-                # 如果是字典，直接使用
-                data = self.format.format_card(card_data)
-                card_data_for_presenter = card_data
-            
-            card = InsightCard(data, parent=self.view) 
-            
-            self.bus.publish("insight_card_ui_created",(card,self.cache))
-            
-            card_data_for_presenter["card_type_id"] = card_data_for_presenter["sementic_key"]
-            card_data_for_presenter["card_uuid"] = uuid.uuid4()
-            
-            self.currentCards[idx] = card
-            cardPresenter = InsightCardPresenter(
-                self.currentCards[idx]
+            # 使用UI工厂创建卡片
+            ui_result = self.ui_card_factory.create_ui_card(
+                card_data, self.view, self.cache
             )
             
-            self.presenter[idx] = cardPresenter
+            self.currentCards[idx] = ui_result["card"]
+            self.presenter[idx] = ui_result["presenter"]
             
-            # self.cards.append(self.currentCards[idx])     # 保存引用，防止被垃圾回收
-            self.view.add_card(card)
+            # 保存引用，防止被垃圾回收
+            self.view.add_card(ui_result["card"])
+    
+    def save_generated_cards(self, cards):
+        """保存当天生成的卡片"""
+        if not cards:
+            self.logger.log("卡片保存", "没有卡片需要保存")
+            return
+        
+        try:
+            # 转换卡片数据为字典格式并保存
+            cards_to_save = [card.to_dict() if hasattr(card, 'to_dict') else card 
+                           for card in cards]
+            
+            self.card_repository.save_today_cards(cards_to_save)
+            self.logger.log("卡片保存", f"成功保存 {len(cards)} 张卡片")
+            
+        except Exception as e:
+            self.logger.log("卡片保存错误", f"保存卡片时发生错误: {str(e)}")

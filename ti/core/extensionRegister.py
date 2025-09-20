@@ -88,6 +88,8 @@ class DynamicExtensionLoader:
                 
             except Exception as e:
                 print(f"Failed to create plugin {plugin_class.__name__}: {e}")
+                import traceback
+                traceback.print_exc()
 
     def _create_plugin_instance_with_di(self, plugin_class: type[ExtensionInterface]):
         """
@@ -106,12 +108,17 @@ class DynamicExtensionLoader:
             param_type = param.annotation # -> 这就是 EventBus, RealTimeMonitor 等类型
 
             # 3. 从服务容器中，按类型查找对应的服务实例
-            service_instance = self.services.get_class_service(param_type)
+            try:
+                service_instance = self.services.get_class_service(param_type)
+            except KeyError:
+                service_instance = None
 
             if service_instance:
                 dependencies_to_inject[param.name] = service_instance
             else:
-                raise Exception(f"Dependency '{param_type.__name__}' not found in service container.")
+                available_services = list(self.services._services.keys())
+                available_service_names = [s.__name__ if hasattr(s, '__name__') else str(s) for s in available_services]
+                raise Exception(f"Dependency '{param_type.__name__}' not found in service container. Available services: {available_service_names}")
 
         # 4. 将解析出的依赖，作为关键字参数，传入构造函数来创建实例！
         print(f"Creating instance of {plugin_class.__name__} with dependencies: {list(dependencies_to_inject.keys())}")

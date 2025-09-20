@@ -2,7 +2,7 @@ from ti.features.capture.capture_plugin import CapturePlugin
 from ti.features.core_view.presenter.page_presenter import PagePresenter
 from ti.features.core_view.service.page_factory import PageFactory
 from ti.features.insight.insight_plugin import InsightPlugin
-from ti.features.insight.presenter.cardPresenter import CardPresenter
+from ti.features.insight.presenter.cardPresenter import InsightPresenter
 from ti.services.symbol_service import SymbolService
 from ti.view.views.BasicDialog import BasicDialog
 from ti.core.eventBus import EventBus

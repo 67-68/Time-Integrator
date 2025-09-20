@@ -1,7 +1,7 @@
 from ti.features.insight.view.insight_card import InsightCard
 
 
-class InsightCardPresenter:
+class InsightPresenter:
     def __init__(
         self,
         card: InsightCard

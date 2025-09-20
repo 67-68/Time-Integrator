@@ -114,12 +114,17 @@ class INV_ContractService:
         passed_contracts = {}
         
         # 然后进行生命周期检查
-        for contract_id in contracts:
-            contract = contracts[contract_id]
+        contract_ids = contracts.copy()
+        for contract_id in contract_ids:
+            contract = contract_ids[contract_id]
             contract = self.runLifeCycle(contract) #在这里出错了，contract是uuid而不是contract类
             if contract:
                 contract_id = contract.contract_uuid
                 passed_contracts[contract_id] = contract
+        
+        
+        # 如果会对contract进行删除/修改的操作，需要保持一个列表，在循环结束之后update。同时可以定义事件. 使用类似MVU的核心model更新机制
+        
                 
         self.contract_rep.save(passed_contracts)
     
@@ -142,14 +147,14 @@ class INV_ContractService:
         # 幽灵检查
         if self.is_pastDue_ghost(contract):
             print("delete a over due ghost contract")
-            self.contract_rep.delete(contract)
+            self.contract_rep.delete(contract.contract_uuid)
             return
         
         # 过期检查
         pastDue = self.contract_duration_check(contract) 
         if pastDue:
             self._log_contract(contract)
-            self.contract_rep.delete(contract)
+            self.contract_rep.delete(contract.contract_uuid)
             return self.create_ghost_contract(contract)
         
         # 检查是否完成了

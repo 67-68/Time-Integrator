@@ -1,0 +1,142 @@
+[
+  {
+    "timestamp": "2025-09-20T20:32:13.257680",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T20:32:13.257955",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T20:37:46.481726",
+    "topic": "UI渲染",
+    "content": "成功渲染 3 张卡片到界面"
+  },
+  {
+    "timestamp": "2025-09-20T20:43:11.870892",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T20:43:11.871352",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T20:45:32.964521",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T20:45:32.965094",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T20:45:34.764094",
+    "topic": "卡片保存错误",
+    "content": "保存卡片时发生错误: 'InsightCardRepository' object has no attribute 'save_today_cards'"
+  },
+  {
+    "timestamp": "2025-09-20T20:45:34.764611",
+    "topic": "UI渲染",
+    "content": "成功渲染 3 张卡片到界面"
+  },
+  {
+    "timestamp": "2025-09-20T20:46:07.739901",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T20:46:07.740377",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T20:48:04.336773",
+    "topic": "卡片保存错误",
+    "content": "保存卡片时发生错误: 'InsightCardRepository' object has no attribute 'save_today_cards'"
+  },
+  {
+    "timestamp": "2025-09-20T20:48:04.339504",
+    "topic": "UI渲染",
+    "content": "成功渲染 3 张卡片到界面"
+  },
+  {
+    "timestamp": "2025-09-20T20:52:51.175717",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T20:52:51.176303",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T20:52:52.959795",
+    "topic": "卡片保存错误",
+    "content": "保存卡片时发生错误: 'InsightCardRepository' object has no attribute 'save_today_cards'"
+  },
+  {
+    "timestamp": "2025-09-20T20:52:52.960292",
+    "topic": "UI渲染",
+    "content": "成功渲染 3 张卡片到界面"
+  },
+  {
+    "timestamp": "2025-09-20T20:53:24.016708",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T20:53:24.017345",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T20:55:02.349256",
+    "topic": "卡片保存错误",
+    "content": "保存卡片时发生错误: 'InsightCardRepository' object has no attribute 'save_today_cards'"
+  },
+  {
+    "timestamp": "2025-09-20T20:55:12.223400",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T20:55:12.224161",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T21:00:12.782820",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T21:00:12.783588",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T21:02:18.036559",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T21:02:18.037272",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T21:02:22.623253",
+    "topic": "卡片保存",
+    "content": "成功保存 3 张卡片"
+  },
+  {
+    "timestamp": "2025-09-20T21:02:22.625633",
+    "topic": "UI渲染",
+    "content": "成功渲染 3 张卡片到界面"
+  }
+]

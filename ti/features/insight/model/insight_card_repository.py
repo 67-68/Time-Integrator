@@ -1,3 +1,4 @@
+import uuid
 from datetime import datetime
 from ti.core.Interfaces.view.json_repository_interface import IJsonRepository
 from ti.services.dataAccess.dataAccess import getData, saveData
@@ -16,7 +17,7 @@ class InsightCardRepository(IJsonRepository):
 
     @property
     def filePath(self):
-        return "model/data/insight_cards.json"
+        return "/Users/lennon/Projects/Time_Integrater/ti/features/insight/model/data/insight_cards.json"
     
     def save(self, data: dict[str, InsightCardModel] = None):
         """
@@ -117,3 +118,30 @@ class InsightCardRepository(IJsonRepository):
         """
         # 如果未来InsightCardModel添加了日期字段，可以在此实现日期过滤
         return list(self.cards.values())
+    
+    def save_today_cards(self, cards_data: list[dict]):
+        """
+        保存当天生成的卡片数据
+        
+        Args:
+            cards_data: 卡片数据字典列表，每个字典包含卡片信息
+        """
+        from ti.features.insight.model.insight_card_model import InsightCardModel
+        
+        for card_dict in cards_data:
+            # 创建卡片模型
+            card_model = InsightCardModel(
+                sementic_text=card_dict.get('sementic_key', ''),
+                judgements_texts=card_dict.get('judgement_key', []),
+                title_text=card_dict.get('card_type', ''),
+                color=card_dict.get('color', '#3498DB'),
+                icon_path=card_dict.get('icon_path', ''),
+                icon_color=card_dict.get('icon_color', '#3498DB'),
+                card_type_id=card_dict.get('card_type_id', card_dict.get('id', '')),
+                card_uuid=card_dict.get('id', str(uuid.uuid4()))
+            )
+            
+            # 添加卡片到仓库
+            self.add_card(card_model)
+        
+        print(f"成功保存 {len(cards_data)} 张当天卡片")

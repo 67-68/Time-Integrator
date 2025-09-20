@@ -2,6 +2,7 @@ from ti.services.dataAccess.insightManager import InsightManager
 from ti.services.engine.insightEngine import InsightEngine
 from ti.services.sessionCache import SessionCache
 from ti.features.insight.model.insight_card_generation_models import RawCardData, PresentedCardData
+from ti.core.loggerService import LoggerService
 
 class Conditional_ReportGenerator():
     """_summary_
@@ -22,6 +23,10 @@ class Conditional_ReportGenerator():
         self.recipe = recipe
         self.IE.initialize(recipe,cache)
         
+        # 创建logger
+        self.logger = LoggerService("./ti/features/insight", "conditional_generator")
+        self.logger.log("初始化", f"条件报告生成器初始化完成，加载了 {len(recipe)} 个配方")
+        
         # 连接信号
         self.IE._on_pattern_detected.connect(lambda d: self._on_pattern_detected(d))
         
@@ -31,6 +36,8 @@ class Conditional_ReportGenerator():
         卡片会放进manager, 
         返回的时候，首先获取manager的卡片，作为返回值
         """  
+        self.logger.log("报告生成", "开始生成条件卡片报告")
+        
         # 在每次报告生成前, 重置Manager的状态
         self.IM.reset()
         
@@ -46,6 +53,7 @@ class Conditional_ReportGenerator():
             card_type_id = card
             cardData.append(card)
             
+        self.logger.log("报告完成", f"生成 {len(cardData)} 张条件卡片")
         return cardData
         
 

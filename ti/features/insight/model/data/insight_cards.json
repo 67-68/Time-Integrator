@@ -9,7 +9,12 @@
         "icon_path": "",
         "icon_color": "#3498DB",
         "card_type_id": "post_eat_waste",
-        "card_uuid": "post_eat_waste"
+        "card_uuid": "post_eat_waste",
+        "create_time": "2025-09-20T22:03:13.854347",
+        "duration": "today",
+        "current_state": "generated",
+        "data_uuid": null,
+        "detector_recipe_id": null
     },
     "peak_work_analysis": {
         "sementic_text": "peak_timeSpan",
@@ -21,7 +26,12 @@
         "icon_path": "",
         "icon_color": "#3498DB",
         "card_type_id": "peak_work_analysis",
-        "card_uuid": "peak_work_analysis"
+        "card_uuid": "peak_work_analysis",
+        "create_time": "2025-09-20T21:56:31.434599",
+        "duration": "today",
+        "current_state": "generated",
+        "data_uuid": null,
+        "detector_recipe_id": null
     },
     "daily_ratio_distribution": {
         "sementic_text": "show_ratio",
@@ -33,6 +43,11 @@
         "icon_path": "",
         "icon_color": "#3498DB",
         "card_type_id": "daily_ratio_distribution",
-        "card_uuid": "daily_ratio_distribution"
+        "card_uuid": "daily_ratio_distribution",
+        "create_time": "2025-09-20T21:56:31.434985",
+        "duration": "today",
+        "current_state": "generated",
+        "data_uuid": null,
+        "detector_recipe_id": null
     }
 }

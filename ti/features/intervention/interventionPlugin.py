@@ -114,7 +114,8 @@ class InterventionPlugin(
             view_factory,
             formatter,
             view_repository,
-            self.container
+            self.container,
+            bus
         )
         
         contract_orchestrator = INV_Contract_Orchestrator(

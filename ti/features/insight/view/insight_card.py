@@ -22,6 +22,9 @@ class InsightCard(BasicWidget):
         # 卡片ID
         self.id = data["id"]
         
+        # 缓存字段，用于存储插件数据
+        self.cache = {}
+        
         #这里手动填充各项数据
         sementic = data["text"]["sementic"]
         judgements = data["text"]["judgement"]

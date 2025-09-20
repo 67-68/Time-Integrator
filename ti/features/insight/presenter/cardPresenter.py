@@ -3,6 +3,7 @@ import uuid
 
 from ti.core.eventBus import EventBus
 from ti.features.insight.model.insight_card_repository import InsightCardRepository
+from ti.features.insight.model.insight_event import SaveInsightCard
 from ti.features.insight.presenter.insight_card_presenter import InsightPresenter
 from ti.features.insight.service.reportGenerationService import ReportGenerationService
 from ti.features.insight.service.uiCardFactory import InsightCardFactory
@@ -51,6 +52,9 @@ class InsightPresenter():
         
         # 从报告生成服务获取缓存
         self.cache = self.report_generation_service.cache
+        
+        # 订阅保存卡片事件
+        self.bus.subscribe_event(SaveInsightCard, self._on_save_insight_card)
         
         self.currentCards = {}
         self.presenter = {}
@@ -107,3 +111,35 @@ class InsightPresenter():
             
         except Exception as e:
             self.logger.log("卡片保存错误", f"保存卡片时发生错误: {str(e)}")
+    
+    def _on_save_insight_card(self, event:SaveInsightCard):
+        """
+        处理保存洞察卡片事件
+        
+        Args:
+            event: SaveInsightCard事件，包含card_uuid
+        """
+        print(f"接受事件{event.event_id}")
+        from ti.features.insight.model.insight_event import SaveInsightCard
+        
+        if isinstance(event, SaveInsightCard):
+            card_uuid = event.card_uuid
+            
+            # 遍历活跃卡片，查找匹配的UUID
+            for card_data in self.cards:
+                if hasattr(card_data, 'id') and card_data.id == card_uuid:
+                    # 找到匹配的卡片，保存它
+                    try:
+                        # 转换卡片数据为字典格式
+                        card_dict = card_data.to_dict() if hasattr(card_data, 'to_dict') else card_data
+                        
+                        # 保存到仓库
+                        self.card_repository.save_today_cards([card_dict])
+                        self.logger.log("事件保存", f"成功保存卡片 {card_uuid}")
+                        return
+                    except Exception as e:
+                        self.logger.log("事件保存错误", f"保存卡片 {card_uuid} 时发生错误: {str(e)}")
+                        return
+            
+            # 如果没有找到匹配的卡片
+            self.logger.log("事件保存", f"未找到活跃卡片 {card_uuid}")

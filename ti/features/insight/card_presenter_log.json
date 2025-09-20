@@ -138,5 +138,245 @@
     "timestamp": "2025-09-20T21:02:22.625633",
     "topic": "UI渲染",
     "content": "成功渲染 3 张卡片到界面"
+  },
+  {
+    "timestamp": "2025-09-20T21:24:42.829412",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T21:24:42.830219",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T21:24:45.898213",
+    "topic": "卡片保存错误",
+    "content": "保存卡片时发生错误: InsightCardModel.__init__() got an unexpected keyword argument 'solve_time'"
+  },
+  {
+    "timestamp": "2025-09-20T21:24:45.901735",
+    "topic": "UI渲染",
+    "content": "成功渲染 3 张卡片到界面"
+  },
+  {
+    "timestamp": "2025-09-20T21:38:50.684609",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T21:38:50.685656",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T21:39:58.443993",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T21:39:58.444966",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T21:40:21.867938",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T21:40:21.868578",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T21:41:01.323057",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T21:41:01.324271",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T21:41:17.661153",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T21:41:17.662347",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T21:41:17.673873",
+    "topic": "事件保存错误",
+    "content": "保存卡片 post_eat_waste 时发生错误: InsightCardModel.__init__() got an unexpected keyword argument 'solve_time'"
+  },
+  {
+    "timestamp": "2025-09-20T21:41:17.676564",
+    "topic": "卡片保存错误",
+    "content": "保存卡片时发生错误: InsightCardModel.__init__() got an unexpected keyword argument 'solve_time'"
+  },
+  {
+    "timestamp": "2025-09-20T21:41:17.677657",
+    "topic": "UI渲染",
+    "content": "成功渲染 3 张卡片到界面"
+  },
+  {
+    "timestamp": "2025-09-20T21:50:36.639535",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T21:50:36.641088",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T21:50:36.651507",
+    "topic": "事件保存错误",
+    "content": "保存卡片 post_eat_waste 时发生错误: InsightCardModel.__init__() got an unexpected keyword argument 'solve_time'"
+  },
+  {
+    "timestamp": "2025-09-20T21:50:36.654461",
+    "topic": "卡片保存错误",
+    "content": "保存卡片时发生错误: InsightCardModel.__init__() got an unexpected keyword argument 'solve_time'"
+  },
+  {
+    "timestamp": "2025-09-20T21:50:36.655626",
+    "topic": "UI渲染",
+    "content": "成功渲染 3 张卡片到界面"
+  },
+  {
+    "timestamp": "2025-09-20T21:51:42.217354",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T21:51:42.218760",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T21:51:42.226198",
+    "topic": "事件保存错误",
+    "content": "保存卡片 post_eat_waste 时发生错误: InsightCardModel.__init__() got an unexpected keyword argument 'solve_time'"
+  },
+  {
+    "timestamp": "2025-09-20T21:51:42.229419",
+    "topic": "卡片保存错误",
+    "content": "保存卡片时发生错误: InsightCardModel.__init__() got an unexpected keyword argument 'solve_time'"
+  },
+  {
+    "timestamp": "2025-09-20T21:51:42.230566",
+    "topic": "UI渲染",
+    "content": "成功渲染 3 张卡片到界面"
+  },
+  {
+    "timestamp": "2025-09-20T21:52:06.717385",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T21:52:06.719147",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T21:55:41.510812",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T21:55:41.511939",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T21:55:43.959506",
+    "topic": "事件保存",
+    "content": "成功保存卡片 post_eat_waste"
+  },
+  {
+    "timestamp": "2025-09-20T21:55:43.965330",
+    "topic": "卡片保存",
+    "content": "成功保存 3 张卡片"
+  },
+  {
+    "timestamp": "2025-09-20T21:55:43.966509",
+    "topic": "UI渲染",
+    "content": "成功渲染 3 张卡片到界面"
+  },
+  {
+    "timestamp": "2025-09-20T21:56:29.644605",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T21:56:29.646146",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T21:56:31.426347",
+    "topic": "事件保存",
+    "content": "成功保存卡片 post_eat_waste"
+  },
+  {
+    "timestamp": "2025-09-20T21:56:31.435395",
+    "topic": "卡片保存",
+    "content": "成功保存 3 张卡片"
+  },
+  {
+    "timestamp": "2025-09-20T21:56:31.436993",
+    "topic": "UI渲染",
+    "content": "成功渲染 3 张卡片到界面"
+  },
+  {
+    "timestamp": "2025-09-20T21:59:29.568386",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T21:59:29.570048",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T21:59:31.187502",
+    "topic": "事件保存",
+    "content": "成功保存卡片 post_eat_waste"
+  },
+  {
+    "timestamp": "2025-09-20T22:00:01.462787",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T22:00:01.464485",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T22:00:02.911389",
+    "topic": "事件保存",
+    "content": "成功保存卡片 post_eat_waste"
+  },
+  {
+    "timestamp": "2025-09-20T22:03:12.403873",
+    "topic": "初始化",
+    "content": "卡片Presenter初始化完成"
+  },
+  {
+    "timestamp": "2025-09-20T22:03:12.405756",
+    "topic": "报告生成",
+    "content": "开始生成昨日报告"
+  },
+  {
+    "timestamp": "2025-09-20T22:03:13.855856",
+    "topic": "事件保存",
+    "content": "成功保存卡片 post_eat_waste"
   }
 ]

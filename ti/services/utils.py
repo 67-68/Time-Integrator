@@ -162,7 +162,8 @@ def randomChoser(list):
     """
     if len(list) == 1:
         return list[0]
-    
+    if not list:
+        return
     return random.choice(list)
 
 import abc

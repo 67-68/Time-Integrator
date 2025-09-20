@@ -4,10 +4,11 @@ from ti.core.Interfaces.path_register_provider_interface import IPathRegisterPro
 from ti.core.loggerService import LoggerService
 from ti.model.core_pages import CoreView
 from ti.model.page_contributions import PageContribution
+from PyQt6.QtWidgets import QVBoxLayout, QLabel, QWidget
+from PyQt6.QtCore import Qt
 
 
 class MenuPlugin(
-    IPathRegisterProvider,
     IPageExtension
 ):
     def __init__(self):
@@ -60,15 +61,21 @@ class MenuPlugin(
         
         
     def create_Menu_view(self):
-        self.logger.log("创建视图", "开始创建欢迎视图")
-        # 创建一个空的menuView返回
+        self.logger.log("创建视图", "开始创建菜单视图")
         
-        return MenuPage()
-    
-    @staticmethod
-    def register_class():
-        # 返回一个空的路径注册器
-        class MenuPathRegister:
-            pass
+        # 创建自定义的菜单视图
+        menu_widget = QWidget()
+        layout = QVBoxLayout(menu_widget)
         
-        return MenuPathRegister
+        # 添加上面的欢迎标签
+        welcome_label = QLabel("欢迎来到TI")
+        welcome_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        welcome_label.setStyleSheet("font-size: 24px; font-weight: bold; margin: 20px;")
+        layout.addWidget(welcome_label)
+        
+        # 添加下面的按钮组
+        from ti.features.capture.model.ButtonGroup import ButtonGroup
+        button_group = ButtonGroup()
+        layout.addWidget(button_group)
+        
+        return menu_widget

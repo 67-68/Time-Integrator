@@ -175,6 +175,40 @@ class InterventionPresenter(QObject):
         print(f"状态跳转完成: {previous_state} -> {target_state_key}")
         return True
     
+    def initialize_with_cache_data(self, cache_data: dict):
+        """
+        使用缓存数据初始化presenter状态
+        
+        Args:
+            cache_data: 包含状态和UI数据的缓存字典
+        """
+        # 从缓存数据中恢复状态
+        if 'current_state' in cache_data:
+            self.current_state_key = cache_data['current_state']
+            
+            # 应用对应状态的presentation
+            presentation = self.format.format(
+                self.view_id,
+                self.current_state_key
+            )
+            
+            if presentation:
+                self.ui.apply_presentation(presentation)
+                
+                # 如果存在对话框UI，也更新对话框
+                if self.dialog_ui:
+                    self.dialog_ui.apply_presentation(presentation)
+        
+        # 恢复其他UI状态（如果有的话）
+        if 'ui_state' in cache_data:
+            # 这里可以根据具体的UI状态数据进行恢复
+            # 例如：按钮状态、输入框内容等
+            ui_state = cache_data['ui_state']
+            if hasattr(self.ui, 'restore_state'):
+                self.ui.restore_state(ui_state)
+        
+        print(f"Presenter使用缓存数据初始化完成，当前状态: {self.current_state_key}")
+    
 @dataclass
 class INV_State_Publish:
     recipe: INV_View_Recipe

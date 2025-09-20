@@ -41,6 +41,24 @@ class InterventionCoordinator:
         cache: SessionCache
         insight_card_ui: InsightCard
         insight_card_id = insight_card_ui.id
+        
+        # 首先检查卡片是否有插件存储的缓存数据
+        if hasattr(insight_card_ui, 'cache') and insight_card_ui.cache:
+            # 如果有缓存数据，直接使用缓存中的视图数据
+            cache_data = insight_card_ui.cache
+            if 'intervention_view_data' in cache_data:
+                view_data = cache_data['intervention_view_data']
+                view_id = cache_data.get('view_recipe_id')
+                
+                # 使用缓存数据更新卡片
+                self.card_orc.update_insightCard_with_data(
+                    insight_card_ui,
+                    insight_card_id,
+                    view_id,
+                    view_data
+                )
+                return
+        
         pack = cache.read(insight_card_id) #存入的地方在InsightEngine
         if isinstance(pack,tuple): #只有conditional card才有一个tuple
             insight_recipe, recipe = pack

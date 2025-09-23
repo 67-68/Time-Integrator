@@ -1,7 +1,6 @@
 from PyQt6.QtWidgets import QHBoxLayout, QFormLayout, QFrame, QLabel, QLineEdit, QCheckBox
 from PyQt6.QtCore import pyqtSignal
-from ti.view.widgets.other.RealTimeSearchEdit import RealTimeSearchEdit
-from ti.view.widgets.pages.BasicWidget import BasicWidget
+from ti.view.BasicWidget import BasicWidget
 
 
 class PropertyView(BasicWidget):
@@ -56,7 +55,7 @@ class PropertyView(BasicWidget):
         
         # 行动内容
         self.action_label = QLabel("行动内容", frame)
-        self.action_edit = RealTimeSearchEdit(frame)
+        self.action_edit = QLineEdit(frame)
         layout.addRow(self.action_label, self.action_edit)
         
         return frame

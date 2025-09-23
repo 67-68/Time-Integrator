@@ -4,8 +4,8 @@ from PyQt6.QtCore import QObject
 from ti.features.capture.presenter.selection_presenter import CAP_SelectionPresenter
 from ti.features.capture.presenter.input_presenter import CAP_InputPresenter
 from ti.features.capture.view.capture import CaptureView
-from ti.features.detector.matchers import get_time_from_str
-from ti.services.dataAccess.dataService import DataService
+from ti.features.detector.service.matchers import get_time_from_str
+from ti.services.dataService import DataService
 from ti.core.eventBus import EventBus
 from ti.model.action_unit import ActionUnit
 import uuid

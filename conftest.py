@@ -4,9 +4,9 @@ import pytest
 from unittest.mock import MagicMock
 from datetime import datetime, timedelta
 
-from ti.features.detector import userMatchers
+from ti.features.detector.model import userMatchers
 from ti.core.mainCoordinator import MainCoorinator
-from ti.features.detector.baseDetector import BaseDetector
+from ti.features.detector.model.baseDetector import BaseDetector
 from ti.services.serviceContainer import ServiceContainer
 from ti.features.intervention.model.model import INV_Contract, Duration, INV_Contract_State
 from ti.features.intervention.service.contractService import INV_ContractService

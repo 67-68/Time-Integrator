@@ -1,16 +1,17 @@
 from ti.features.capture.capture_plugin import CapturePlugin
-from ti.features.core_view.presenter.page_presenter import PagePresenter
-from ti.features.core_view.service.page_factory import PageFactory
+from ti.presenters.page_presenter import PagePresenter
+from ti.services.page_factory import PageFactory
 from ti.features.insight.insight_plugin import InsightPlugin
 from ti.features.insight.presenter.cardPresenter import InsightPresenter
 from ti.features.menu.menu_plugin import MenuPlugin
 from ti.services.symbol_service import SymbolService
-from ti.view.views.BasicDialog import BasicDialog
+from ti.view.BasicDialog import BasicDialog
 from ti.core.eventBus import EventBus
 from ti.core.extensionRegister import DynamicExtensionLoader
 from ti.features.intervention.interventionPlugin import InterventionPlugin
+from ti.features.detector.detector_plugin import DetectorPlugin
 from ti.services.serviceContainer import ServiceContainer
-from ti.features.core_view.view.MainWindow import MainWindow
+from ti.view.MainWindow import MainWindow
 
 class MainCoorinator():
     def __init__(
@@ -69,7 +70,7 @@ class MainCoorinator():
         """_summary_
         这个函数创建插件的实例并激活他们
         """        
-        plugins = [MenuPlugin,CapturePlugin,InsightPlugin,InterventionPlugin]
+        plugins = [DetectorPlugin,MenuPlugin,CapturePlugin,InsightPlugin,InterventionPlugin]
         
         self.loader.discover_and_register_plugins(plugins)
         

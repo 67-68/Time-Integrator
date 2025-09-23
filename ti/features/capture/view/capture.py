@@ -1,7 +1,7 @@
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtWidgets import QHBoxLayout, QSizePolicy
 from ti.model.action_unit import ActionUnit
-from ti.view.widgets.pages.BasicWidget import BasicWidget
+from ti.view.BasicWidget import BasicWidget
 
 
 class CaptureView(BasicWidget):

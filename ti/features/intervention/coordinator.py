@@ -37,7 +37,7 @@ class InterventionCoordinator:
         Args:
             ui (TrendCard): 洞察卡片的UI
         """
-        insight_card_ui,cache = data
+        insight_card_ui,cache,insight_card_data = data
         cache: SessionCache
         insight_card_ui: InsightCard
         insight_card_id = insight_card_ui.id
@@ -60,6 +60,10 @@ class InterventionCoordinator:
                 return
         
         pack = cache.read(insight_card_id) #存入的地方在InsightEngine
+        if pack is None:
+            # 如果没有缓存数据，直接返回
+            return
+            
         if isinstance(pack,tuple): #只有conditional card才有一个tuple
             insight_recipe, recipe = pack
         else: 
@@ -91,6 +95,8 @@ class InterventionCoordinator:
                     contract_id,
                     detector_recipe_key
                 )
+                
+                insight_card_data
                 
     def _on_contract_activated(self,view_id):
         # 应该使用一个eventbus的事件，从contract orc -> card orc推进 

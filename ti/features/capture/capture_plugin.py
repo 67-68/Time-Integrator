@@ -1,14 +1,14 @@
-from ti.core.Interfaces.page_extension_interface import IPageExtension
+from ti.model.plugin.page_extension_interface import IPageExtension
 from ti.features.capture.presenter.selection_presenter import CAP_SelectionPresenter
 from ti.features.capture.presenter.input_presenter import CAP_InputPresenter
 from ti.features.capture.view.capture import CaptureView
 from ti.features.translation.service.translator_service import Translator
 from ti.model.core_pages import CoreView
-from ti.model.page_contributions import PageContribution
-from ti.services.dataAccess.dataService import DataService
+from ti.model.plugin.page_contributions import PageContribution
+from ti.services.dataService import DataService
 from ti.features.capture.presenter.capture_presenter import CapturePresenter
 from ti.core.eventBus import EventBus
-from ti.services.synthesizer_service import Synthesizer
+
 
 
 class CapturePlugin(IPageExtension):

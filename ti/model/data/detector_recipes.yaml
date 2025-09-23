@@ -1,0 +1,37 @@
+detector_recipes:
+  post_eat_waste:
+    detector: BaseDetector
+    config:
+      sequence:
+        hook:
+          - state_name: meal
+            matcher: action_is("吃饭")
+        result:
+          - state_name: waste
+            matcher: action_type_is("waste")
+  
+  unsettling_heart:
+    detector: BaseDetector
+    config:
+      sequence:
+        hook:
+          - state_name: trivious_thing_1
+            matcher: duration_is_smaller_than(11)
+          - state_name: trivious_thing_2
+            matcher: duration_is_smaller_than(11)
+          - state_name: trivious_thing_3
+            matcher: duration_is_smaller_than(11)
+        result:
+          - state_name: waste
+            matcher: more_than_10_minute_waste
+  
+  post_bash_waste:
+    detector: BaseDetector
+    config:
+      sequence:
+        hook:
+          - state_name: bash
+            matcher: action_is("洗澡")
+        result:
+          - state_name: waste
+            matcher: action_type_is("waste")

@@ -1,21 +1,21 @@
 from ti.core.Interfaces.extension_Interface import ExtensionInterface
-from ti.core.Interfaces.page_extension_interface import IPageExtension
-from ti.core.Interfaces.path_register_provider_interface import IPathRegisterProvider
-from ti.features.detector.detectorFactory import DetectorFactory
+from ti.model.plugin.page_extension_interface import IPageExtension
+from ti.model.plugin.path_register_provider_interface import IPathRegisterProvider
 from ti.features.insight.insight_path_register import InsightPathRegister
 from ti.features.insight.presenter.cardPresenter import InsightPresenter
 from ti.features.insight.view.insight_view import InsightView
 from ti.features.yaml_database.service.yaml_parser_service import YamlParser
 from ti.model.core_pages import CoreView
-from ti.model.page_contributions import PageContribution
-from ti.services.dataAccess.dataService import DataService
-from ti.services.dataAccess.insightCacheService import InsightCacheService
-from ti.services.dataAccess.insightManager import InsightManager
-from ti.services.engine.insightEngine import InsightEngine
-from ti.services.formatter import FormatService
+from ti.model.plugin.page_contributions import PageContribution
+from ti.services.dataService import DataService
+from ti.features.insight.service.insightCacheService import InsightCacheService
+from ti.features.insight.service.insightManager import InsightManager
+from ti.features.insight.service.insightEngine import InsightEngine
+from ti.features.insight.service.formatter import InsightFormatService
 from ti.services.serviceContainer import ServiceContainer
 from ti.services.symbol_service import SymbolService
-from ti.core.loggerService import LoggerService
+from ti.services.loggerService import LoggerService
+from ti.services.function_service import FunctionService
 
 
 class InsightPlugin(
@@ -27,14 +27,14 @@ class InsightPlugin(
         yaml_parser: YamlParser,
         symbol_service: SymbolService,
         data_service: DataService,
-        fac: DetectorFactory,
-        format: FormatService
+        function_service: FunctionService,
+        format: InsightFormatService
     ):
         super().__init__()
         self.yaml = yaml_parser
         self.symbol = symbol_service
         self.data_service = data_service
-        self.fac = fac
+        self.function_service = function_service
         self.format = format
         
         # 创建logger
@@ -87,11 +87,20 @@ class InsightPlugin(
         self.logger.log("创建视图", "开始创建洞察视图")
         self.view = InsightView()
         
+        # 通过function service获取detector factory
+        try:
+            get_detector_factory_func = self.function_service.get_function("get_detector_factory")
+            detector_factory = get_detector_factory_func()
+            self.logger.log("获取工厂", "成功从function service获取detector factory")
+        except Exception as e:
+            self.logger.log("错误", f"获取detector factory失败: {e}")
+            raise
+        
         # 创建缓存服务
-        self.cache = InsightCacheService()
+        self.cache = InsightCacheService(self.yaml)
         
         # 创建引擎和管理器
-        self.engine = InsightEngine(self.cache, self.fac)
+        self.engine = InsightEngine(self.cache, detector_factory)
         self.manager = InsightManager(self.cache)
         
         # 创建配方仓库

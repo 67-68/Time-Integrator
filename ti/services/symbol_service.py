@@ -1,4 +1,4 @@
-from ti.core.Interfaces.symbol_path_register_interface import ISymbolPathRegister
+from ti.model.plugin.symbol_path_register_interface import ISymbolPathRegister
 import importlib
 from typing import Any, Optional
 
@@ -19,7 +19,7 @@ class SymbolService:
         
         
         self.regist_register(CorePathRegister())
-        # self.regist_register(InsightPathRegister())
+        self.regist_register(InsightPathRegister())
         self.regist_register(DetectorPathRegister())
         # Intervention path register is registered separately in intervention plugin
         

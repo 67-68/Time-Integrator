@@ -4,96 +4,96 @@
 functions:
   GET_TIME_FROM_STR:
     symbol_type: "function"
-    symbol_path: "ti.features.detector.matchers.get_time_from_str"
+    symbol_path: "ti.features.detector.service.matchers.get_time_from_str"
     symbol_domain: "detector"
 
   MATCHER_ACTION_IS:
     symbol_type: "function"
-    symbol_path: "ti.features.detector.matchers.Matcher.action_is"
+    symbol_path: "ti.features.detector.service.matchers.Matcher.action_is"
     symbol_domain: "detector"
 
   MATCHER_START_LATER_THAN:
     symbol_type: "function"
-    symbol_path: "ti.features.detector.matchers.Matcher.start_later_than"
+    symbol_path: "ti.features.detector.service.matchers.Matcher.start_later_than"
     symbol_domain: "detector"
 
   MATCHER_END_LATER_THAN:
     symbol_type: "function"
-    symbol_path: "ti.features.detector.matchers.Matcher.end_later_than"
+    symbol_path: "ti.features.detector.service.matchers.Matcher.end_later_than"
     symbol_domain: "detector"
 
   MATCHER_ACTION_TYPE_IS:
     symbol_type: "function"
-    symbol_path: "ti.features.detector.matchers.Matcher.action_type_is"
+    symbol_path: "ti.features.detector.service.matchers.Matcher.action_type_is"
     symbol_domain: "detector"
 
   MATCHER_DURATION_GREATER_THAN:
     symbol_type: "function"
-    symbol_path: "ti.features.detector.matchers.Matcher.duration_is_greater_than"
+    symbol_path: "ti.features.detector.service.matchers.Matcher.duration_is_greater_than"
     symbol_domain: "detector"
 
   MATCHER_DURATION_SMALLER_THAN:
     symbol_type: "function"
-    symbol_path: "ti.features.detector.matchers.Matcher.duration_is_smaller_than"
+    symbol_path: "ti.features.detector.service.matchers.Matcher.duration_is_smaller_than"
     symbol_domain: "detector"
 
   MATCHER_DATE_IS:
     symbol_type: "function"
-    symbol_path: "ti.features.detector.matchers.Matcher.date_is"
+    symbol_path: "ti.features.detector.service.matchers.Matcher.date_is"
     symbol_domain: "detector"
 
   MATCHER_PROPERTY_IS:
     symbol_type: "function"
-    symbol_path: "ti.features.detector.matchers.Matcher.property_is"
+    symbol_path: "ti.features.detector.service.matchers.Matcher.property_is"
     symbol_domain: "detector"
 
   MATCHER_MATCH_ALL:
     symbol_type: "function"
-    symbol_path: "ti.features.detector.matchers.Matcher.matchAll"
+    symbol_path: "ti.features.detector.service.matchers.Matcher.matchAll"
     symbol_domain: "detector"
 
   MATCHER_MATCH_ANY:
     symbol_type: "function"
-    symbol_path: "ti.features.detector.matchers.Matcher.matchAny"
+    symbol_path: "ti.features.detector.service.matchers.Matcher.matchAny"
     symbol_domain: "detector"
 
   BASE_DETECTOR_PROCESS_ACTION_UNIT:
     symbol_type: "function"
-    symbol_path: "ti.features.detector.baseDetector.BaseDetector.process_action_unit"
+    symbol_path: "ti.features.detector.model.baseDetector.BaseDetector.process_action_unit"
     symbol_domain: "detector"
 
   BASE_DETECTOR_ON_STATE_COMPLETE:
     symbol_type: "function"
-    symbol_path: "ti.features.detector.baseDetector.BaseDetector._on_state_complete"
+    symbol_path: "ti.features.detector.model.baseDetector.BaseDetector._on_state_complete"
     symbol_domain: "detector"
 
   BASE_DETECTOR_RESET:
     symbol_type: "function"
-    symbol_path: "ti.features.detector.baseDetector.BaseDetector.reset"
+    symbol_path: "ti.features.detector.model.baseDetector.BaseDetector.reset"
     symbol_domain: "detector"
 
   BASE_DETECTOR_PACKER:
     symbol_type: "function"
-    symbol_path: "ti.features.detector.baseDetector.BaseDetector.packer"
+    symbol_path: "ti.features.detector.model.baseDetector.BaseDetector.packer"
     symbol_domain: "detector"
 
   BASE_DETECTOR_ON_WEIGHT_CALCULATION:
     symbol_type: "function"
-    symbol_path: "ti.features.detector.baseDetector.BaseDetector._on_weight_calculation"
+    symbol_path: "ti.features.detector.model.baseDetector.BaseDetector._on_weight_calculation"
     symbol_domain: "detector"
 
   # User matchers from userMatchers.py
   YESTERDAY_WORK_MATCHER:
     symbol_type: "function"
-    symbol_path: "ti.features.detector.userMatchers.YESTERDAY_WORK_MATCHER"
+    symbol_path: "ti.features.detector.model.userMatchers.YESTERDAY_WORK_MATCHER"
     symbol_domain: "detector"
 
   ANY_MATCHER:
     symbol_type: "function"
-    symbol_path: "ti.features.detector.userMatchers.ANY_MATCHER"
+    symbol_path: "ti.features.detector.model.userMatchers.ANY_MATCHER"
     symbol_domain: "detector"
 
   POST_EAT_WASTE:
     symbol_type: "function"
-    symbol_path: "ti.features.detector.userMatchers.POST_EAT_WASTE"
+    symbol_path: "ti.features.detector.model.userMatchers.POST_EAT_WASTE"
     symbol_domain: "detector"

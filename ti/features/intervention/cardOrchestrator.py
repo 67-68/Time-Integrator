@@ -185,7 +185,7 @@ class INV_Card_Orchestrator:
                 
                 # 保存到洞察卡片缓存
                 insightCard_ui.cache['intervention_view_data'] = view_data
-                insightCard_ui.cache['view_recipe_id'] = view_id
+                insightCard_ui.cache['view_recipe_id'] = view_id #问题在于，这是UI，不会被presenter检测到。或者说，在publish的同时，把model也发出来
                 
                 print(f"已保存干预数据到洞察卡片缓存: {view_id}")
             else:

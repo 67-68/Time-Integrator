@@ -4,10 +4,10 @@
 class_methods:
   DETECTOR_REPOSITORY_GET_RECIPE_BY_ID:
     symbol_type: "class_method"
-    symbol_path: "ti.features.detector.detectorRepository.DetectocRepository.get_recipe_by_id"
+    symbol_path: "ti.features.detector.model.detectorRepository.DetectocRepository.get_recipe_by_id"
     symbol_domain: "detector"
 
   DETECTOR_REPOSITORY_INIT:
     symbol_type: "class_method"
-    symbol_path: "ti.features.detector.detectorRepository.DetectocRepository.__init__"
+    symbol_path: "ti.features.detector.model.detectorRepository.DetectocRepository.__init__"
     symbol_domain: "detector"

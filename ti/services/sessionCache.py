@@ -21,7 +21,7 @@ class SessionCache:
         Args:
             key (_type_): _description_
         """
-        return self._cache[key]
+        return self._cache.get(key)
     
     def reset(self):
         """_summary_

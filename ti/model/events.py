@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 
-from ti.model.page_contributions import PageContribution
+from ti.model.plugin.page_contributions import PageContribution
 
 class Events(Enum):
     PLUGIN_EVENTS = "PluginEvents"

@@ -1,5 +1,5 @@
 from ti.features.translation.service.grammar import Grammar
-from ti.services.translation.propertyTranslation import transPropToFast_API
+from ti.features.translation.service.propertyTranslation import transPropToFast_API
 
 
 class Translator:

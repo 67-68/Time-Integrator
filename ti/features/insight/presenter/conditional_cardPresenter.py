@@ -1,8 +1,8 @@
-from ti.services.dataAccess.insightManager import InsightManager
-from ti.services.engine.insightEngine import InsightEngine
+from ti.features.insight.service.insightManager import InsightManager
+from ti.features.insight.service.insightEngine import InsightEngine
 from ti.services.sessionCache import SessionCache
 from ti.features.insight.model.insight_card_generation_models import RawCardData, PresentedCardData
-from ti.core.loggerService import LoggerService
+from ti.services.loggerService import LoggerService
 
 class Conditional_ReportGenerator():
     """_summary_

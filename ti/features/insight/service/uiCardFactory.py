@@ -4,7 +4,7 @@ from ti.features.insight.model.insight_card_generation_models import FixedCardRe
 from ti.features.insight.view.insight_card import InsightCard
 from ti.features.insight.presenter.insight_card_presenter import InsightPresenter
 from ti.core.eventBus import EventBus
-from ti.services.formatter import FormatService
+from ti.features.insight.service.formatter import InsightFormatService
 
 
 class InsightCardFactory:
@@ -14,7 +14,7 @@ class InsightCardFactory:
     
     def __init__(
         self,
-        format_service: FormatService,
+        format_service: InsightFormatService,
         event_bus: EventBus
     ):
         """
@@ -60,7 +60,7 @@ class InsightCardFactory:
         card = InsightCard(formatted_data, parent=parent_view)
         
         # 发布卡片创建事件
-        self.bus.publish("insight_card_ui_created", (card, cache))
+        self.bus.publish("insight_card_ui_created", (card, cache,card_data))
         
         # 设置卡片元数据
         card_data_for_presenter["card_type_id"] = card_data_for_presenter["sementic_key"]

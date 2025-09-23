@@ -1,5 +1,6 @@
 from typing import List
 from ti.features.insight.model.insight_card_generation_models import FixedCardResult, PresentedCardData
+from ti.model.themes import CARD_INFO
 from ti.features.insight.model.insight_card_model import InsightCardModel
 from ti.features.insight.model.insight_card_repository import InsightCardRepository
 from ti.services.sessionCache import SessionCache
@@ -79,7 +80,7 @@ class ReportGenerationService:
         for card_uuid, insight_card in all_stored_cards.items():
             # 将InsightCardModel转换为PresentedCardData格式
             presented_card = PresentedCardData(
-                card_type="stored",
+                card_type=CARD_INFO,
                 judgement_key=[],  # 存储的卡片可能没有judgement_key
                 sementic_key=insight_card.card_type_id,
                 data={

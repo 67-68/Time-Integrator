@@ -1,7 +1,7 @@
 from uuid import UUID
 from enum import Enum
 from ti.core.Interfaces.view.json_repository_interface import IJsonRepository
-from ti.services.dataAccess.dataAccess import getData, saveData
+from ti.services.dataAccess import getData, saveData
 from ti.features.intervention.model.model import INV_Contract
 
 

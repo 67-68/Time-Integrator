@@ -2,9 +2,9 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Dict, Any, Optional
 
-from ti.features.detector.baseDetector import BaseDetector
+from ti.features.detector.model.baseDetector import BaseDetector
 from ti.model.duration import Duration
-from ti.features.detector.matchers import Matcher
+from ti.features.detector.service.matchers import Matcher
 
 
 @dataclass

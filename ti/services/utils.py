@@ -167,11 +167,7 @@ def randomChoser(list):
     return random.choice(list)
 
 import abc
-from PyQt6.QtCore import pyqtSignal,QObject
-
-from ti.view.widgets.other.BasicButton import BasicButton
-
-
+from PyQt6.QtCore import QObject
 
 # 获取 PyQt/PySide 的元类
 QtMeta = type(QObject)

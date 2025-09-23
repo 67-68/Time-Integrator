@@ -1,9 +1,9 @@
 from abc import ABC,abstractmethod
 
 from PyQt6.QtCore import pyqtSignal,QObject
-from ti.features.core_view.view.ui_rawCorePage import Ui_main_page
+from ti.view.ui_rawCorePage import Ui_main_page
 from ti.services.utils import QtABCMeta
-from ti.view.widgets.other.BasicButton import BasicButton
+from ti.view.BasicButton import BasicButton
 
 
 class IPageView(ABC, metaclass=QtABCMeta):

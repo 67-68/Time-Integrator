@@ -1,11 +1,8 @@
 
 from PyQt6.QtCore import QSize
 from PyQt6.QtGui import QColor
-
-
-
-from ti.view.rawUI.ui_rawInsightCard import Ui_trendCard
-from ti.view.widgets.pages.BasicWidget import BasicWidget
+from ti.features.insight.view.ui_rawInsightCard import Ui_trendCard
+from ti.view.BasicWidget import BasicWidget
 from ti.services.utils import load_svg_icon
 
 class InsightCard(BasicWidget):

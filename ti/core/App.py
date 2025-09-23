@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QApplication
 import sys
-from ti.services.dataAccess.dataService import DataService
-from ti.features.core_view.view.MainWindow import MainWindow
+from ti.services.dataService import DataService
+from ti.view.MainWindow import MainWindow
 from ti.core.mainCoordinator import MainCoorinator
 from ti.services.serviceContainer import ServiceContainer
 from ti.services.utils import load_qss, log_message

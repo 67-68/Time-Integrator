@@ -3,7 +3,6 @@ from ti.presenters.BasePresenter import BasePresenter
 from ti.features.capture.view.input_view import CAP_InputView
 from ti.features.capture.view.smart_input import SmartInputView
 from ti.features.capture.view.property import PropertyView
-from ti.services.synthesizer_service import Synthesizer
 from ti.features.capture.model.ButtonGroup import ButtonGroup
 from PyQt6.QtCore import QSignalBlocker, pyqtSignal,QObject
 

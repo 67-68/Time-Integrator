@@ -209,6 +209,19 @@ class InterventionPresenter(QObject):
         
         print(f"Presenter使用缓存数据初始化完成，当前状态: {self.current_state_key}")
     
+    def get_current_state_data(self) -> dict:
+        """
+        获取当前状态数据用于缓存
+        
+        Returns:
+            dict: 包含当前状态和UI数据的字典
+        """
+        return {
+            'current_state': self.current_state_key,
+            'view_id': self.view_id,
+            'view_uuid': self.view_uuid
+        }
+
 @dataclass
 class INV_State_Publish:
     recipe: INV_View_Recipe

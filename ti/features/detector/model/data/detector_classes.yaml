@@ -4,35 +4,35 @@
 classes:
   MATCHER:
     symbol_type: "class"
-    symbol_path: "ti.features.detector.matchers.Matcher"
+    symbol_path: "ti.features.detector.service.matchers.Matcher"
     symbol_domain: "detector"
 
   BASE_DETECTOR:
     symbol_type: "class"
-    symbol_path: "ti.features.detector.baseDetector.BaseDetector"
+    symbol_path: "ti.features.detector.model.baseDetector.BaseDetector"
     symbol_domain: "detector"
 
   DETECTOR_REPOSITORY:
     symbol_type: "class"
-    symbol_path: "ti.features.detector.detectorRepository.DetectocRepository"
+    symbol_path: "ti.features.detector.model.detectorRepository.DetectocRepository"
     symbol_domain: "detector"
 
   DETECTOR_STATE:
     symbol_type: "class"
-    symbol_path: "ti.features.detector.model.Detector_State"
+    symbol_path: "ti.features.detector.model.model.Detector_State"
     symbol_domain: "detector"
 
   DETECTOR_SEQUENCE:
     symbol_type: "class"
-    symbol_path: "ti.features.detector.model.Detector_Sequence"
+    symbol_path: "ti.features.detector.model.model.Detector_Sequence"
     symbol_domain: "detector"
 
   DETECTOR_CONFIG:
     symbol_type: "class"
-    symbol_path: "ti.features.detector.model.Detector_Config"
+    symbol_path: "ti.features.detector.model.model.Detector_Config"
     symbol_domain: "detector"
 
   DETECTOR_RECIPE:
     symbol_type: "class"
-    symbol_path: "ti.features.detector.model.Detector_Recipe"
+    symbol_path: "ti.features.detector.model.model.Detector_Recipe"
     symbol_domain: "detector"

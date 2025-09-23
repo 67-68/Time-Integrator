@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
 from ti.core.Interfaces.view.json_repository_interface import IJsonRepository
-from ti.services.dataAccess.dataAccess import getData, saveData
+from ti.services.dataAccess import getData, saveData
 from ti.features.insight.model.insight_card_model import InsightCardModel
 
 
@@ -41,7 +41,8 @@ class InsightCardRepository(IJsonRepository):
                 "duration": card.duration,
                 "current_state": card.current_state,
                 "data_uuid": card.data_uuids,
-                "detector_recipe_id": card.detector_recipe_id
+                "detector_recipe_id": card.detector_recipe_id,
+                "cache": card.cache
             }
             for card_uuid, card in self.cards.items()
         }

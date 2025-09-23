@@ -1,53 +1,66 @@
 {
     "post_eat_waste": {
         "sementic_text": "post_eat_waste",
-        "judgements_texts": [
-            "warning"
-        ],
-        "title_text": "card_warning",
+        "judgements_texts": [],
+        "title_text": "card_info",
         "color": "#3498DB",
         "icon_path": "",
         "icon_color": "#3498DB",
         "card_type_id": "post_eat_waste",
         "card_uuid": "post_eat_waste",
-        "create_time": "2025-09-20T22:03:13.854347",
+        "create_time": "2025-09-23T18:16:16.854653",
         "duration": "today",
         "current_state": "generated",
         "data_uuid": null,
-        "detector_recipe_id": null
+        "detector_recipe_id": null,
+        "cache": null
     },
     "peak_work_analysis": {
-        "sementic_text": "peak_timeSpan",
-        "judgements_texts": [
-            "praise"
-        ],
-        "title_text": "card_success",
+        "sementic_text": "peak_work_analysis",
+        "judgements_texts": [],
+        "title_text": "card_info",
         "color": "#3498DB",
         "icon_path": "",
         "icon_color": "#3498DB",
         "card_type_id": "peak_work_analysis",
         "card_uuid": "peak_work_analysis",
-        "create_time": "2025-09-20T21:56:31.434599",
+        "create_time": "2025-09-23T18:16:16.854953",
         "duration": "today",
         "current_state": "generated",
         "data_uuid": null,
-        "detector_recipe_id": null
+        "detector_recipe_id": null,
+        "cache": null
     },
     "daily_ratio_distribution": {
-        "sementic_text": "show_ratio",
-        "judgements_texts": [
-            "neutral_showinfo"
-        ],
+        "sementic_text": "daily_ratio_distribution",
+        "judgements_texts": [],
         "title_text": "card_info",
         "color": "#3498DB",
         "icon_path": "",
         "icon_color": "#3498DB",
         "card_type_id": "daily_ratio_distribution",
         "card_uuid": "daily_ratio_distribution",
-        "create_time": "2025-09-20T21:56:31.434985",
+        "create_time": "2025-09-23T18:16:16.855247",
         "duration": "today",
         "current_state": "generated",
         "data_uuid": null,
-        "detector_recipe_id": null
+        "detector_recipe_id": null,
+        "cache": null
+    },
+    "unsettling_heart": {
+        "sementic_text": "unsettling_heart",
+        "judgements_texts": [],
+        "title_text": "card_info",
+        "color": "#3498DB",
+        "icon_path": "",
+        "icon_color": "#3498DB",
+        "card_type_id": "unsettling_heart",
+        "card_uuid": "unsettling_heart",
+        "create_time": "2025-09-23T18:16:16.855533",
+        "duration": "today",
+        "current_state": "generated",
+        "data_uuid": null,
+        "detector_recipe_id": null,
+        "cache": null
     }
 }

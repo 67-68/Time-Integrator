@@ -4,11 +4,11 @@
 因此选择Coodinator(MVP/MVC以上的层级)来协调而非Controller(MVC)
 """
 
-from ti.core.Interfaces.path_register_provider_interface import IPathRegisterProvider
+from ti.model.plugin.path_register_provider_interface import IPathRegisterProvider
 from ti.features.insight.view.insight_card import InsightCard
 from ti.core.Interfaces.extension_Interface import ExtensionInterface
 from ti.core.eventBus import EventBus
-from ti.features.detector.detectorRepository import DetectocRepository
+from ti.features.detector.model.detectorRepository import DetectocRepository
 from ti.features.intervention.cardOrchestrator import INV_Card_Orchestrator
 from ti.features.intervention.coordinator import InterventionCoordinator
 from ti.features.intervention.intervention_contract_orchestrator import INV_Contract_Orchestrator
@@ -28,6 +28,7 @@ from ti.features.intervention.service.register import INV_ContractRegister
 from ti.features.intervention.service.stateMachine import INV_StateService
 from ti.features.intervention.serviceContainer import INV_ServiceContainer
 from ti.features.yaml_database.service.yaml_parser_service import YamlParser
+from ti.services.function_service import FunctionService
 from ti.services.realTimeMonitor import RealTimeMonitor
 from ti.services.sessionCache import SessionCache
 from ti.services.symbol_service import SymbolService
@@ -41,9 +42,9 @@ class InterventionPlugin(
         self,
         monitor: RealTimeMonitor,
         bus: EventBus,
-        detector_rep: DetectocRepository,
         symbol_service: SymbolService,
         yaml_parser: YamlParser,
+        function_service: FunctionService
     ):
         """_summary_
         这是Intervention插件的主类
@@ -51,6 +52,10 @@ class InterventionPlugin(
         首先它会获取卡片，然后在后面卡片制造的时候把它塞进去
         插件应该是先于主体部分加载的
         """
+        detector_fac = function_service.get_function("get_detector_factory")()
+        detector_rep = function_service.get_function("get_detector_repository")
+        
+        
         # 获取服务
         self.monitor = monitor
         self.bus = bus
@@ -91,7 +96,7 @@ class InterventionPlugin(
         mapping = InterventionMapping(entity_rep)
         self.container.add_service("mapping",mapping)
         
-        register = INV_ContractRegister(monitor,detector_rep)
+        register = INV_ContractRegister(monitor,detector_rep,detector_fac)
         self.container.add_service("register",register)
         
         # Register intervention path register with symbol service

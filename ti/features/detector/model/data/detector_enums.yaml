@@ -4,10 +4,10 @@
 enum_classes:
   BASE_DETECTOR_STATE:
     symbol_type: "enum_class"
-    symbol_path: "ti.features.detector.model.BaseDetectorState"
+    symbol_path: "ti.features.detector.model.model.BaseDetectorState"
     symbol_domain: "detector"
 
   DETECTOR_RECIPE_ID:
     symbol_type: "enum_class"
-    symbol_path: "ti.features.detector.model.Detector_Recipe_ID"
+    symbol_path: "ti.features.detector.model.model.Detector_Recipe_ID"
     symbol_domain: "detector"

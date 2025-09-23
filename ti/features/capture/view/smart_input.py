@@ -1,7 +1,6 @@
 from PyQt6.QtWidgets import QHBoxLayout, QLabel,QLineEdit
 from PyQt6.QtCore import pyqtSignal
-from ti.view.widgets.other.RealTimeSearchEdit import RealTimeSearchEdit
-from ti.view.widgets.pages.BasicWidget import BasicWidget
+from ti.view.BasicWidget import BasicWidget
 
 
 class SmartInputView(BasicWidget):

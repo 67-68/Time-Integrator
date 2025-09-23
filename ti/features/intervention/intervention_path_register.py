@@ -1,5 +1,5 @@
 from enum import Enum
-from ti.core.Interfaces.symbol_path_register_interface import ISymbolPathRegister
+from ti.model.plugin.symbol_path_register_interface import ISymbolPathRegister
 from ti.model.symbol_models import SymbolModel, SymbolType
 import yaml
 from typing import Dict, List, Optional

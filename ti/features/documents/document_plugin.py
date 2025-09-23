@@ -1,6 +1,6 @@
-from ti.core.Interfaces.page_extension_interface import IPageExtension
+from ti.model.plugin.page_extension_interface import IPageExtension
 from ti.model.core_pages import CoreView
-from ti.model.page_contributions import PageContribution
+from ti.model.plugin.page_contributions import PageContribution
 
 
 

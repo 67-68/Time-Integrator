@@ -1,6 +1,5 @@
 import uuid
 
-
 from ti.core.eventBus import EventBus
 from ti.features.insight.model.insight_card_repository import InsightCardRepository
 from ti.features.insight.model.insight_event import SaveInsightCard
@@ -9,12 +8,12 @@ from ti.features.insight.service.reportGenerationService import ReportGeneration
 from ti.features.insight.service.uiCardFactory import InsightCardFactory
 from ti.features.insight.view.insight_card import InsightCard
 from ti.features.insight.view.insight_view import InsightView
-from ti.services.dataAccess.dataService import DataService
-from ti.services.formatter import FormatService
+from ti.services.dataService import DataService
+from ti.features.insight.service.formatter import InsightFormatService
 from PyQt6.QtCore import pyqtSignal
 
 from ti.features.insight.model.insight_card_generation_models import FixedCardResult, PresentedCardData
-from ti.core.loggerService import LoggerService
+from ti.services.loggerService import LoggerService
 
 
 class InsightPresenter():
@@ -26,7 +25,7 @@ class InsightPresenter():
         data_service: DataService,
         bus: EventBus,
         view: InsightView,
-        format: FormatService,
+        format: InsightFormatService,
         report_generation_service: ReportGenerationService,
         ui_card_factory: InsightCardFactory,
         card_repository: InsightCardRepository

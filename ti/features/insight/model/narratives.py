@@ -1,7 +1,7 @@
 from ti.core.Interfaces.model.yaml_repository_interface import IYamlRepository
 from ti.features.yaml_database.service.yaml_parser_service import YamlParser
 from ti.services.symbol_service import SymbolService
-from ti.services.dataAccess.dataAccess import get_yaml_data
+from ti.services.dataAccess import get_yaml_data
 
 
 class InsightNarrator(IYamlRepository):

@@ -1,9 +1,9 @@
 from ti.core.Interfaces.extension_Interface import ExtensionInterface
-from ti.core.Interfaces.page_extension_interface import IPageExtension
-from ti.core.Interfaces.path_register_provider_interface import IPathRegisterProvider
-from ti.core.loggerService import LoggerService
+from ti.model.plugin.page_extension_interface import IPageExtension
+from ti.model.plugin.path_register_provider_interface import IPathRegisterProvider
+from ti.services.loggerService import LoggerService
 from ti.model.core_pages import CoreView
-from ti.model.page_contributions import PageContribution
+from ti.model.plugin.page_contributions import PageContribution
 from PyQt6.QtWidgets import QVBoxLayout, QLabel, QWidget
 from PyQt6.QtCore import Qt
 

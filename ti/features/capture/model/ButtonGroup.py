@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QScrollArea, QWidget, QHBoxLayout, QVBoxLayout
 from PyQt6.QtCore import Qt, pyqtSignal
-from ti.view.widgets.other.BasicButton import BasicButton
+from ti.view.BasicButton import BasicButton
 
 
 class ButtonGroup(QScrollArea):

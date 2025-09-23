@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QVBoxLayout, QSizePolicy, QWidget
-from ti.view.widgets.pages.BasicWidget import BasicWidget
+from ti.view.BasicWidget import BasicWidget
 
 
 class CAP_InputView(BasicWidget):

@@ -1,9 +1,9 @@
 import pytest
 from unittest.mock import Mock, MagicMock
-from ti.features.detector.baseDetector import BaseDetector
-from ti.features.detector.model import Detector_Config, Detector_Sequence, Detector_State, BaseDetectorState
-from ti.features.detector.matchers import Matcher
-from ti.services.dataAccess.insightCacheService import InsightCacheService
+from ti.features.detector.model.baseDetector import BaseDetector
+from ti.features.detector.model.model import Detector_Config, Detector_Sequence, Detector_State, BaseDetectorState
+from ti.features.detector.service.matchers import Matcher
+from ti.features.insight.service.insightCacheService import InsightCacheService
 
 
 def create_test_detector_config():

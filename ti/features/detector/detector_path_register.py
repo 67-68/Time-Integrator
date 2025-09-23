@@ -1,4 +1,4 @@
-from ti.core.Interfaces.symbol_path_register_interface import ISymbolPathRegister
+from ti.model.plugin.symbol_path_register_interface import ISymbolPathRegister
 from ti.model.symbol_models import SymbolModel, SymbolType
 import yaml
 from typing import Dict, List, Optional
@@ -55,6 +55,7 @@ class DetectorPathRegister(ISymbolPathRegister):
                 symbol_domain="detector"
             )
         
+        # 使用基类的实现
         return super().get_symbol_path(symbol_id)
     
     def resolve_enum_symbol(self, symbol_ref: str) -> str:

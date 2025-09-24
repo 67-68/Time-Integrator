@@ -5,7 +5,7 @@ from ti.core.extensionRegister import DynamicExtensionLoader, ExtensionRegister
 from ti.services.function_service import FunctionService
 from ti.services.page_factory import PageFactory
 from ti.features.detector.model.detectorFactory import DetectorFactory
-from ti.features.detector.model.detectorRepository import DetectocRepository
+from ti.features.detector.model.detectorRepository import DetectorRepository
 from ti.features.insight.model.narratives import InsightNarrator
 from ti.features.intervention.service.logger import InterventionLogger
 from ti.features.translation.service.translator_service import Translator

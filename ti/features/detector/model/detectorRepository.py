@@ -7,7 +7,7 @@ from ti.core.Interfaces.model.yaml_repository_interface import IYamlRepository
 from ti.features.yaml_database.service.yaml_parser_service import YamlParser
 
 
-class DetectocRepository(IYamlRepository):
+class DetectorRepository(IYamlRepository):
     def __init__(self, yaml_parser: YamlParser = None):
         """_summary_
         这个类负责存储字典形式的配方并通过数据模型类把他们组装起来

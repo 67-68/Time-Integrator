@@ -1,14 +1,14 @@
 from ti.core.Interfaces.detector_Interface import DetectorInterface
 from ti.core.Interfaces.model.yaml_repository_interface import IYamlRepository
 from ti.features.insight.service.insightCacheService import InsightCacheService
-from ti.features.detector.model.detectorRepository import DetectocRepository
+from ti.features.detector.model.detectorRepository import DetectorRepository
 from ti.features.detector.model.model import Detector_Recipe, Detector_Recipe_ID
 
 
 class DetectorFactory:
     def __init__(
         self,
-        repository: DetectocRepository,
+        repository: DetectorRepository,
         ICS: InsightCacheService
         ):
         """_summary_
@@ -48,7 +48,7 @@ class DetectorFactory:
             recipe: Detector_Recipe = self.repository.get_recipe_by_id(id)
 
             # 赋予这个Detector配方类卡片ID
-            recipe.config.card_type_id = card_type_id
+            recipe.config.card_type_id = card_type_id # 这tm是啥
             
             detector_category = recipe.detector
             config = recipe.config

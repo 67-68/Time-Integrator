@@ -1,17 +1,17 @@
 from ti.features.detector.model.detectorFactory import DetectorFactory
-from ti.features.detector.model.detectorRepository import DetectocRepository
+from ti.features.detector.model.detectorRepository import DetectorRepository
 from ti.features.detector.model.model import Detector_Recipe_ID
 from ti.features.yaml_database.service.yaml_parser_service import YamlParser
 from ti.services.sessionCache import SessionCache
 
 
 class DetectorCoordinator:
-    def __init__(self, repository: DetectocRepository = None, cache: SessionCache = None):
+    def __init__(self, repository: DetectorRepository = None, cache: SessionCache = None):
         """
         Detector协调器，通过插件系统提供detector实例
         """
         if repository is None:
-            self.repository = DetectocRepository(YamlParser())
+            self.repository = DetectorRepository(YamlParser())
         else:
             self.repository = repository
             
@@ -50,7 +50,7 @@ class DetectorCoordinator:
         """
         return self.factory
     
-    def get_repository(self) -> DetectocRepository:
+    def get_repository(self) -> DetectorRepository:
         """
         获取detector仓库实例
         

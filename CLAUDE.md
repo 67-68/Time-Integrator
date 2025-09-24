@@ -4,60 +4,55 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Time Integrator (TI) is a PyQt6-based personal science instrument and cognitive co-pilot application focused on behavioral chemistry analysis rather than traditional productivity tracking.
-
-## Key Architecture
-
-- **MVP Pattern**: Model-View-Presenter architecture with strict separation of concerns
-- **Service Container**: Dependency injection container manages all core services
-- **Core Services**: DataService, CardGenerationService, InsightEngine, InsightManager, InsightCacheService
-- **Data Model**: ActionUnit JSON objects with start/end times, categories, and metadata
+Time Integrator (TI) is a PyQt6-based desktop application for personal behavioral analysis and time tracking. It follows a plugin-based architecture with Model-View-Presenter (MVP) pattern and dependency injection.
 
 ## Development Commands
 
+### Running the Application
+```bash
+python main.py
+```
+
 ### Testing
-- Run all tests: `python3 -m pytest`
-- Run specific test file: `python3 -m pytest tests/test_file.py`
-- Run with verbose output: `python3 -m pytest -v`
+```bash
+python test_register.py
+```
 
-### Application Execution
-- Start main application: `python3 main.py`
+## Architecture Overview
 
-### Code Quality
-- Check imports and basic syntax: `python3 -m py_compile main.py`
+### Core Components
+- **Main Entry**: `main.py` → `TimeIntegrator` class in `ti/core/App.py`
+- **Service Container**: Centralized dependency injection in `ti/services/serviceContainer.py`
+- **Event Bus**: Asynchronous communication via `ti/core/eventBus.py`
+- **Plugin System**: Dynamic extension loading via `ti/core/extensionRegister.py`
 
-## Directory Structure
+### Key Services
+- `DataService`: Core data management
+- `EventBus`: Inter-component communication
+- `PageFactory`: UI page creation
+- `SymbolService`: Path and symbol registration
+- `FunctionService`: Plugin function contributions
 
-- `ti/core/` - Core application logic and coordination
-- `ti/features/` - Feature-specific implementations (capture, intervention)
-- `ti/model/` - Data models and repositories
-- `ti/presenters/` - MVP presenters for different features
-- `ti/services/` - Business logic and data services
-- `ti/view/` - PyQt6 UI components
-- `tests/` - Test suite
+### Plugin Architecture
+Plugins implement `ExtensionInterface` and are loaded by `DynamicExtensionLoader`. Core plugins include:
+- `CapturePlugin`: Time entry and data capture
+- `InsightPlugin`: Behavioral analysis and insights
+- `InterventionPlugin`: Behavior change interventions
+- `DetectorPlugin`: Pattern detection
+- `MenuPlugin`: Navigation and UI controls
 
-## Key Files
+### Data Flow
+1. User input → Capture plugin → DataService
+2. DataService → Insight engine → Insight cards
+3. Insight cards → Intervention system → Real-time monitoring
 
-- `main.py` - Application entry point
-- `ti/core/App.py` - Main TimeIntegrator class
-- `ti/core/mainCoordinator.py` - Application coordinator
-- `ti/services/serviceContainer.py` - Dependency injection container
-- `ti/features/capture/` - Time capture functionality
-- `ti/features/intervention/` - Analysis and intervention features
+### File Organization
+- `ti/core/`: Core infrastructure and interfaces
+- `ti/services/`: Shared services and utilities
+- `ti/features/`: Feature-specific implementations (plugins)
+- `ti/model/`: Data models and domain objects
+- `ti/view/`: UI components and Qt widgets
+- `ti/presenters/`: Presentation logic and coordination
 
-## Data Storage
-- JSON-based storage in `ti/model/data/`
-- Action units stored with UUIDs and timestamps
-- Categories: waste, work, rest with importance/urgency metadata
 
-## Testing Philosophy
-- Blueprint-driven testing with UML as reference
-- Integration tests for service interactions
-- Unit tests for individual components
-- Test paths configured in `pytest.ini`
 
-## Development Notes
-- Uses PyQt6 for UI
-- JSON-based data persistence
-- Service-oriented architecture
-- Focus on behavioral pattern analysis rather than time tracking

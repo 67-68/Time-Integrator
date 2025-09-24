@@ -1,4 +1,4 @@
-from ti.features.detector.model.detectorRepository import DetectocRepository
+from ti.features.detector.model.detectorRepository import DetectorRepository
 from ti.features.detector.model.model import Detector_Recipe
 from ti.features.intervention.model.model import INV_Contract, INV_Contract_Recipe
 from ti.services.realTimeMonitor import Monitor_Pack, RealTimeMonitor
@@ -9,7 +9,7 @@ class INV_ContractRegister:
     def __init__(
         self,
         monitor: RealTimeMonitor,
-        rep: DetectocRepository,
+        rep: DetectorRepository,
         detector_factory: DetectorFactory
         ):
         """

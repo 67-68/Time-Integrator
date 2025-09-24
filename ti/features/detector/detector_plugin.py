@@ -10,7 +10,7 @@ from ti.model.plugin.path_register_provider_interface import IPathRegisterProvid
 from ti.core.Interfaces.extension_Interface import ExtensionInterface
 from ti.core.eventBus import EventBus
 from ti.features.detector.model.detectorFactory import DetectorFactory
-from ti.features.detector.model.detectorRepository import DetectocRepository
+from ti.features.detector.model.detectorRepository import DetectorRepository
 from ti.features.detector.detector_path_register import DetectorPathRegister
 from ti.features.yaml_database.service.yaml_parser_service import YamlParser
 from ti.services.realTimeMonitor import RealTimeMonitor
@@ -40,7 +40,7 @@ class DetectorPlugin(
         self.cache = cache
         
         # 创建detector相关的服务
-        self.repository = DetectocRepository(yaml_parser)
+        self.repository = DetectorRepository(yaml_parser)
         self.factory = DetectorFactory(self.repository, cache)
         self.coordinator = DetectorCoordinator(self.repository, cache)
 
@@ -79,7 +79,7 @@ class DetectorPlugin(
         """
         return self.factory
     
-    def get_repository(self) -> DetectocRepository:
+    def get_repository(self) -> DetectorRepository:
         """_summary_
         获取detector仓库实例
         Returns:

@@ -188,7 +188,7 @@ class RealTimeMonitor(QObject):
         """
         print(f"[Thread {thread_id}] monitor检测到模式id为{monitor_id}的模式匹配")
         signal_name = f"{thread_id}_{monitor_id}_pattern_detected"
-        self.bus.publish(signal_name, (thread_id, monitor_id))
+        self.bus.publish(signal_name, (thread_id, monitor_id)) # 这里应该发布对应的行动
         print(f"发布了信号名称为{signal_name}的信号")
         self.intervention_needed.emit()
         

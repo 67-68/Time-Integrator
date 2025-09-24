@@ -8,7 +8,7 @@ from ti.model.plugin.path_register_provider_interface import IPathRegisterProvid
 from ti.features.insight.view.insight_card import InsightCard
 from ti.core.Interfaces.extension_Interface import ExtensionInterface
 from ti.core.eventBus import EventBus
-from ti.features.detector.model.detectorRepository import DetectocRepository
+from ti.features.detector.model.detectorRepository import DetectorRepository
 from ti.features.intervention.cardOrchestrator import INV_Card_Orchestrator
 from ti.features.intervention.coordinator import InterventionCoordinator
 from ti.features.intervention.intervention_contract_orchestrator import INV_Contract_Orchestrator

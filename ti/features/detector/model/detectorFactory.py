@@ -1,15 +1,16 @@
 from ti.core.Interfaces.detector_Interface import DetectorInterface
-from ti.core.Interfaces.model.yaml_repository_interface import IYamlRepository
+from ti.core.Interfaces.model.repository_interface import IRepository
 from ti.features.insight.service.insightCacheService import InsightCacheService
 from ti.features.detector.model.detectorRepository import DetectorRepository
 from ti.features.detector.model.model import Detector_Recipe, Detector_Recipe_ID
+from ti.features.yaml_database.service.yaml_parser_service import YamlParser
 
 
 class DetectorFactory:
     def __init__(
         self,
         repository: DetectorRepository,
-        ICS: InsightCacheService
+        yaml: YamlParser
         ):
         """_summary_
         这个类负责创建所有的Detector实例
@@ -18,12 +19,12 @@ class DetectorFactory:
         它从Repository获取配方
         """
         self.repository = repository
-        self.cache = ICS
+        self.cache = InsightCacheService(yaml) #我不管了...
         
-    def appoint_cache(self,cache: type[IYamlRepository]):
+    def appoint_cache(self,cache: type[IRepository]):
         self.cache = cache
     
-    def appoint_repository(self,cache: type[IYamlRepository]):
+    def appoint_repository(self,cache: type[IRepository]):
         self.cache = cache
         
     def create_detector(

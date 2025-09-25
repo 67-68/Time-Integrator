@@ -1,271 +1,281 @@
 [
   {
-    "timestamp": "2025-09-23T16:26:55.673557",
+    "timestamp": "2025-09-25T19:30:22.019073",
     "topic": "初始化",
     "content": "InsightPlugin初始化完成"
   },
   {
-    "timestamp": "2025-09-23T16:26:55.673721",
+    "timestamp": "2025-09-25T19:30:22.019489",
     "topic": "事件总线",
     "content": "事件总线初始化完成并发布页面插件注册事件"
   },
   {
-    "timestamp": "2025-09-23T16:26:57.303429",
+    "timestamp": "2025-09-25T19:30:23.564930",
     "topic": "创建视图",
     "content": "开始创建洞察视图"
   },
   {
-    "timestamp": "2025-09-23T16:26:57.306808",
+    "timestamp": "2025-09-25T19:30:23.569074",
     "topic": "获取工厂",
     "content": "成功从function service获取detector factory"
   },
   {
-    "timestamp": "2025-09-23T16:26:57.314599",
+    "timestamp": "2025-09-25T19:30:23.583776",
     "topic": "配方加载",
     "content": "加载了 3 个条件配方和 2 个固定配方"
   },
   {
-    "timestamp": "2025-09-23T16:27:24.930298",
-    "topic": "初始化",
-    "content": "InsightPlugin初始化完成"
-  },
-  {
-    "timestamp": "2025-09-23T16:27:24.930522",
-    "topic": "事件总线",
-    "content": "事件总线初始化完成并发布页面插件注册事件"
-  },
-  {
-    "timestamp": "2025-09-23T16:27:26.722865",
-    "topic": "创建视图",
-    "content": "开始创建洞察视图"
-  },
-  {
-    "timestamp": "2025-09-23T16:27:26.726323",
-    "topic": "获取工厂",
-    "content": "成功从function service获取detector factory"
-  },
-  {
-    "timestamp": "2025-09-23T16:27:26.734553",
-    "topic": "配方加载",
-    "content": "加载了 3 个条件配方和 2 个固定配方"
-  },
-  {
-    "timestamp": "2025-09-23T16:30:30.514895",
-    "topic": "初始化",
-    "content": "InsightPlugin初始化完成"
-  },
-  {
-    "timestamp": "2025-09-23T16:30:30.515163",
-    "topic": "事件总线",
-    "content": "事件总线初始化完成并发布页面插件注册事件"
-  },
-  {
-    "timestamp": "2025-09-23T16:30:32.120940",
-    "topic": "创建视图",
-    "content": "开始创建洞察视图"
-  },
-  {
-    "timestamp": "2025-09-23T16:30:32.124451",
-    "topic": "获取工厂",
-    "content": "成功从function service获取detector factory"
-  },
-  {
-    "timestamp": "2025-09-23T16:30:32.132903",
-    "topic": "配方加载",
-    "content": "加载了 3 个条件配方和 2 个固定配方"
-  },
-  {
-    "timestamp": "2025-09-23T17:56:47.712035",
-    "topic": "初始化",
-    "content": "InsightPlugin初始化完成"
-  },
-  {
-    "timestamp": "2025-09-23T17:56:47.712480",
-    "topic": "事件总线",
-    "content": "事件总线初始化完成并发布页面插件注册事件"
-  },
-  {
-    "timestamp": "2025-09-23T17:56:50.176409",
-    "topic": "创建视图",
-    "content": "开始创建洞察视图"
-  },
-  {
-    "timestamp": "2025-09-23T17:56:50.182341",
-    "topic": "获取工厂",
-    "content": "成功从function service获取detector factory"
-  },
-  {
-    "timestamp": "2025-09-23T17:56:50.199781",
-    "topic": "配方加载",
-    "content": "加载了 3 个条件配方和 2 个固定配方"
-  },
-  {
-    "timestamp": "2025-09-23T17:57:18.944424",
-    "topic": "初始化",
-    "content": "InsightPlugin初始化完成"
-  },
-  {
-    "timestamp": "2025-09-23T17:57:18.944799",
-    "topic": "事件总线",
-    "content": "事件总线初始化完成并发布页面插件注册事件"
-  },
-  {
-    "timestamp": "2025-09-23T17:57:43.989915",
-    "topic": "初始化",
-    "content": "InsightPlugin初始化完成"
-  },
-  {
-    "timestamp": "2025-09-23T17:57:43.990397",
-    "topic": "事件总线",
-    "content": "事件总线初始化完成并发布页面插件注册事件"
-  },
-  {
-    "timestamp": "2025-09-23T17:57:45.522611",
-    "topic": "创建视图",
-    "content": "开始创建洞察视图"
-  },
-  {
-    "timestamp": "2025-09-23T17:57:45.527681",
-    "topic": "获取工厂",
-    "content": "成功从function service获取detector factory"
-  },
-  {
-    "timestamp": "2025-09-23T17:57:45.544806",
-    "topic": "配方加载",
-    "content": "加载了 3 个条件配方和 2 个固定配方"
-  },
-  {
-    "timestamp": "2025-09-23T17:58:01.313351",
-    "topic": "初始化",
-    "content": "InsightPlugin初始化完成"
-  },
-  {
-    "timestamp": "2025-09-23T17:58:01.313879",
-    "topic": "事件总线",
-    "content": "事件总线初始化完成并发布页面插件注册事件"
-  },
-  {
-    "timestamp": "2025-09-23T17:58:13.079663",
-    "topic": "创建视图",
-    "content": "开始创建洞察视图"
-  },
-  {
-    "timestamp": "2025-09-23T17:58:13.082973",
-    "topic": "获取工厂",
-    "content": "成功从function service获取detector factory"
-  },
-  {
-    "timestamp": "2025-09-23T17:58:13.099620",
-    "topic": "配方加载",
-    "content": "加载了 3 个条件配方和 2 个固定配方"
-  },
-  {
-    "timestamp": "2025-09-23T18:11:18.579279",
-    "topic": "初始化",
-    "content": "InsightPlugin初始化完成"
-  },
-  {
-    "timestamp": "2025-09-23T18:11:18.580267",
-    "topic": "事件总线",
-    "content": "事件总线初始化完成并发布页面插件注册事件"
-  },
-  {
-    "timestamp": "2025-09-23T18:11:28.196014",
-    "topic": "创建视图",
-    "content": "开始创建洞察视图"
-  },
-  {
-    "timestamp": "2025-09-23T18:11:28.202816",
-    "topic": "获取工厂",
-    "content": "成功从function service获取detector factory"
-  },
-  {
-    "timestamp": "2025-09-23T18:11:28.219706",
-    "topic": "配方加载",
-    "content": "加载了 3 个条件配方和 2 个固定配方"
-  },
-  {
-    "timestamp": "2025-09-23T18:11:39.589506",
-    "topic": "初始化",
-    "content": "InsightPlugin初始化完成"
-  },
-  {
-    "timestamp": "2025-09-23T18:11:39.590098",
-    "topic": "事件总线",
-    "content": "事件总线初始化完成并发布页面插件注册事件"
-  },
-  {
-    "timestamp": "2025-09-23T18:11:41.187434",
-    "topic": "创建视图",
-    "content": "开始创建洞察视图"
-  },
-  {
-    "timestamp": "2025-09-23T18:11:41.192896",
-    "topic": "获取工厂",
-    "content": "成功从function service获取detector factory"
-  },
-  {
-    "timestamp": "2025-09-23T18:11:41.211275",
-    "topic": "配方加载",
-    "content": "加载了 3 个条件配方和 2 个固定配方"
-  },
-  {
-    "timestamp": "2025-09-23T18:15:55.058804",
-    "topic": "初始化",
-    "content": "InsightPlugin初始化完成"
-  },
-  {
-    "timestamp": "2025-09-23T18:15:55.059687",
-    "topic": "事件总线",
-    "content": "事件总线初始化完成并发布页面插件注册事件"
-  },
-  {
-    "timestamp": "2025-09-23T18:15:56.752302",
-    "topic": "创建视图",
-    "content": "开始创建洞察视图"
-  },
-  {
-    "timestamp": "2025-09-23T18:15:56.762714",
-    "topic": "获取工厂",
-    "content": "成功从function service获取detector factory"
-  },
-  {
-    "timestamp": "2025-09-23T18:15:56.779369",
-    "topic": "配方加载",
-    "content": "加载了 3 个条件配方和 2 个固定配方"
-  },
-  {
-    "timestamp": "2025-09-23T18:16:16.856489",
+    "timestamp": "2025-09-25T19:30:23.594089",
     "topic": "卡片生成",
-    "content": "成功生成 6 张卡片"
+    "content": "成功生成 2 张卡片"
   },
   {
-    "timestamp": "2025-09-23T18:34:47.785331",
+    "timestamp": "2025-09-25T20:38:01.244464",
     "topic": "初始化",
     "content": "InsightPlugin初始化完成"
   },
   {
-    "timestamp": "2025-09-23T18:34:47.786289",
+    "timestamp": "2025-09-25T20:38:01.244882",
     "topic": "事件总线",
     "content": "事件总线初始化完成并发布页面插件注册事件"
   },
   {
-    "timestamp": "2025-09-24T11:22:33.233413",
+    "timestamp": "2025-09-25T20:38:03.117507",
+    "topic": "创建视图",
+    "content": "开始创建洞察视图"
+  },
+  {
+    "timestamp": "2025-09-25T20:38:03.126116",
+    "topic": "获取工厂",
+    "content": "成功从function service获取detector factory"
+  },
+  {
+    "timestamp": "2025-09-25T20:38:03.143525",
+    "topic": "配方加载",
+    "content": "加载了 3 个条件配方和 2 个固定配方"
+  },
+  {
+    "timestamp": "2025-09-25T20:38:03.163082",
+    "topic": "卡片生成",
+    "content": "成功生成 4 张卡片"
+  },
+  {
+    "timestamp": "2025-09-25T20:38:37.162560",
     "topic": "初始化",
     "content": "InsightPlugin初始化完成"
   },
   {
-    "timestamp": "2025-09-24T11:22:33.234689",
+    "timestamp": "2025-09-25T20:38:37.162866",
     "topic": "事件总线",
     "content": "事件总线初始化完成并发布页面插件注册事件"
   },
   {
-    "timestamp": "2025-09-24T14:43:04.033817",
+    "timestamp": "2025-09-25T20:38:38.589745",
+    "topic": "创建视图",
+    "content": "开始创建洞察视图"
+  },
+  {
+    "timestamp": "2025-09-25T20:38:38.593196",
+    "topic": "获取工厂",
+    "content": "成功从function service获取detector factory"
+  },
+  {
+    "timestamp": "2025-09-25T20:38:38.608857",
+    "topic": "配方加载",
+    "content": "加载了 3 个条件配方和 2 个固定配方"
+  },
+  {
+    "timestamp": "2025-09-25T20:38:38.621663",
+    "topic": "卡片生成",
+    "content": "成功生成 4 张卡片"
+  },
+  {
+    "timestamp": "2025-09-25T20:39:04.207814",
     "topic": "初始化",
     "content": "InsightPlugin初始化完成"
   },
   {
-    "timestamp": "2025-09-24T14:43:04.035396",
+    "timestamp": "2025-09-25T20:39:04.208392",
+    "topic": "事件总线",
+    "content": "事件总线初始化完成并发布页面插件注册事件"
+  },
+  {
+    "timestamp": "2025-09-25T20:40:05.080989",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-09-25T20:40:05.081587",
+    "topic": "事件总线",
+    "content": "事件总线初始化完成并发布页面插件注册事件"
+  },
+  {
+    "timestamp": "2025-09-25T20:44:39.949957",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-09-25T20:44:39.950482",
+    "topic": "事件总线",
+    "content": "事件总线初始化完成并发布页面插件注册事件"
+  },
+  {
+    "timestamp": "2025-09-25T20:44:41.673285",
+    "topic": "创建视图",
+    "content": "开始创建洞察视图"
+  },
+  {
+    "timestamp": "2025-09-25T20:44:41.678339",
+    "topic": "获取工厂",
+    "content": "成功从function service获取detector factory"
+  },
+  {
+    "timestamp": "2025-09-25T20:44:41.695421",
+    "topic": "配方加载",
+    "content": "加载了 3 个条件配方和 2 个固定配方"
+  },
+  {
+    "timestamp": "2025-09-25T20:44:41.710867",
+    "topic": "卡片生成",
+    "content": "成功生成 4 张卡片"
+  },
+  {
+    "timestamp": "2025-09-25T20:59:43.472572",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-09-25T20:59:43.473071",
+    "topic": "事件总线",
+    "content": "事件总线初始化完成并发布页面插件注册事件"
+  },
+  {
+    "timestamp": "2025-09-25T20:59:45.323196",
+    "topic": "创建视图",
+    "content": "开始创建洞察视图"
+  },
+  {
+    "timestamp": "2025-09-25T20:59:45.328590",
+    "topic": "获取工厂",
+    "content": "成功从function service获取detector factory"
+  },
+  {
+    "timestamp": "2025-09-25T20:59:45.340529",
+    "topic": "配方加载",
+    "content": "加载了 3 个条件配方和 2 个固定配方"
+  },
+  {
+    "timestamp": "2025-09-25T20:59:45.355466",
+    "topic": "卡片生成",
+    "content": "成功生成 4 张卡片"
+  },
+  {
+    "timestamp": "2025-09-25T21:04:09.359182",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-09-25T21:04:09.359738",
+    "topic": "事件总线",
+    "content": "事件总线初始化完成并发布页面插件注册事件"
+  },
+  {
+    "timestamp": "2025-09-25T21:04:12.896433",
+    "topic": "创建视图",
+    "content": "开始创建洞察视图"
+  },
+  {
+    "timestamp": "2025-09-25T21:04:12.901125",
+    "topic": "获取工厂",
+    "content": "成功从function service获取detector factory"
+  },
+  {
+    "timestamp": "2025-09-25T21:04:12.918954",
+    "topic": "配方加载",
+    "content": "加载了 3 个条件配方和 2 个固定配方"
+  },
+  {
+    "timestamp": "2025-09-25T21:04:12.934602",
+    "topic": "卡片生成",
+    "content": "成功生成 4 张卡片"
+  },
+  {
+    "timestamp": "2025-09-25T21:04:28.294071",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-09-25T21:04:28.294328",
+    "topic": "事件总线",
+    "content": "事件总线初始化完成并发布页面插件注册事件"
+  },
+  {
+    "timestamp": "2025-09-25T21:04:36.769837",
+    "topic": "创建视图",
+    "content": "开始创建洞察视图"
+  },
+  {
+    "timestamp": "2025-09-25T21:04:36.771838",
+    "topic": "获取工厂",
+    "content": "成功从function service获取detector factory"
+  },
+  {
+    "timestamp": "2025-09-25T21:04:36.775559",
+    "topic": "配方加载",
+    "content": "加载了 3 个条件配方和 2 个固定配方"
+  },
+  {
+    "timestamp": "2025-09-25T21:04:36.782138",
+    "topic": "卡片生成",
+    "content": "成功生成 4 张卡片"
+  },
+  {
+    "timestamp": "2025-09-25T21:25:26.027069",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-09-25T21:25:26.027988",
+    "topic": "事件总线",
+    "content": "事件总线初始化完成并发布页面插件注册事件"
+  },
+  {
+    "timestamp": "2025-09-25T21:25:29.647648",
+    "topic": "创建视图",
+    "content": "开始创建洞察视图"
+  },
+  {
+    "timestamp": "2025-09-25T21:25:29.653224",
+    "topic": "获取工厂",
+    "content": "成功从function service获取detector factory"
+  },
+  {
+    "timestamp": "2025-09-25T21:25:29.670732",
+    "topic": "配方加载",
+    "content": "加载了 3 个条件配方和 2 个固定配方"
+  },
+  {
+    "timestamp": "2025-09-25T21:25:29.691278",
+    "topic": "卡片生成",
+    "content": "成功生成 4 张卡片"
+  },
+  {
+    "timestamp": "2025-09-25T21:35:25.444019",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-09-25T21:35:25.444918",
+    "topic": "事件总线",
+    "content": "事件总线初始化完成并发布页面插件注册事件"
+  },
+  {
+    "timestamp": "2025-09-25T21:37:00.980984",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-09-25T21:37:00.981962",
     "topic": "事件总线",
     "content": "事件总线初始化完成并发布页面插件注册事件"
   }

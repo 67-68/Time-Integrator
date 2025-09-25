@@ -38,6 +38,23 @@ class DataService(QObject):
         """
         return self.repository.get_by_date(YESTERDAY)
     
+    def get_date_range_AU(self, start_date: str, end_date: str) -> list[ActionUnit]:
+        """
+        获取日期范围内的所有ActionUnit
+        
+        Args:
+            start_date: 开始日期 (YYYY-MM-DD)
+            end_date: 结束日期 (YYYY-MM-DD)
+            
+        Returns:
+            list[ActionUnit]: 日期范围内的所有ActionUnit
+        """
+        date_range_data = self.repository.get_date_range(start_date, end_date)
+        all_aus = []
+        for date_aus in date_range_data.values():
+            all_aus.extend(date_aus)
+        return all_aus
+    
     def add_actionUnit(self, au: ActionUnit):
         """
         添加或更新ActionUnit

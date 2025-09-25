@@ -9,7 +9,7 @@ from ti.core.Interfaces.detector_Interface import DetectorInterface
 from ti.features.detector.service.matchers import Matcher
 from enum import Enum
 
-from ti.features.intervention.model.model import INVEvent
+# from ti.features.intervention.model.model import INVEvent  # Removed unused import
 
 class BaseDetectorState(Enum):
     HOOK = "hook"

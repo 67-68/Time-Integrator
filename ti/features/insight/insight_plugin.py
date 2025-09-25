@@ -1,4 +1,6 @@
 from ti.core.Interfaces.extension_Interface import ExtensionInterface
+from ti.model.plugin.function_contributions import FunctionContribution
+from ti.model.plugin.function_provider_interface import IFunctionExtension
 from ti.model.plugin.page_extension_interface import IPageExtension
 from ti.model.plugin.path_register_provider_interface import IPathRegisterProvider
 from ti.features.insight.insight_path_register import InsightPathRegister
@@ -20,7 +22,8 @@ from ti.services.function_service import FunctionService
 
 class InsightPlugin(
     IPathRegisterProvider,
-    IPageExtension
+    IPageExtension,
+    IFunctionExtension,
 ):
     def __init__(
         self,
@@ -171,3 +174,15 @@ class InsightPlugin(
     @staticmethod
     def register_class():
         return InsightPathRegister
+    
+    @property
+    def function_contributions(self):
+        return [
+            FunctionContribution(
+                self.get_insight_cache,
+                "get_insight_cache"
+            )
+        ]
+        
+    def get_insight_cache(self):
+        return self.cache

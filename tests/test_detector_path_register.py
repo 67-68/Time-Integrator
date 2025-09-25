@@ -54,7 +54,8 @@ class TestDetectorPathRegister:
         )
         register.regist_symbol_path(symbol_model)
         
-        result = register.get_symbol_path("class:ti.test.module.TestClass")
+        # 根据实现，应该使用symbol_path来查找，而不是完整的symbol_id
+        result = register.get_symbol_path("ti.test.module.TestClass")
         assert result == symbol_model
     
     def test_get_symbol_path_not_found(self):
@@ -195,13 +196,13 @@ class TestDetectorPathRegister:
         
         # 模拟YAML数据
         mock_data = {
-            "classes": [
-                {
+            "classes": {
+                "TestClass": {
                     "symbol_type": "class",
                     "symbol_path": "ti.test.module.TestClass",
                     "symbol_domain": "detector"
                 }
-            ]
+            }
         }
         mock_yaml_load.return_value = mock_data
         
@@ -209,7 +210,8 @@ class TestDetectorPathRegister:
         register._load_from_file("test.yaml", "classes")
         
         # 验证符号被正确注册
-        expected_id = "class:ti.test.module.TestClass"
+        # 当symbol_name存在时，使用symbol_name作为key
+        expected_id = "TestClass"
         assert expected_id in register._symbols
         
         symbol = register._symbols[expected_id]

@@ -93,10 +93,20 @@ class TestSymbolService:
         """测试符号不存在的情况"""
         service = SymbolService()
         
-        mock_module = Mock()
-        # 不设置TestClass属性，模拟AttributeError
-        
+        # 模拟import_module返回一个Mock模块
         mock_import = mocker.patch('importlib.import_module')
+        
+        # 创建一个特殊的Mock对象，当访问TestClass属性时抛出AttributeError
+        class MockModuleWithMissingAttribute:
+            def __init__(self):
+                pass
+            
+            def __getattr__(self, name):
+                if name == 'TestClass':
+                    raise AttributeError("module 'ti.test.module' has no attribute 'TestClass'")
+                return Mock()
+        
+        mock_module = MockModuleWithMissingAttribute()
         mock_import.return_value = mock_module
         
         with pytest.raises(AttributeError, match="Symbol 'TestClass' not found in module 'ti.test.module':"):

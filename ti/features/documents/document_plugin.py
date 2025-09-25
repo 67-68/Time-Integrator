@@ -37,5 +37,5 @@ class DocumentPlugin(
             create_page_callback=self.create_page
         )
         
-        return capture_plugin_page
+        return [capture_plugin_page]
     

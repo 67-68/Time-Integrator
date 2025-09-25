@@ -4,8 +4,11 @@ from ti.model.plugin.path_register_provider_interface import IPathRegisterProvid
 from ti.services.loggerService import LoggerService
 from ti.model.core_pages import CoreView
 from ti.model.plugin.page_contributions import PageContribution
-from PyQt6.QtWidgets import QVBoxLayout, QLabel, QWidget
+from PyQt6.QtWidgets import QVBoxLayout, QLabel, QWidget, QPushButton
 from PyQt6.QtCore import Qt
+from ti.services.serviceContainer import ServiceContainer
+from ti.features.menu.view.time_pie_chart import TimePieChart
+from ti.features.menu.presenter.menu_presenter import MenuPresenter
 
 
 class MenuPlugin(
@@ -15,15 +18,17 @@ class MenuPlugin(
         super().__init__()
         
         # 创建logger
-        self.logger = LoggerService("./ti/features/Menu", "Menu")
+        self.logger = LoggerService("./ti/features/menu", "Menu")
         self.logger.log("初始化", "MenuPlugin初始化完成")
+        
+        # 初始化presenter
+        self.presenter = None
     
     def initialize(self, eventBus):
         self.bus = eventBus
         self.bus.publish("PagePluginRegistered", self.page_contributions)
         self.logger.log("事件总线", "事件总线初始化完成并发布页面插件注册事件")
-    
-        
+         
     def shutdown(self):
         self.logger.log("关闭", "MenuPlugin正在关闭")
         return super().shutdown()
@@ -73,9 +78,47 @@ class MenuPlugin(
         welcome_label.setStyleSheet("font-size: 24px; font-weight: bold; margin: 20px;")
         layout.addWidget(welcome_label)
         
-        # 添加下面的按钮组
-        from ti.features.capture.model.ButtonGroup import ButtonGroup
-        button_group = ButtonGroup()
-        layout.addWidget(button_group)
+        # 添加时间分析组件
+        self.setup_time_analysis_section(layout)
         
         return menu_widget
+    
+    def setup_time_analysis_section(self, layout):
+        """设置时间分析部分"""
+        # 获取数据服务
+        service_container = ServiceContainer()
+        data_service = service_container.getService("DS")
+        
+        # 创建presenter
+        self.presenter = MenuPresenter(data_service)
+        
+        # 创建饼图
+        pie_chart = TimePieChart()
+        self.presenter.set_pie_chart(pie_chart)
+        
+        # 设置时间范围改变回调
+        pie_chart.set_time_range_changed_callback(self.presenter.set_time_range)
+        
+        # 添加饼图到布局
+        layout.addWidget(pie_chart)
+        
+        # 添加刷新按钮
+        refresh_button = QPushButton("刷新时间分析")
+        refresh_button.clicked.connect(self.presenter.refresh_data)
+        refresh_button.setStyleSheet("""
+            QPushButton {
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                font-size: 14px;
+                border-radius: 4px;
+            }
+            QPushButton:hover {
+                background-color: #45a049;
+            }
+        """)
+        layout.addWidget(refresh_button)
+        
+        # 自动分析数据
+        self.presenter.analyze_yesterday_time()

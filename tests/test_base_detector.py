@@ -42,14 +42,16 @@ class TestBaseDetector:
     @staticmethod
     def create_mock_action_unit(action="test_action", action_type="work", start="10:00", end="10:30", timeSpan=30):
         """Create a mock action unit for testing"""
-        return {
-            "action": action,
-            "action_type": action_type,
-            "start": start,
-            "end": end,
-            "timeSpan": timeSpan,
-            "uid": "test_uid_123"
-        }
+        from ti.model.action_unit import ActionUnit
+        return ActionUnit(
+            action=action,
+            action_type=action_type,
+            start=start,
+            end=end,
+            timeSpan=timeSpan,
+            action_detail="",
+            date="2025-01-01"
+        )
     
     def setup_method(self):
         """Setup before each test"""

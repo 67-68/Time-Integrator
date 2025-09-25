@@ -1,3 +1,4 @@
+from typing import Dict
 from PyQt6.QtCore import QObject,pyqtSignal
 
 from ti.features.detector.model.baseDetector import BaseDetector

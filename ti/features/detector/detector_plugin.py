@@ -4,6 +4,7 @@ Detector插件负责管理所有检测器的生命周期和协调
 """
 
 from ti.features.detector.detector_coordinator import DetectorCoordinator
+from ti.features.insight.service.insightCacheService import InsightCacheService
 from ti.model.plugin.function_contributions import FunctionContribution
 from ti.model.plugin.function_provider_interface import IFunctionExtension
 from ti.model.plugin.path_register_provider_interface import IPathRegisterProvider
@@ -14,8 +15,6 @@ from ti.features.detector.model.detectorRepository import DetectorRepository
 from ti.features.detector.detector_path_register import DetectorPathRegister
 from ti.features.yaml_database.service.yaml_parser_service import YamlParser
 from ti.services.realTimeMonitor import RealTimeMonitor
-from ti.services.sessionCache import SessionCache
-from ti.services.symbol_service import SymbolService
 
 
 class DetectorPlugin(
@@ -27,7 +26,7 @@ class DetectorPlugin(
         monitor: RealTimeMonitor,
         bus: EventBus,
         yaml_parser: YamlParser,
-        cache: SessionCache
+        cache: InsightCacheService
     ):
         """_summary_
         Detector插件的主类
@@ -39,9 +38,13 @@ class DetectorPlugin(
         self.yaml_parser = yaml_parser
         self.cache = cache
         
+        # 获取InsightCacheService
+        # 不行！Detector先加载
+        # 因此只能需要的时候再创建
+        
         # 创建detector相关的服务
         self.repository = DetectorRepository(yaml_parser)
-        self.factory = DetectorFactory(self.repository, cache)
+        self.factory = DetectorFactory(self.repository,yaml_parser)
         self.coordinator = DetectorCoordinator(self.repository, cache)
 
     # ------ 接口方法 ——----    

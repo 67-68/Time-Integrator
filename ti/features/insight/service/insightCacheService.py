@@ -1,11 +1,11 @@
 
 import uuid
 from ti.features.insight.model.insight_card_generation_models import RawCardData, CacheCardData
-from ti.core.Interfaces.model.yaml_repository_interface import IYamlRepository
+from ti.core.Interfaces.model.repository_interface import IRepository
 from ti.features.yaml_database.service.yaml_parser_service import YamlParser
 
 
-class InsightCacheService(IYamlRepository):
+class InsightCacheService(IRepository):
     def __init__(self, yaml_parser: YamlParser):
         self.yaml_parser = yaml_parser
         self.allData = self._load_data()

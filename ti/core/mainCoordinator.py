@@ -1,4 +1,5 @@
 from ti.features.capture.capture_plugin import CapturePlugin
+from ti.features.documents.document_plugin import DocumentPlugin
 from ti.presenters.page_presenter import PagePresenter
 from ti.services.page_factory import PageFactory
 from ti.features.insight.insight_plugin import InsightPlugin
@@ -32,7 +33,7 @@ class MainCoorinator():
         self.add_page("analysis")
         self.add_page("capture")
         self.add_page("menu")
-        self.main_window.set_page("capture")
+        self.main_window.set_page("menu")
     
         self.create_state()
         self.activate_symbol_service()
@@ -45,6 +46,9 @@ class MainCoorinator():
         self.bus.subscribe("dialog_needed",self.show_dialog)
         self.bus.subscribe("end_dialog",self.end_dialog)
         self.bus.subscribe("change_page",self._on_mainWindow_change_page)
+        
+        # 自动打开menu插件的界面
+        #self.auto_activate_menu_plugin()
     
     def _on_mainWindow_change_page(self,page_name):
         self.main_window._on_page_switch_button_clicked(page_name)
@@ -70,7 +74,7 @@ class MainCoorinator():
         """_summary_
         这个函数创建插件的实例并激活他们
         """        
-        plugins = [DetectorPlugin,MenuPlugin,CapturePlugin,InsightPlugin,InterventionPlugin]
+        plugins = [DetectorPlugin,MenuPlugin,CapturePlugin,InsightPlugin,InterventionPlugin,DocumentPlugin]
         
         self.loader.discover_and_register_plugins(plugins)
         
@@ -103,5 +107,3 @@ class MainCoorinator():
         presenter = PagePresenter(self.bus,page)
         presenter.initialize()
         self.presenter[name] = presenter
-        
-        

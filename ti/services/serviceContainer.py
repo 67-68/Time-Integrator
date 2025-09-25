@@ -4,17 +4,12 @@ from ti.core.extensionRegister import DynamicExtensionLoader, ExtensionRegister
 
 from ti.services.function_service import FunctionService
 from ti.services.page_factory import PageFactory
-from ti.features.detector.model.detectorFactory import DetectorFactory
-from ti.features.detector.model.detectorRepository import DetectorRepository
 from ti.features.insight.model.narratives import InsightNarrator
-from ti.features.intervention.service.logger import InterventionLogger
 from ti.features.translation.service.translator_service import Translator
 from ti.features.yaml_database.service.yaml_parser_service import YamlParser
 from ti.services.loggerService import LoggerService
 from ti.services.dataService import DataService
 from ti.features.insight.service.insightCacheService import InsightCacheService
-from ti.features.insight.service.insightManager import InsightManager
-from ti.features.insight.service.insightEngine import InsightEngine
 from ti.features.insight.service.formatter import InsightFormatService
 from ti.services.realTimeMonitor import RealTimeMonitor
 from dataclasses import dataclass

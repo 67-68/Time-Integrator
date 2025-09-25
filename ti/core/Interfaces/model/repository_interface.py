@@ -8,17 +8,6 @@ class IRepository(ABC):
     Args:
         ABC (_type_): _description_
     """
-    @property
-    @abstractmethod
-    def filePath(self) -> str:
-        """_summary_
-        抽象名字方法
-        返回一个文件路径
-        Returns:
-            str: _description_
-        """
-        pass
-    
     @abstractmethod
     def save(self):
         """_summary_

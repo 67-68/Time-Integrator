@@ -1,5 +1,5 @@
 from ti.core.eventBus import EventBus
-from ti.features.detector.model.detectorRepository import DetectorRepository
+from ti.model.yaml_repository import YamlRepository
 from ti.features.intervention.service.inv_reducer import INVReducer
 from ti.features.intervention.service.inv_project_factory import INVProjectFactory
 from ti.model.yaml_repository import YamlRepository

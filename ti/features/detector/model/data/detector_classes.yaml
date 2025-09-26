@@ -7,7 +7,7 @@ classes:
     symbol_path: "ti.features.detector.service.matchers.Matcher"
     symbol_domain: "detector"
 
-  BASE_DETECTOR:
+  BaseDetector:
     symbol_type: "class"
     symbol_path: "ti.features.detector.model.baseDetector.BaseDetector"
     symbol_domain: "detector"

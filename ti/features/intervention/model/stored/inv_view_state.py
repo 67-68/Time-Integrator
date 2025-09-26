@@ -16,7 +16,7 @@ class ViewState(BaseModel):
     name: str
     transition: dict[INVViewEvent,str] # str是viewstate.name
     presentation: StatePresentation
-    entering_event: list[INVSpecialEvent] = None #按理来说会存储INV_Special_Events类的value
+    entering_event: list[INVSpecialEvent] = [] #按理来说会存储INV_Special_Events类的value
     
 class INVViewRecipe(BaseModel):
     """

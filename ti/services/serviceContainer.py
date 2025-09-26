@@ -6,7 +6,6 @@ from ti.services.function_service import FunctionService
 from ti.services.page_factory import PageFactory
 from ti.features.insight.model.narratives import InsightNarrator
 from ti.features.translation.service.translator_service import Translator
-from ti.features.yaml_database.service.yaml_parser_service import YamlParser
 from ti.services.loggerService import LoggerService
 from ti.services.dataService import DataService
 from ti.features.insight.service.insightCacheService import InsightCacheService
@@ -35,11 +34,7 @@ class ServiceContainer:
         self.services["translator"] = translator
         self._services[Translator] = translator
         
-        yaml_parser = YamlParser()
-        self.services["yaml_parser"] = yaml_parser
-        self._services[YamlParser] = yaml_parser
-            
-        cache =  InsightCacheService(yaml_parser)
+        cache =  InsightCacheService()
         self.services["ICS"] = cache
         self._services[InsightCacheService] = cache
         
@@ -47,7 +42,8 @@ class ServiceContainer:
         self.services["symbol"] = symbol
         self._services[SymbolService] = symbol
         
-        narrator = InsightNarrator(yaml_parser,symbol)
+        # 创建InsightNarrator实例
+        narrator = InsightNarrator(symbol)
         
         formatter = InsightFormatService(narrator)
         self.services["FS"] = formatter

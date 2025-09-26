@@ -9,7 +9,7 @@ from ti.services.symbol_service import SymbolService
 from ti.view.BasicDialog import BasicDialog
 from ti.core.eventBus import EventBus
 from ti.core.extensionRegister import DynamicExtensionLoader
-from ti.features.intervention.interventionPlugin import InterventionPlugin
+from ti.features.intervention.intervention_plugin import InterventionPlugin
 from ti.features.detector.detector_plugin import DetectorPlugin
 from ti.services.serviceContainer import ServiceContainer
 from ti.view.MainWindow import MainWindow

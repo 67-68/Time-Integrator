@@ -13,7 +13,6 @@ class INVCardPresenter(ICardPresenter):
     
     def __init__(
         self,
-        view,
         recipe: INVViewRecipe,
         bus: EventBus,
         project_id: str,
@@ -21,7 +20,10 @@ class INVCardPresenter(ICardPresenter):
     ):
         ICardPresenter.__init__(self, parent=None)
         
-        self.view = view
+        # 在Presenter内部创建View，减少耦合
+        from ti.features.intervention.view.interventionCard import InterventionCard
+        self.view = InterventionCard()
+        
         self.recipe = recipe
         self.bus = bus
         self.project_id = project_id

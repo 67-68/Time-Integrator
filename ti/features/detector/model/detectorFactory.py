@@ -1,16 +1,16 @@
 from ti.core.Interfaces.detector_Interface import DetectorInterface
 from ti.core.Interfaces.model.repository_interface import IRepository
 from ti.features.insight.service.insightCacheService import InsightCacheService
-from ti.features.detector.model.detectorRepository import DetectorRepository
 from ti.features.detector.model.model import Detector_Recipe, Detector_Recipe_ID
-from ti.features.yaml_database.service.yaml_parser_service import YamlParser
+from ti.model.yaml_repository import YamlRepository
+from ti.services.symbol_service import SymbolService
 
 
 class DetectorFactory:
     def __init__(
         self,
-        repository: DetectorRepository,
-        yaml: YamlParser
+        repository: YamlRepository,
+        symbol_service: SymbolService
         ):
         """_summary_
         这个类负责创建所有的Detector实例
@@ -19,7 +19,8 @@ class DetectorFactory:
         它从Repository获取配方
         """
         self.repository = repository
-        self.cache = InsightCacheService(yaml) #我不管了...
+        self.symbol_service = symbol_service
+        self.cache = InsightCacheService() #我不管了...
         
     def appoint_cache(self,cache: type[IRepository]):
         self.cache = cache
@@ -30,7 +31,6 @@ class DetectorFactory:
     def create_detector(
         self,
         id,
-        card_type_id,
     ) -> type[DetectorInterface]:
         """_summary_
         输入一个Detector_Recipe_ID Enum类作为ID
@@ -46,18 +46,30 @@ class DetectorFactory:
             raise ValueError("Repository or cache not initialized")
         
         try:    
-            recipe: Detector_Recipe = self.repository.get_recipe_by_id(id)
-
-            # 赋予这个Detector配方类卡片ID
-            recipe.config.card_type_id = card_type_id # 这tm是啥
+            # 获取recipe_id
+            if hasattr(id, 'value'):
+                recipe_id = id.value
+            else:
+                recipe_id = id
             
-            detector_category = recipe.detector
-            config = recipe.config
+            # 从YamlRepository获取配方数据
+            recipe_data = self.repository.get_by_id(recipe_id)
+            if not recipe_data:
+                raise ValueError(f"Recipe not found for id: {recipe_id}")
             
-            detector = detector_category(config,self.cache)
+            # 使用detector_id作为card_type_id
+            recipe_data.config.card_type_id = recipe_id
+            
+            # 解析detector类字符串到实际的类
+            detector_class = self.symbol_service.resolve_symbol("detector", recipe_data.detector)
+            config = recipe_data.config
+            
+            detector = detector_class(config, self.cache)
             
             return detector
         except Exception as e:
             print("=" * 50)
             print("DETECTOR FACTORY ERROR! check if use unmatch repository and cache!")
+            print(f"Error: {e}")
             print("=" * 50)
+            raise

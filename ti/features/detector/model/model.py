@@ -3,7 +3,8 @@
 所有配方组装需要的强类型类
 """
 
-from dataclasses import dataclass
+from pydantic import BaseModel
+from typing import List, Optional
 
 from ti.core.Interfaces.detector_Interface import DetectorInterface
 from ti.features.detector.service.matchers import Matcher
@@ -20,26 +21,23 @@ class Detector_Recipe_ID(Enum):
     UNSETTLING_HEART = "unsettling_heart"
     POST_BASH_WASTE = "post_bash_waste"
 
-@dataclass
-class Detector_State:
-    state_name: str #这里就不用Enum了，太固定
-    matcher: Matcher
+class Detector_State(BaseModel):
+    state_name: str
+    matcher: str  # 存储matcher字符串，运行时解析
 
-@dataclass
-class Detector_Sequence:
-    hook: list[Detector_State]
-    result: list[Detector_State]
+class Detector_Sequence(BaseModel):
+    hook: List[Detector_State]
+    result: List[Detector_State]
 
-@dataclass
-class Detector_Config:
+class Detector_Config(BaseModel):
     sequence: Detector_Sequence
-    card_type_id = None #卡片id，用于查找资料，在创建的时候被给予
+    card_type_id: Optional[str] = None
 
-@dataclass
-class Detector_Recipe:
+class Detector_Recipe(BaseModel):
     """_summary_
     最上层的数据类
     """
-    detector: type[DetectorInterface]
+    recipe_id: str
+    detector: str  # 存储detector类型字符串
     config: Detector_Config
     

@@ -11,10 +11,10 @@ from ti.model.plugin.path_register_provider_interface import IPathRegisterProvid
 from ti.core.Interfaces.extension_Interface import ExtensionInterface
 from ti.core.eventBus import EventBus
 from ti.features.detector.model.detectorFactory import DetectorFactory
-from ti.features.detector.model.detectorRepository import DetectorRepository
 from ti.features.detector.detector_path_register import DetectorPathRegister
-from ti.features.yaml_database.service.yaml_parser_service import YamlParser
+from ti.model.yaml_repository import YamlRepository
 from ti.services.realTimeMonitor import RealTimeMonitor
+from ti.services.symbol_service import SymbolService
 
 
 class DetectorPlugin(
@@ -25,8 +25,8 @@ class DetectorPlugin(
         self,
         monitor: RealTimeMonitor,
         bus: EventBus,
-        yaml_parser: YamlParser,
-        cache: InsightCacheService
+        cache: InsightCacheService,
+        symbol_service: SymbolService
     ):
         """_summary_
         Detector插件的主类
@@ -35,17 +35,18 @@ class DetectorPlugin(
         # 获取服务
         self.monitor = monitor
         self.bus = bus
-        self.yaml_parser = yaml_parser
         self.cache = cache
+        self.symbol_service = symbol_service
         
         # 获取InsightCacheService
         # 不行！Detector先加载
         # 因此只能需要的时候再创建
         
         # 创建detector相关的服务
-        self.repository = DetectorRepository(yaml_parser)
-        self.factory = DetectorFactory(self.repository,yaml_parser)
-        self.coordinator = DetectorCoordinator(self.repository, cache)
+        from ti.features.detector.model.model import Detector_Recipe
+        self.repository = YamlRepository("ti/model/data/detector_recipes.yaml", Detector_Recipe, identifier_field="recipe_id")
+        self.factory = DetectorFactory(self.repository, self.symbol_service)
+        self.coordinator = DetectorCoordinator(self.repository, cache, self.symbol_service)
 
     # ------ 接口方法 ——----    
     
@@ -82,11 +83,11 @@ class DetectorPlugin(
         """
         return self.factory
     
-    def get_repository(self) -> DetectorRepository:
+    def get_repository(self) -> YamlRepository:
         """_summary_
         获取detector仓库实例
         Returns:
-            DetectocRepository: detector仓库
+            YamlRepository: detector仓库
         """
         return self.repository
     

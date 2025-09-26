@@ -10,7 +10,8 @@ from ti.services.dataService import DataService
 
 @dataclass
 class Monitor_Pack:
-    id: str
+    id: str  # detector recipe ID
+    monitor_id: str  # monitor identifier
     hook: list[Matcher]
 
 @dataclass
@@ -85,19 +86,20 @@ class RealTimeMonitor(QObject):
             raise ValueError(f"Thread with ID '{thread_id}' does not exist")
         
         thread_pack = self.threads[thread_id]
-        detector_id = monitor_pack.id
+        detector_id = monitor_pack.id  # detector recipe ID
+        monitor_id = monitor_pack.monitor_id  # monitor identifier
         
         # 使用线程的detector factory创建detector
-        detector = thread_pack.thread_factory.create_detector(detector_id, detector_id)
+        detector = thread_pack.thread_factory.create_detector(detector_id)
         
         # 连接信号
         detector.hook_pattern_detected.connect(
-            lambda detector_data, current_id=detector_id, t_id=thread_id: 
+            lambda detector_data, current_id=monitor_id, t_id=thread_id: 
             self._on_pattern_detected(current_id, t_id)
         )
         
         # 存储监控项目
-        thread_pack.monitors[detector_id] = (monitor_pack, detector)
+        thread_pack.monitors[monitor_id] = (monitor_pack, detector)
         print(f"[RealTimeMonitor] Added monitor '{detector_id}' to thread '{thread_id}'")
     
     def remove_monitor_from_thread(self, thread_id: str, monitor_id: str):

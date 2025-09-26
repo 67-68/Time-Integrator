@@ -1,0 +1,9 @@
+classes:
+  action_event_source:
+    symbol_type: "class"
+    symbol_path: "ti.features.intervention.service.inv_action_event_source.INVActionEventSource"
+    symbol_domain: "intervention"
+  card_view:
+    symbol_type: "class"
+    symbol_path: "ti.features.intervention.presenter.inv_card_presenter.INVCardPresenter"
+    symbol_domain: "intervention"

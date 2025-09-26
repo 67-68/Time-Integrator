@@ -2,6 +2,8 @@ from ti.core.Interfaces.extension_Interface import ExtensionInterface
 from ti.core.eventBus import EventBus
 from ti.features.intervention.intervention_path_register import INV_PathRegister
 from ti.features.intervention.inv_coordinator import INVCoordinator
+from ti.features.intervention.model.stored.inv_project_model import INVProjectModel
+from ti.features.intervention.model.stored.inv_project_recipe import INVProjectRecipe
 from ti.features.intervention.service.inv_project_factory import INVProjectFactory
 from ti.features.intervention.service.inv_reducer import INVReducer
 from ti.model.plugin.path_register_provider_interface import IPathRegisterProvider
@@ -27,14 +29,15 @@ class InterventionPlugin(
         创建Coordinator之后完成
         插件应该是先于主体部分加载的
         """
-        detec_fac = function.get_function("get_detector_factory")
-        project_repository = YamlRepository("ti/features/refactored_intervention/model/inv_projects.yaml")
-        project_recipe_repository = YamlRepository("ti/features/refactored_intervention/model/inv_project_recipe.yaml")
+        # 使用function service获取detector repository
+        detec_repo = function.get_function("get_detector_repository")()
+        project_repository = YamlRepository("ti/features/intervention/model/inv_projects.yaml",INVProjectModel, identifier_field="project_id")
+        project_recipe_repository = YamlRepository("ti/features/intervention/model/data/inv_recipe.yaml",INVProjectRecipe, identifier_field="project_id")
         
         factory = INVProjectFactory(
             bus,
             monitor,
-            detec_fac,
+            detec_repo,
             symbol_service,
             project_recipe_repository
         )
@@ -44,7 +47,7 @@ class InterventionPlugin(
             bus
         )
         
-        coordinator = INVCoordinator(
+        self.coordinator = INVCoordinator(
             bus,
             reducer,
             factory

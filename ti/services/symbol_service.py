@@ -1,3 +1,4 @@
+from ti.features.intervention.intervention_path_register import INV_PathRegister
 from ti.model.plugin.symbol_path_register_interface import ISymbolPathRegister
 import importlib
 from typing import Any, Optional
@@ -16,11 +17,10 @@ class SymbolService:
         """
         self.registers: dict[str, ISymbolPathRegister] = {}
         
-        
-        
         self.regist_register(CorePathRegister())
         self.regist_register(InsightPathRegister())
         self.regist_register(DetectorPathRegister())
+        self.regist_register(INV_PathRegister()) # 这里正确注册了
         # Intervention path register is registered separately in intervention plugin
         
         
@@ -67,7 +67,7 @@ class SymbolService:
         """
         if not symbol_path:
             raise ValueError("Symbol path cannot be empty")
-            
+
         # 检查是否是枚举值格式（如 "ti.features.intervention.model.model.INVEvent.USER_ACCEPTED.value"）
         if symbol_path.endswith(".value") and symbol_path.count(".") >= 4: #Speial states可以加载，但我没看到其他enum类被加载
             # 处理枚举值格式
@@ -96,6 +96,7 @@ class SymbolService:
             # 动态导入模块
             module = importlib.import_module(module_path)
             # 获取符号
+            
             symbol = getattr(module, symbol_name)
             return symbol
         except ImportError as e:

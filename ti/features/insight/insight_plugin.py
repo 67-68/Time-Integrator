@@ -6,7 +6,6 @@ from ti.model.plugin.path_register_provider_interface import IPathRegisterProvid
 from ti.features.insight.insight_path_register import InsightPathRegister
 from ti.features.insight.presenter.cardPresenter import InsightPresenter
 from ti.features.insight.view.insight_view import InsightView
-from ti.features.yaml_database.service.yaml_parser_service import YamlParser
 from ti.model.core_pages import CoreView
 from ti.model.plugin.page_contributions import PageContribution
 from ti.services.dataService import DataService
@@ -27,14 +26,12 @@ class InsightPlugin(
 ):
     def __init__(
         self,
-        yaml_parser: YamlParser,
         symbol_service: SymbolService,
         data_service: DataService,
         function_service: FunctionService,
         format: InsightFormatService
     ):
         super().__init__()
-        self.yaml = yaml_parser
         self.symbol = symbol_service
         self.data_service = data_service
         self.function_service = function_service
@@ -100,17 +97,42 @@ class InsightPlugin(
             raise
         
         # 创建缓存服务
-        self.cache = InsightCacheService(self.yaml)
+        self.cache = InsightCacheService()
         
         # 创建引擎和管理器
         self.engine = InsightEngine(self.cache, detector_factory)
         self.manager = InsightManager(self.cache)
         
         # 创建配方仓库
-        from ti.features.insight.model.insight_card_recipe_repository import Insight_Card_Recipe_Repository
-        recipe_repo = Insight_Card_Recipe_Repository(self.yaml, self.symbol)
-        cond_recipe = recipe_repo.get_conditional_recipes()
-        fixed_recipe = recipe_repo.get_fixed_recipes()
+        from ti.model.yaml_repository import YamlRepository
+        from ti.features.insight.model.insight_card_recipe_models import FixedRecipe, ConditionalRecipe
+        
+        # 使用YamlRepository加载配方数据
+        recipe_repo = YamlRepository(
+            "ti/features/insight/model/data/insight_card_recipes.yaml", 
+            dict,  # 使用dict作为模型类，因为我们手动处理结构
+            identifier_field="insight_card_recipes"
+        )
+        
+        # 获取配方数据
+        recipes_data = recipe_repo.get_by_id("insight_card_recipes")
+        if recipes_data and "insight_card_recipes" in recipes_data:
+            recipes_container = recipes_data["insight_card_recipes"]
+            
+            # 解析固定配方
+            fixed_recipe = []
+            if "fixed_recipes" in recipes_container:
+                for recipe_data in recipes_container["fixed_recipes"]:
+                    fixed_recipe.append(FixedRecipe(**recipe_data))
+            
+            # 解析条件配方
+            cond_recipe = []
+            if "conditional_recipes" in recipes_container:
+                for recipe_data in recipes_container["conditional_recipes"]:
+                    cond_recipe.append(ConditionalRecipe(**recipe_data))
+        else:
+            cond_recipe = []
+            fixed_recipe = []
         
         self.logger.log("配方加载", f"加载了 {len(cond_recipe)} 个条件配方和 {len(fixed_recipe)} 个固定配方")
         

@@ -64,9 +64,9 @@ class InterventionCard(QWidget):
         for widget in widgets:
             self.ui.choiceLayout.addWidget(widget)
         
-    def apply_presentation(self, presentation: dict):
+    def apply_presentation(self, presentation):
         """
-        接收一个 Presentation "配方"字典，并将其应用到卡片UI上。
+        接收一个 Presentation 对象，并将其应用到卡片UI上。
         
         这个方法会：
         1. 更新标题。
@@ -74,7 +74,7 @@ class InterventionCard(QWidget):
         3. 根据配方创建并显示新的按钮。
         """
         # 1. 使用辅助函数更新标题文本
-        self.replace_titleText(presentation["title"])
+        self.replace_titleText(presentation.title)
         
         # 2. 准备创建新的按钮
         new_button_widgets = []
@@ -84,9 +84,9 @@ class InterventionCard(QWidget):
         self.buttons = {} 
 
         # 3. 遍历配方中的按钮数据，创建新的按钮实例
-        button_recipe = presentation["buttons"]
-        for button_id in button_recipe:
-            button_text = button_recipe[button_id]
+        button_recipe = presentation.button
+        for button_text in button_recipe:
+            button_event = button_recipe[button_text]
             # 创建一个新的 BasicButton 实例
             new_button = BasicButton(self.ui.choiceWidget)
             new_button.setText(button_text)
@@ -94,11 +94,11 @@ class InterventionCard(QWidget):
             # 使用 lambda 将按钮的唯一ID连接到点击事件的槽函数
             # 这是识别哪个按钮被点击的最佳实践
             new_button.clicked.connect(
-                lambda checked, b_id=button_id: self._on_button_clicked(b_id)
+                lambda checked, b_event=button_event: self._on_button_clicked(b_event)
             )
             
             # 将新创建的按钮添加到逻辑字典和UI widget列表中
-            self.buttons[button_id] = new_button
+            self.buttons[button_event] = new_button
             new_button_widgets.append(new_button)
             
         # 4. 使用辅助函数，用新创建的按钮列表替换掉旧的按钮

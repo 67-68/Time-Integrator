@@ -1,23 +1,29 @@
 post_eat_waste:
   event_sources:
-    class_name: intervention.ACTION_EVENT_SOURCE
-    rule:
-      detector_id: post_eat_waste
-      event_source_id: post_eat_waste_source
+    post_eat_waste_source:
+      class_name: intervention.action_event_source
+      rule:
+        rule_type: ti.features.intervention.model.stored.inv_component_rule.ActionEventSourceRule
+        data:
+          detector_id: post_eat_waste
+          event_source_id: post_eat_waste_source
   views:
-    - post_eat_waste_view:
-        view_id: post_eat_waste_view
-        state:
-          init:
-            name: init
-            transition:
-              user_accepted: intervene_user
-              user_rejected: intervene_user
-            presentation:
-              button:
-                接受: user_accepted
-                拒绝: user_rejected
-              title: 我要打荒野乱斗
-            entering_event: null
-        initial_state: init
-  project_id: str
+    post_eat_waste_view:
+      class_name: intervention.card_view
+      rule:
+        rule_type: ti.features.intervention.model.stored.inv_view_state.INVViewRecipe
+        data:
+          view_id: post_eat_waste_view
+          state:
+            init:
+              name: init
+              transition:
+                user_accepted: intervene_user
+                user_rejected: intervene_user
+              presentation:
+                button:
+                  接受: user_accepted
+                  拒绝: user_rejected
+                title: 我要打荒野乱斗
+              entering_event: []
+          initial_state: init

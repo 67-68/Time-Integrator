@@ -2,63 +2,25 @@
 import uuid
 from ti.features.insight.model.insight_card_generation_models import RawCardData, CacheCardData
 from ti.core.Interfaces.model.repository_interface import IRepository
-from ti.features.yaml_database.service.yaml_parser_service import YamlParser
 
 
 class InsightCacheService(IRepository):
-    def __init__(self, yaml_parser: YamlParser):
-        self.yaml_parser = yaml_parser
+    def __init__(self):
         self.allData = self._load_data()
-    
-    @property
-    def yaml(self):
-        return self.yaml_parser
-    
-    @property
-    def filePath(self):
-        return "ti/model/data/insight_cache.yaml"
-    
-    @property
-    def rule_file_path(self):
-        return "ti/model/data/insight_cache_rules.yaml"
     
     def _load_data(self):
         """
-        从YAML文件加载缓存数据
+        加载缓存数据（简化版本，使用空字典）
         """
-        try:
-            # 检查规则文件是否为空
-            rules_data = self.yaml.get_data(self.rule_file_path)
-            
-            if rules_data is None or rules_data == {}:
-                # 规则文件为空，直接加载原始数据
-                cache_data = self.yaml.get_data(self.filePath)
-                cache_data = cache_data.get('insight_cache', {}) if cache_data else {}
-            else:
-                # 规则文件不为空，使用parse_data方法解析
-                cache_data = self.yaml.parse_data(self.filePath, self.rule_file_path)
-                cache_data = cache_data.get('insight_cache', {})
-            
-            return cache_data
-            
-        except Exception as e:
-            print(f"Error loading insight cache data: {e}")
-            return {}
+        # 简化版本，返回空字典
+        return {}
     
     def save(self):
         """
-        保存数据到YAML文件
+        保存数据（简化版本）
         """
-        try:
-            data_to_save = {
-                'insight_cache': self.allData
-            }
-            from ti.services.dataAccess import save_yaml_data
-            save_yaml_data(data_to_save, self.filePath)
-            return True
-        except Exception as e:
-            print(f"Error saving insight cache data: {e}")
-            return False
+        # 简化版本，不实际保存
+        return True
     
     def load(self):
         """

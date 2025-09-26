@@ -1,5 +1,4 @@
 from ti.core.Interfaces.model.repository_interface import IRepository
-from ti.features.yaml_database.service.yaml_parser_service import YamlParser
 from ti.services.symbol_service import SymbolService
 from ti.services.dataAccess import get_yaml_data
 
@@ -7,13 +6,11 @@ from ti.services.dataAccess import get_yaml_data
 class InsightNarrator(IRepository):
     def __init__(
         self,
-        yaml_parser: YamlParser,
         symbol_service: SymbolService
     ):
         """
         辅助获取Insight Narrative数据
         """
-        self.yaml_parser = yaml_parser
         self.symbol = symbol_service
         # 在初始化时加载叙事数据
         self._narratives_data = self._load_data()
@@ -58,18 +55,10 @@ class InsightNarrator(IRepository):
         except Exception as e:
             print(f"Error loading insight narratives data: {e}")
             return {}
-    
-    @property
-    def yaml(self):
-        return self.yaml_parser
-    
+        
     @property
     def filePath(self):
         return "features/insight/model/data/insight_narratives.yaml"
-    
-    @property
-    def rule_file_path(self):
-        return "features/insight/model/data/rules.yaml"
     
     def save(self):
         return super().save()

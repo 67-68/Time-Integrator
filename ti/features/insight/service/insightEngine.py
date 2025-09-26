@@ -51,7 +51,7 @@ class InsightEngine(QObject):
             # Convert string detector ID to enum
             try:
                 detector_id_enum = Detector_Recipe_ID(detector_id_str)
-                detector: BaseDetector = self.factory.create_detector(detector_id_enum, card_type_id)
+                detector: BaseDetector = self.factory.create_detector(detector_id_enum)
             except ValueError:
                 print(f"Warning: Unknown detector ID '{detector_id_str}', skipping")
                 continue

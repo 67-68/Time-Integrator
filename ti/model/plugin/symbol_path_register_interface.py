@@ -85,9 +85,15 @@ class ISymbolPathRegister(ABC):
             print("no enum mapping")
         
         # First try to find by symbol_name (new format)
-        symbol = self._symbols.get(symbol_id.upper())
+        # Try exact match first
+        symbol = self._symbols.get(symbol_id)
         if symbol:
             return symbol
+        
+        # Then try case-insensitive match
+        for key, symbol_model in self._symbols.items():
+            if key.lower() == symbol_id.lower():
+                return symbol_model
         
         # Fallback to search by symbol_type:path format
         for symbol_model in self._symbols.values():

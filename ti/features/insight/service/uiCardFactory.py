@@ -39,7 +39,29 @@ class InsightCardFactory:
         Returns:
             Dict: 包含卡片和presenter的字典
         """
-        # 处理不同类型的卡片数据
+        # 适配卡片数据
+        card_dict, card_data_for_presenter = self._adapt_card_data(card_data)
+        
+        # 格式化数据
+        formatted_data = self.format.format_card(card_dict)
+        
+        # 创建UI卡片
+        card = self._create_card_ui(formatted_data, parent_view)
+        
+        # 发布卡片创建事件
+        self._publish_card_event(card, cache, card_data)
+        
+        # 设置卡片presenter
+        card_presenter = self._setup_card_presenter(card, card_data_for_presenter)
+        
+        return {
+            "card": card,
+            "presenter": card_presenter,
+            "card_data": card_data_for_presenter
+        }
+    
+    def _adapt_card_data(self, card_data):
+        """适配不同类型的卡片数据"""
         if isinstance(card_data, (PresentedCardData, FixedCardResult)):
             # 如果是dataclass对象，转换为字典
             card_dict = self._convert_dataclass_to_dict(card_data)
@@ -49,31 +71,27 @@ class InsightCardFactory:
                 card_dict["duration"] = card_data.duration
                 card_dict["card_type_id"] = card_data.card_type_id
             
-            formatted_data = self.format.format_card(card_dict)
-            card_data_for_presenter = card_dict
+            return card_dict, card_dict
         else:
             # 如果是字典，直接使用
-            formatted_data = self.format.format_card(card_data)
-            card_data_for_presenter = card_data
-        
-        # 创建UI卡片
-        card = InsightCard(formatted_data, parent=parent_view)
-        
-        # 发布卡片创建事件
-        self.bus.publish("insight_card_ui_created", (card, cache,card_data))
-        
+            return card_data, card_data
+    
+    def _create_card_ui(self, formatted_data, parent_view):
+        """创建UI卡片实例"""
+        return InsightCard(formatted_data, parent=parent_view)
+    
+    def _publish_card_event(self, card, cache, original_card_data):
+        """发布卡片创建事件"""
+        self.bus.publish("insight_card_ui_created", (card, cache, original_card_data))
+    
+    def _setup_card_presenter(self, card, card_data_for_presenter):
+        """设置卡片presenter"""
         # 设置卡片元数据
         card_data_for_presenter["card_type_id"] = card_data_for_presenter["sementic_key"]
         card_data_for_presenter["card_uuid"] = str(uuid.uuid4())
         
         # 创建卡片presenter
-        card_presenter = InsightPresenter(card)
-        
-        return {
-            "card": card,
-            "presenter": card_presenter,
-            "card_data": card_data_for_presenter
-        }
+        return InsightPresenter(card)
     
     def _convert_dataclass_to_dict(self, card_data) -> Dict[str, Any]:
         """

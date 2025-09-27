@@ -1,7 +1,6 @@
 from ti.core.Interfaces.extension_Interface import ExtensionInterface
 from ti.model.plugin.function_provider_interface import IFunctionExtension
 from ti.model.plugin.page_extension_interface import IPageExtension
-from ti.model.plugin.path_register_provider_interface import IPathRegisterProvider
 from ti.model.plugin.symbol_path_register_interface import ISymbolPathRegister
 from ti.core.eventBus import EventBus
 import inspect
@@ -62,22 +61,6 @@ class DynamicExtensionLoader:
         
 
     def discover_and_register_plugins(self, extension_package):
-        # 首先加载插件的symbol_register
-        print("=" * 20)
-        print("[LOADER]Searching for symbol register in plugins...")
-        for plugin_class in extension_package:    
-            if (hasattr(plugin_class, 'register_class') and 
-                issubclass(plugin_class, IPathRegisterProvider)):
-                    print(f"find {plugin_class.name}")
-                    # 调用静态方法获取register类
-                    register_class = plugin_class.register_class()
-                    # 创建register实例并注册
-                    register_instance = register_class()
-                    self.symbol.regist_register(register_instance)
-                    print(f"successfully regist symbol path register for plugin {plugin_class.name} ")
-            
-
-                    
         # ... 动态发现插件类的逻辑 ...
         for plugin_class in extension_package:
             try:

@@ -2,8 +2,6 @@ from ti.core.Interfaces.extension_Interface import ExtensionInterface
 from ti.model.plugin.function_contributions import FunctionContribution
 from ti.model.plugin.function_provider_interface import IFunctionExtension
 from ti.model.plugin.page_extension_interface import IPageExtension
-from ti.model.plugin.path_register_provider_interface import IPathRegisterProvider
-from ti.features.insight.insight_path_register import InsightPathRegister
 from ti.features.insight.presenter.cardPresenter import InsightPresenter
 from ti.features.insight.view.insight_view import InsightView
 from ti.model.core_pages import CoreView
@@ -20,7 +18,6 @@ from ti.services.function_service import FunctionService
 
 
 class InsightPlugin(
-    IPathRegisterProvider,
     IPageExtension,
     IFunctionExtension,
 ):
@@ -192,10 +189,6 @@ class InsightPlugin(
             self.logger.log("卡片生成", "没有卡片被生成")
         
         return self.view
-    
-    @staticmethod
-    def register_class():
-        return InsightPathRegister
     
     @property
     def function_contributions(self):

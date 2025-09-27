@@ -89,14 +89,8 @@ class MainCoorinator():
         """
         这个函数用来激活symbol service
         """
-        
-        
-        registers = self.loader.get_registers()
-        if registers:
-            for register in registers:
-                self.symbol.regist_register(register)
-                print(f"[SYM]Registered {register}")
-            
+        # SymbolService现在会自己管理PathRegister，无需额外注册
+        print("[SYM]Symbol service activated with built-in PathRegisterService")
             
     def add_page(self,page_name):
         fac:PageFactory = self.service.getService("page_factory")

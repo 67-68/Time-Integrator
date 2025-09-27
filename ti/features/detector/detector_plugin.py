@@ -7,19 +7,16 @@ from ti.features.detector.detector_coordinator import DetectorCoordinator
 from ti.features.insight.service.insightCacheService import InsightCacheService
 from ti.model.plugin.function_contributions import FunctionContribution
 from ti.model.plugin.function_provider_interface import IFunctionExtension
-from ti.model.plugin.path_register_provider_interface import IPathRegisterProvider
 from ti.core.Interfaces.extension_Interface import ExtensionInterface
 from ti.core.eventBus import EventBus
 from ti.features.detector.model.detectorFactory import DetectorFactory
-from ti.features.detector.detector_path_register import DetectorPathRegister
 from ti.model.yaml_repository import YamlRepository
 from ti.services.realTimeMonitor import RealTimeMonitor
 from ti.services.symbol_service import SymbolService
 
 
 class DetectorPlugin(
-    IFunctionExtension,
-    IPathRegisterProvider
+    IFunctionExtension
 ):
     def __init__(
         self,
@@ -90,10 +87,6 @@ class DetectorPlugin(
             YamlRepository: detector仓库
         """
         return self.repository
-    
-    @staticmethod
-    def register_class():
-        return DetectorPathRegister
     
     @property
     def function_contributions(self):

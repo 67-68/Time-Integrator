@@ -72,11 +72,27 @@ class TestINVProjectFactory:
         
         # 模拟视图类
         class MockViewClass:
-            def __init__(self, rule):
-                self.rule = rule
+            def __init__(self, recipe, bus, project_id, view_id):
+                self.recipe = recipe
+                self.bus = bus
+                self.project_id = project_id
+                self.view_id = view_id
         
-        # 模拟resolve_symbol方法
-        self.mock_symbol_service.resolve_symbol.side_effect = lambda domain, symbol_name: MockEventSource if symbol_name == "action_event_source" else MockViewClass
+        # 模拟resolve_component_class方法
+        def mock_resolve(class_path, default_domain):
+            if "action_event_source" in class_path:
+                return MockEventSource
+            elif "card_view" in class_path:
+                return MockViewClass
+            else:
+                # 模拟规则类
+                class MockRuleClass:
+                    def __init__(self, **kwargs):
+                        for k, v in kwargs.items():
+                            setattr(self, k, v)
+                return MockRuleClass
+        
+        self.mock_symbol_service.resolve_component_class.side_effect = mock_resolve
         
         # 执行测试
         result = self.factory.create_projects()
@@ -89,8 +105,8 @@ class TestINVProjectFactory:
         
         # 验证方法调用
         self.mock_recipe_repository.get_all.assert_called_once()
-        # 验证resolve_symbol被调用（至少两次：一次用于事件源，一次用于视图）
-        assert self.mock_symbol_service.resolve_symbol.call_count >= 2
+        # 验证resolve_component_class被调用（至少两次：一次用于事件源，一次用于视图）
+        assert self.mock_symbol_service.resolve_component_class.call_count >= 2
     
     def test_create_projects_with_empty_recipes(self):
         """测试使用空配方创建项目"""
@@ -133,8 +149,19 @@ class TestINVProjectFactory:
             def initialize(self, project_id, bus, rule):
                 pass
         
-        # 模拟resolve_symbol方法
-        self.mock_symbol_service.resolve_symbol.return_value = MockEventSource
+        # 模拟resolve_component_class方法
+        def mock_resolve(class_path, default_domain):
+            if "action_event_source" in class_path:
+                return MockEventSource
+            else:
+                # 模拟规则类
+                class MockRuleClass:
+                    def __init__(self, **kwargs):
+                        for k, v in kwargs.items():
+                            setattr(self, k, v)
+                return MockRuleClass
+        
+        self.mock_symbol_service.resolve_component_class.side_effect = mock_resolve
         
         # 执行测试
         result = self.factory._create_event_sources(project_recipe)
@@ -145,8 +172,14 @@ class TestINVProjectFactory:
         assert isinstance(result["source1"], MockEventSource)
         
         # 验证方法调用
-        self.mock_symbol_service.resolve_symbol.assert_called_once_with(
-            "intervention", "action_event_source"
+        assert self.mock_symbol_service.resolve_component_class.call_count == 2
+        # 第一次调用：解析事件源类
+        self.mock_symbol_service.resolve_component_class.assert_any_call(
+            "intervention.action_event_source", "intervention"
+        )
+        # 第二次调用：解析规则类
+        self.mock_symbol_service.resolve_component_class.assert_any_call(
+            "ti.features.intervention.model.stored.inv_component_rule.ActionEventSourceRule", "intervention"
         )
     
     def test_create_event_sources_invalid_class(self):
@@ -173,7 +206,7 @@ class TestINVProjectFactory:
         class InvalidClass:
             pass
         
-        self.mock_symbol_service.resolve_symbol.return_value = InvalidClass
+        self.mock_symbol_service.resolve_component_class.return_value = InvalidClass
         
         # 执行测试
         result = self.factory._create_event_sources(project_recipe)
@@ -183,7 +216,7 @@ class TestINVProjectFactory:
         assert len(result) == 0
         
         # 验证方法调用
-        self.mock_symbol_service.resolve_symbol.assert_called_once_with("invalid", "InvalidClass")
+        self.mock_symbol_service.resolve_component_class.assert_called_once_with("invalid.InvalidClass", "intervention")
     
     def test_create_views_success(self):
         """测试成功创建视图"""
@@ -208,10 +241,25 @@ class TestINVProjectFactory:
         
         # 模拟视图类
         class MockViewClass:
-            def __init__(self, rule):
-                self.rule = rule
+            def __init__(self, recipe, bus, project_id, view_id):
+                self.recipe = recipe
+                self.bus = bus
+                self.project_id = project_id
+                self.view_id = view_id
         
-        self.mock_symbol_service.resolve_symbol.return_value = MockViewClass
+        # 模拟resolve_component_class方法
+        def mock_resolve(class_path, default_domain):
+            if "card_view" in class_path:
+                return MockViewClass
+            else:
+                # 模拟规则类
+                class MockRuleClass:
+                    def __init__(self, **kwargs):
+                        for k, v in kwargs.items():
+                            setattr(self, k, v)
+                return MockRuleClass
+        
+        self.mock_symbol_service.resolve_component_class.side_effect = mock_resolve
         
         # 执行测试
         result = self.factory._create_views(project_recipe)
@@ -221,11 +269,17 @@ class TestINVProjectFactory:
         assert "view1" in result  # 现在使用字典键而不是view_id
         assert isinstance(result["view1"], MockViewClass)
         # 现在规则是解析后的对象，不再是INVComponentRule
-        assert hasattr(result["view1"].rule, 'view_id')
+        assert hasattr(result["view1"].recipe, 'view_id')
         
         # 验证方法调用
-        self.mock_symbol_service.resolve_symbol.assert_called_once_with(
-            "intervention", "card_view"
+        assert self.mock_symbol_service.resolve_component_class.call_count == 2
+        # 第一次调用：解析视图类
+        self.mock_symbol_service.resolve_component_class.assert_any_call(
+            "intervention.card_view", "intervention"
+        )
+        # 第二次调用：解析规则类
+        self.mock_symbol_service.resolve_component_class.assert_any_call(
+            "ti.features.intervention.model.stored.inv_view_state.INVViewRecipe", "intervention"
         )
     
     def test_create_views_multiple(self):
@@ -263,10 +317,25 @@ class TestINVProjectFactory:
         
         # 模拟视图类
         class MockViewClass:
-            def __init__(self, rule):
-                self.rule = rule
+            def __init__(self, recipe, bus, project_id, view_id):
+                self.recipe = recipe
+                self.bus = bus
+                self.project_id = project_id
+                self.view_id = view_id
         
-        self.mock_symbol_service.resolve_symbol.return_value = MockViewClass
+        # 模拟resolve_component_class方法
+        def mock_resolve(class_path, default_domain):
+            if "card_view" in class_path:
+                return MockViewClass
+            else:
+                # 模拟规则类
+                class MockRuleClass:
+                    def __init__(self, **kwargs):
+                        for k, v in kwargs.items():
+                            setattr(self, k, v)
+                return MockRuleClass
+        
+        self.mock_symbol_service.resolve_component_class.side_effect = mock_resolve
         
         # 执行测试
         result = self.factory._create_views(project_recipe)
@@ -277,8 +346,8 @@ class TestINVProjectFactory:
         assert "view1" in result
         assert "view2" in result
         
-        # 验证方法调用次数
-        assert self.mock_symbol_service.resolve_symbol.call_count == 2
+        # 验证方法调用次数（每个视图调用2次：视图类 + 规则类）
+        assert self.mock_symbol_service.resolve_component_class.call_count == 4
     
     def test_integration_multiple_projects(self):
         """测试集成场景：创建多个项目"""
@@ -330,14 +399,14 @@ class TestINVProjectFactory:
         )
         
         # 模拟符号服务抛出异常
-        self.mock_symbol_service.resolve_symbol.side_effect = ImportError("Module not found")
+        self.mock_symbol_service.resolve_component_class.side_effect = ImportError("Module not found")
         
         # 执行测试（异常应该传播）
         with pytest.raises(ImportError, match="Module not found"):
             self.factory._create_event_sources(project_recipe)
         
         # 验证方法调用
-        self.mock_symbol_service.resolve_symbol.assert_called_once_with("invalid", "NonExistentClass")
+        self.mock_symbol_service.resolve_component_class.assert_called_once_with("invalid.NonExistentClass", "intervention")
     
     def test_recipe_repository_error_handling(self):
         """测试配方仓库错误处理"""

@@ -1,12 +1,10 @@
 from ti.core.Interfaces.extension_Interface import ExtensionInterface
 from ti.core.eventBus import EventBus
-from ti.features.intervention.intervention_path_register import INV_PathRegister
 from ti.features.intervention.inv_coordinator import INVCoordinator
 from ti.features.intervention.model.stored.inv_project_model import INVProjectModel
 from ti.features.intervention.model.stored.inv_project_recipe import INVProjectRecipe
 from ti.features.intervention.service.inv_project_factory import INVProjectFactory
 from ti.features.intervention.service.inv_reducer import INVReducer
-from ti.model.plugin.path_register_provider_interface import IPathRegisterProvider
 from ti.model.yaml_repository import YamlRepository
 from ti.services.function_service import FunctionService
 from ti.services.realTimeMonitor import RealTimeMonitor
@@ -14,8 +12,7 @@ from ti.services.symbol_service import SymbolService
 
 
 class InterventionPlugin(
-    ExtensionInterface,
-    IPathRegisterProvider
+    ExtensionInterface
 ):
     def __init__(
         self,
@@ -65,6 +62,3 @@ class InterventionPlugin(
     def shutdown(self):
         return super().shutdown()
     
-    @staticmethod
-    def register_class():
-        return INV_PathRegister

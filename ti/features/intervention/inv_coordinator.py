@@ -30,9 +30,6 @@ class INVCoordinator:
     def create_classes(self):
         """Create intervention projects using the factory"""
         self.projects = self.factory.create_projects()
-        print("=" *50)
-        print("create projects")
-        print("=" *50)
                 
             
         

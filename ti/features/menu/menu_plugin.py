@@ -1,6 +1,5 @@
 from ti.core.Interfaces.extension_Interface import ExtensionInterface
 from ti.model.plugin.page_extension_interface import IPageExtension
-from ti.model.plugin.path_register_provider_interface import IPathRegisterProvider
 from ti.services.loggerService import LoggerService
 from ti.model.core_pages import CoreView
 from ti.model.plugin.page_contributions import PageContribution

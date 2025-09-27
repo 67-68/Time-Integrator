@@ -1,11 +1,47 @@
-from ti.features.intervention.intervention_path_register import INV_PathRegister
 from ti.model.plugin.symbol_path_register_interface import ISymbolPathRegister
+from ti.services.path_register_service import PathRegisterService, PathRegisterConfig
 import importlib
 from typing import Any, Optional
+from functools import wraps
 
-from ti.features.detector.detector_path_register import DetectorPathRegister
-from ti.features.insight.insight_path_register import InsightPathRegister
-from ti.model.core_path_register import CorePathRegister
+
+class FactoryError(Exception):
+    """工厂相关错误的基类"""
+    pass
+
+
+class DependencyError(FactoryError):
+    """依赖缺失错误"""
+    pass
+
+
+def factory_dependency_check(*dependencies):
+    """
+    工厂依赖检查装饰器
+    
+    Args:
+        *dependencies: 需要检查的依赖属性名列表
+    
+    Example:
+        @factory_dependency_check('repository', 'cache')
+        def create_detector(self, id):
+            # 方法实现
+            pass
+    """
+    def decorator(func):
+        @wraps(func)
+        def wrapper(self, *args, **kwargs):
+            missing_deps = []
+            for dep in dependencies:
+                if not hasattr(self, dep) or getattr(self, dep) is None:
+                    missing_deps.append(dep)
+            
+            if missing_deps:
+                raise DependencyError(f"Missing dependencies: {', '.join(missing_deps)}")
+            
+            return func(self, *args, **kwargs)
+        return wrapper
+    return decorator
 
 
 class SymbolService:
@@ -17,11 +53,43 @@ class SymbolService:
         """
         self.registers: dict[str, ISymbolPathRegister] = {}
         
-        self.regist_register(CorePathRegister())
-        self.regist_register(InsightPathRegister())
-        self.regist_register(DetectorPathRegister())
-        self.regist_register(INV_PathRegister()) # 这里正确注册了
-        # Intervention path register is registered separately in intervention plugin
+        # 使用PathRegisterService统一管理所有符号注册
+        self._setup_path_registers()
+        
+    def _setup_path_registers(self):
+        """设置所有路径注册器"""
+        # Core domain配置
+        core_config = PathRegisterConfig(
+            domain="core",
+            domain_file_path="ti/model/data",
+            enum_mapping={
+                "TODAY": "ti.model.duration.Duration.TODAY.value",
+                "TO_TOMORROW": "ti.model.duration.Duration.TO_TOMORROW.value", 
+                "THIS_WEEK": "ti.model.duration.Duration.THIS_WEEK.value"
+            }
+        )
+        self.regist_register(PathRegisterService(core_config))
+        
+        # Insight domain配置
+        insight_config = PathRegisterConfig(
+            domain="insight",
+            domain_file_path="ti/features/insight/model/data"
+        )
+        self.regist_register(PathRegisterService(insight_config))
+        
+        # Detector domain配置
+        detector_config = PathRegisterConfig(
+            domain="detector",
+            domain_file_path="ti/features/detector/model/data"
+        )
+        self.regist_register(PathRegisterService(detector_config))
+        
+        # Intervention domain配置
+        intervention_config = PathRegisterConfig(
+            domain="intervention",
+            domain_file_path="ti/features/intervention/model/data"
+        )
+        self.regist_register(PathRegisterService(intervention_config))
         
         
     def regist_register(
@@ -123,6 +191,36 @@ class SymbolService:
         # 第二步：获取符号对象
         return self.get_symbol(symbol_path)
     
+    def resolve_component_class(self, class_path: str, default_domain: str = None) -> Any:
+        """
+        通用组件类解析函数
+        
+        Args:
+            class_path: 类路径，支持格式：
+                - "domain.symbol_name" (如 "intervention.action_event_source")
+                - 完整模块路径 (如 "ti.features.intervention.service.inv_action_event_source.INVActionEventSource")
+                - 符号名称 (当指定default_domain时)
+            default_domain: 默认域名，当class_path不包含点时使用
+            
+        Returns:
+            Any: 解析后的类对象
+        """
+        if not class_path:
+            raise ValueError("Class path cannot be empty")
+        
+        # 格式1: domain.symbol_name
+        if class_path.count(".") == 1:
+            domain, symbol_name = class_path.split(".", 1)
+            return self.resolve_symbol(domain, symbol_name)
+        
+        # 格式2: 仅符号名称，但有默认域名
+        elif default_domain and class_path.count(".") == 0:
+            return self.resolve_symbol(default_domain, class_path)
+        
+        # 格式3: 完整模块路径
+        else:
+            return self.get_symbol(class_path)
+    
     def fill_symbols(self, data):
         """
         遍历数据，解析 A.B 格式的符号引用
@@ -149,21 +247,19 @@ class SymbolService:
                         return value
                     
                     try:
-                        # 尝试解析符号
-                        domain, symbol_name = value.split(".", 1)
-                        
                         # 首先检查是否可以使用路径注册器的resolve_enum_symbol方法
-                        if domain in self.registers:
-                            register = self.registers[domain]
-                            if hasattr(register, 'resolve_enum_symbol'):
-                                resolved_value = register.resolve_enum_symbol(value)
-                                if resolved_value != value:
-                                    # 如果路径注册器处理了该值，直接使用get_symbol解析最终路径
-                                    return self.get_symbol(resolved_value)
+                        if "." in value:
+                            domain = value.split(".", 1)[0]
+                            if domain in self.registers:
+                                register = self.registers[domain]
+                                if hasattr(register, 'resolve_enum_symbol'):
+                                    resolved_value = register.resolve_enum_symbol(value)
+                                    if resolved_value != value:
+                                        # 如果路径注册器处理了该值，直接使用get_symbol解析最终路径
+                                        return self.get_symbol(resolved_value)
                         
-                        # 否则使用常规符号解析
-                        resolved_symbol = self.resolve_symbol(domain, symbol_name)
-                        return resolved_symbol
+                        # 使用新的通用函数解析符号
+                        return self.resolve_component_class(value)
                     except (ValueError, ImportError, AttributeError) as e:
                         print(f"Warning: Could not resolve symbol '{value}': {e}")
                         return value
@@ -182,8 +278,7 @@ class SymbolService:
                             pass  # 不处理这种情况
                         else:
                             try:
-                                domain, symbol_name = k.split(".", 1)
-                                resolved_key = self.resolve_symbol(domain, symbol_name)
+                                resolved_key = self.resolve_component_class(k)
                             except (ValueError, ImportError, AttributeError) as e:
                                 print(f"Warning: Could not resolve key symbol '{k}': {e}")
                     

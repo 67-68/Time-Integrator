@@ -129,7 +129,29 @@ Plugins implement `ExtensionInterface` and are loaded by `DynamicExtensionLoader
 - 符号文件按照 `{domain_file_path}/{file_type}.yaml` 规范组织
 - 枚举符号遵循 `domain.ENUM_CLASS.ENUM_VALUE.value` 格式
 
-**Migration**: 现有功能应逐步迁移到新的PathRegisterService模式。
+**Current Architecture**:
+- **统一创建**: 所有插件的PathRegister现在在组合根（SymbolService）中统一创建和管理
+- **配置驱动**: 每个功能域通过PathRegisterConfig配置，无需编写单独的PathRegister类
+- **插件简化**: 插件不再需要实现IPathRegisterProvider接口，架构更简洁
+
+**Future Evolution - Active Search Architecture**:
+- **可行性**: 主动搜索架构是可行的演进方向，具有以下优势：
+  - **动态发现**: 运行时自动发现和注册符号，减少手动配置
+  - **插件自描述**: 插件可以声明自己的符号，系统自动扫描和注册
+  - **减少配置**: 消除对YAML配置文件的依赖，提高开发效率
+
+**Implementation Path**:
+1. **元数据注解**: 为符号添加元数据注解（如`@Symbol(domain="detector")`）
+2. **插件扫描器**: 创建插件包扫描器，自动发现带注解的符号
+3. **动态注册**: 在插件加载时自动注册发现的符号
+4. **向后兼容**: 保持现有配置方式，逐步迁移到主动搜索
+
+**Benefits**:
+- **开发体验**: 开发者只需添加注解，无需手动维护配置文件
+- **维护性**: 符号定义与代码在一起，减少上下文切换
+- **可扩展性**: 新功能域自动集成，无需修改核心架构
+
+**Migration**: 现有功能已完全迁移到新的PathRegisterService模式。
 
 ### Yaml Parser Removal
 

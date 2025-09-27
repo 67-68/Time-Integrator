@@ -3,7 +3,7 @@ from ti.core.Interfaces.model.repository_interface import IRepository
 from ti.features.insight.service.insightCacheService import InsightCacheService
 from ti.features.detector.model.model import Detector_Recipe, Detector_Recipe_ID
 from ti.model.yaml_repository import YamlRepository
-from ti.services.symbol_service import SymbolService
+from ti.services.symbol_service import SymbolService, factory_dependency_check
 
 
 class DetectorFactory:
@@ -22,12 +22,13 @@ class DetectorFactory:
         self.symbol_service = symbol_service
         self.cache = InsightCacheService() #我不管了...
         
-    def appoint_cache(self,cache: type[IRepository]):
+    def appoint_cache(self, cache: type[IRepository]):
         self.cache = cache
     
-    def appoint_repository(self,cache: type[IRepository]):
-        self.cache = cache
+    def appoint_repository(self, repository: type[IRepository]):
+        self.repository = repository
         
+    @factory_dependency_check('repository', 'cache')
     def create_detector(
         self,
         id,
@@ -38,38 +39,22 @@ class DetectorFactory:
         Args:
             id (Detector_Recipe_ID): _description_
         """
-        if not hasattr(self,"repository") or not hasattr(self,"cache"):
-            print("=" * 50)
-            print("DETECTOR FACTORY ERROR! please appoint cache and repository!")
-            print("=" * 50)
-            
-            raise ValueError("Repository or cache not initialized")
         
-        try:    
-            # 获取recipe_id
-            if hasattr(id, 'value'):
-                recipe_id = id.value
-            else:
-                recipe_id = id
-            
-            # 从YamlRepository获取配方数据
-            recipe_data = self.repository.get_by_id(recipe_id)
-            if not recipe_data:
-                raise ValueError(f"Recipe not found for id: {recipe_id}")
-            
-            # 使用detector_id作为card_type_id
-            recipe_data.config.card_type_id = recipe_id
-            
-            # 解析detector类字符串到实际的类
-            detector_class = self.symbol_service.resolve_symbol("detector", recipe_data.detector)
-            config = recipe_data.config
-            
-            detector = detector_class(config, self.cache)
-            
-            return detector
-        except Exception as e:
-            print("=" * 50)
-            print("DETECTOR FACTORY ERROR! check if use unmatch repository and cache!")
-            print(f"Error: {e}")
-            print("=" * 50)
-            raise
+        # 获取recipe_id
+        recipe_id = id.value if hasattr(id, 'value') else id
+        
+        # 从YamlRepository获取配方数据
+        recipe_data = self.repository.get_by_id(recipe_id)
+        if not recipe_data:
+            raise ValueError(f"Recipe not found for id: {recipe_id}")
+        
+        # 使用detector_id作为card_type_id
+        recipe_data.config.card_type_id = recipe_id
+        
+        # 解析detector类字符串到实际的类
+        detector_class = self.symbol_service.resolve_component_class(recipe_data.detector, "detector")
+        config = recipe_data.config
+        
+        detector = detector_class(config, self.cache)
+        
+        return detector

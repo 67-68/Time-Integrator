@@ -5,7 +5,7 @@ from ti.features.intervention.model.stored.inv_project_recipe import INVComponen
 from ti.features.intervention.service.inv_action_event_source import INVActionEventSource
 from ti.model.yaml_repository import YamlRepository
 from ti.services.realTimeMonitor import RealTimeMonitor
-from ti.services.symbol_service import SymbolService
+from ti.services.symbol_service import SymbolService, factory_dependency_check
 
 
 class INVProjectFactory:
@@ -64,15 +64,8 @@ class INVProjectFactory:
             class_name = event_source_recipe.class_name
             rule = event_source_recipe.rule
             
-            # 解析类名格式：domain.symbol_name 或完整路径
-            if class_name.count(".") == 1:
-                # 格式：domain.symbol_name
-                domain, symbol_name = class_name.split(".", 1)
-                # 使用resolve_symbol解析符号
-                es_class = self.symbol_service.resolve_symbol(domain, symbol_name)
-            else:
-                # 使用get_symbol解析完整路径
-                es_class = self.symbol_service.get_symbol(class_name)
+            # 使用新的通用函数解析类
+            es_class = self.symbol_service.resolve_component_class(class_name, "intervention")
             
             if issubclass(es_class, INVActionEventSource):
                 event_source_instance = es_class(self.detector_repository, self.monitor)
@@ -82,7 +75,7 @@ class INVProjectFactory:
                 
                 if rule_type_path:
                     # 解析规则类型
-                    rule_class = self.symbol_service.get_symbol(rule_type_path)
+                    rule_class = self.symbol_service.resolve_component_class(rule_type_path, "intervention")
                     if rule_class:
                         action_rule = rule_class(**rule_data)
                         event_source_instance.initialize(recipe.project_id, self.bus, action_rule)
@@ -102,15 +95,8 @@ class INVProjectFactory:
             class_name = view_recipe.class_name
             view_rule = view_recipe.rule
             
-            # 解析类名格式：domain.symbol_name 或完整路径
-            if class_name.count(".") == 1:
-                # 格式：domain.symbol_name
-                domain, symbol_name = class_name.split(".", 1)
-                # 使用resolve_symbol解析符号
-                view_class = self.symbol_service.resolve_symbol(domain, symbol_name)
-            else:
-                # 使用get_symbol解析完整路径
-                view_class = self.symbol_service.get_symbol(class_name)
+            # 使用新的通用函数解析类
+            view_class = self.symbol_service.resolve_component_class(class_name, "intervention")
             
             # 使用 symbol service 解析规则类型并创建规则对象
             rule_type_path = view_rule.get('rule_type')
@@ -118,7 +104,7 @@ class INVProjectFactory:
             
             if rule_type_path:
                 # 解析规则类型
-                rule_class = self.symbol_service.get_symbol(rule_type_path)
+                rule_class = self.symbol_service.resolve_component_class(rule_type_path, "intervention")
                 if rule_class:
                     view_rule_obj = rule_class(**rule_data)
                     # Create presenter with required parameters (View is created internally)

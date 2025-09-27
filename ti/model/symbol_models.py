@@ -16,9 +16,3 @@ class SymbolModel:
     symbol_path: str
     symbol_domain: str
     symbol_name: str = None
-    
-@dataclass
-class SymbolModels:
-    content: dict[str,SymbolModel]
-    
-    # 这里的str就是symbol的别名，例如"ti.model.duration.Duration"就是"DURATION"

@@ -72,5 +72,6 @@ class IPagePresenter(ABC, metaclass=QtABCMeta):
                     # 添加到stacked widget并存储
                     self.page.add_page_to_stack(page_id, page_widget)
                     # 切换到新创建的页面
-                    print(f"[CAP]switch to {page_id}")
+                    print(f"switch to {page_id}")
+                    print("*" * 141)
                     self.page.switch_to_page(page_id)

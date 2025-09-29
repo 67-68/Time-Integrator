@@ -1,6 +1,6 @@
 from ti.core.eventBus import EventBus
 from ti.model.yaml_repository import YamlRepository
-from ti.features.intervention.model.stored.inv_project_recipe import INVComponentRecipe, INVProjectRecipe, INVProjects
+from ti.features.intervention.model.stored.inv_project_recipe import INVProjectRecipe, INVProjects
 
 from ti.features.intervention.service.inv_action_event_source import INVActionEventSource
 from ti.model.yaml_repository import YamlRepository

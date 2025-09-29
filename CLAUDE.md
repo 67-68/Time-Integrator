@@ -153,6 +153,22 @@ Plugins implement `ExtensionInterface` and are loaded by `DynamicExtensionLoader
 
 **Migration**: 现有功能已完全迁移到新的PathRegisterService模式。
 
+### Presenter-View Signal Connection
+
+**Decision**: 在Coordinator中保留Presenter对象引用，避免垃圾回收导致信号连接失效。
+
+**Rationale**:
+- **信号连接失效**: 如果Presenter对象被垃圾回收，View发出的信号将无法被接收
+- **生命周期管理**: Coordinator负责管理Presenter的生命周期，确保信号连接持续有效
+- **调试困难**: 信号连接失效难以调试，保留引用可以避免此类问题
+
+**Implementation**:
+- 在Coordinator的`__init__`方法中初始化`self.presenter = None`
+- 在`create_page`方法中将Presenter保存为类变量：`self.presenter = InterventionPresenter()`
+- 确保Presenter对象在整个应用程序生命周期中保持有效
+
+**Lesson Learned**: 当使用PyQt信号连接Presenter和View时，必须确保Presenter对象不会被垃圾回收。
+
 ### Yaml Parser Removal
 
 **Decision**: Remove Yaml Parser and related IYamlRepository interfaces as over-engineering.

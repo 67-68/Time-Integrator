@@ -48,19 +48,19 @@ class PathRegisterService(ISymbolPathRegister):
     
     @property
     def class_file_path(self) -> str:
-        return f"{self._config.domain_file_path}/classes.yaml"
+        return f"{self._config.domain_file_path}/{self.domain}_classes.yaml"
     
     @property
     def class_method_file_path(self) -> str:
-        return f"{self._config.domain_file_path}/class_methods.yaml"
+        return f"{self._config.domain_file_path}/{self.domain}_class_methods.yaml"
     
     @property
     def function_file_path(self) -> str:
-        return f"{self._config.domain_file_path}/functions.yaml"
+        return f"{self._config.domain_file_path}/{self.domain}_functions.yaml"
     
     @property
     def enum_file_path(self) -> str:
-        return f"{self._config.domain_file_path}/enums.yaml"
+        return f"{self._config.domain_file_path}/{self.domain}_enums.yaml"
     
     def get_symbol_path(self, symbol_id):
         return super().get_symbol_path(symbol_id)

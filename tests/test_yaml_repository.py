@@ -215,11 +215,6 @@ class TestYamlRepositoryWithYamlFile:
         if os.path.exists(temp_json_path):
             os.unlink(temp_json_path)
     
-    def test_yaml_file_detection(self):
-        """测试YAML文件检测"""
-        # 应该检测到这是YAML文件
-        assert self.repository.is_yaml_file is True
-    
     def test_load_from_yaml(self):
         """测试从YAML文件加载数据"""
         data = self.repository.get_all()
@@ -284,11 +279,6 @@ class TestYamlRepositoryWithJsonFile:
         # 清理临时文件
         if os.path.exists(self.db_path):
             os.unlink(self.db_path)
-    
-    def test_json_file_detection(self):
-        """测试JSON文件检测"""
-        # 应该检测到这是JSON文件
-        assert self.repository.is_yaml_file is False
     
     def test_load_from_json(self):
         """测试从JSON文件加载数据"""

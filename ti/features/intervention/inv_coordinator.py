@@ -1,4 +1,6 @@
 from ti.core.eventBus import EventBus
+from ti.features.intervention.presenter.intervention_presenter import InterventionPresenter
+from ti.features.intervention.view.intervention_view import InterventionView
 from ti.model.yaml_repository import YamlRepository
 from ti.features.intervention.service.inv_reducer import INVReducer
 from ti.features.intervention.service.inv_project_factory import INVProjectFactory
@@ -25,11 +27,17 @@ class INVCoordinator:
         self.factory = factory
         self.reducer = reducer
         self.projects = {}
+        self.presenter = None  # 初始化presenter属性
         self.create_classes()
         
     def create_classes(self):
         """Create intervention projects using the factory"""
         self.projects = self.factory.create_projects()
-                
-            
+    
+    def create_page(self) -> InterventionView:
+        self.presenter = InterventionPresenter()  # 保存Presenter引用
+        print("创建presenter")
+        # View需要被显示，通常在调用此方法的地方调用view.show()
+        return self.presenter.view
         
+    

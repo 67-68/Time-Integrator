@@ -24,7 +24,6 @@ from ti.services.function_service import FunctionService
 from ti.services.serviceContainer import ServiceContainer
 from ti.services.symbol_service import SymbolService
 from ti.model.yaml_repository import YamlRepository
-from ti.features.intervention.intervention_path_register import INV_PathRegister
 
 
 class TestInterventionPluginAcceptance:

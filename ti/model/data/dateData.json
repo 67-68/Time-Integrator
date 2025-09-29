@@ -29926,5 +29926,33 @@
             "urgency": false,
             "importance": false
         }
+    ],
+    "2025-09-26": [
+        {
+            "action": "CODE",
+            "start": "19:18",
+            "end": "19:50",
+            "action_type": "work",
+            "action_detail": "",
+            "date": "2025-09-26",
+            "id": "e8d1eeeb-7532-498d-96db-0de38e10ed82",
+            "timeSpan": 32,
+            "urgency": false,
+            "importance": false
+        }
+    ],
+    "2025-09-28": [
+        {
+            "action": "CDE",
+            "start": "11:45",
+            "end": "11:23",
+            "action_type": "work",
+            "action_detail": "",
+            "date": "2025-09-28",
+            "id": "62c26b20-7255-45d8-a9c2-c540123e0c8f",
+            "timeSpan": -22,
+            "urgency": false,
+            "importance": false
+        }
     ]
 }

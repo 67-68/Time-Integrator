@@ -5,20 +5,11 @@ from PyQt6.QtCore import pyqtSignal, QObject
 
 from ti.features.detector.model.baseDetector import BaseDetector
 from ti.features.detector.model.detectorFactory import DetectorFactory
-from ti.features.detector.service.matchers import Matcher
+from ti.model.monitor.moitor_pattern_detected import MonitorPatternDetected
+from ti.model.monitor.monitor_pack import Monitor_Pack, Thread_Pack
 from ti.services.dataService import DataService
 
-@dataclass
-class Monitor_Pack:
-    id: str  # detector recipe ID
-    monitor_id: str  # monitor identifier
-    hook: list[Matcher]
 
-@dataclass
-class Thread_Pack:
-    monitors: dict[str,Monitor_Pack]
-    thread_factory: 'DetectorFactory'
-    thread_id: str
     
     
 class RealTimeMonitor(QObject):
@@ -189,9 +180,8 @@ class RealTimeMonitor(QObject):
             thread_id (str): 线程ID
         """
         print(f"[Thread {thread_id}] monitor检测到模式id为{monitor_id}的模式匹配")
-        signal_name = f"{thread_id}_{monitor_id}_pattern_detected"
-        self.bus.publish(signal_name, (thread_id, monitor_id)) # 这里应该发布对应的行动
-        print(f"发布了信号名称为{signal_name}的信号")
-        self.intervention_needed.emit()
+        pack = MonitorPatternDetected(thread_id,monitor_id)
+        self.bus.publish_event(MonitorPatternDetected,pack) # 这里应该发布对应的行动
+        print("[MONITOR]发布了信号名称为MonitorPatternDetected的事件")
         
         

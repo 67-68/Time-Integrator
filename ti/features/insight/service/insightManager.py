@@ -1,7 +1,8 @@
 from PyQt6.QtCore import QObject
 
+from ti.features.insight.model.insight_card_generation_models import RawCardData
+from ti.features.insight.model.insight_card_model import InsightCardModel
 from ti.features.insight.service.insightCacheService import InsightCacheService
-from ti.features.insight.model.insight_card_generation_models import RawCardData, PresentedCardData
 
 
 
@@ -14,10 +15,10 @@ class InsightManager:
     同时,它会帮助把当前卡片归档
     """
     def __init__(self,ICS: InsightCacheService):
-        self.cards: dict[str, PresentedCardData] = {}
+        self.cards: dict[str, InsightCardModel] = {}
         self.ICS = ICS
         
-    def add_card(self,raw_card_data: RawCardData, pre_card_data: PresentedCardData) -> None:
+    def add_card(self,raw_card_data: RawCardData, pre_card_data: InsightCardModel) -> None:
         """_summary_
         这个函数负责把卡片加入insight Manager中
         它会把原始卡片数据添加进历史数据

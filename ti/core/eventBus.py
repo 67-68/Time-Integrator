@@ -70,14 +70,12 @@ class EventBus:
             signal_id(str): 希望发布信号的名称
             data (dict): 希望发布的信息
         """
-        signal_id = event.event_id
-        if signal_id not in self.event_signals:
-            self.event_signals[signal_id] = []
-            print(f"this signal({signal_id}) is not registed by subscriber or publisher")
-        
-        signal_list = self.event_signals[signal_id]
-        print(f"[BUS]published {signal_id}")
-        
+        if event not in self.event_signals:
+            self.event_signals[event] = []
+            print(f"this signal({event.event_id}) is not registed by subscriber or publisher")
+            
+        signal_list = self.event_signals[event]
+        print(f"[BUS]published {event.event_id}")
         if len(signal_list) == 0:
             return
         

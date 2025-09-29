@@ -1,4 +1,4 @@
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from ti.core.eventBus import EventBus
 from ti.services.dataService import DataService
 from ti.services.function_service import FunctionService
@@ -11,6 +11,9 @@ from ti.features.insight.model.insight_event import (
     InsightCardGenerationStarted, RecipeLoaded, CardGenerated, 
     AllCardsGenerated, CardRendered, InsightGenerationCompleted
 )
+from ti.features.insight.model.insight_narrative_model import InsightNarrativeModel
+from ti.features.insight.model.insight_card_model import InsightCardModel
+from ti.model.yaml_repository import YamlRepository
 from ti.services.loggerService import LoggerService
 
 
@@ -45,6 +48,24 @@ class InsightCoordinator:
         # 创建logger
         self.logger = LoggerService("./ti/features/insight", "insight_coordinator")
         
+        # 创建YamlRepository用于narrative数据
+        self.narrative_repository = YamlRepository[
+            InsightNarrativeModel
+        ](
+            db_path="ti/features/insight/model/data/insight_narratives.yaml",
+            model_class=InsightNarrativeModel,
+            identifier_field="narrative_id"
+        )
+        
+        # 创建YamlRepository用于insight卡片数据
+        self.card_repository = YamlRepository[
+            InsightCardModel
+        ](
+            db_path="ti/features/insight/model/data/insight_cards.yaml",
+            model_class=InsightCardModel,
+            identifier_field="card_uuid"
+        )
+        
         # 服务实例（通过接口引用）
         self.recipe_service: IInsightRecipeService = None
         self.card_generator: IInsightCardGenerator = None
@@ -56,14 +77,36 @@ class InsightCoordinator:
         
         # 订阅事件
         self._subscribe_events()
-        
-        self.logger.log("初始化", "InsightCoordinator初始化完成（接口依赖版本）")
     
     def _subscribe_events(self):
         """订阅相关事件"""
         # 这里可以订阅其他插件或组件发布的事件
         # 例如：当数据更新时触发卡片重新生成
         pass
+    
+    def get_universal_narrative(self, key: str) -> List[str]:
+        """获取通用叙事文本"""
+        narrative = self.narrative_repository.get_by_id(f"universal_{key}")
+        return narrative.text if narrative else []
+    
+    def get_specific_narrative(self, action_type: str, narrative_key: str) -> Optional[Dict[str, Any]]:
+        """获取特定行动类型的叙事文本"""
+        narrative_id = f"specific_{action_type}_{narrative_key}"
+        narrative = self.narrative_repository.get_by_id(narrative_id)
+        
+        if narrative:
+            # 返回与InsightNarrator兼容的格式
+            return {"text": narrative.text}
+        return None
+    
+    def get_presentation(self, action_type: str, presentation_type: str) -> Dict[str, Any]:
+        """获取展示文本"""
+        narrative_id = f"presentation_{action_type}_{presentation_type}"
+        narrative = self.narrative_repository.get_by_id(narrative_id)
+        
+        if narrative:
+            return {"text": narrative.text}
+        return {}
     
     def start_yesterday_report_generation(self, view_component) -> List:
         """
@@ -76,14 +119,13 @@ class InsightCoordinator:
             List: 生成的卡片列表
         """
         if self.is_generating:
-            self.logger.log("警告", "卡片生成正在进行中，忽略重复请求")
             return []
         
         self.is_generating = True
         self.generated_cards = []
         
         # 发布开始事件
-        self.bus.publish(InsightCardGenerationStarted(report_type="yesterday"))
+        self.bus.publish_event(InsightCardGenerationStarted,InsightCardGenerationStarted(report_type="yesterday"))
         
         try:
             # 1. 加载配方
@@ -99,21 +141,19 @@ class InsightCoordinator:
             rendered_cards = self._render_cards(cards, view_component)
             
             # 5. 发布完成事件
-            self.bus.publish(InsightGenerationCompleted(success=True))
+            self.bus.publish_event(InsightGenerationCompleted,InsightGenerationCompleted(success=True))
             
-            self.logger.log("完成", f"成功生成并渲染 {len(rendered_cards)} 张卡片")
             return rendered_cards
             
         except Exception as e:
-            self.logger.log("错误", f"卡片生成失败: {str(e)}")
-            self.bus.publish(InsightGenerationCompleted(success=False, error_message=str(e)))
-            return []
+            self.bus.publish_event(InsightGenerationCompleted,InsightGenerationCompleted(success=False, error_message=str(e)))
+            print(e)
+            return {}
         finally:
             self.is_generating = False
     
     def _load_recipes(self) -> Dict[str, Any]:
         """加载洞察卡片配方"""
-        self.logger.log("配方加载", "开始加载洞察卡片配方")
         
         # 使用配方服务（通过接口）
         self.recipe_service = self.service_factory.create_recipe_service()
@@ -123,7 +163,7 @@ class InsightCoordinator:
         fixed_count = len(recipes.get("fixed_recipes", []))
         conditional_count = len(recipes.get("conditional_recipes", []))
         
-        self.bus.publish(RecipeLoaded(
+        self.bus.publish_event(RecipeLoaded,RecipeLoaded(
             fixed_recipes_count=fixed_count,
             conditional_recipes_count=conditional_count
         ))
@@ -134,17 +174,13 @@ class InsightCoordinator:
     
     def _initialize_services(self, recipes: Dict[str, Any]):
         """初始化洞察相关服务"""
-        self.logger.log("服务初始化", "开始初始化洞察服务")
         
         # 使用服务工厂创建卡片生成器和渲染器
         self.card_generator = self.service_factory.create_card_generator()
         self.card_renderer = self.service_factory.create_card_renderer()
-        
-        self.logger.log("服务初始化", "洞察服务初始化完成")
     
     def _generate_cards(self) -> List:
         """生成洞察卡片"""
-        self.logger.log("卡片生成", "开始生成洞察卡片")
         
         # 使用卡片生成器（通过接口）
         cards = self.card_generator.generate_cards()
@@ -156,44 +192,37 @@ class InsightCoordinator:
             else:
                 card_id = str(id(card))
             
-            self.bus.publish(CardGenerated(
+            self.bus.publish_event(CardGenerated,CardGenerated(
                 card_id=card_id,
                 card_type=getattr(card, 'card_type', 'unknown'),
                 card_data=card.to_dict() if hasattr(card, 'to_dict') else card
             ))
         
         # 发布所有卡片生成完成事件
-        self.bus.publish(AllCardsGenerated(
+        self.bus.publish_event(AllCardsGenerated,AllCardsGenerated(
             total_cards=len(cards),
             fixed_cards=len([c for c in cards if getattr(c, 'card_type', '') == 'fixed']),
             conditional_cards=len([c for c in cards if getattr(c, 'card_type', '') == 'conditional']),
             stored_cards=len([c for c in cards if getattr(c, 'card_type', '') == 'stored'])
         ))
         
-        self.logger.log("卡片生成", f"成功生成 {len(cards)} 张卡片")
         return cards
     
-    def _render_cards(self, cards: List, view_component) -> List:
+    def _render_cards(self, cards: dict,view_component) -> List:
         """渲染卡片到界面"""
-        self.logger.log("卡片渲染", "开始渲染卡片到界面")
-        
-        # 使用卡片渲染器（通过接口）
-        rendered_cards = self.card_renderer.render_cards(cards, view_component)
-        
         # 发布卡片渲染事件
-        for idx, card in enumerate(rendered_cards):
-            card_id = getattr(cards[idx], 'id', str(idx)) if idx < len(cards) else str(idx)
-            self.bus.publish(CardRendered(
-                card_id=card_id,
+        rendered_cards = self.card_renderer.render_cards(cards, view_component)
+        for uuid, card in rendered_cards.items():
+            self.bus.publish_event(CardRendered,CardRendered(
+                card_id=card.card_id,
+                card_uuid = uuid,
                 ui_component=card
             ))
         
-        self.logger.log("卡片渲染", f"成功渲染 {len(rendered_cards)} 张卡片到界面")
-        return rendered_cards
+        return cards
     
     def shutdown(self):
         """关闭协调器"""
-        self.logger.log("关闭", "InsightCoordinator正在关闭")
         # 清理资源
         self.cache_service = None
         self.insight_engine = None

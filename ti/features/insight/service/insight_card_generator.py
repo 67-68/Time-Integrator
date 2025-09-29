@@ -16,6 +16,4 @@ class InsightCardGenerator(IInsightCardGenerator):
         
         # 使用报告生成服务创建卡片
         cards = self.report_generation_service.create_yesterday_report()
-        
-        self.logger.log("卡片生成", f"成功生成 {len(cards)} 张卡片")
         return cards

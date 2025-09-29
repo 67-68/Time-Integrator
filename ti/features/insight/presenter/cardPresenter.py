@@ -1,6 +1,7 @@
 from ti.core.eventBus import EventBus
-from ti.features.insight.model.insight_card_repository import InsightCardRepository
+from ti.model.yaml_repository import YamlRepository
 from ti.features.insight.model.insight_event import SaveInsightCard
+from ti.features.insight.model.insight_card_model import InsightCardModel
 from ti.features.insight.service.uiCardFactory import InsightCardFactory
 from ti.features.insight.view.insight_view import InsightView
 from ti.features.insight.service.insightCacheService import InsightCacheService
@@ -19,14 +20,21 @@ class InsightPresenter():
         bus: EventBus,
         view: InsightView,
         ui_card_factory: InsightCardFactory,
-        card_repository: InsightCardRepository,
         cache_service: InsightCacheService
     ):
         self.bus = bus
         self.view = view
         self.ui_card_factory = ui_card_factory
-        self.card_repository = card_repository
         self.cache = cache_service
+        
+        # 创建YamlRepository用于insight卡片数据
+        self.card_repository = YamlRepository[
+            InsightCardModel
+        ](
+            db_path="ti/features/insight/model/data/insight_cards.yaml",
+            model_class=InsightCardModel,
+            identifier_field="card_uuid"
+        )
         
         # 创建logger
         self.logger = LoggerService("./ti/features/insight", "card_presenter")
@@ -75,11 +83,11 @@ class InsightPresenter():
             return
         
         try:
-            # 转换卡片数据为字典格式并保存
-            cards_to_save = [card.to_dict() if hasattr(card, 'to_dict') else card 
-                           for card in cards]
+            # 使用YamlRepository保存每张卡片
+            for card in cards:
+                if hasattr(card, 'card_uuid'):
+                    self.card_repository.save(card)
             
-            self.card_repository.save_today_cards(cards_to_save)
             self.logger.log("卡片保存", f"成功保存 {len(cards)} 张卡片")
             
         except Exception as e:

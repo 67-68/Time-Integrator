@@ -8,4 +8,5 @@ from enum import Enum
 
 class INVSpecialEvent(Enum):
     INTERVENE_USER = "intervene_user" 
+    ADD_TO_INSIGHT_CARD = "add_to_insight_card"
     

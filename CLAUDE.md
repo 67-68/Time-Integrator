@@ -112,6 +112,12 @@ Plugins implement `ExtensionInterface` and are loaded by `DynamicExtensionLoader
 - `ti/view/`: UI components and Qt widgets
 - `ti/presenters/`: Presentation logic and coordination
 
+## 项目规范
+- Event Dataclass:
+当创建一个事件的时候，使用@dataclass
+对于event_id, default = lower case + snake naming
+
+
 ## Architecture Decisions
 
 ### Path Register Service
@@ -187,6 +193,7 @@ Plugins implement `ExtensionInterface` and are loaded by `DynamicExtensionLoader
 - 代码更简洁，减少抽象层
 - 更容易调试和维护
 - 减少潜在的错误源
+
 
 
 

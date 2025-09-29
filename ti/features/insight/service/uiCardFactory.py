@@ -1,6 +1,5 @@
 import uuid
 from typing import Dict, Any
-from ti.features.insight.model.insight_card_generation_models import FixedCardResult, PresentedCardData
 from ti.features.insight.view.insight_card import InsightCard
 from ti.features.insight.presenter.insight_card_presenter import InsightPresenter
 from ti.core.eventBus import EventBus
@@ -39,11 +38,8 @@ class InsightCardFactory:
         Returns:
             Dict: 包含卡片和presenter的字典
         """
-        # 适配卡片数据
-        card_dict, card_data_for_presenter = self._adapt_card_data(card_data)
-        
         # 格式化数据
-        formatted_data = self.format.format_card(card_dict)
+        formatted_data = self.format.format_card(card_data)
         
         # 创建UI卡片
         card = self._create_card_ui(formatted_data, parent_view)
@@ -52,29 +48,13 @@ class InsightCardFactory:
         self._publish_card_event(card, cache, card_data)
         
         # 设置卡片presenter
-        card_presenter = self._setup_card_presenter(card, card_data_for_presenter)
+        card_presenter = self._setup_card_presenter(card)
         
         return {
             "card": card,
             "presenter": card_presenter,
-            "card_data": card_data_for_presenter
+            "card_data": card_data
         }
-    
-    def _adapt_card_data(self, card_data):
-        """适配不同类型的卡片数据"""
-        if isinstance(card_data, (PresentedCardData, FixedCardResult)):
-            # 如果是dataclass对象，转换为字典
-            card_dict = self._convert_dataclass_to_dict(card_data)
-            
-            # 对于FixedCardResult，添加额外的字段
-            if isinstance(card_data, FixedCardResult):
-                card_dict["duration"] = card_data.duration
-                card_dict["card_type_id"] = card_data.card_type_id
-            
-            return card_dict, card_dict
-        else:
-            # 如果是字典，直接使用
-            return card_data, card_data
     
     def _create_card_ui(self, formatted_data, parent_view):
         """创建UI卡片实例"""
@@ -92,22 +72,3 @@ class InsightCardFactory:
         
         # 创建卡片presenter
         return InsightPresenter(card)
-    
-    def _convert_dataclass_to_dict(self, card_data) -> Dict[str, Any]:
-        """
-        将dataclass对象转换为字典
-        
-        Args:
-            card_data: dataclass对象
-            
-        Returns:
-            Dict: 转换后的字典
-        """
-        return {
-            "card_type": card_data.card_type,
-            "judgement_key": card_data.judgement_key,
-            "sementic_key": card_data.sementic_key,
-            "data": card_data.data,
-            "weight": card_data.weight,
-            "id": card_data.id
-        }

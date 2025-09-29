@@ -4,7 +4,6 @@ from ti.core.extensionRegister import DynamicExtensionLoader, ExtensionRegister
 
 from ti.services.function_service import FunctionService
 from ti.services.page_factory import PageFactory
-from ti.features.insight.model.narratives import InsightNarrator
 from ti.features.translation.service.translator_service import Translator
 from ti.services.loggerService import LoggerService
 from ti.services.dataService import DataService
@@ -42,10 +41,7 @@ class ServiceContainer:
         self.services["symbol"] = symbol
         self._services[SymbolService] = symbol
         
-        # 创建InsightNarrator实例
-        narrator = InsightNarrator(symbol)
-        
-        formatter = InsightFormatService(narrator)
+        formatter = InsightFormatService()
         self.services["FS"] = formatter
         self._services[InsightFormatService] = formatter
         

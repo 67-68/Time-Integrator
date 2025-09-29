@@ -3,20 +3,25 @@ from typing import Dict, List
 
 from ti.core.Interfaces.model.repository_interface import IRepository
 from ti.features.insight.interface.generator_interface import ICardGenerator
-from ti.features.insight.model.insight_card_repository import InsightCardRepository
+from ti.features.insight.model.insight_card_model import InsightCardModel
+from ti.model.yaml_repository import YamlRepository
 
 
 class InsightRecipeProvider:
-    def __init__(
-        self,
-        card_rep: InsightCardRepository
-    ):
+    def __init__(self):
         """
         这个类管理配方的获取
         它登记不同的register
         他们的generator和narrative
         """
-        self.card_rep = card_rep
+        # 创建YamlRepository用于insight卡片数据
+        self.card_rep = YamlRepository[
+            InsightCardModel
+        ](
+            db_path="ti/features/insight/model/data/insight_cards.yaml",
+            model_class=InsightCardModel,
+            identifier_field="card_uuid"
+        )
         self.recipe_registrations: Dict[str, InsightRecipeRegistration] = {}
     
     def register_recipes(self, registration: 'InsightRecipeRegistration') -> None:
@@ -41,7 +46,7 @@ class InsightRecipeProvider:
                 if recipe.get('duration') == "core.Duration.TODAY.value":
                     # 检查是否已存在相同类型的卡片
                     card_type_id = recipe.get('id') or recipe.get('detector', '')
-                    existing_cards = self.card_rep.get_by_card_type(card_type_id)
+                    existing_cards = self.card_rep.query(card_type_id=card_type_id)
                     
                     # 如果不存在相同类型的卡片，则包含该配方
                     if not existing_cards:

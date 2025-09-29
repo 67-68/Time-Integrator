@@ -63,15 +63,20 @@ class IPagePresenter(ABC, metaclass=QtABCMeta):
     @abstractmethod
     def _on_page_first_clicked(self, page_id):
         """处理页面首次点击事件，调用回调函数创建页面"""
+        print(f"switch to {page_id}")
+        print("*" * 141)
         if page_id in self.page_contributions:
             contribution = self.page_contributions[page_id]
             if contribution.create_page_callback:
                 # 调用回调函数创建页面
                 page_widget = contribution.create_page_callback(page_id)
                 if page_widget:
+                    print(f"switch to {page_id} successfully")
                     # 添加到stacked widget并存储
                     self.page.add_page_to_stack(page_id, page_widget)
                     # 切换到新创建的页面
-                    print(f"switch to {page_id}")
-                    print("*" * 141)
+                    
+                    
                     self.page.switch_to_page(page_id)
+                else:
+                    print(f"switch to {page_id} failed")

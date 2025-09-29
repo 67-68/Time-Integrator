@@ -46,6 +46,7 @@ class CardRendered(InsightEvent):
     """卡片渲染到界面事件"""
     event_id: str = "card_rendered"
     card_id: str = None
+    card_uuid: str = None
     ui_component: Any = None
 
 @dataclass

@@ -1,6 +1,7 @@
 from dataclasses import dataclass
+from typing import Protocol
 
 
 @dataclass
-class BasicEvent:
-    event_id: str = None
+class BasicEvent(Protocol):
+    event_id: str

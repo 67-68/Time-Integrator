@@ -11,19 +11,17 @@ class InsightCardRenderer(IInsightCardRenderer):
         self.cache_service = cache_service
         self.logger = LoggerService("./ti/features/insight", "card_renderer")
     
-    def render_cards(self, cards_data: List[Any], view_component: Any) -> List[Any]:
+    def render_cards(self, cards_data: dict[Any], view_component: Any) -> List[Any]:
         """渲染卡片到界面"""
-        self.logger.log("卡片渲染", "开始渲染卡片到界面")
+        rendered_cards = {}
         
-        rendered_cards = []
-        
-        for idx, card_data in enumerate(cards_data):
+        for uuid, card_data in cards_data.items():
             # 使用UI工厂创建卡片
             ui_result = self.ui_card_factory.create_ui_card(
                 card_data, view_component, self.cache_service
             )
             
-            rendered_cards.append(ui_result["card"])
+            rendered_cards[card_data.card_uuid] = (ui_result["card"])
             
             # 保存引用，防止被垃圾回收
             view_component.add_card(ui_result["card"])

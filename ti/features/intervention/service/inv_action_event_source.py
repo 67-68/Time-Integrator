@@ -1,5 +1,6 @@
 from ti.core.eventBus import EventBus
 from ti.features.detector.model.detectorFactory import DetectorFactory
+from ti.model.monitor.moitor_pattern_detected import MonitorPatternDetected
 from ti.model.yaml_repository import YamlRepository
 from ti.features.intervention.model.events.intervention_trigger import InterventionTriggered
 from ti.features.intervention.model.events.special_events import INVSpecialEvent
@@ -61,14 +62,13 @@ class INVActionEventSource(IInterventionEventSource):
         
         self.monitor.add_monitor_to_thread(project_id, pack)
         
-        self.bus.subscribe(f"{project_id}_{self.event_source_id}_pattern_detected",self.publish_event)
+        self.bus.subscribe_event(MonitorPatternDetected,self.publish_event)
         
 
     def publish_event(self,content):
         triggered = InterventionTriggered(
-            self.event_source_id,
-            self.project_id,
-            INVSpecialEvent.INTERVENE_USER.value # 目前仅支持这个，后续或许配置
+            inv_project_id=self.project_id,
+            special_events=[INVSpecialEvent.INTERVENE_USER] # 目前仅支持这个，后续或许配置
         )
         
         self.bus.publish_event(InterventionTriggered,triggered)

@@ -2,6 +2,7 @@ from ti.core.Interfaces.detector_Interface import DetectorInterface
 from ti.core.Interfaces.model.repository_interface import IRepository
 from ti.features.insight.service.insightCacheService import InsightCacheService
 from ti.features.detector.model.model import Detector_Recipe, Detector_Recipe_ID
+from ti.features.detector.service.matcher_resolver import MatcherResolver
 from ti.model.yaml_repository import YamlRepository
 from ti.services.symbol_service import SymbolService, factory_dependency_check
 
@@ -54,6 +55,10 @@ class DetectorFactory:
         # 解析detector类字符串到实际的类
         detector_class = self.symbol_service.resolve_component_class(recipe_data.detector, "detector")
         config = recipe_data.config
+        
+        # 使用matcher resolver解析配置中的matcher字符串
+        matcher_resolver = MatcherResolver()
+        config = matcher_resolver.resolve_config(config)
         
         detector = detector_class(config, self.cache)
         

@@ -5,6 +5,7 @@ from typing import Any, Callable
 class PythonSymbol:
     """
     一个自定义类型，Pydantic会知道如何处理它。
+    它期望字符串为完整路径
     """
     @classmethod
     def __get_validators__(cls):
@@ -29,3 +30,4 @@ class PythonSymbol:
             return symbol
         except (ImportError, AttributeError, ValueError) as e:
             raise ValueError(f"Could not resolve symbol: {value}") from e
+        

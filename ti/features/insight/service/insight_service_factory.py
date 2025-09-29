@@ -31,7 +31,7 @@ class InsightServiceFactory(IInsightServiceFactory):
         from ti.features.insight.presenter.conditional_cardPresenter import Conditional_ReportGenerator
         from ti.features.insight.presenter.fixed_cardPresenter import Fixed_ReportGenerator
         from ti.services.sessionCache import SessionCache
-        from ti.features.insight.service.reportGenerationService import ReportGenerationService
+        from ti.features.insight.service.card_generation import ReportGenerationService
         
         # 获取detector factory
         get_detector_factory_func = self.function_service.get_function("get_detector_factory")

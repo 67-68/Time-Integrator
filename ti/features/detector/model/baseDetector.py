@@ -1,6 +1,5 @@
 from PyQt6.QtCore import pyqtSignal,QObject
 
-from ti.features.insight.service.insightCacheService import InsightCacheService
 from ti.features.detector.model.model import BaseDetectorState, Detector_Config
 
 class BaseDetector(QObject):
@@ -19,8 +18,7 @@ class BaseDetector(QObject):
     
     def __init__(
         self,
-        config: Detector_Config,
-        insight_cache_service: InsightCacheService
+        config: Detector_Config
     ):
         """
         输入一个config来创建 
@@ -51,8 +49,7 @@ class BaseDetector(QObject):
         # 通过的au
         self.passed_au = {} #使用字典 也可以表示不同阶段
         
-        # 历史管理
-        self.ICS = insight_cache_service
+        # 历史管理 - 现在通过YamlRepository管理，不再需要单独的缓存服务
         
         # 卡片id
         self.id = config.card_type_id
@@ -116,15 +113,13 @@ class BaseDetector(QObject):
     def packer(self) -> dict:
         """
         用来打包
-        会从cache Service获取一个包裹
-        填充上数据之后返回
-        它会打包: 重要程度,所有匹配的行动单元,历史数据,卡片类型id
+        它会打包: 重要程度,所有匹配的行动单元,卡片类型id
         """
-        data = self.ICS.create_new_data()
-        data["weight"] = self.weight_calc(self.passed_au)
-        data["data"] = self.passed_au
-        data["history"] = self.ICS.get_history_data(self.id)
-        data["id"] = self.id
+        data = {
+            "weight": self.weight_calc(self.passed_au),
+            "data": self.passed_au,
+            "id": self.id
+        }
         
         return data
         

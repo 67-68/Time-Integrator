@@ -20,9 +20,3 @@ class ConditionalRecipe(BaseModel):
     detector: str
     presenter: str
     duration: str
-
-
-class InsightCardRecipes(BaseModel):
-    """Insight card recipes collection"""
-    fixed_recipes: List[FixedRecipe]
-    conditional_recipes: List[ConditionalRecipe]

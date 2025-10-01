@@ -6,6 +6,8 @@ from ti.core.eventBus import EventBus
 import inspect
 
 from ti.model.events import PluginEvents
+from ti.model.strategy.strategy_provider_interface import IStrategyProvider
+from ti.model.strategy.strategy_repository import StrategyRepository
 from ti.services.function_service import FunctionService
 from ti.services.symbol_service import SymbolService
 
@@ -50,7 +52,8 @@ class DynamicExtensionLoader:
         services, # ServiceContainer,由于不能循环import只能注释掉了
         bus: EventBus,
         symbol_service: SymbolService,
-        function_service: FunctionService
+        function_service: FunctionService,
+        strategy_repository: StrategyRepository
     ):
         self.plugin_manager = plugin_manager
         self.services = services
@@ -58,6 +61,7 @@ class DynamicExtensionLoader:
         self.symbol = symbol_service
         self.registers = {}
         self.function_service = function_service
+        self.strategy = strategy_repository
         
 
     def discover_and_register_plugins(self, extension_package):
@@ -86,6 +90,13 @@ class DynamicExtensionLoader:
                     
                     print(f"successfully find functions register for plugin {plugin_class.name} ")
                 
+                print("[LOADER]Searching for strategy contribution in plugins...")   
+                if isinstance(instance,IStrategyProvider):
+                    print(f"find {plugin_class.name}")
+                    contribution = instance.strategy_contribution
+                    self.strategy.register_strategy(contribution)
+                    print(f"successfully find strategy for plugin {plugin_class.name} ")
+                    
             except Exception as e:
                 print(f"Failed to create plugin {plugin_class.__name__}: {e}")
                 import traceback

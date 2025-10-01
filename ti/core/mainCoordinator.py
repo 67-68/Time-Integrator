@@ -1,5 +1,7 @@
 from ti.features.capture.capture_plugin import CapturePlugin
+from ti.features.capture_test.capture_plugin import TESTCapturePlugin
 from ti.features.documents.document_plugin import DocumentPlugin
+from ti.features.test_plugin import TestPlugin
 from ti.presenters.page_presenter import PagePresenter
 from ti.services.page_factory import PageFactory
 from ti.features.insight.insight_plugin import InsightPlugin
@@ -33,6 +35,7 @@ class MainCoorinator():
         self.add_page("analysis")
         self.add_page("capture")
         self.add_page("menu")
+        self.add_page("setting")
         self.main_window.set_page("menu")
     
         self.create_state()
@@ -74,7 +77,7 @@ class MainCoorinator():
         """_summary_
         这个函数创建插件的实例并激活他们
         """        
-        plugins = [DetectorPlugin,MenuPlugin,CapturePlugin,InsightPlugin,InterventionPlugin,DocumentPlugin]
+        plugins = [DetectorPlugin,MenuPlugin,CapturePlugin,InsightPlugin,InterventionPlugin,DocumentPlugin,TestPlugin,TESTCapturePlugin]
         
         self.loader.discover_and_register_plugins(plugins)
         

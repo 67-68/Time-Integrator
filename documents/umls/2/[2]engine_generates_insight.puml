@@ -3,13 +3,16 @@ title InsightEngine: 从 ActionUnit 到 Insight 的诞生流程
 
 |ConditionalCardPresenter|
 start
+
+
+
 :调用 engine.run(actionUnits);
 
 |InsightEngine|
 :接收 ActionUnits 列表;
 :创建空的 insights 结果列表;
 
-while (遍历 ActionUnits 列表) is (还有 unnit)
+while (遍历 ActionUnits 列表) is (还有 unit)
     :获取下一个 ActionUnit (au);
 
     while (遍历 Engine 内部注册的 Detectors) is (还有 detector)

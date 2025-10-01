@@ -25,5 +25,5 @@ post_eat_waste:
                   接受: user_accepted
                   拒绝: user_rejected
                 title: 我要打荒野乱斗
-              entering_event: []
+              entering_event: [ti.features.intervention.model.events.special_events.AddToInsightCardEvent] #使用PythonSymbol数据类，自动导入
           initial_state: init

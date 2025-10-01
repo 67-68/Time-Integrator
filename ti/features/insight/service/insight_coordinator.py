@@ -1,5 +1,6 @@
 from typing import List, Dict, Any, Optional
 from ti.core.eventBus import EventBus
+from ti.model.plugin.function_contributions import FunctionContribution
 from ti.services.dataService import DataService
 from ti.services.function_service import FunctionService
 from ti.features.insight.service.formatter import InsightFormatService
@@ -13,6 +14,7 @@ from ti.features.insight.model.insight_event import (
 )
 from ti.features.insight.model.insight_narrative_model import InsightNarrativeModel
 from ti.features.insight.model.insight_card_model import InsightCardModel
+from ti.features.insight.model.insight_cache_model import InsightCacheData
 from ti.model.yaml_repository import YamlRepository
 from ti.services.loggerService import LoggerService
 
@@ -66,6 +68,19 @@ class InsightCoordinator:
             identifier_field="card_uuid"
         )
         
+        repo = FunctionContribution(self.card_repository,"get_insight_repository")
+        
+        function_service.regist_function(repo)
+        
+        # 创建YamlRepository用于insight缓存数据
+        self.cache_repository = YamlRepository[
+            InsightCacheData
+        ](
+            db_path="ti/features/insight/model/data/insight_cache.yaml",
+            model_class=InsightCacheData,
+            identifier_field="id"
+        )
+        
         # 服务实例（通过接口引用）
         self.recipe_service: IInsightRecipeService = None
         self.card_generator: IInsightCardGenerator = None
@@ -107,6 +122,21 @@ class InsightCoordinator:
         if narrative:
             return {"text": narrative.text}
         return {}
+    
+    def get_history_data(self, id: str = None) -> Dict[str, Any]:
+        """获取历史数据"""
+        if id:
+            cache_data = self.cache_repository.get_by_id(id)
+            return cache_data.model_dump() if cache_data else {}
+        
+        all_cache_data = self.cache_repository.get_all()
+        return {item.id: item.model_dump() for item in all_cache_data}
+    
+    def add_history_data(self, card_data: Dict[str, Any]) -> None:
+        """添加历史数据"""
+        # 这里需要实现与InsightCacheService.add_history_data相同的逻辑
+        # 由于需要复杂的业务逻辑，暂时留空，将在后续步骤中实现
+        pass
     
     def start_yesterday_report_generation(self, view_component) -> List:
         """

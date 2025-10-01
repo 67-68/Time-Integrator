@@ -2,7 +2,6 @@ from PyQt6.QtCore import QObject
 
 from ti.features.insight.model.insight_card_generation_models import RawCardData
 from ti.features.insight.model.insight_card_model import InsightCardModel
-from ti.features.insight.service.insightCacheService import InsightCacheService
 
 
 
@@ -14,15 +13,13 @@ class InsightManager:
     会输出每个卡片id下最重要的一张卡片
     同时,它会帮助把当前卡片归档
     """
-    def __init__(self,ICS: InsightCacheService):
+    def __init__(self):
         self.cards: dict[str, InsightCardModel] = {}
-        self.ICS = ICS
         
     def add_card(self,raw_card_data: RawCardData, pre_card_data: InsightCardModel) -> None:
         """_summary_
         这个函数负责把卡片加入insight Manager中
-        它会把原始卡片数据添加进历史数据
-        然后，它会检查新卡片的权重，只保留每个配方ID(recipe_id)下权重最高的卡片。
+        它会检查新卡片的权重，只保留每个配方ID(recipe_id)下权重最高的卡片。
 
         Args:
             raw_card_data (dict): 原始的卡片信息和数据, 必须包含 "id" (配方ID)
@@ -35,9 +32,6 @@ class InsightManager:
         # 如果这个配方的卡片还不存在，或者新卡片的权重更高
         if recipe_id not in self.cards or new_card_weight > self.cards[recipe_id].weight:
             self.cards[recipe_id] = pre_card_data
-        
-        # 无论如何，都记录原始数据历史
-        self.ICS.add_history_data(raw_card_data)
     
     def get_current_cards(self):
         """_summary_

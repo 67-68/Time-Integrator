@@ -33,13 +33,6 @@ class FixedRecipe(Recipe):
     analyzer_config: Dict[str, Any]
     presenter: Callable
 
-
-@dataclass
-class ConditionalRecipe(Recipe):
-    """Recipe for conditional cards with detector"""
-    detector: str
-    presenter: Callable
-
 @dataclass
 class AnalyzerConfig:
     """Configuration for analyzer functions"""

@@ -26,14 +26,13 @@ class InsightCardFactory:
         self.format = format_service
         self.bus = event_bus
     
-    def create_ui_card(self, card_data, parent_view, cache) -> Dict[str, Any]:
+    def create_ui_card(self, card_data, parent_view) -> Dict[str, Any]:
         """
         创建UI卡片
         
         Args:
             card_data: 卡片数据（可以是dataclass或字典）
             parent_view: 父视图
-            cache: 会话缓存
             
         Returns:
             Dict: 包含卡片和presenter的字典
@@ -45,7 +44,7 @@ class InsightCardFactory:
         card = self._create_card_ui(formatted_data, parent_view)
         
         # 发布卡片创建事件
-        self._publish_card_event(card, cache, card_data)
+        self._publish_card_event(card, card_data)
         
         # 设置卡片presenter
         card_presenter = self._setup_card_presenter(card)
@@ -60,15 +59,11 @@ class InsightCardFactory:
         """创建UI卡片实例"""
         return InsightCard(formatted_data, parent=parent_view)
     
-    def _publish_card_event(self, card, cache, original_card_data):
+    def _publish_card_event(self, card, original_card_data):
         """发布卡片创建事件"""
-        self.bus.publish("insight_card_ui_created", (card, cache, original_card_data))
+        self.bus.publish("insight_card_ui_created", (card, original_card_data))
     
-    def _setup_card_presenter(self, card, card_data_for_presenter):
+    def _setup_card_presenter(self, card):
         """设置卡片presenter"""
-        # 设置卡片元数据
-        card_data_for_presenter["card_type_id"] = card_data_for_presenter["sementic_key"]
-        card_data_for_presenter["card_uuid"] = str(uuid.uuid4())
-        
         # 创建卡片presenter
         return InsightPresenter(card)

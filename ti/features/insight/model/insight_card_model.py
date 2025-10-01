@@ -29,24 +29,6 @@ class InsightCardModel(BaseModel):
     current_state: str = "generated"  # 状态: generated, viewed, archived
     data_uuids: dict[str,str] = {}  # 关联的数据UUID, key为每个数据的状态，来源于配方
     detector_recipe_id: Optional[str] = None  # 检测器配方ID
-    
-@dataclass
-class AnalyzerConfig:
-    matcher: Matcher
 
-@dataclass
-class AnalyzerRecipe:
-    analyzer_type: None # 目前的analyzer使用的都是函数，需要类化
-    analyzer_config: AnalyzerConfig
-
-@dataclass
-class InsightFixCardRecipeModel:
-    card_type_id: str
-    analyzer_recipe: AnalyzerRecipe
-    
-class InsightCondCardRecipeModel:
-    detector_type_id: str
-    presenter: None # 需要类化
-    duration: Duration    
 
 

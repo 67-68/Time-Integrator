@@ -118,8 +118,7 @@ class InsightPlugin(
         ]
         
     def get_insight_cache(self):
-        """获取洞察缓存 - 现在通过服务工厂创建"""
-        # 由于现在使用接口依赖，缓存服务由具体实现管理
-        # 如果需要获取缓存，可以通过工厂创建新的缓存服务实例
-        from ti.features.insight.service.insightCacheService import InsightCacheService
-        return InsightCacheService()
+        """获取洞察缓存 - 现在通过YamlRepository管理"""
+        # 缓存现在通过YamlRepository管理，不再需要单独的缓存服务
+        # 如果需要获取缓存数据，可以通过coordinator的cache_repository
+        return None

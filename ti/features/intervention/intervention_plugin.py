@@ -3,6 +3,7 @@ from ti.core.eventBus import EventBus
 from ti.features.intervention.inv_coordinator import INVCoordinator
 from ti.features.intervention.model.stored.inv_project_model import INVProjectModel
 from ti.features.intervention.model.stored.inv_project_recipe import INVProjectRecipe
+from ti.features.intervention.service.insight_connector import InsightConnector
 from ti.features.intervention.service.inv_project_factory import INVProjectFactory
 from ti.features.intervention.service.inv_reducer import INVReducer
 from ti.model.core_pages import CoreView
@@ -29,6 +30,10 @@ class InterventionPlugin(
         创建Coordinator之后完成
         插件应该是先于主体部分加载的
         """
+        # 创建InsightConnector
+        insight_repo = function.get_function("get_insight_repository")
+        self.insight_connector = InsightConnector(bus,insight_repo)
+        
         # 使用function service获取detector repository
         detec_repo = function.get_function("get_detector_repository")()
         project_repository = YamlRepository("ti/features/intervention/model/inv_projects.yaml",INVProjectModel, identifier_field="project_id")

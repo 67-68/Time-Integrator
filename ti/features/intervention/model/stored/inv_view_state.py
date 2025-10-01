@@ -2,6 +2,7 @@ from pydantic import BaseModel
 
 from ti.features.intervention.model.events.inv_view_event import INVViewEvent
 from ti.features.intervention.model.events.special_events import INVSpecialEvent
+from ti.model.python_symbol import PythonSymbol
 
 
 class StatePresentation(BaseModel):
@@ -16,7 +17,7 @@ class ViewState(BaseModel):
     name: str
     transition: dict[INVViewEvent,str] # str是viewstate.name
     presentation: StatePresentation
-    entering_event: list[INVSpecialEvent] = [] #按理来说会存储INV_Special_Events类的value
+    entering_event: list[PythonSymbol] = [] #按理来说会存储INV_Special_Events类的value
     
 class INVViewRecipe(BaseModel):
     """

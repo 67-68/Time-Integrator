@@ -4,7 +4,6 @@ from PyQt6.QtCore import QObject,pyqtSignal
 from ti.features.detector.model.baseDetector import BaseDetector
 from ti.features.detector.model.detectorFactory import DetectorFactory
 from ti.features.detector.model.model import Detector_Recipe_ID
-from ti.features.insight.service.insightCacheService import InsightCacheService
 from ti.services.sessionCache import SessionCache
 from ti.features.insight.model.insight_card_generation_models import RawCardData, CardInfo
 
@@ -19,7 +18,6 @@ class InsightEngine(QObject):
     _on_pattern_detected = pyqtSignal(tuple)
     def __init__(
         self,
-        ICS: InsightCacheService,
         factory: DetectorFactory,
         parent = None
     ):
@@ -34,7 +32,6 @@ class InsightEngine(QObject):
         super().__init__(parent = None)    
         
         # 创建状态
-        self.ICS = ICS
         self.factory = factory
         self.cards: Dict[str, CardInfo] = {}
     

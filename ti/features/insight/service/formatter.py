@@ -1,6 +1,5 @@
 
 from ti.features.insight.model.insight_card_model import InsightCardModel
-from ti.features.insight.service.insight_coordinator import InsightCoordinator
 from ti.model.action_unit import ActionUnit
 from ti.model.themes import themes
 from ti.services.utils import randomChoser, smart_formatter
@@ -19,6 +18,7 @@ presentation:{
     color
 }
 """
+
 class InsightFormatService:
     def __init__(self):
         self.coordinator = None

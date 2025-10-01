@@ -3,7 +3,6 @@ from unittest.mock import Mock, MagicMock
 from ti.features.detector.model.baseDetector import BaseDetector
 from ti.features.detector.model.model import Detector_Config, Detector_Sequence, Detector_State, BaseDetectorState
 from ti.features.detector.service.matchers import Matcher
-from ti.features.insight.service.insightCacheService import InsightCacheService
 
 
 def create_test_detector_config():
@@ -55,18 +54,8 @@ class TestBaseDetector:
     
     def setup_method(self):
         """Setup before each test"""
-        self.mock_insight_cache = Mock(spec=InsightCacheService)
-        self.mock_insight_cache.create_new_data.return_value = {
-            "weight": 0,
-            "history": {},
-            "id": "",
-            "data": [],
-            "card_id": "test_card_id"
-        }
-        self.mock_insight_cache.get_history_data.return_value = {}
-        
         self.config = create_test_detector_config()
-        self.detector = BaseDetector(self.config, self.mock_insight_cache)
+        self.detector = BaseDetector(self.config)
         
         # Mock signals to track emissions
         self.hook_signal_calls = []

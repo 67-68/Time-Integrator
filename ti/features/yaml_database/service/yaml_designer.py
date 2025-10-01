@@ -13,7 +13,7 @@ class TI_YamlDesigner:
     ):
         self.editing_mode = YamlEditMode.EDIT_INSIGHT
         self.insight_recipe_path = "ti/features/insight/model/data/insight_card_recipes.yaml"
-        self.insight_narrative = "ti/features/insight/model/narratives.py"
+        self.insight_narrative = "ti/features/insight/model/data/insight_narratives.yaml"
         
     
     def initialize(self):

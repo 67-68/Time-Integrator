@@ -12,9 +12,9 @@ class PythonSymbol:
         yield cls.validate
 
     @classmethod
-    def validate(cls, value: Any) -> Callable | type:
+    def validate(cls, value: Any, field) -> Callable | type:
         """
-        这就是“解析”的魔法所在！
+        这就是"解析"的魔法所在！
         当Pydantic遇到一个需要被解析为PythonSymbol的字段时，
         它会自动调用这个方法。
         """

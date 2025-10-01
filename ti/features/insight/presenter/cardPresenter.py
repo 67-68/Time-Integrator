@@ -4,7 +4,6 @@ from ti.features.insight.model.insight_event import SaveInsightCard
 from ti.features.insight.model.insight_card_model import InsightCardModel
 from ti.features.insight.service.uiCardFactory import InsightCardFactory
 from ti.features.insight.view.insight_view import InsightView
-from ti.features.insight.service.insightCacheService import InsightCacheService
 from ti.services.loggerService import LoggerService
 
 
@@ -19,13 +18,11 @@ class InsightPresenter():
         self,
         bus: EventBus,
         view: InsightView,
-        ui_card_factory: InsightCardFactory,
-        cache_service: InsightCacheService
+        ui_card_factory: InsightCardFactory
     ):
         self.bus = bus
         self.view = view
         self.ui_card_factory = ui_card_factory
-        self.cache = cache_service
         
         # 创建YamlRepository用于insight卡片数据
         self.card_repository = YamlRepository[
@@ -64,7 +61,7 @@ class InsightPresenter():
         for idx, card_data in enumerate(cards_data):
             # 使用UI工厂创建卡片
             ui_result = self.ui_card_factory.create_ui_card(
-                card_data, self.view, self.cache
+                card_data, self.view
             )
             
             rendered_cards[idx] = ui_result["card"]

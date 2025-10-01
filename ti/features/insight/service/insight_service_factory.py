@@ -25,7 +25,6 @@ class InsightServiceFactory(IInsightServiceFactory):
         self.logger.log("服务创建", "创建卡片生成器")
         
         # 需要先创建必要的服务
-        from ti.features.insight.service.insightCacheService import InsightCacheService
         from ti.features.insight.service.insightEngine import InsightEngine
         from ti.features.insight.service.insightManager import InsightManager
         from ti.features.insight.presenter.conditional_cardPresenter import Conditional_ReportGenerator
@@ -37,12 +36,9 @@ class InsightServiceFactory(IInsightServiceFactory):
         get_detector_factory_func = self.function_service.get_function("get_detector_factory")
         detector_factory = get_detector_factory_func()
         
-        # 创建缓存服务
-        cache_service = InsightCacheService()
-        
-        # 创建引擎和管理器
-        insight_engine = InsightEngine(cache_service, detector_factory)
-        insight_manager = InsightManager(cache_service)
+        # 创建引擎和管理器 - 不再需要cache_service参数
+        insight_engine = InsightEngine(detector_factory)
+        insight_manager = InsightManager()
         
         # 加载配方
         recipe_service = self.create_recipe_service()
@@ -79,12 +75,9 @@ class InsightServiceFactory(IInsightServiceFactory):
         self.logger.log("服务创建", "创建卡片渲染器")
         
         from ti.features.insight.service.uiCardFactory import InsightCardFactory
-        from ti.features.insight.service.insightCacheService import InsightCacheService
         
         # 创建UI卡片工厂
         ui_card_factory = InsightCardFactory(self.format_service, self.bus)
         
-        # 创建缓存服务
-        cache_service = InsightCacheService()
-        
-        return InsightCardRenderer(ui_card_factory, cache_service)
+        # 不再需要缓存服务参数
+        return InsightCardRenderer(ui_card_factory)

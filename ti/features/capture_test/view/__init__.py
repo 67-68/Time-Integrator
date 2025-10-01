@@ -1,0 +1,1 @@
+# Capture Plugin View Components

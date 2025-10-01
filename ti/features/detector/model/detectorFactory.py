@@ -1,6 +1,5 @@
 from ti.core.Interfaces.detector_Interface import DetectorInterface
 from ti.core.Interfaces.model.repository_interface import IRepository
-from ti.features.insight.service.insightCacheService import InsightCacheService
 from ti.features.detector.model.model import Detector_Recipe, Detector_Recipe_ID
 from ti.features.detector.service.matcher_resolver import MatcherResolver
 from ti.model.yaml_repository import YamlRepository
@@ -21,15 +20,16 @@ class DetectorFactory:
         """
         self.repository = repository
         self.symbol_service = symbol_service
-        self.cache = InsightCacheService() #我不管了...
+        # 缓存现在通过YamlRepository管理，不再需要单独的缓存服务
         
     def appoint_cache(self, cache: type[IRepository]):
-        self.cache = cache
+        # 缓存现在通过YamlRepository管理，不再需要单独的缓存服务
+        pass
     
     def appoint_repository(self, repository: type[IRepository]):
         self.repository = repository
         
-    @factory_dependency_check('repository', 'cache')
+    @factory_dependency_check('repository')
     def create_detector(
         self,
         id,
@@ -60,6 +60,7 @@ class DetectorFactory:
         matcher_resolver = MatcherResolver()
         config = matcher_resolver.resolve_config(config)
         
-        detector = detector_class(config, self.cache)
+        # 不再需要缓存服务参数
+        detector = detector_class(config)
         
         return detector

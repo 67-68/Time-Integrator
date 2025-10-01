@@ -35,7 +35,9 @@
                     },
                     "title": "我要打荒野乱斗"
                   },
-                  "entering_event": []
+                  "entering_event": [
+                    "ti.features.intervention.model.events.special_events.AddToInsightCardEvent"
+                  ]
                 }
               },
               "initial_state": "init"

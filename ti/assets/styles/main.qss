@@ -38,7 +38,7 @@ QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
 
 /* ----------------------- 3. 核心UI元素：洞察卡片 ----------------- */
 /* 使用 objectName 来精确指定我们的自定义卡片 */
-TrendCard { 
+InsightCard { 
     background-color: #2D2D2D; /* 卡片背景比窗口背景稍亮，制造层次感 */
     border: 1px solid #3A3A3A;   /* 一个非常柔和的、几乎看不见的边框 */
     border-radius: 10px;         /* 关键！柔和的圆角 */

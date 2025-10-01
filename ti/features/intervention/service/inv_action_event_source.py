@@ -3,7 +3,7 @@ from ti.features.detector.model.detectorFactory import DetectorFactory
 from ti.model.monitor.moitor_pattern_detected import MonitorPatternDetected
 from ti.model.yaml_repository import YamlRepository
 from ti.features.intervention.model.events.intervention_trigger import InterventionTriggered
-from ti.features.intervention.model.events.special_events import INVSpecialEvent
+from ti.features.intervention.model.events.special_events import InterveneUserEvent
 from ti.features.intervention.model.stored.inv_component_rule import ActionEventSourceRule
 from ti.features.intervention.service.IIntervention_Event_Source import IInterventionEventSource
 from ti.services.realTimeMonitor import Monitor_Pack, RealTimeMonitor
@@ -68,7 +68,7 @@ class INVActionEventSource(IInterventionEventSource):
     def publish_event(self,content):
         triggered = InterventionTriggered(
             inv_project_id=self.project_id,
-            special_events=[INVSpecialEvent.INTERVENE_USER] # 目前仅支持这个，后续或许配置
+            special_events=[InterveneUserEvent()] # 目前仅支持这个，后续或许配置
         )
         
         self.bus.publish_event(InterventionTriggered,triggered)

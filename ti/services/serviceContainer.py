@@ -2,12 +2,12 @@
 from ti.core.eventBus import EventBus
 from ti.core.extensionRegister import DynamicExtensionLoader, ExtensionRegister
 
+from ti.model.strategy.strategy_repository import StrategyRepository
 from ti.services.function_service import FunctionService
 from ti.services.page_factory import PageFactory
 from ti.features.translation.service.translator_service import Translator
 from ti.services.loggerService import LoggerService
 from ti.services.dataService import DataService
-from ti.features.insight.service.insightCacheService import InsightCacheService
 from ti.features.insight.service.formatter import InsightFormatService
 from ti.services.realTimeMonitor import RealTimeMonitor
 from dataclasses import dataclass
@@ -21,6 +21,10 @@ class ServiceContainer:
         self.services = {} # 用来一般查找，存储简称
         self._services = {} #用来自动查找，存储全称
             
+        strategy_rep = StrategyRepository.get_instance()
+        self.services["strategy"] = strategy_rep
+        self._services[StrategyRepository] = strategy_rep
+            
         func_service = FunctionService()
         self.services["function"] = func_service
         self._services[FunctionService] = func_service
@@ -33,9 +37,6 @@ class ServiceContainer:
         self.services["translator"] = translator
         self._services[Translator] = translator
         
-        cache =  InsightCacheService()
-        self.services["ICS"] = cache
-        self._services[InsightCacheService] = cache
         
         symbol = SymbolService()
         self.services["symbol"] = symbol
@@ -65,7 +66,7 @@ class ServiceContainer:
         self.services["ER"] = register
         self._services[ExtensionRegister] = register
 
-        loader = DynamicExtensionLoader(register,self,bus,symbol,func_service)
+        loader = DynamicExtensionLoader(register,self,bus,symbol,func_service,strategy_rep)
         self.services["loader"] = loader
         self._services[DynamicExtensionLoader] = loader
     

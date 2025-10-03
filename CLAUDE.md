@@ -52,7 +52,7 @@
         <Description>TI is a PyQt6-based desktop application for personal behavioral analysis and time tracking. It follows a plugin-based architecture with Model-View-Presenter (MVP) pattern and dependency injection.</Description>
     </Project Overview>
     <Development Commands>
-        <Running_the_Application>python main.py</Running_the_Application>
+        <Running_the_Application>python3 main.py</Running_the_Application>
         <Testing>python test_register.py</Testing>
     </Development Commands>
     <Architecture Overview>

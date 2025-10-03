@@ -1,8 +1,11 @@
 from typing import Callable
-from ti.features.capture_test.model.protocols.view_protocol import IContextSelection, IItemDisplay
+from ti.features.capture_test.model.protocols.renderable_item_protocol import IRenderableItemProtocol
+from ti.features.capture_test.model.protocols.view_protocol import ICaptureView, IContextSelection, IItemDisplay, IItemEditor
+from ti.features.capture_test.presenter.capture_presenter import CapturePresenter
+from ti.features.capture_test.presenter.context_selection_presenter import ContextSelectionPresenter
+from ti.features.capture_test.presenter.list_display_presenter import ListDisplayPresenter
+from ti.features.capture_test.presenter.item_editor_presenter import ActionUnitEditorPresenter
 from ti.model.plugin.page_extension_interface import IPageExtension
-from ti.features.capture.presenter.selection_presenter import CAP_SelectionPresenter
-from ti.features.capture.presenter.input_presenter import CAP_InputPresenter
 from ti.features.capture.view.capture import CaptureView
 from ti.features.translation.service.translator_service import Translator
 from ti.model.core_pages import CoreView
@@ -11,14 +14,13 @@ from ti.model.strategy.strategy_contribution import StrategyContribution
 from ti.model.strategy.strategy_needed_decorator import strategy_needed
 from ti.model.strategy.strategy_provider_interface import IStrategyProvider
 from ti.services.dataService import DataService
-from ti.features.capture.presenter.capture_presenter import CapturePresenter
 from ti.core.eventBus import EventBus
 from ti.services.strategy_service import StrategyService
 from ti.view.BasicFrame import BasicFrame
 
 
 
-class TESTCapturePlugin(IPageExtension,IStrategyProvider):
+class TESTCapturePlugin(IPageExtension):
     def __init__(
         self,
         data_service: DataService,
@@ -73,25 +75,36 @@ class TESTCapturePlugin(IPageExtension,IStrategyProvider):
     
     def create_capture_view(self) -> CaptureView:
         # 创建presenter，它会自动创建widget
-        context_selection = StrategyService.execute_through_strategy
-        item_editor = 
-        item_display = self.create_selection()
+        # 他们应该是list(presenter)
+        # 获取所有可能的View
+        context_selection_presenters = StrategyService.execute_strategies_from_protocol(IContextSelection)
+        item_editor_presenters = StrategyService.execute_strategies_from_protocol(IItemEditor)
+        item_display_presenters = StrategyService.execute_strategies_from_protocol(IItemDisplay)
+
+        # 加入默认View
+        context_selection_presenters.append(ContextSelectionPresenter())
+        item_display_presenters.append(ListDisplayPresenter()) #TODO: 没有parent, 可能出问题
+        item_editor_presenters.append(ActionUnitEditorPresenter(self.translator))
         
-        
-        input = CAP_InputPresenter(self.translator)
-        
-        presenter = CapturePresenter(
+        data_models = StrategyService.get_strategy_methods_from_protocol(IRenderableItemProtocol)
+
+        presenter =StrategyService.execute_with_strategy(
+            ICaptureView,
+            CapturePresenter,
             self.data_service,
             self.event_bus,
-            item_display,
-            input
+            context_selection_presenters,
+            item_display_presenters,
+            item_editor_presenters,
+            data_models
         )
         
         # 存储presenter引用以便后续管理
         self.presenter = presenter
         
         # 返回presenter创建的widget
-        return presenter.widget
+        return presenter.view
+    
     
 
     

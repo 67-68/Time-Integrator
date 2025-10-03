@@ -18,15 +18,10 @@ class SelectionView(QWidget):
         main_layout.setContentsMargins(0, 0, 0, 0)
         main_layout.setSpacing(0)
         
-        self.calendar = Calendar(self)
-        self.calendar.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        self.calendar.setMinimumSize(200, 150)
-        
         self.record_list = RecordList(self)
         self.record_list.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.record_list.setMinimumSize(200, 150)
         
-        main_layout.addWidget(self.calendar, 1)
         main_layout.addWidget(self.record_list, 2)
         
         self.setLayout(main_layout)

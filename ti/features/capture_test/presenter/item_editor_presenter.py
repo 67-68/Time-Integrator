@@ -1,17 +1,16 @@
-from ti.features.translation.service.translator_service import Translator
-from ti.presenters.BasePresenter import BasePresenter
-from ti.features.capture.view.input_view import CAP_InputView
+from typing import Any
 from ti.features.capture.view.smart_input import SmartInputView
-from ti.features.capture.view.property import PropertyView
-from ti.features.capture.model.ButtonGroup import ButtonGroup
-from PyQt6.QtCore import QSignalBlocker, pyqtSignal,QObject
+from ti.features.capture_test.model.ButtonGroup import ButtonGroup
+from ti.features.capture_test.presenter.item_editor_presenter_interface import IItemEditorPresenter
+from ti.features.capture_test.view.input_view import CAP_InputView
+from ti.features.capture_test.view.property import PropertyView
+from ti.features.translation.service.translator_service import Translator
+from PyQt6.QtCore import QSignalBlocker,pyqtSignal
 
+from ti.model.action_unit import ActionUnit
 
-class CAP_InputPresenter(QObject):
-    # 信号定义
-    save_requested = pyqtSignal(dict)
-    new_requested = pyqtSignal()
-    delete_requested = pyqtSignal(dict)
+class ActionUnitEditorPresenter(IItemEditorPresenter):
+    save_data = pyqtSignal(Any)
     
     def __init__(
         self,
@@ -36,13 +35,15 @@ class CAP_InputPresenter(QObject):
         self.input_view.add_to_bottom_widget(self.button_group)
         
         self.translator = translator
-    
+        
+        
     def initialize(self):
         """初始化presenter"""
         # 设置信号连接
         self._setup_signal_connections()
     
-    def get_widget(self):
+    @property
+    def view(self):
         """获取主视图widget"""
         return self.input_view
     
@@ -55,10 +56,14 @@ class CAP_InputPresenter(QObject):
         self.property_view.connect_property_changed(self._on_property_changed)
         
         # 连接按钮组信号
-        self.button_group.save_requested.connect(self._on_save_requested)
-        self.button_group.new_requested.connect(self._on_new_requested)
-        self.button_group.delete_requested.connect(self._on_delete_requested)
+        self.button_group.save_requested.connect(self._on_save_data)
+        # self.button_group.new_requested.connect(self._on_new_requested) #没想好New和Delete要不要放进核心逻辑，怎么处理
+        # self.button_group.delete_requested.connect(self._on_delete_requested)
     
+    def fill_data(self,unit: ActionUnit):
+        self.unit = unit
+        self.property_view.set_property_data(unit)
+        
     def _on_smart_input_changed(self, text):
         """处理智能输入文本变化"""
         # 使用信号阻塞器避免循环更新
@@ -67,6 +72,15 @@ class CAP_InputPresenter(QObject):
             property_data = self.translator.trans_other(text)
             if property_data:
                 self.property_view.set_property_data(property_data)
+                
+            
+    def collect_and_assign_unit(self):
+        data = self.property_view.get_property_data()
+        self.unit.action = data["action"]
+        self.unit.action_detail = data["action_detail"]
+        self.unit.action_type = data["action_type"]
+        self.unit.start = data["start"]
+        self.unit.end = data["end"]
     
     def _on_property_changed(self, property_data):
         """处理属性变化"""
@@ -76,22 +90,19 @@ class CAP_InputPresenter(QObject):
             fast_entry_text = self.translator.trans_au(property_data)
             if fast_entry_text:
                 self.smart_input_view.set_text(fast_entry_text)
-    
-    def _on_save_requested(self):
+
+    def _on_save_data(self):
         """处理保存请求"""
-        # 从属性视图获取数据
-        property_data = self.property_view.get_property_data()
-        # 发射信号到capture presenter
-        self.save_requested.emit(property_data)
+        self.save_data.emit(self.unit)
+        
+        
+    @property
+    def name(self):
+        return "action_unit_editor_presenter"
     
-    def _on_new_requested(self):
-        """处理新建请求"""
-        # 发射信号到capture presenter
-        self.new_requested.emit()
+    @property
+    def view(self):
+        return self.input_view
     
-    def _on_delete_requested(self):
-        """处理删除请求"""
-        # 从属性视图获取当前数据用于删除
-        property_data = self.property_view.get_property_data()
-        # 发射信号到capture presenter
-        self.delete_requested.emit(property_data)
+    def shutdown(self):
+        return super().shutdown()

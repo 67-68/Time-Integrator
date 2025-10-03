@@ -95,3 +95,12 @@ class CAP_InputPresenter(QObject):
         property_data = self.property_view.get_property_data()
         # 发射信号到capture presenter
         self.delete_requested.emit(property_data)
+        
+        
+    @property
+    def name(self):
+        return "capture_input"
+    
+    @property
+    def view(self):
+        return self.input_view

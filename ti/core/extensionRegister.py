@@ -94,6 +94,10 @@ class DynamicExtensionLoader:
                 if isinstance(instance,IStrategyProvider):
                     print(f"find {plugin_class.name}")
                     contribution = instance.strategy_contribution
+                    
+                    if not contribution:
+                        raise NotImplementedError(f"No Strategy Found in {instance.name}")
+                    
                     self.strategy.register_strategy(contribution)
                     print(f"successfully find strategy for plugin {plugin_class.name} ")
                     

@@ -1,7 +1,9 @@
 import uuid
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtCore import QObject
+from ti.core.Interfaces.model.repository_interface import IRepository
 from ti.core.definitions import YESTERDAY
+from ti.features.capture_test.model.selection_condition import SelectionCondition
 from ti.model.action_unit_repository import ActionUnitRepository
 from ti.model.action_unit import ActionUnit
 
@@ -14,7 +16,8 @@ class DataService(QObject):
     def __init__(self, parent = None):
         super().__init__(parent)
         self.repository = ActionUnitRepository()
-    
+        self._repositories: dict[str,IRepository] # 存储其他类型的数据模型
+        
     def createNewData(self) -> ActionUnit:
         """
         创建新的空ActionUnit对象
@@ -89,20 +92,6 @@ class DataService(QObject):
         """
         return self.repository.get_all()
     
-    # ===== 新增的便利方法 =====
-    
-    def get_by_action_type(self, action_type: str):
-        """
-        按action_type获取ActionUnit
-        """
-        return self.repository.get_by_action_type(action_type)
-    
-    def get_by_id(self, action_unit_id: str):
-        """
-        通过ID获取ActionUnit
-        """
-        return self.repository.get_by_id(action_unit_id)
-    
     def delete_actionUnit(self, action_unit_id: str):
         """
         删除ActionUnit
@@ -121,4 +110,17 @@ class DataService(QObject):
             if au.start == start_time:
                 return au
         return None
+    
+    
+    def parse_selection_condition(self,selection_condition: SelectionCondition):
+        repo = self._repositories[selection_condition.data_type]
+        data = repo.get_by_date(selection_condition.date)
+        return data
+        
+    def match_date(self,date):
+        def matcher(data):
+            if data.date == date:
+                return data
+        return matcher
+    
     

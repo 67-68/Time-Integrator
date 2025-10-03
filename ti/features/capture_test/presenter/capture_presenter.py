@@ -1,100 +1,140 @@
-# 这是插件capture的presenter, 不是capturePage核心的presenter
 from PyQt6.QtCore import QObject
-
-from ti.features.capture.presenter.selection_presenter import CAP_SelectionPresenter
-from ti.features.capture.presenter.input_presenter import CAP_InputPresenter
 from ti.features.capture.view.capture import CaptureView
-from ti.features.detector.service.matchers import get_time_from_str
+from ti.features.capture_test.model.protocols.capture_renderable_item import RenderableItemModel
+from ti.features.capture_test.model.selection_condition import SelectionCondition
+from ti.features.capture_test.presenter.context_selection_presenter import ContextSelectionPresenter
+from ti.features.capture_test.presenter.item_display_presenter_interface import IItemDisplayPresenter
+from ti.features.capture_test.presenter.item_editor_presenter_interface import IItemEditorPresenter
+from ti.presenters.BasePresenter import BasePresenter
 from ti.services.dataService import DataService
 from ti.core.eventBus import EventBus
-from ti.model.action_unit import ActionUnit
-import uuid
+from ti.services.group_manager import PresenterGroupManager
 
-
-class CapturePresenter(QObject):
+class CapturePresenter(BasePresenter):
     """
-    CapturePresenter管理capture插件的业务逻辑
-    协调UI组件和数据服务
+    CapturePresenter 管理 Capture 插件的核心业务逻辑，
+    协调不同的功能组件。
     """
     
     def __init__(
         self,
         data_service: DataService,
         event_bus: EventBus,
-        selection: CAP_SelectionPresenter,
-        input: CAP_InputPresenter,
+        context_selection_presenters: list[ContextSelectionPresenter],
+        item_display_presenters: list[IItemDisplayPresenter],
+        item_editor_presenters: list[IItemEditorPresenter],
+        data_models: list[RenderableItemModel]
     ):
         super().__init__()
         self.data_service = data_service
         self.event_bus = event_bus
+
+        # 1. 使用 Manager 替换重复的字典和 active 状态
+        self.context_selectors = PresenterGroupManager(context_selection_presenters)
+        self.item_displays = PresenterGroupManager(item_display_presenters)
+        self.item_editors = PresenterGroupManager(item_editor_presenters)
+
+        self.models = {model.data_model: model for model in data_models}
         
-        # 管理presenter
-        self.selection = selection
-        self.input = input
-        self.input.initialize()
+        # 2. 将初始化和设置逻辑分解成更小、更清晰的方法
+        self._initialize_presenters()
         
-        # 创建主视图并设置布局
-        self.widget = CaptureView()
-        self._setup_view_layout()
-        
-    def _setup_view_layout(self):
-        """设置视图布局 - 左边selection view, 右边input view"""
-        # 获取子presenter的view
-        selection_view = self.selection.view
-        input_view = self.input.get_widget()
-        
-        # 添加到主视图
-        self.widget.add_selection_view(selection_view)
-        self.widget.add_input_view(input_view)
-        
-        # 连接信号
+        self._view = CaptureView()
+        self._setup_view()
         self._connect_signals()
+
+        self.refresh_and_distribute_display_data()
+
+    def _initialize_presenters(self) -> None:
+        """初始化所有子 Presenter"""
+        self.context_selectors.initialize_all()
+        self.item_displays.initialize_all()
+        self.item_editors.initialize_all()
+        
+    def _setup_view(self) -> None:
+        """设置视图布局，将 Presenter 的视图添加到 Tab 中"""
+        # 3. 循环变得更简洁
+        for name, presenter in self.context_selectors.presenters.items():
+            self._view.add_tab(self._view.TabType.CONTEXT_SELECTION, presenter.view, name)
+
+        for name, presenter in self.item_displays.presenters.items():
+            self._view.add_tab(self._view.TabType.ITEM_DISPLAY, presenter.view, name)
+
+        for name, presenter in self.item_editors.presenters.items():
+            self._view.add_tab(self._view.TabType.ITEM_EDITOR, presenter.view, name)
     
-    def _connect_signals(self):
-        """连接所有信号"""
-        # 连接selection presenter的日期选择信号
-        self.selection.date_selected.connect(self._on_date_selected)
-        # 连接selection presenter的记录选择信号
-        self.selection.record_selected.connect(self._on_record_selected)
+    def _connect_signals(self) -> None:
+        """连接所有子 Presenter 和 View 的信号"""
+        # 4. 信号连接更清晰
+        self.context_selectors.connect_all(self._on_selection_condition_changed)
+        self.item_displays.connect_all(self._on_item_selected)
         
-        # 连接input presenter的保存和新建信号
-        self.input.save_requested.connect(self._on_save_requested)
-        self.input.new_requested.connect(self._on_new_requested)
-        self.input.delete_requested.connect(self._on_delete_requested)
+        # 连接 View 的 Tab 变化信号
+        self._view.tab_changed.connect(self._on_tab_changed)
+
+    def _on_tab_changed(self, tab_type, tab_name: str) -> None:
+        """统一处理所有 Tab 切换事件"""
+        # 5. 一个方法处理所有 Tab 切换，而不是三个
+        if tab_type == self._view.TabType.CONTEXT_SELECTION:
+            self.context_selectors.active = self.context_selectors.get(tab_name)
+            print(f"激活的 Context Selection Presenter: {tab_name}")
+        elif tab_type == self._view.TabType.ITEM_DISPLAY:
+            self.item_displays.active = self.item_displays.get(tab_name)
+            print(f"激活的 Item Display Presenter: {tab_name}")
+        elif tab_type == self._view.TabType.ITEM_EDITOR:
+            self.item_editors.active = self.item_editors.get(tab_name)
+            print(f"激活的 Item Editor Presenter: {tab_name}")
+    
+    def refresh_and_distribute_display_data(self, selection_condition: SelectionCondition = None):
+        """根据选择条件，刷新并分发数据到所有 Item Display Presenters"""
+        if not selection_condition and self.context_selectors.active:
+            selection_condition = self.context_selectors.active.get_selection_condition()
         
-    def _on_date_selected(self, date_str):
-        """处理日期选择事件"""
-        print(f"Capture presenter received date: {date_str}")
-        # 从dataService获取当天数据
-        action_units = self.data_service.get_date_data(date_str)
-        self.date = date_str
+        # 6. 这里的逻辑可以进一步优化，但目前保持原样以专注于结构
+        for model in self.models.values():
+            model_data = self.data_service.parse_selection_condition(selection_condition)
+            for display_name in model.item_displayable_list:
+                # 使用 manager 获取 presenter
+                display_presenter = self.item_displays.get(display_name)
+                if display_presenter:
+                    display_presenter.add_data(model_data)
+
+    def _refresh_item_editor_presenter(self, data_model):
+        """刷新 Item Editor Presenter 以显示选中项的数据"""
+        print(f"Refreshing item editor presenter with data: {data_model}")
+        
+        model_type = type(data_model)
+        if model_type not in self.models:
+            return
+
+        editorable_list = self.models[model_type].item_editorable_list
+        
+        # 7. 优先使用当前激活的 editor
+        active_editor = self.item_editors.active
+        # 潜在bug修复：比较 presenter 的 name 而不是实例
+        if active_editor and active_editor.name in editorable_list:
+            active_editor.fill_data(data_model)
+            return
+        
+        # 如果当前激活的不合适，则查找第一个合适的并切换过去
+        for editor_name in editorable_list:
+            editor = self.item_editors.get(editor_name)
+            if editor:
+                editor.fill_data(data_model)
+                self._view.switch_to_tab(editor.name)
+                return
+
+    def _on_selection_condition_changed(self, selection_condition):
+        """处理选择条件变化事件"""
+        print(f"Capture presenter received selection condition: {selection_condition}")
         # 填充记录列表
-        self.fill_records(action_units)
+        self.refresh_and_distribute_display_data(selection_condition=selection_condition)
         
-    def fill_records(self, action_units):
-        """填充记录列表"""
-        # 调用selection presenter的同名函数
-        self.selection.fill_records(action_units)
-        
-    def _on_save_requested(self, property_data):
+    def _on_save_requested(self, action_unit):
         """
         处理保存请求
         :param property_data: 属性数据字典
-        """ # 这里不能创建，按理来说存储用的就应该是actionUnit, 而不是字典
-        # 创建ActionUnit对象
-        action_unit = ActionUnit(
-            id=str(uuid.uuid4()),
-            date=self._get_current_date(),
-            action=property_data.get('action', ''),
-            start=property_data.get('start', ''),
-            end=property_data.get('end', ''),
-            action_type=property_data.get('action_type', ''),
-            action_detail=property_data.get('action_detail', ''),
-            timeSpan=self._calculate_time_span(property_data.get('start', ''), property_data.get('end', '')), #TOOD: 这里出问题了
-            urgency=property_data.get('is_urgent', False),
-            importance=property_data.get('is_important', False)
-        )
-        
+        """ 
         # 保存到数据服务
         self.data_service.add_actionUnit(action_unit)
         
@@ -104,87 +144,42 @@ class CapturePresenter(QObject):
         # 重置删除计数器
         self.input.button_group.reset_delete_count()
     
-    def _on_record_selected(self, action_unit):
+    def _on_item_selected(self, data):
         """
         处理记录项选择事件
-        :param action_unit: 选中的ActionUnit对象
         """
-        print(f"Capture presenter received action unit: {action_unit.action}")
-        # 将ActionUnit转换为property_data字典并填充到input presenter
-        self._refresh_input_presenter(action_unit)
+        print(f"Capture presenter received data: {data}")
+        self._refresh_item_editor_presenter(data)
     
-    def _on_new_requested(self):
-        """处理新建请求"""
-        # 获取新的action unit
-        new_action_unit = self.data_service.createNewData()
+    def _refresh_item_editor_presenter(self, data_model):
+        """刷新item editor presenter"""
+        print(f"Refreshing item editor presenter with action unit: {data_model}")
         
-        # 刷新input presenter（不清空selection presenter）
-        self._refresh_input_presenter(new_action_unit)
+        # 查找合适的Editor, 目前找到第一个就填充
+        editorable_list = self.models[type(data_model)].item_editorable_list
+        if self.active_item_editor_presenter in editorable_list:
+            self.active_item_editor_presenter.fill_data(data_model)
+            return
         
-        # 重置删除计数器
-        self.input.button_group.reset_delete_count()
-    
-    def _on_delete_requested(self, property_data):
-        """
-        处理删除请求
-        :param property_data: 属性数据字典
-        """
-        current_date = self._get_current_date()
-        start_time = property_data.get('start', '')
-        
-        if current_date and start_time:
-            # 根据日期和开始时间查找ActionUnit
-            action_unit = self.data_service.find_action_unit_by_date_and_start(current_date, start_time)
-            if action_unit:
-                # 使用UUID删除ActionUnit
-                self.data_service.delete_actionUnit(action_unit.id)
-                print(f"删除ActionUnit: {action_unit.id}")
+        for view in self.item_editor_presenters.values():
+            if view in editorable_list:
+                view.fill_data(data_model)
+                self.switch_to_tab(view.name)
+
+    def switch_to_tab(self, presenter_name):
+        """切换到指定名称的presenter tab"""
+        return self._view.switch_to_tab(presenter_name)
                 
-                # 刷新界面
-                self._refresh_all_widgets()
-                
-                # 重置删除计数器
-                self.input.button_group.reset_delete_count()
+    def initialize(self):
+        return super().initialize()
     
-    def _get_current_date(self):
-        """获取当前日期"""
-        return self.date
+    def shutdown(self):
+        return super().shutdown()
     
-    def _calculate_time_span(self, start_time, end_time):
-        """计算时间跨度"""
-        # 这里需要实现时间跨度计算逻辑
-        return get_time_from_str(end_time) - get_time_from_str(start_time)
+    @property
+    def name(self):
+        return "capture_presenter"
     
-    def _refresh_all_widgets(self):
-        """刷新所有widget"""
-        # 刷新selection presenter
-        current_date = self._get_current_date()
-        if current_date:
-            action_units = self.data_service.get_date_data(current_date)
-            self.fill_records(action_units)
-        
-        # 刷新input presenter（清空输入）
-        self._refresh_input_presenter(None)
-    
-    def _refresh_input_presenter(self, action_unit):
-        """刷新input presenter"""
-        # 清空或设置input presenter的数据
-        if action_unit:
-            # 设置action unit数据到property view
-            property_data = {
-                'start': action_unit.start,
-                'end': action_unit.end,
-                'action_type': action_unit.action_type,
-                'action': action_unit.action,
-                'action_detail': action_unit.action_detail,
-                'is_urgent': action_unit.urgency,
-                'is_important': action_unit.importance
-            }
-            # 通过input presenter的view访问property view
-            self.input.input_view.property_view.set_property_data(property_data)
-        else:
-            # 清空输入
-            self.input.input_view.property_view.clear_properties()
-            self.input.input_view.smart_input_view.clear_text()
-    
-        
+    @property
+    def view(s):
+        return s._view

@@ -45,3 +45,6 @@ class IRepository(ABC):
             id (str): _description_
         """
         pass
+    
+    def get_by_date(self,date): # 后续或许会出一个date protocol, 但是现在就这样吧
+        return

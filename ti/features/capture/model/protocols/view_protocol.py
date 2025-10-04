@@ -7,10 +7,10 @@
 from typing import Protocol, runtime_checkable
 
 from ti.core.eventBus import EventBus
-from ti.features.capture_test.model.protocols.presenter_protocol import IPresenter
-from ti.features.capture_test.presenter.context_selection_presenter_interface import IContextSelectionPresenter
-from ti.features.capture_test.presenter.item_display_presenter_interface import IItemDisplayPresenter
-from ti.features.capture_test.presenter.item_editor_presenter_interface import IItemEditorPresenter
+from ti.features.capture.model.protocols.presenter_protocol import IPresenter
+from ti.features.capture.presenter.context_selection_presenter_interface import IContextSelectionPresenter
+from ti.features.capture.presenter.item_display_presenter_interface import IItemDisplayPresenter
+from ti.features.capture.presenter.item_editor_presenter_interface import IItemEditorPresenter
 from ti.services.dataService import DataService
 from ti.view.BasicFrame import BasicFrame
 

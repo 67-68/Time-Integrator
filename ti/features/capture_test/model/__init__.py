@@ -1,1 +1,0 @@
-# Capture Plugin Model Components

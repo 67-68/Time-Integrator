@@ -1,5 +1,7 @@
 from abc import ABC,abstractmethod
 
+from pydantic import BaseModel
+
 
 class IRepository(ABC):
     """
@@ -48,3 +50,7 @@ class IRepository(ABC):
     
     def get_by_date(self,date): # 后续或许会出一个date protocol, 但是现在就这样吧
         return
+    
+    @property
+    def base_model(self) -> type[BaseModel]:
+        pass

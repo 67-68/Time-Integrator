@@ -16,24 +16,24 @@ class INVCardPresenter(ICardPresenter):
         recipe: INVViewRecipe,
         bus: EventBus,
         project_id: str,
-        view_id: str
+        _view_id: str
     ):
         ICardPresenter.__init__(self, parent=None)
         
         # 在Presenter内部创建View，减少耦合
         from ti.features.intervention.view.interventionCard import InterventionCard
-        self.view = InterventionCard()
+        self._view = InterventionCard()
         
         self.recipe = recipe
         self.bus = bus
         self.project_id = project_id
-        self.view_id = view_id
+        self._view_id = _view_id
         
         # 当前UI状态
         self.current_state = self.recipe.initial_state
         
         # 连接View的按钮点击事件
-        self.view.button_clicked.connect(self._on_button_clicked)
+        self._view.button_clicked.connect(self._on_button_clicked)
         
         # 初始化UI
         self.apply_presentation()
@@ -46,7 +46,7 @@ class INVCardPresenter(ICardPresenter):
         """
         presentation = self.get_presentation()
         if presentation:
-            self.view.apply_presentation(presentation)
+            self._view.apply_presentation(presentation)
 
     def get_presentation(self):
         """
@@ -56,8 +56,8 @@ class INVCardPresenter(ICardPresenter):
         if self.current_state not in self.recipe.state:
             return None
             
-        current_view_state = self.recipe.state[self.current_state]
-        return current_view_state.presentation
+        current__view_state = self.recipe.state[self.current_state]
+        return current__view_state.presentation
 
     def get_next_state(self, event: INVViewEvent):
         """
@@ -68,8 +68,8 @@ class INVCardPresenter(ICardPresenter):
         if self.current_state not in self.recipe.state:
             return None
             
-        current_view_state = self.recipe.state[self.current_state]
-        return current_view_state.transition.get(event)
+        current__view_state = self.recipe.state[self.current_state]
+        return current__view_state.transition.get(event)
     
     # --- 用来发送事件的函数 ---
     def _on_button_clicked(self, event: INVViewEvent):
@@ -105,23 +105,23 @@ class INVCardPresenter(ICardPresenter):
         if next_state not in self.recipe.state:
             return
             
-        next_view_state = self.recipe.state[next_state]
+        next__view_state = self.recipe.state[next_state]
         
         # 发送状态转换事件
         state_event = INVViewStateEvent(
             previous_state=self.current_state,
             new_state=next_state,
             project_id=self.project_id,
-            view_id=self.view_id
+            _view_id=self._view_id
         )
         self.bus.publish("intervention_state_changed", state_event)
         
         # 发送进入状态的特殊事件
-        if next_view_state.entering_event:
-            for event_name in next_view_state.entering_event:
+        if next__view_state.entering_event:
+            for event_name in next__view_state.entering_event:
                 # 创建InterventionTriggered事件
                 trigger_event = InterventionTriggered(
-                    event_id=f"{self.view_id}_{next_state}_{event_name}",
+                    event_id=f"{self._view_id}_{next_state}_{event_name}",
                     inv_project_id=self.project_id,
                     special_event=event_name
                 )
@@ -136,16 +136,25 @@ class INVCardPresenter(ICardPresenter):
     def shutdown(self):
         """关闭Presenter，清理资源"""
         # Disconnect signals and clean up
-        if hasattr(self.view, 'button_clicked'):
+        if hasattr(self._view, 'button_clicked'):
             try:
-                self.view.button_clicked.disconnect(self._on_button_clicked)
+                self._view.button_clicked.disconnect(self._on_button_clicked)
             except:
                 pass
         
-        self.view = None
+        self._view = None
         self.bus = None
         self.recipe = None
     
     def get_widget(self):
         """获取管理的Widget"""
-        return self.view
+        return self._view
+    
+    @property
+    def name(self):
+        return "intervention_card_presenter"
+    
+    @property
+    def view(s):
+        return s._view
+    

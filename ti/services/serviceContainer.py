@@ -46,7 +46,7 @@ class ServiceContainer:
         self.services["FS"] = formatter
         self._services[InsightFormatService] = formatter
         
-        dataService = DataService()
+        dataService = DataService.get_instance()
         self.services["DS"] = dataService
         self._services[DataService] = dataService
         

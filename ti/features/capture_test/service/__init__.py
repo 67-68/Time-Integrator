@@ -1,1 +1,0 @@
-# Capture Plugin Service Components

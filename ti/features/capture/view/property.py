@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import QHBoxLayout, QFormLayout, QFrame, QLabel, QLineEdit, QCheckBox
 from PyQt6.QtCore import pyqtSignal
+from ti.model.action_unit import ActionUnit
 from ti.view.BasicWidget import BasicWidget
 
 
@@ -95,16 +96,16 @@ class PropertyView(BasicWidget):
             'is_important': self.importance_checkbox.isChecked()
         }
     
-    def set_property_data(self, data):
+    def set_property_data(self, actionUnit: ActionUnit):
         """设置属性数据"""
-        if 'start' in data:
-            self.start_edit.setText(data['start'])
-        if 'end' in data:
-            self.end_edit.setText(data['end'])
-        if 'action_type' in data:
-            self.action_type_edit.setText(data['action_type'])
-        if 'action' in data:
-            self.action_edit.setText(data['action'])
+        if actionUnit:
+            self.start_edit.setText(actionUnit.start)
+            self.end_edit.setText(actionUnit.end)
+            self.action_type_edit.setText(actionUnit.action_type)
+            self.action_edit.setText(actionUnit.action)
+            self.action_detail_edit.setText(actionUnit.action_detail)
+            self.urgency_checkbox.setChecked(actionUnit.urgency)
+            self.importance_checkbox.setChecked(actionUnit.importance)
     
     def clear_properties(self):
         """清空所有属性"""

@@ -18,10 +18,10 @@ from unittest.mock import Mock, MagicMock, patch, call
 from PyQt6.QtWidgets import QApplication
 
 from ti.core.extensionRegister import DynamicExtensionLoader, ExtensionRegister
-from ti.features.capture_test.capture_plugin import TESTCapturePlugin
-from ti.features.capture_test.presenter.capture_presenter import CapturePresenter
-from ti.features.capture_test.presenter.context_selection_presenter import ContextSelectionPresenter
-from ti.features.capture_test.presenter.list_display_presenter import ListDisplayPresenter
+from ti.features.capture.capture_plugin import CapturePlugin
+from ti.features.capture.presenter.capture_presenter import CapturePresenter
+from ti.features.capture.presenter.context_selection_presenter import ContextSelectionPresenter
+from ti.features.capture.presenter.list_display_presenter import ListDisplayPresenter
 # 使用Mock替代ItemEditorPresenter，因为实际类名是ActionUnitEditorPresenter
 from unittest.mock import Mock
 from ti.core.eventBus import EventBus
@@ -62,7 +62,7 @@ class TestCapturePluginAcceptance:
     def test_plugin_initialization(self):
         """测试插件初始化过程"""
         # 创建插件实例
-        plugin = TESTCapturePlugin(self.data_service, self.translator)
+        plugin = CapturePlugin(self.data_service, self.translator)
 
         # 验证插件基本属性
         assert plugin.name == "capture_plugin_test"
@@ -110,7 +110,7 @@ class TestCapturePluginAcceptance:
         mock_execute_with_strategy.return_value = mock_presenter
 
         # 创建插件并测试
-        plugin = TESTCapturePlugin(self.data_service, self.translator)
+        plugin = CapturePlugin(self.data_service, self.translator)
         plugin.initialize(self.bus)
 
         # 调用创建视图方法
@@ -135,7 +135,7 @@ class TestCapturePluginAcceptance:
 
     def test_plugin_shutdown(self):
         """测试插件关闭过程"""
-        plugin = TESTCapturePlugin(self.data_service, self.translator)
+        plugin = CapturePlugin(self.data_service, self.translator)
         plugin.initialize(self.bus)
 
         # 创建模拟presenter
@@ -151,7 +151,7 @@ class TestCapturePluginAcceptance:
 
     def test_create_page_method(self):
         """测试创建页面方法"""
-        plugin = TESTCapturePlugin(self.data_service, self.translator)
+        plugin = CapturePlugin(self.data_service, self.translator)
         plugin.initialize(self.bus)
 
         # 测试创建捕获页面
@@ -199,7 +199,7 @@ class TestCapturePluginAcceptance:
         self.data_service.get_date_data.return_value = mock_action_units
 
         # 创建插件和视图
-        plugin = TESTCapturePlugin(self.data_service, self.translator)
+        plugin = CapturePlugin(self.data_service, self.translator)
         plugin.initialize(self.bus)
 
         with patch('ti.services.strategy_service.StrategyService.get_strategy_methods_from_protocol') as mock_get_strategies, \

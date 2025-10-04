@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from PyQt6.QtCore import pyqtSignal
-from ti.features.capture_test.model.selection_condition import SelectionCondition
+from ti.features.capture.model.selection_condition import SelectionCondition
 from ti.presenters.BasePresenter import BasePresenter
 
 

@@ -1,9 +1,9 @@
 from typing import Any
 from ti.features.capture.view.smart_input import SmartInputView
-from ti.features.capture_test.model.ButtonGroup import ButtonGroup
-from ti.features.capture_test.presenter.item_editor_presenter_interface import IItemEditorPresenter
-from ti.features.capture_test.view.input_view import CAP_InputView
-from ti.features.capture_test.view.property import PropertyView
+from ti.features.capture.model.ButtonGroup import ButtonGroup
+from ti.features.capture.presenter.item_editor_presenter_interface import IItemEditorPresenter
+from ti.features.capture.view.input_view import CAP_InputView
+from ti.features.capture.view.property import PropertyView
 from ti.features.translation.service.translator_service import Translator
 from PyQt6.QtCore import QSignalBlocker,pyqtSignal
 
@@ -98,7 +98,7 @@ class ActionUnitEditorPresenter(IItemEditorPresenter):
         
     @property
     def name(self):
-        return "action_unit_editor_presenter"
+        return "action_unit_editor"
     
     @property
     def view(self):

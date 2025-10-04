@@ -1,10 +1,10 @@
 import datetime
-from ti.features.capture_test.presenter.context_selection_presenter_interface import IContextSelectionPresenter
+from ti.features.capture.presenter.context_selection_presenter_interface import IContextSelectionPresenter
 from ti.features.capture.view.calendar import Calendar
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QSizePolicy
 
-from ti.features.capture_test.model.selection_condition import SelectionCondition
+from ti.features.capture.model.selection_condition import SelectionCondition
 
 
 class ContextSelectionPresenter(IContextSelectionPresenter):

@@ -1,6 +1,6 @@
 from typing import Protocol, runtime_checkable
 
-from ti.features.capture_test.model.protocols.capture_renderable_item import RenderableItemModel
+from ti.features.capture.model.protocols.capture_renderable_item import RenderableItemModel
 
 @runtime_checkable
 class IRenderableItemProtocol(Protocol):

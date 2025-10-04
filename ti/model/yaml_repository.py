@@ -193,7 +193,7 @@ class YamlRepository(IRepository, Generic[T]):
             identifier_field (str, optional): _description_. Defaults to "contract_id".
         """
         self.db_path = db_path
-        self.model_class = model_class
+        self.model_class = model_class # 作为标记
         self.identifier = identifier_field
         
         # 使用策略模式

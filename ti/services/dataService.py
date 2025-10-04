@@ -3,9 +3,10 @@ from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtCore import QObject
 from ti.core.Interfaces.model.repository_interface import IRepository
 from ti.core.definitions import YESTERDAY
-from ti.features.capture_test.model.selection_condition import SelectionCondition
+from ti.features.capture.model.selection_condition import SelectionCondition
 from ti.model.action_unit_repository import ActionUnitRepository
 from ti.model.action_unit import ActionUnit
+from ti.model.yaml_repository import YamlRepository
 
 """
 这个文件用来存储数据相关的操作，现在使用ActionUnit Repository
@@ -13,10 +14,26 @@ from ti.model.action_unit import ActionUnit
 class DataService(QObject):
     actionUnit_added = pyqtSignal(ActionUnit) # 新增加AU的信号，现在传递ActionUnit对象
     
+    _instance = None
+    
     def __init__(self, parent = None):
         super().__init__(parent)
         self.repository = ActionUnitRepository()
-        self._repositories: dict[str,IRepository] # 存储其他类型的数据模型
+        self._repositories: dict[str,IRepository] = None # 存储其他类型的数据模型, TODO 以后要全部换成这个
+    
+    @classmethod
+    def get_instance(cls):
+        """
+        返回全局变量
+        给装饰器使用
+
+        Returns:
+            _type_: _description_
+        """
+        if cls._instance == None:
+            cls._instance = cls()
+        return cls._instance
+        
         
     def createNewData(self) -> ActionUnit:
         """
@@ -113,6 +130,15 @@ class DataService(QObject):
     
     
     def parse_selection_condition(self,selection_condition: SelectionCondition):
+        """
+        注意！Selection里面的Data Model type 需要是DataModel类本身
+
+        Args:
+            selection_condition (SelectionCondition): _description_
+
+        Returns:
+            _type_: _description_
+        """
         repo = self._repositories[selection_condition.data_type]
         data = repo.get_by_date(selection_condition.date)
         return data
@@ -123,4 +149,7 @@ class DataService(QObject):
                 return data
         return matcher
     
+    def add_repository(self,repo: YamlRepository):
+        self._repositories[repo.model_class] = repo # 使用data class 类本身存储
+        
     

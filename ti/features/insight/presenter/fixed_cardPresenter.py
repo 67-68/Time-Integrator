@@ -1,5 +1,7 @@
+import uuid
 from ti.services.sessionCache import SessionCache
-from ti.features.insight.model.insight_card_generation_models import FixedCardResult, AnalyzerConfig
+from ti.features.insight.model.insight_card_generation_models import AnalyzerConfig
+from ti.features.insight.model.insight_card_model import InsightCardModel
 
 
 class Fixed_ReportGenerator():
@@ -14,14 +16,14 @@ class Fixed_ReportGenerator():
         self.data = data
         self.recipe = recipe
     
-    def create_report(self,cache:SessionCache) -> list[FixedCardResult]:
+    def create_report(self,cache:SessionCache) -> dict[InsightCardModel]:
         """_summary_
         这个函数用来生成卡片报告
         Returns:
             dict: 处理好的卡片信息
         """
         # 创建固定卡片信息
-        cardData: list[FixedCardResult] = []
+        cardData: dict[InsightCardModel] = {}
         for card in self.recipe:
             config = card["analyzer_config"]
             analyzer = card["analyzer"]
@@ -32,23 +34,22 @@ class Fixed_ReportGenerator():
             card_result = analyzer(self.data,config)
             present_card = presenter(card_result)
             
-            # 创建FixedCardResult对象
-            fixed_card = FixedCardResult(
-                card_type=present_card.card_type,
-                judgement_key=present_card.judgement_key,
-                sementic_key=present_card.sementic_key,
-                data=present_card.data,
-                weight=present_card.weight,
-                id=present_card.id,
+            # 创建InsightCardModel对象
+            fixed_card = InsightCardModel(
+                sementic_text=present_card.sementic_key,
+                judgements_texts=present_card.judgement_key,
+                title_text=present_card.card_type,
+                color="#3498DB",  # 默认颜色
+                icon_path="",  # 默认图标路径
+                icon_color="#3498DB",  # 默认图标颜色
+                card_type_id=card_id,
+                card_uuid=present_card.id,
                 duration=duration,
-                card_type_id=card_id
+                data_uuids= uuid.uuid4(),
+                detector_recipe_id = analyzer,
+                cache=present_card.data
             )
-            
-            sementic_key = present_card.sementic_key
 
-            # 先把sementic key存进去，不存卡片id. 以后要改
-            cache.store(sementic_key,fixed_card)
-            
-            cardData.append(fixed_card)
+            cardData[fixed_card.card_uuid] = fixed_card
         
         return cardData

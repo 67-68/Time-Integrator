@@ -1,0 +1,119 @@
+@startuml 
+title Expert System: Cooking Diagnosis system
+
+skinparam roundcorner 0
+skinparam handwritten true
+skinparam activity {
+    BorderColor #555555
+    BackgroundColor #White
+    ArrowColor #555555
+    FontName "Comic Sans MS" ' 让它看起来更“作业”一点 ;)
+}
+skinparam note {
+    BackgroundColor #LightYellow
+    BorderColor #555555
+}
+' 我们为不同的参与者定义不同的背景色
+skinparam participant<<UserFacing>> {
+    BackgroundColor #LightSkyBlue
+}
+skinparam participant<<LogicEngine>> {
+    BackgroundColor #LightGreen
+}
+skinparam participant<<DataStore>> {
+    BackgroundColor #AntiqueWhite
+}
+
+|UserInterface|
+start
+:User Input Cooking data;
+
+note right
+  **Data:**
+  - `food_name`: "Chicken Soup"
+  - `appearance_desc`: "Cloudy"
+  - `taste_desc`: "Salty"
+end note
+
+|InferenceEngine|<<LogicEngine>>
+:Receive initial data;
+:Perform initial analysis;
+note right
+  **Pseudocode:**
+  `analyze_initial_data(data)`
+  `  -> returns primary_issue`
+end note
+
+if (Primary issue identified?) then (yes)
+    :Select specific questions based on issue;
+    note right
+      **Pseudocode:**
+      `IF primary_issue == "SALTY"`
+      `  questions = knowledge_base.get_questions_for("SALTY_ISSUE")`
+      `ELSE IF primary_issue == "UNDERCOOKED"`
+      `  questions = ...`
+      `ENDIF`
+    end note
+    
+    |UserInterface|<<UserFacing>>
+    #LightSkyBlue:Display specific questions to user;
+    #LightSkyBlue:User inputs detailed answers;
+
+    |InferenceEngine|<<LogicEngine>>
+    :Receive detailed answers;
+    
+    ' ===============================================
+    ' 4. 明确地展示“知识库交互”
+    '    使用 database 关键字来暗示形状
+    ' ===============================================
+    |RuleBase|<<DataStore>>
+    :Request rules matching the issue and answers;
+    note left
+      **Query:**
+      `SELECT rule FROM rules`
+      `WHERE issue_type = "SALTY"`
+      `AND user_answer.liquid_added = TRUE`
+    end note
+    
+    |KnowledgeBase|<<DataStore>>
+    :Get detailed knowledge for rules;
+    
+    note right
+        Return knowledge (e.g., "Potatoes absorb salt")
+    end note
+    
+    |RuleBase|<<DataStore>>
+    :Return applicable rules and explanations to Engine;
+
+    |InferenceEngine|<<LogicEngine>>
+    :Receive final rules and explanations;
+    :Apply rules to generate final diagnosis and solution;
+    note right
+      **Pseudocode:**
+      `diagnosis = ""`
+      `solution = ""`
+      `FOR rule IN received_rules`
+      `  diagnosis += rule.explanation`
+      `  solution += rule.solution_step`
+      `ENDFOR`
+    end note
+    
+    :Generate a human-readable explanation;
+
+    |UserInterface|<<UserFacing>>
+    #LightSkyBlue:Display final diagnosis and solution to user;
+    note right
+      **Example Output:**
+      **Diagnosis:** The soup is too salty
+       because too much salt was added initially.
+      **Solution:** Add a raw, peeled
+    potato to the soup and simmer for 15 minutes.
+    end note
+    
+else (no)
+    #AntiqueWhite:Display "Unable to diagnose. Please provide more details.";
+endif
+
+stop
+
+@enduml

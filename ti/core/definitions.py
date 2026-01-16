@@ -1,8 +1,12 @@
 from dataclasses import dataclass
 from enum import Enum
 import datetime
+from typing import TYPE_CHECKING
 
-from ti.features.detector.matchers import Matcher
+from ti.features.detector.service.matchers import Matcher
+
+if TYPE_CHECKING:
+    from ti.features.detector.model.detectorFactory import DetectorFactory
 
 
 
@@ -45,31 +49,4 @@ class Indicators(Enum):
 class RawUserAction(Enum):
     TEXT_CHANGED = "textChanged"
     RETURN_PRESSED = "returnPressed"
-
-#UNIVERSAL; INPUT enum ActionType; OUTPUT list of enum abbreviations
-def getEnumAbbriviation(enumClass):
-    temp = {
-            "w":"work",
-            "s":"waste",
-            "u":"unknown",
-            "r":"rest"
-    }
-    if enumClass == ActionType:
-        return temp
     
-def getEnumValue_API(enumClass):
-    temp = []
-    for item in enumClass:
-        temp.append(item.value)
-    return temp
-
-def getEnumValueDict_API(enumClass):
-    temp = {}
-    for item in enumClass:
-        temp[item.value] = {"timeSpan":0}
-    return temp
-
-@dataclass
-class Monitor_Pack:
-    id: str
-    hook: list[Matcher]

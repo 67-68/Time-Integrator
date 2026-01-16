@@ -1,11 +1,11 @@
 from datetime import datetime
 from typing import Dict, List, Optional
-from ti.core.Interfaces.json_repository_interface import JsonRepositoryInterface
-from ti.services.dataAccess.dataAccess import getData, saveData
+from ti.core.Interfaces.view.json_repository_interface import IJsonRepository
+from ti.services.dataAccess import getData, saveData
 from ti.model.action_unit import ActionUnit
 
 
-class ActionUnitRepository(JsonRepositoryInterface):
+class ActionUnitRepository(IJsonRepository):
     def __init__(self):
         """
         ActionUnit 数据仓库
@@ -23,8 +23,10 @@ class ActionUnitRepository(JsonRepositoryInterface):
         """
         保存所有日期的ActionUnit数据
         """
-        if data is not None:
+        if data is not None: # 这里传入的数据有问题
+            print("[DATA]somebody save a blank data")
             self.data = data
+            
         
         # 转换为JSON格式
         raw_data = {}

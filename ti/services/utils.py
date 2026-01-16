@@ -162,5 +162,16 @@ def randomChoser(list):
     """
     if len(list) == 1:
         return list[0]
-    
+    if not list:
+        return
     return random.choice(list)
+
+import abc
+from PyQt6.QtCore import QObject
+
+# 获取 PyQt/PySide 的元类
+QtMeta = type(QObject)
+
+# 创建一个新的元类，它同时继承自 ABCMeta 和 Qt 的元类
+class QtABCMeta(QtMeta, abc.ABCMeta):
+    pass

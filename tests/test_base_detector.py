@@ -1,9 +1,8 @@
 import pytest
 from unittest.mock import Mock, MagicMock
-from ti.features.detector.baseDetector import BaseDetector
-from ti.features.detector.model import Detector_Config, Detector_Sequence, Detector_State, BaseDetectorState
-from ti.features.detector.matchers import Matcher
-from ti.services.dataAccess.insightCacheService import InsightCacheService
+from ti.features.detector.model.baseDetector import BaseDetector
+from ti.features.detector.model.model import Detector_Config, Detector_Sequence, Detector_State, BaseDetectorState
+from ti.features.detector.service.matchers import Matcher
 
 
 def create_test_detector_config():
@@ -42,29 +41,21 @@ class TestBaseDetector:
     @staticmethod
     def create_mock_action_unit(action="test_action", action_type="work", start="10:00", end="10:30", timeSpan=30):
         """Create a mock action unit for testing"""
-        return {
-            "action": action,
-            "action_type": action_type,
-            "start": start,
-            "end": end,
-            "timeSpan": timeSpan,
-            "uid": "test_uid_123"
-        }
+        from ti.model.action_unit import ActionUnit
+        return ActionUnit(
+            action=action,
+            action_type=action_type,
+            start=start,
+            end=end,
+            timeSpan=timeSpan,
+            action_detail="",
+            date="2025-01-01"
+        )
     
     def setup_method(self):
         """Setup before each test"""
-        self.mock_insight_cache = Mock(spec=InsightCacheService)
-        self.mock_insight_cache.create_new_data.return_value = {
-            "weight": 0,
-            "history": {},
-            "id": "",
-            "data": [],
-            "card_id": "test_card_id"
-        }
-        self.mock_insight_cache.get_history_data.return_value = {}
-        
         self.config = create_test_detector_config()
-        self.detector = BaseDetector(self.config, self.mock_insight_cache)
+        self.detector = BaseDetector(self.config)
         
         # Mock signals to track emissions
         self.hook_signal_calls = []

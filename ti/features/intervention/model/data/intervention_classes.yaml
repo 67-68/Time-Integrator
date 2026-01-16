@@ -1,67 +1,9 @@
-# Intervention Feature Class Registry
-# This file contains class symbols for the intervention feature
-
 classes:
-  - symbol_type: "class"
-    symbol_path: "ti.features.intervention.model.view_repository.INV_Card_Repository"
+  action_event_source:
+    symbol_type: "class"
+    symbol_path: "ti.features.intervention.service.inv_action_event_source.INVActionEventSource"
     symbol_domain: "intervention"
-
-  - symbol_type: "class"
-    symbol_path: "ti.features.intervention.model.view_repository.INV_Universal_State"
-    symbol_domain: "intervention"
-
-  - symbol_type: "class"
-    symbol_path: "ti.features.intervention.model.contractRecipeRepository.INV_CON_Recipe_Repository"
-    symbol_domain: "intervention"
-
-  - symbol_type: "class"
-    symbol_path: "ti.features.intervention.model.model.INV_State_Btn"
-    symbol_domain: "intervention"
-
-  - symbol_type: "class"
-    symbol_path: "ti.features.intervention.model.model.INV_State_Presentation"
-    symbol_domain: "intervention"
-
-  - symbol_type: "class"
-    symbol_path: "ti.features.intervention.model.model.INVState"
-    symbol_domain: "intervention"
-
-  - symbol_type: "class"
-    symbol_path: "ti.features.intervention.model.model.INV_View_Recipe"
-    symbol_domain: "intervention"
-
-  - symbol_type: "class"
-    symbol_path: "ti.features.intervention.model.model.INV_Contract_Recipe"
-    symbol_domain: "intervention"
-
-  - symbol_type: "class"
-    symbol_path: "ti.features.intervention.model.model.INV_Contract"
-    symbol_domain: "intervention"
-
-  - symbol_type: "class"
-    symbol_path: "ti.features.intervention.model.model.INV_Entity_Recipe"
-    symbol_domain: "intervention"
-
-  - symbol_type: "class"
-    symbol_path: "ti.features.intervention.model.model.INV_Contract_Context"
-    symbol_domain: "intervention"
-
-  - symbol_type: "class"
-    symbol_path: "ti.features.intervention.model.model.INV_ContractLog"
-    symbol_domain: "intervention"
-
-  - symbol_type: "class"
-    symbol_path: "ti.features.intervention.model.model.INV_View_Model"
-    symbol_domain: "intervention"
-
-  - symbol_type: "class"
-    symbol_path: "ti.features.intervention.model.narratives.InterventionNarrator"
-    symbol_domain: "intervention"
-
-  - symbol_type: "class"
-    symbol_path: "ti.features.intervention.model.entity_Recipe_Repository.INV_Entity_Recipe_Repository"
-    symbol_domain: "intervention"
-
-  - symbol_type: "class"
-    symbol_path: "ti.features.intervention.service.formatter.INV_Formatter"
+  card_view:
+    symbol_type: "class"
+    symbol_path: "ti.features.intervention.presenter.inv_card_presenter.INVCardPresenter"
     symbol_domain: "intervention"

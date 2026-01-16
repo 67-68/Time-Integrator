@@ -1,7 +1,9 @@
-from ti.services.dataAccess.insightManager import InsightManager
-from ti.services.engine.insightEngine import InsightEngine
+from ti.features.insight.model.insight_card_model import InsightCardModel
+from ti.features.insight.service.insightManager import InsightManager
+from ti.features.insight.service.insightEngine import InsightEngine
 from ti.services.sessionCache import SessionCache
-from ti.features.insight.model.insight_card_generation_models import RawCardData, PresentedCardData
+from ti.features.insight.model.insight_card_generation_models import RawCardData
+from ti.services.loggerService import LoggerService
 
 class Conditional_ReportGenerator():
     """_summary_
@@ -25,7 +27,7 @@ class Conditional_ReportGenerator():
         # 连接信号
         self.IE._on_pattern_detected.connect(lambda d: self._on_pattern_detected(d))
         
-    def create_report(self) -> list:
+    def create_report(self) -> dict:
         """_summary_
         创建条件判断卡片的报告
         卡片会放进manager, 
@@ -40,17 +42,15 @@ class Conditional_ReportGenerator():
         for au in self.data:
             self.IE.process_action_unit(au)
         
-        conditional_card = self.IM.get_current_cards()
-        
-        for card in conditional_card:
-            card_type_id = card
-            cardData.append(card)
+        cards_dict = {}
+        cards = self.IM.get_current_cards()
+        for card in cards:
+            cards_dict[card.card_uuid] = card
             
-        return cardData
+        return cards_dict
         
-
     
-    def _on_pattern_detected(self,cardData: tuple[RawCardData, PresentedCardData]):
+    def _on_pattern_detected(self,cardData: tuple[RawCardData, InsightCardModel]):
         """_summary_
         这个函数连接了engine检测到模式之后的信号
         会把engine的信号和数据转接到Manager那里

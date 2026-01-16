@@ -15,6 +15,4 @@ class SymbolModel:
     symbol_type: SymbolType
     symbol_path: str
     symbol_domain: str
-    
-
-
+    symbol_name: str = None

@@ -1,0 +1,34 @@
+{
+    "peak_work_analysis": {
+        "sementic_text": "peak_work_analysis",
+        "judgements_texts": [],
+        "title_text": "card_info",
+        "color": "#3498DB",
+        "icon_path": "",
+        "icon_color": "#3498DB",
+        "card_type_id": "peak_work_analysis",
+        "card_uuid": "peak_work_analysis",
+        "create_time": "2025-09-27T11:32:43.555217",
+        "duration": "today",
+        "current_state": "generated",
+        "data_uuid": null,
+        "detector_recipe_id": null,
+        "cache": null
+    },
+    "daily_ratio_distribution": {
+        "sementic_text": "daily_ratio_distribution",
+        "judgements_texts": [],
+        "title_text": "card_info",
+        "color": "#3498DB",
+        "icon_path": "",
+        "icon_color": "#3498DB",
+        "card_type_id": "daily_ratio_distribution",
+        "card_uuid": "daily_ratio_distribution",
+        "create_time": "2025-09-27T11:32:43.555974",
+        "duration": "today",
+        "current_state": "generated",
+        "data_uuid": null,
+        "detector_recipe_id": null,
+        "cache": null
+    }
+}

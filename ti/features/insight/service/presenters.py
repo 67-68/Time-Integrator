@@ -1,8 +1,12 @@
 
 from ti.model import themes
-from ti.features.insight.model import narratives
 from ti.services.utils import flatten_dict
 from ti.features.insight.model.insight_card_generation_models import RawCardData, PresentedCardData
+
+# Narrative key constants (previously from narratives.py)
+PEAK_TIMESPAN = "peak_timeSpan"
+SHOW_RATIO = "show_ratio"
+POST_EAT_WASTE = "post_eat_waste"
 
 """
 presenter take in analyzer处理完成的数据(list)
@@ -31,7 +35,7 @@ def present_peak_timeSpan(data: RawCardData) -> PresentedCardData:
     return PresentedCardData(
         card_type=card_type,
         judgement_key=judgement_key,
-        sementic_key=narratives.PEAK_TIMESPAN,
+        sementic_key=PEAK_TIMESPAN,
         data=data.data,
         weight=data.weight if data.weight is not None else 0.0,
         id=data.id
@@ -52,7 +56,7 @@ def present_ratio_distribution(data: RawCardData) -> PresentedCardData:
     return PresentedCardData(
         card_type=themes.CARD_INFO,
         judgement_key=["neutral_showinfo"],
-        sementic_key=narratives.SHOW_RATIO,
+        sementic_key=SHOW_RATIO,
         data=flatten_dict(data.data),
         weight=data.weight if data.weight is not None else 0.0,
         id=data.id
@@ -79,16 +83,6 @@ def present_sequence_data(data: RawCardData) -> PresentedCardData:
     )
 
     return returnData
-
-
-def regist_presenter():
-    """_summary_
-    这个函数被用来登记所有的presenter函数
-    它会创建一个字典
-    aim for 输入事件模式，输出presenter函数
-    """
-    
-    presenters = {}
     
     
 

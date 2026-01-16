@@ -1,4 +1,34 @@
 # Insight Feature Function Registry
-# This file contains function symbols for the insight feature
+# This file contains function symbols for the insight feature using SymbolModels structure
 
-functions: []
+functions:
+  GET_TOTAL_TIMESPAN:
+    symbol_type: "function"
+    symbol_path: "ti.features.insight.service.analyzer.getTotal_timeSpan"
+    symbol_domain: "insight"
+
+  FIND_LONGEST_TIMESPAN:
+    symbol_type: "function"
+    symbol_path: "ti.features.insight.service.analyzer.find_longest_timeSpan"
+    symbol_domain: "insight"
+
+  FIND_RATIO_DISTRIBUTION:
+    symbol_type: "function"
+    symbol_path: "ti.features.insight.service.analyzer.find_ratio_distribution"
+    symbol_domain: "insight"
+
+  # Presenter functions from presenters.py
+  PRESENT_PEAK_TIMESPAN:
+    symbol_type: "function"
+    symbol_path: "ti.features.insight.service.presenters.present_peak_timeSpan"
+    symbol_domain: "insight"
+
+  PRESENT_RATIO_DISTRIBUTION:
+    symbol_type: "function"
+    symbol_path: "ti.features.insight.service.presenters.present_ratio_distribution"
+    symbol_domain: "insight"
+
+  PRESENT_SEQUENCE_DATA:
+    symbol_type: "function"
+    symbol_path: "ti.features.insight.service.presenters.present_sequence_data"
+    symbol_domain: "insight"

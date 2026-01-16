@@ -2,16 +2,18 @@
 from ti.core.eventBus import EventBus
 from ti.core.extensionRegister import DynamicExtensionLoader, ExtensionRegister
 
-from ti.features.detector.detectorFactory import DetectorFactory
-from ti.features.detector.detectorRepository import DetectocRepository
-from ti.features.intervention.service.logger import InterventionLogger
-from ti.services.dataAccess.dataService import DataService
-from ti.services.dataAccess.insightCacheService import InsightCacheService
-from ti.services.dataAccess.insightManager import InsightManager
-from ti.services.engine.insightEngine import InsightEngine
-from ti.services.formatter import FormatService
+from ti.model.strategy.strategy_repository import StrategyRepository
+from ti.services.function_service import FunctionService
+from ti.services.page_factory import PageFactory
+from ti.features.translation.service.translator_service import Translator
+from ti.services.loggerService import LoggerService
+from ti.services.dataService import DataService
+from ti.features.insight.service.formatter import InsightFormatService
 from ti.services.realTimeMonitor import RealTimeMonitor
 from dataclasses import dataclass
+
+from ti.services.sessionCache import SessionCache
+from ti.services.symbol_service import SymbolService
 
 
 class ServiceContainer:
@@ -19,31 +21,32 @@ class ServiceContainer:
         self.services = {} # 用来一般查找，存储简称
         self._services = {} #用来自动查找，存储全称
             
-        cache =  InsightCacheService()
-        self.services["ICS"] = cache
-        self._services[InsightCacheService] = cache
+        strategy_rep = StrategyRepository.get_instance()
+        self.services["strategy"] = strategy_rep
+        self._services[StrategyRepository] = strategy_rep
+            
+        func_service = FunctionService()
+        self.services["function"] = func_service
+        self._services[FunctionService] = func_service
+            
+        session = SessionCache()
+        self.services["session"] = session
+        self._services[SessionCache] = session
+            
+        translator = Translator()
+        self.services["translator"] = translator
+        self._services[Translator] = translator
         
-        detector_rep = DetectocRepository()
-        self.services["DR"] = detector_rep
-        self._services[DetectocRepository] = detector_rep
         
-        detector_fac = DetectorFactory(detector_rep,cache)
-        self.services["DF"] = detector_fac
-        self._services[DetectorFactory] = detector_fac
+        symbol = SymbolService()
+        self.services["symbol"] = symbol
+        self._services[SymbolService] = symbol
         
-        formatter = FormatService()
+        formatter = InsightFormatService()
         self.services["FS"] = formatter
-        self._services[FormatService] = formatter
+        self._services[InsightFormatService] = formatter
         
-        manager = InsightManager(cache)
-        self.services["IM"] = manager
-        self._services[InsightManager] = manager
-        
-        engine = InsightEngine(cache,detector_fac)
-        self.services["IE"] = engine
-        self._services[InsightEngine] = engine
-        
-        dataService = DataService()
+        dataService = DataService.get_instance()
         self.services["DS"] = dataService
         self._services[DataService] = dataService
         
@@ -51,52 +54,37 @@ class ServiceContainer:
         self.services["bus"] = bus
         self._services[EventBus] = bus
         
-        monitor = RealTimeMonitor(dataService,detector_fac,bus)
+        page_fac = PageFactory(bus)
+        self.services["page_factory"] = page_fac
+        self._services[PageFactory] = page_fac
+        
+        monitor = RealTimeMonitor(dataService, bus)
         self.services["RTM"] = monitor
         self._services[RealTimeMonitor] = monitor
     
         register = ExtensionRegister(bus)
         self.services["ER"] = register
         self._services[ExtensionRegister] = register
-        
-        loader = DynamicExtensionLoader(register,self)
+
+        loader = DynamicExtensionLoader(register,self,bus,symbol,func_service,strategy_rep)
         self.services["loader"] = loader
         self._services[DynamicExtensionLoader] = loader
+    
+    
+        
+        
+        
         
     def getServices(self):
         """_summary_
-        返回一个字典，以下是可用的key
-        
-        ICS: InsightCacheService
-        
-        IM: InsightManager
-        
-        IE: InsightEngine
-        
-        DS: DataService
-        
-        IS: InterventionService
-        
-        IL: InterventionLogger
-        
-        RTM: RealTimeMonitor
-        
-        FS: FormatService
-        
-        bus
-        
-        DR
-        
-        DF
-        
-        ER
+        返回一个字典
         """
         
         return self.services
     
     def getService(self,ID: str):
         """_summary_
-        返回一个服务，以下是可用的key
+        返回一个服务
         """
         return self.services[ID]
     
@@ -110,5 +98,18 @@ class ServiceContainer:
         返回一个服务，以下是可用的key
         """
         return self._services[ID]
+    
+    def create_logger_service(self, feature_base_dir: str, feature_name: str):
+        """
+        创建LoggerService实例
+        
+        Args:
+            feature_base_dir: 功能模块的基础目录路径
+            feature_name: 功能模块名称
+            
+        Returns:
+            LoggerService实例
+        """
+        return LoggerService(feature_base_dir, feature_name)
     
     

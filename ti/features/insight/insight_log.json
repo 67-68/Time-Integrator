@@ -1,0 +1,782 @@
+[
+  {
+    "timestamp": "2025-09-30T00:00:58.974912",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-09-30T00:01:00.909255",
+    "topic": "创建视图",
+    "content": "开始创建洞察视图（重构后）"
+  },
+  {
+    "timestamp": "2025-09-30T00:01:00.959307",
+    "topic": "卡片生成",
+    "content": "Coordinator成功生成 0 张卡片"
+  },
+  {
+    "timestamp": "2025-09-30T11:19:15.673899",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-09-30T15:35:11.785412",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-09-30T15:35:44.536393",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-09-30T15:36:15.548401",
+    "topic": "创建视图",
+    "content": "开始创建洞察视图（重构后）"
+  },
+  {
+    "timestamp": "2025-09-30T15:36:15.586529",
+    "topic": "卡片生成",
+    "content": "Coordinator成功生成 0 张卡片"
+  },
+  {
+    "timestamp": "2025-09-30T21:34:35.759864",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-09-30T21:34:39.878365",
+    "topic": "创建视图",
+    "content": "开始创建洞察视图（重构后）"
+  },
+  {
+    "timestamp": "2025-09-30T21:34:39.919219",
+    "topic": "卡片生成",
+    "content": "Coordinator成功生成 0 张卡片"
+  },
+  {
+    "timestamp": "2025-09-30T23:47:26.939253",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T00:29:54.634361",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T00:30:17.243507",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T11:55:55.636220",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T12:03:33.914050",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T12:04:14.410973",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T12:04:52.907860",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T12:05:17.205058",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T12:07:33.635201",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T12:11:04.630010",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T12:20:39.896203",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T12:20:41.553567",
+    "topic": "创建视图",
+    "content": "开始创建洞察视图（重构后）"
+  },
+  {
+    "timestamp": "2025-10-01T12:20:41.605390",
+    "topic": "卡片生成",
+    "content": "Coordinator成功生成 0 张卡片"
+  },
+  {
+    "timestamp": "2025-10-01T12:20:56.187330",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T12:21:06.918904",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T12:21:10.501355",
+    "topic": "创建视图",
+    "content": "开始创建洞察视图（重构后）"
+  },
+  {
+    "timestamp": "2025-10-01T12:21:10.533238",
+    "topic": "卡片生成",
+    "content": "Coordinator成功生成 0 张卡片"
+  },
+  {
+    "timestamp": "2025-10-01T17:47:10.366027",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T17:49:22.054419",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T17:49:55.343586",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T18:03:30.719873",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T18:03:50.439259",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T18:03:52.179958",
+    "topic": "创建视图",
+    "content": "开始创建洞察视图（重构后）"
+  },
+  {
+    "timestamp": "2025-10-01T18:03:52.231239",
+    "topic": "卡片生成",
+    "content": "Coordinator成功生成 0 张卡片"
+  },
+  {
+    "timestamp": "2025-10-01T18:04:42.948639",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T18:05:57.415657",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T18:06:46.938827",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T18:07:03.373441",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T18:08:01.962808",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T18:08:25.540590",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T18:09:12.559251",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T18:09:54.356283",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T18:10:03.701624",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T18:10:39.022922",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T18:11:46.849575",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T18:12:30.755196",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T18:13:42.741463",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T18:13:56.787384",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T18:14:50.941941",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T18:19:01.085033",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-01T18:19:31.589944",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-02T12:48:08.994581",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-02T12:48:28.564235",
+    "topic": "创建视图",
+    "content": "开始创建洞察视图（重构后）"
+  },
+  {
+    "timestamp": "2025-10-02T12:48:28.619420",
+    "topic": "卡片生成",
+    "content": "Coordinator成功生成 0 张卡片"
+  },
+  {
+    "timestamp": "2025-10-02T13:57:33.366784",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-02T13:58:28.470475",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-02T13:58:57.881028",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-02T14:00:08.350505",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-02T14:00:46.493057",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-02T14:02:03.240113",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-02T14:03:14.626539",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-02T15:40:15.253782",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-02T15:41:07.925110",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-02T15:41:29.463772",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T10:35:21.468735",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T10:35:45.728579",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T10:38:09.824677",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T10:38:50.304387",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T11:03:07.274881",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T11:04:07.082539",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T11:04:51.206498",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T11:05:30.553072",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T11:06:18.465123",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T11:06:39.639616",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T11:06:45.600190",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T11:07:49.783457",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T11:08:12.202885",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T11:08:45.243720",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T11:09:41.441233",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T11:10:52.910166",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T11:14:26.754109",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T11:14:41.823211",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T11:17:03.865363",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T11:17:37.045801",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T11:18:17.560643",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T11:21:52.740166",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T13:09:12.936574",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T13:17:48.403021",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T13:18:13.827462",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T13:20:20.787033",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T13:21:42.153231",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T13:22:33.614613",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T13:24:56.229678",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T13:28:32.337105",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T13:28:42.932028",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T13:29:02.054122",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T13:30:17.322480",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T13:34:43.008913",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T13:36:55.406372",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T13:47:36.630512",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T13:52:45.641544",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T13:55:01.650924",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T13:57:01.881143",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T14:06:53.576955",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T14:09:19.672985",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T14:12:26.261595",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T14:13:59.330398",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T14:14:55.344537",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T14:16:29.541346",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T14:18:13.023224",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T14:21:24.410738",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T14:21:51.198483",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T14:23:13.980533",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T14:26:52.481981",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T14:27:14.425880",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T14:28:25.145045",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T14:30:32.874796",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T14:31:45.349644",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T14:34:12.289048",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T14:35:13.174261",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-03T18:26:16.371727",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-04T01:05:23.547801",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-04T01:07:45.327338",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-04T01:11:07.982182",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-04T01:11:14.338397",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-04T23:29:43.032769",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-04T23:30:00.149860",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-04T23:31:22.411418",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-04T23:33:40.750101",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-04T23:39:24.225089",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-04T23:41:03.822098",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-04T23:42:16.116298",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-04T23:42:50.608286",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-04T23:44:35.876435",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-04T23:49:33.437193",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-04T23:52:13.990853",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-04T23:53:04.752743",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-05T00:29:10.680661",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-05T00:31:33.670066",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-05T00:32:34.551490",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-05T00:33:18.217460",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-05T00:34:18.537836",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-05T00:34:55.631510",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-05T00:36:36.595792",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-05T00:37:26.888255",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-05T00:39:38.383301",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-05T00:39:53.469633",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-05T00:40:57.923695",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-05T00:41:34.045855",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-05T00:42:32.466243",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-05T00:43:38.906247",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-05T00:44:12.455688",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-05T00:45:11.419255",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-05T00:46:02.328942",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  },
+  {
+    "timestamp": "2025-10-05T01:01:56.850119",
+    "topic": "初始化",
+    "content": "InsightPlugin初始化完成"
+  }
+]

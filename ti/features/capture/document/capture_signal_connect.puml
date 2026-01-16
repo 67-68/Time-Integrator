@@ -1,0 +1,12 @@
+@startuml class
+title Presenter信号关联
+class "SelectionPresenter" as selection
+
+class "InputPresenter" as input
+
+class "CapturePresenter" as capture
+
+
+
+
+@enduml
